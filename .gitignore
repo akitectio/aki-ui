@@ -56,4 +56,4 @@ storybook-static
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnpm-store/
-# .github/instructions
+.github/instructions
