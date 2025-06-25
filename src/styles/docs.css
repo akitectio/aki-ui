@@ -1,0 +1,91 @@
+/* Documentation Sidebar Styles */
+
+.thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+}
+
+/* Menu styling */
+.menu__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu__list-item {
+    margin: 0;
+}
+
+.menu__list-item--collapsed .menu__list {
+    display: none !important;
+}
+
+.menu__link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #1a202c;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.menu__link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.menu__link--active {
+    color: #3182ce;
+    font-weight: 500;
+}
+
+.menu__link--sublist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.menu__link--sublist-caret::after {
+    content: "";
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-right: 2px solid currentColor;
+    border-top: 2px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.2s;
+    margin-left: 0.5rem;
+}
+
+.menu__list-item:not(.menu__list-item--collapsed) > .menu__list-item-collapsible > .menu__link--sublist-caret::after {
+    transform: rotate(135deg);
+}
+
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible > .menu__link {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.theme-doc-sidebar-item-link-level-2 > .menu__link {
+    padding-left: 2rem;
+    font-weight: 400;
+}
+
+/* Animation for expanding/collapsing */
+.menu__list {
+    transition: height 0.3s ease-in-out;
+}
