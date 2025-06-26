@@ -7,12 +7,15 @@ export default defineConfig({
   resolve: {
     alias: [
       { find: "@", replacement: "/src" },
-      { find: "@components", replacement: "/src/components" },
-      { find: "@pages", replacement: "/src/pages" },
-      { find: "@store", replacement: "/src/store" },
-      { find: "@utils", replacement: "/src/utils" },
-      { find: "@types", replacement: "/src/types" },
+      { find: "@components", replacement: "/src/lib/components" },
+      { find: "@theme", replacement: "/src/lib/theme" },
+      { find: "@styles", replacement: "/src/styles" },
+      { find: "@utils", replacement: "/src/lib/utils" },
+      { find: "@hooks", replacement: "/src/lib/hooks" },
+      { find: "@types", replacement: "/src/lib/types" },
       { find: "@assets", replacement: "/src/assets" },
+      { find: "@docs", replacement: "/src/docs" },
+      { find: "@stories", replacement: "/src/stories" },
     ],
   },
 });

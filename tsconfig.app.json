@@ -31,22 +31,31 @@
         "src/*"
       ],
       "@components/*": [
-        "src/components/*"
+        "src/lib/components/*"
       ],
-      "@pages/*": [
-        "src/pages/*"
+      "@theme/*": [
+        "src/lib/theme/*"
       ],
-      "@store/*": [
-        "src/store/*"
+      "@styles/*": [
+        "src/styles/*"
       ],
       "@utils/*": [
-        "src/utils/*"
+        "src/lib/utils/*"
+      ],
+      "@hooks/*": [
+        "src/lib/hooks/*"
       ],
       "@types/*": [
-        "src/types/*"
+        "src/lib/types/*"
       ],
       "@assets/*": [
         "src/assets/*"
+      ],
+      "@docs/*": [
+        "src/docs/*"
+      ],
+      "@stories/*": [
+        "src/stories/*"
       ]
     }
   },
