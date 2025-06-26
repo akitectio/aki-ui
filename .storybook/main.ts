@@ -19,6 +19,36 @@ const config: StorybookConfig = {
     autodocs: "tag",
   },
   staticDirs: ["../public"],
+  async viteFinal(config) {
+    // Configure esbuild to handle TypeScript and JSX
+    config.esbuild = {
+      loader: "tsx",
+      include: /\.(ts|tsx|js|jsx)$/,
+    };
+
+    // Configure optimizeDeps esbuild options
+    if (!config.optimizeDeps) {
+      config.optimizeDeps = {};
+    }
+
+    config.optimizeDeps.esbuildOptions = {
+      ...config.optimizeDeps.esbuildOptions,
+      loader: {
+        ".js": "jsx",
+        ".ts": "tsx",
+        ".tsx": "tsx",
+        ".jsx": "jsx",
+      },
+    };
+
+    // Ensure TypeScript files are handled
+    config.resolve = {
+      ...config.resolve,
+      extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+    };
+
+    return config;
+  },
 };
 
 export default config;

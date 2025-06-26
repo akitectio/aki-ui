@@ -2,41 +2,84 @@
   "name": "@akitectio/aki-ui",
   "private": true,
   "version": "0.1.0",
+  "description": "A modern React UI component library built with TypeScript and Tailwind CSS",
+  "keywords": [
+    "react",
+    "typescript",
+    "ui",
+    "components",
+    "tailwindcss",
+    "design-system",
+    "frontend",
+    "library",
+    "aki-ui",
+    "akitect"
+  ],
+  "author": {
+    "name": "Akitect.io",
+    "email": "contact@akitect.io",
+    "url": "https://akitect.io"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akitectio/aki-ui.git"
+  },
+  "homepage": "https://akitectio.github.io/aki-ui",
+  "bugs": {
+    "url": "https://github.com/akitectio/aki-ui/issues"
+  },
   "type": "module",
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
   "main": "./dist/aki-ui.umd.js",
   "module": "./dist/aki-ui.es.js",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/aki-ui.es.js",
       "require": "./dist/aki-ui.umd.js"
-    }
+    },
+    "./types": "./dist/types/index.d.ts",
+    "./dist/style.css": "./dist/style.css"
   },
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm run build:types && vite build",
+    "build:types": "tsc -p tsconfig.build.json",
+    "build:clean": "rm -rf dist",
+    "build:prod": "npm run build:clean && npm run build",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006 --no-version-updates",
     "build-storybook": "storybook build",
     "build-storybook:gh-pages": "storybook build --output-dir storybook-static --docs --static-dir public",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build:prod",
+    "size-check": "npm run build && bundlesize"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@reduxjs/toolkit": "^2.8.2",
     "chart.js": "^4.5.0",
-    "react": "^19.1.0",
-    "react-chartjs-2": "^5.3.0",
-    "react-dom": "^19.1.0",
+    "react-chartjs-2": "^5.3.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "optionalDependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
+    "@reduxjs/toolkit": "^2.8.2",
     "@storybook/addon-a11y": "^8.6.14",
     "@storybook/addon-essentials": "^8.6.14",
     "@storybook/addon-interactions": "^8.6.14",
@@ -49,18 +92,34 @@
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",
     "autoprefixer": "^10.4.18",
+    "bundlesize": "^0.18.2",
     "eslint": "^9.29.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "eslint-plugin-storybook": "^0.8.0",
     "globals": "^16.2.0",
     "postcss": "^8.4.35",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.6.2",
     "storybook": "^8.6.14",
     "tailwindcss": "^3.4.1",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.34.1",
-    "vite": "^7.0.0"
+    "vite": "^7.0.0",
+    "vite-plugin-dts": "^4.3.0"
   },
+  "bundlesize": [
+    {
+      "path": "./dist/aki-ui.es.js",
+      "maxSize": "100kb"
+    },
+    {
+      "path": "./dist/aki-ui.umd.js",
+      "maxSize": "120kb"
+    }
+  ],
   "eslintConfig": {
     "extends": [
       "plugin:storybook/recommended"

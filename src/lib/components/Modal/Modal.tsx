@@ -307,11 +307,11 @@ const Modal: React.FC<ModalProps> & {
                 >
                     {scrollable ? (
                         <>
-                            {childrenWithProps[0]} {/* Header */}
+                            {childrenWithProps?.[0]} {/* Header */}
                             <div className="overflow-y-auto flex-1">
-                                {childrenWithProps.slice(1, -1)} {/* Body */}
+                                {childrenWithProps?.slice(1, -1)} {/* Body */}
                             </div>
-                            {childrenWithProps[childrenWithProps.length - 1]} {/* Footer */}
+                            {childrenWithProps?.[childrenWithProps.length - 1]} {/* Footer */}
                         </>
                     ) : (
                         childrenWithProps

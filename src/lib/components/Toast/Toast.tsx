@@ -478,6 +478,16 @@ const ensureContainer = (): ToastContextValue => {
         };
     }
 
+    // Ensure we always return a valid context value
+    if (!toastContextValue) {
+        toastContextValue = {
+            show: () => 'mock-id',
+            update: () => { },
+            dismiss: () => { },
+            dismissAll: () => { },
+        };
+    }
+
     return toastContextValue;
 };
 

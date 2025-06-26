@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 
 // Define a type for setTimeout return value
-type TimeoutRef = ReturnType<typeof setTimeout>;
+// type TimeoutRef = ReturnType<typeof setTimeout>;
 
 export interface Column<T> {
     /**

@@ -198,19 +198,19 @@ const Tooltip: React.FC<TooltipProps> = ({
 
     // Clone the child element to add our event handlers
     const childElement = React.cloneElement(children, {
-        ref: (node: HTMLElement | null) => {
+        ...getEventProps(),
+        ref: (node: any) => {
             targetRef.current = node;
 
             // Preserve the original ref if it exists
-            const { ref } = children as any;
-            if (typeof ref === 'function') {
-                ref(node);
-            } else if (ref !== null && ref !== undefined) {
-                ref.current = node;
+            const originalRef = (children as any).ref;
+            if (typeof originalRef === 'function') {
+                originalRef(node);
+            } else if (originalRef !== null && originalRef !== undefined) {
+                originalRef.current = node;
             }
         },
-        ...getEventProps(),
-    });
+    } as any);
 
     return (
         <>

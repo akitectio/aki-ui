@@ -67,11 +67,11 @@ const Spinner: React.FC<SpinnerProps> = ({
     };
 
     // Thickness classes
-    const thicknessClasses = {
-        thin: 'border',
-        normal: 'border-2',
-        thick: 'border-4'
-    };
+    // const thicknessClasses = {
+    //     thin: 'border',
+    //     normal: 'border-2',
+    //     thick: 'border-4'
+    // };
 
     // Speed classes
     const speedClasses = {

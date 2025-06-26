@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, forwardRef } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Select from './Select';
 import type { SelectOption, SelectProps, SelectRef } from './Select';
 import Chip from '../Chip';

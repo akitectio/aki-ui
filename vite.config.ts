@@ -20,19 +20,34 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: "src/index.ts",
+      entry: "src/index.minimal.ts",
       name: "AkiUI",
       fileName: (format) => `aki-ui.${format}.js`,
+      formats: ["es", "umd"],
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"],
+      external: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "@heroicons/react",
+        "chart.js",
+        "react-chartjs-2",
+      ],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
           "react/jsx-runtime": "jsxRuntime",
+          "@heroicons/react": "HeroIcons",
+          "chart.js": "Chart",
+          "react-chartjs-2": "ReactChartjs2",
         },
       },
     },
+    minify: "esbuild",
+    target: "es2015",
+    sourcemap: true,
+    emptyOutDir: true,
   },
 });

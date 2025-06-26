@@ -4,8 +4,8 @@ interface DropdownContextType {
     isOpen: boolean;
     toggle: () => void;
     close: () => void;
-    menuRef: React.RefObject<HTMLDivElement>;
-    toggleRef: React.RefObject<HTMLButtonElement>;
+    menuRef: React.RefObject<HTMLDivElement | null>;
+    toggleRef: React.RefObject<HTMLButtonElement | null>;
 }
 
 const DropdownContext = createContext<DropdownContextType | undefined>(undefined);
