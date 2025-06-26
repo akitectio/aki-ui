@@ -11,14 +11,11 @@ npm install @akitectio/aki-ui
 ## Usage
 
 ```jsx
-import { Button } from '@akitectio/aki-ui';
+import { Button } from "@akitectio/aki-ui";
+import "@akitectio/aki-ui/css";
 
 function App() {
-  return (
-    <Button variant="primary">
-      Click me
-    </Button>
-  );
+  return <Button variant="primary">Click me</Button>;
 }
 ```
 

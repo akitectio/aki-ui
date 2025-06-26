@@ -25,14 +25,14 @@ aki-ui/
 ### Installation
 
 ```bash
-npm install aki-ui
+npm install @akitectio/aki-ui
 ```
 
 ### Usage
 
 ```jsx
-import { Button, Card, FormControl } from 'aki-ui';
-import 'aki-ui/dist/style.css';
+import { Button, Card, FormControl } from "@akitectio/aki-ui";
+import "@akitectio/aki-ui/css";
 
 function App() {
   return (
@@ -42,10 +42,10 @@ function App() {
           <h2>Welcome</h2>
         </Card.Header>
         <Card.Body>
-          <FormControl 
-            label="Email" 
-            placeholder="Enter your email" 
-            type="email" 
+          <FormControl
+            label="Email"
+            placeholder="Enter your email"
+            type="email"
           />
           <Button variant="primary" className="mt-4">
             Sign Up

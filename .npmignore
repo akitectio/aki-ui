@@ -55,6 +55,11 @@ COMPONENT_LIST.md
 COMPONENT_PLAN.md
 NPM_README.md
 
+# Backup files created during publishing
+*.original
+package.json.original
+README.md.original
+
 # Keep these files
 !dist/
 !README.md
