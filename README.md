@@ -20,27 +20,6 @@ aki-ui/
 └── ...
 ```
 
-### Import Aliases
-
-The project uses path aliases for cleaner imports:
-
-```jsx
-// Instead of relative imports
-import { Button } from '../../../lib/components';
-
-// Use aliases
-import { Button } from '@components';
-```
-
-Available aliases:
-- `@/*` - Points to src/*
-- `@lib/*` - Points to src/lib/*
-- `@components/*` - Points to src/lib/components/*
-- `@stories/*` - Points to src/stories/*
-- `@utils/*` - Points to src/lib/utils/* (when created)
-- `@types/*` - Points to src/lib/types/* (when created)
-- `@assets/*` - Points to src/assets/* (when created)
-
 ## Getting Started
 
 ### Installation
@@ -111,22 +90,6 @@ npm run storybook
 ```
 
 Then open [http://localhost:6006](http://localhost:6006) in your browser.
-
-## Documentation
-
-For detailed documentation, please see:
-
-- [Introduction](./docs/introduction.md)
-- [Why Aki UI](./docs/why-aki-ui.md)
-- [Theming](./docs/theming.md)
-- [Color Modes](./docs/color-modes.md)
-- [RTL Support](./docs/rtl.md)
-
-Or run Storybook to view the documentation in a more interactive format:
-
-```bash
-npm run storybook
-```
 
 ## Available Components
 

@@ -1,0 +1,144 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Documentation/Color Modes" />
+
+# Color Modes
+
+Aki UI supports both light and dark modes out of the box. This guide explains how to implement and customize color modes in your application.
+
+## Default Color Mode Support
+
+Aki UI components automatically adapt to the user's preferred color scheme using CSS variables and Tailwind's dark mode support.
+
+### Basic Usage
+
+```jsx
+// Your components will automatically respect the user's system preference
+<Card>
+  <Card.Header>Adaptive Card</Card.Header>
+  <Card.Body>
+    This card will automatically switch between light and dark mode
+    based on the user's system preferences.
+  </Card.Body>
+</Card>
+```
+
+## Implementing Manual Color Mode Toggle
+
+You can implement a manual color mode toggle using React context:
+
+```jsx
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
+// Create a context for color mode
+const ColorModeContext = createContext({
+  colorMode: 'light',
+  setColorMode: (mode) => {},
+  toggleColorMode: () => {},
+});
+
+// Create a provider component
+export const ColorModeProvider = ({ children }) => {
+  // Initialize with system preference or saved preference
+  const [colorMode, setColorMode] = useState('light');
+
+  useEffect(() => {
+    // Check for saved preference
+    const savedMode = localStorage.getItem('colorMode');
+    
+    if (savedMode) {
+      setColorMode(savedMode);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setColorMode('dark');
+    }
+  }, []);
+
+  useEffect(() => {
+    // Apply the class to the document
+    if (colorMode === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    
+    // Save preference
+    localStorage.setItem('colorMode', colorMode);
+  }, [colorMode]);
+
+  const toggleColorMode = () => {
+    setColorMode(prevMode => prevMode === 'light' ? 'dark' : 'light');
+  };
+
+  return (
+    <ColorModeContext.Provider value={{ colorMode, setColorMode, toggleColorMode }}>
+      {children}
+    </ColorModeContext.Provider>
+  );
+};
+
+// Custom hook for accessing the color mode
+export const useColorMode = () => useContext(ColorModeContext);
+```
+
+### Using the Color Mode Toggle
+
+```jsx
+import { useColorMode } from './ColorModeContext';
+import { Button } from 'aki-ui';
+
+const ColorModeToggle = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  
+  return (
+    <Button 
+      onClick={toggleColorMode} 
+      variant="outline-secondary"
+    >
+      {colorMode === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
+    </Button>
+  );
+};
+```
+
+## Customizing Color Modes
+
+You can customize color modes by extending your Tailwind configuration:
+
+```js
+// tailwind.config.js
+module.exports = {
+  darkMode: 'class', // Use class strategy instead of media queries
+  theme: {
+    extend: {
+      colors: {
+        // Light mode colors
+        background: '#ffffff',
+        foreground: '#111827',
+        primary: {
+          DEFAULT: '#3b82f6',
+          dark: '#2563eb',
+        },
+        
+        // Dark mode specific overrides
+        dark: {
+          background: '#111827',
+          foreground: '#f9fafb',
+          primary: {
+            DEFAULT: '#60a5fa',
+            dark: '#93c5fd',
+          },
+        },
+      },
+    },
+  },
+};
+```
+
+Then use these custom colors in your components:
+
+```jsx
+<div className="bg-background dark:bg-dark-background text-foreground dark:text-dark-foreground">
+  <h1>Adaptive Content</h1>
+  <p>This content will change colors based on the current color mode.</p>
+</div>
+```

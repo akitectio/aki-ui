@@ -22,27 +22,6 @@ aki-ui/
 └── ...
 ```
 
-## Import Aliases
-
-We use path aliases instead of relative imports. Always use these aliases for importing components and other files:
-
-```tsx
-// Don't use relative imports like this:
-import { Button } from '../../lib/components/Button';
-
-// Do use aliases like this:
-import { Button } from '@components/Button';
-```
-
-Available aliases:
-- `@/*` - Points to src/*
-- `@lib/*` - Points to src/lib/*
-- `@components/*` - Points to src/lib/components/*
-- `@stories/*` - Points to src/stories/*
-- `@utils/*` - Points to src/lib/utils/* (when created)
-- `@types/*` - Points to src/lib/types/* (when created)
-- `@assets/*` - Points to src/assets/* (when created)
-
 ## Storybook Version Requirements
 
 Aki UI uses Storybook 8.6.14. We have specific dependency requirements to ensure compatibility:

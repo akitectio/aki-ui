@@ -30,20 +30,20 @@
       "@/*": [
         "src/*"
       ],
-      "@lib/*": [
-        "src/lib/*"
-      ],
       "@components/*": [
-        "src/lib/components/*"
+        "src/components/*"
       ],
-      "@stories/*": [
-        "src/stories/*"
+      "@pages/*": [
+        "src/pages/*"
+      ],
+      "@store/*": [
+        "src/store/*"
       ],
       "@utils/*": [
-        "src/lib/utils/*"
+        "src/utils/*"
       ],
       "@types/*": [
-        "src/lib/types/*"
+        "src/types/*"
       ],
       "@assets/*": [
         "src/assets/*"
