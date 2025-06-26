@@ -60,7 +60,8 @@
     "build-storybook": "storybook build",
     "build-storybook:gh-pages": "storybook build --output-dir storybook-static --docs --static-dir public",
     "prepublishOnly": "npm run build:prod",
-    "size-check": "npm run build && bundlesize"
+    "size-check": "npm run build && bundlesize",
+    "install:legacy": "npm install --legacy-peer-deps"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

@@ -1,0 +1,158 @@
+name: Manual Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_type:
+        description: "Release type"
+        required: true
+        default: "patch"
+        type: "choice"
+        options:
+          - patch
+          - minor
+          - major
+      custom_version:
+        description: "Custom version (leave empty to use standard versioning)"
+        required: false
+        type: "string"
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      new_version: ${{ steps.set_version.outputs.new_version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Setup npm config
+        run: |
+          echo "legacy-peer-deps=true" >> .npmrc
+          echo "fund=false" >> .npmrc
+          echo "audit=false" >> .npmrc
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Get current version
+        id: current_version
+        run: echo "version=$(node -p "require('./package.json').version")" >> $GITHUB_OUTPUT
+
+      - name: Set version
+        id: set_version
+        run: |
+          if [ -n "${{ github.event.inputs.custom_version }}" ]; then
+            # Use custom version if provided
+            npm --no-git-tag-version --legacy-peer-deps version ${{ github.event.inputs.custom_version }}
+            echo "new_version=v${{ github.event.inputs.custom_version }}" >> $GITHUB_OUTPUT
+          else
+            # Use standard version increment
+            NEW_VERSION=$(npm --no-git-tag-version --legacy-peer-deps version ${{ github.event.inputs.release_type }})
+            echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          fi
+          echo "Version set to ${{ steps.set_version.outputs.new_version }}"
+
+      - name: Build package
+        run: npm run build
+
+      - name: Update package.json for publishing
+        run: |
+          # Make a copy of package.json for publishing
+          cp package.json package.json.original
+
+          # Remove the "private" field from package.json
+          jq 'del(.private)' package.json > package.json.tmp
+          mv package.json.tmp package.json
+
+          # Replace README.md with NPM_README.md for publishing
+          cp NPM_README.md README.md.original
+          cp NPM_README.md README.md
+
+      - name: Publish to NPM
+        run: npm publish --access public --legacy-peer-deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Restore README
+        run: mv README.md.original README.md
+
+      - name: Commit and push version bump
+        run: |
+          git add package.json package-lock.json
+          git commit -m "chore: release version ${{ steps.set_version.outputs.new_version }}"
+          git tag ${{ steps.set_version.outputs.new_version }}
+          git push
+          git push --tags
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.set_version.outputs.new_version }}
+          release_name: Release ${{ steps.set_version.outputs.new_version }}
+          draft: false
+          prerelease: false
+
+  deploy-docs:
+    needs: release
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Build Storybook
+        run: npm run build-storybook:gh-pages
+
+      - name: Add .nojekyll file
+        run: touch storybook-static/.nojekyll
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./storybook-static"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
