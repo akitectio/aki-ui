@@ -1,15 +1,29 @@
 {
   "name": "@akitectio/aki-ui",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/aki-ui.umd.js",
+  "module": "./dist/aki-ui.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/aki-ui.es.js",
+      "require": "./dist/aki-ui.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006 --no-version-updates",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build-storybook:gh-pages": "storybook build --output-dir storybook-static --docs --static-dir public",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -30,6 +44,7 @@
     "@storybook/builder-vite": "^8.6.14",
     "@storybook/react": "^8.6.14",
     "@storybook/react-vite": "^8.6.14",
+    "@types/node": "^24.0.4",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.5.2",

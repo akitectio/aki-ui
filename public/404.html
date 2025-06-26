@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Aki UI Storybook</title>
+    <script>
+      // Redirect to the correct Storybook URL with hash routing
+      const path = window.location.pathname.replace(/^\/[^/]+/, "");
+      const newPath = "/aki-ui" + (path === "/" ? "/index.html" : path);
+      window.location.replace(
+        newPath + window.location.search + window.location.hash
+      );
+    </script>
+  </head>
+  <body>
+    <p>Redirecting to Storybook...</p>
+  </body>
+</html>

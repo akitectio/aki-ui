@@ -18,4 +18,21 @@ export default defineConfig({
       { find: "@stories", replacement: "/src/stories" },
     ],
   },
+  build: {
+    lib: {
+      entry: "src/index.ts",
+      name: "AkiUI",
+      fileName: (format) => `aki-ui.${format}.js`,
+    },
+    rollupOptions: {
+      external: ["react", "react-dom", "react/jsx-runtime"],
+      output: {
+        globals: {
+          react: "React",
+          "react-dom": "ReactDOM",
+          "react/jsx-runtime": "jsxRuntime",
+        },
+      },
+    },
+  },
 });
