@@ -43,7 +43,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-          registry-url: "https://registry.npmjs.org/"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Install dependencies
         run: npm ci
@@ -84,25 +84,10 @@ jobs:
           cp NPM_README.md README.md.original
           cp NPM_README.md README.md
 
-      - name: Create .npmrc file
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
-          echo "@your-scope:registry=https://registry.npmjs.org/" >> ~/.npmrc
-
-      - name: Debug npm configuration
-        run: |
-          echo "NPM Config:"
-          npm config list
-          echo "NPM Registry:"
-          npm config get registry
-          echo ".npmrc file exists:"
-          ls -la ~/.npmrc
-          echo ".npmrc contents (masked):"
-          sed 's/npm_[A-Za-z0-9]*/npm_***MASKED***/g' ~/.npmrc
-
       - name: Verify npm authentication
         run: npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Check package info before publishing
         run: |
@@ -121,7 +106,9 @@ jobs:
 
       - name: Publish to NPM
         id: npm_publish
-        run: npm publish --access public
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore original files for commit
         if: success()
