@@ -84,6 +84,43 @@ jobs:
           cp NPM_README.md README.md.original
           cp NPM_README.md README.md
 
+      - name: Debug environment and npm setup
+        run: |
+          echo "=== Environment Debug ==="
+          echo "NODE_AUTH_TOKEN length: ${#NODE_AUTH_TOKEN}"
+          echo "NODE_AUTH_TOKEN starts with: ${NODE_AUTH_TOKEN:0:8}..."
+          echo "Current directory: $(pwd)"
+          echo "Home directory: $HOME"
+          echo ""
+          echo "=== NPM Debug ==="
+          echo "NPM version: $(npm --version)"
+          echo "Node version: $(node --version)"
+          echo ""
+          echo "=== .npmrc Debug ==="
+          echo "Global .npmrc location: $HOME/.npmrc"
+          if [ -f "$HOME/.npmrc" ]; then
+            echo ".npmrc exists at $HOME/.npmrc"
+            echo ".npmrc content (masked):"
+            sed 's/npm_[A-Za-z0-9]*/npm_***MASKED***/g' "$HOME/.npmrc"
+          else
+            echo "No .npmrc found at $HOME/.npmrc"
+          fi
+          echo ""
+          echo "Local .npmrc in project:"
+          if [ -f ".npmrc" ]; then
+            echo "Local .npmrc exists"
+            cat .npmrc
+          else
+            echo "No local .npmrc"
+          fi
+          echo ""
+          echo "=== NPM Config ==="
+          npm config list
+          echo ""
+          echo "Registry: $(npm config get registry)"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Verify npm authentication
         run: npm whoami
         env:
