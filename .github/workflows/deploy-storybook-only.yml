@@ -1,8 +1,13 @@
-name: Deploy Storybook to GitHub Pages
+name: Deploy Storybook Only
 
 on:
   push:
     branches: [main]
+    paths:
+      - "src/**"
+      - ".storybook/**"
+      - "package.json"
+      - "package-lock.json"
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
@@ -13,11 +18,13 @@ permissions:
 
 # Allow only one concurrent deployment
 concurrency:
-  group: "pages"
+  group: "storybook-pages"
   cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
+  deploy-storybook:
+    # Only run if this is NOT a version bump commit (to avoid conflicts with main workflow)
+    if: "!contains(github.event.head_commit.message, 'chore: bump version')"
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

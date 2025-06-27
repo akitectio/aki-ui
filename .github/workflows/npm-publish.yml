@@ -84,12 +84,15 @@ jobs:
           cp NPM_README.md README.md.original
           cp NPM_README.md README.md
 
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       - name: Publish to NPM
+        id: npm_publish
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore original files for commit
+        if: success()
         run: |
           # Restore the original README.md
           mv README.md.original README.md
@@ -97,6 +100,7 @@ jobs:
           # We don't restore package.json because we want to keep the incremented version
 
       - name: Commit and push version bump
+        if: success()
         run: |
           git add package.json package-lock.json
           git commit -m "chore: bump version to ${{ steps.increment_version.outputs.new_version }}"
@@ -104,20 +108,26 @@ jobs:
           git push
           git push --tags
 
+      # Only build and deploy Storybook if npm publish was successful
       - name: Build Storybook
+        if: success()
         run: npm run build-storybook:gh-pages
 
       - name: Add .nojekyll file
+        if: success()
         run: touch storybook-static/.nojekyll
 
       - name: Setup Pages
+        if: success()
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
+        if: success()
         uses: actions/upload-pages-artifact@v3
         with:
           path: "./storybook-static"
 
       - name: Deploy to GitHub Pages
+        if: success()
         id: deployment
         uses: actions/deploy-pages@v4

@@ -1,6 +1,16 @@
 # Aki UI
 
+[![Build, Publish and Deploy](https://github.com/akitectio/aki-ui/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/akitectio/aki-ui/actions/workflows/npm-publish.yml)
+[![npm version](https://badge.fury.io/js/@akitectio%2Faki-ui.svg)](https://badge.fury.io/js/@akitectio%2Faki-ui)
+[![npm downloads](https://img.shields.io/npm/dm/@akitectio/aki-ui.svg)](https://www.npmjs.com/package/@akitectio/aki-ui)
+
 A modern React component library with Tailwind CSS styling.
+
+## Links
+
+- 📦 [NPM Package](https://www.npmjs.com/package/@akitectio/aki-ui)
+- 📖 [Storybook Documentation](https://akitectio.github.io/aki-ui/)
+- 🐛 [GitHub Repository](https://github.com/akitectio/aki-ui)
 
 ## Project Structure
 
