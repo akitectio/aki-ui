@@ -1,4 +1,4 @@
-name: Build, Publish and Deploy
+name: Build and Deploy Storybook
 
 on:
   push:
@@ -84,36 +84,18 @@ jobs:
           cp NPM_README.md README.md.original
           cp NPM_README.md README.md
 
-      - name: Publish to NPM
+      # Tạm thời bỏ qua việc npm publish (đang gặp vấn đề xác thực)
+      - name: Skip npm publish and log version info
         id: npm_publish
         run: |
-          # Create a temporary .npmrc file
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-          echo "registry=https://registry.npmjs.org/" >> .npmrc
-
-          # Display package info
-          echo "Publishing package: $(node -p "require('./package.json').name")"
-          echo "Version: $(node -p "require('./package.json').version")"
-
-          # Publish the package
-          npm publish --access public
-          PUBLISH_RESULT=$?
-
-          # Clean up
-          rm -f .npmrc
-
-          # Check result
-          if [ $PUBLISH_RESULT -eq 0 ]; then
-            echo "🎉 Successfully published package"
-            PKG_VERSION=$(node -p "require('./package.json').version")
-            echo "Published version: $PKG_VERSION"
-          else
-            echo "❌ Failed to publish package"
-            exit 1
-          fi
+          PKG_VERSION=$(node -p "require('./package.json').version")
+          PKG_NAME=$(node -p "require('./package.json').name")
+          echo "📝 Bỏ qua việc npm publish"
+          echo "  Package: $PKG_NAME"
+          echo "  Version: $PKG_VERSION"
+          echo "  Lý do: Đang gặp vấn đề xác thực với npm"
 
       - name: Restore original files for commit
-        if: success()
         run: |
           # Restore the original README.md
           mv README.md.original README.md
@@ -121,7 +103,6 @@ jobs:
           # We don't restore package.json because we want to keep the incremented version
 
       - name: Commit and push version bump
-        if: success()
         run: |
           git add package.json package-lock.json
           git commit -m "chore: bump version to ${{ steps.increment_version.outputs.new_version }}"
@@ -129,26 +110,21 @@ jobs:
           git push
           git push --tags
 
-      # Only build and deploy Storybook if npm publish was successful
+      # Only build and deploy Storybook
       - name: Build Storybook
-        if: success()
         run: npm run build-storybook:gh-pages
 
       - name: Add .nojekyll file
-        if: success()
         run: touch storybook-static/.nojekyll
 
       - name: Setup Pages
-        if: success()
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        if: success()
         uses: actions/upload-pages-artifact@v3
         with:
           path: "./storybook-static"
 
       - name: Deploy to GitHub Pages
-        if: success()
         id: deployment
         uses: actions/deploy-pages@v4
