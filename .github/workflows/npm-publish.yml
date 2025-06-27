@@ -84,25 +84,25 @@ jobs:
           cp NPM_README.md README.md.original
           cp NPM_README.md README.md
 
-      - name: Check for NPM_TOKEN
-        run: |
-          if [ -z "$NPM_TOKEN" ]; then
-            echo "ERROR: NPM_TOKEN environment variable is not set"
-            exit 1
-          else
-            echo "NPM_TOKEN is set (length: ${#NPM_TOKEN})"
-          fi
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish to NPM directly
+      - name: Publish to NPM
         id: npm_publish
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          # Create a temporary .npmrc file
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
+
+          # Display package info
+          echo "Publishing package: $(node -p "require('./package.json').name")"
+          echo "Version: $(node -p "require('./package.json').version")"
+
+          # Publish the package
           npm publish --access public
           PUBLISH_RESULT=$?
+
+          # Clean up
           rm -f .npmrc
 
+          # Check result
           if [ $PUBLISH_RESULT -eq 0 ]; then
             echo "🎉 Successfully published package"
             PKG_VERSION=$(node -p "require('./package.json').version")
@@ -111,8 +111,6 @@ jobs:
             echo "❌ Failed to publish package"
             exit 1
           fi
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore original files for commit
         if: success()
