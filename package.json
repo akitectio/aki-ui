@@ -60,12 +60,6 @@
     "storybook": "storybook dev -p 6006 --no-version-updates",
     "build-storybook": "storybook build",
     "build-storybook:gh-pages": "storybook build --output-dir storybook-static --docs",
-    "docs:install": "cd docs-site && npm install",
-    "docs:dev": "cd docs-site && npm run dev",
-    "docs:build": "cd docs-site && npm run build",
-    "docs:preview": "cd docs-site && npm run preview",
-    "docs:copy-assets": "cd docs-site && chmod +x copy-assets.sh && ./copy-assets.sh",
-    "docs:setup": "npm run docs:install && npm run docs:copy-assets",
     "prepublishOnly": "npm run build:prod",
     "size-check": "npm run build && bundlesize",
     "install:legacy": "npm install --legacy-peer-deps"
