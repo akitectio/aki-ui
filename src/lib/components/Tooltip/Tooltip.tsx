@@ -102,14 +102,25 @@ const Tooltip: React.FC<TooltipProps> = ({
     };
 
     useEffect(() => {
+        return () => {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
+        };
+    }, []);
+
+    useEffect(() => {
         if (isControlled) {
-            setIsVisible(visible);
+            setIsVisible(!!visible);
         }
     }, [visible, isControlled]);
 
     useEffect(() => {
-        if (isVisible) {
-            updateTooltipPosition();
+        if (isVisible && targetRef.current) {
+            // Use requestAnimationFrame to ensure DOM is updated
+            requestAnimationFrame(() => {
+                updateTooltipPosition();
+            });
         }
     }, [isVisible, position]);
 
@@ -120,9 +131,18 @@ const Tooltip: React.FC<TooltipProps> = ({
             }
         };
 
+        const handleScroll = () => {
+            if (isVisible) {
+                updateTooltipPosition();
+            }
+        };
+
         window.addEventListener('resize', handleResize);
+        window.addEventListener('scroll', handleScroll, true);
+
         return () => {
             window.removeEventListener('resize', handleResize);
+            window.removeEventListener('scroll', handleScroll, true);
         };
     }, [isVisible]);
 
@@ -131,31 +151,39 @@ const Tooltip: React.FC<TooltipProps> = ({
 
         const targetRect = targetRef.current.getBoundingClientRect();
         const tooltipRect = tooltipRef.current.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
 
         let top = 0;
         let left = 0;
 
         const scrollY = window.scrollY || window.pageYOffset;
         const scrollX = window.scrollX || window.pageXOffset;
+        const offset = arrowSize + 4; // Small additional offset
 
         switch (position) {
             case 'top':
-                top = targetRect.top + scrollY - tooltipRect.height - arrowSize;
+                top = targetRect.top + scrollY - tooltipRect.height - offset;
                 left = targetRect.left + scrollX + (targetRect.width - tooltipRect.width) / 2;
                 break;
             case 'right':
                 top = targetRect.top + scrollY + (targetRect.height - tooltipRect.height) / 2;
-                left = targetRect.right + scrollX + arrowSize;
+                left = targetRect.right + scrollX + offset;
                 break;
             case 'bottom':
-                top = targetRect.bottom + scrollY + arrowSize;
+                top = targetRect.bottom + scrollY + offset;
                 left = targetRect.left + scrollX + (targetRect.width - tooltipRect.width) / 2;
                 break;
             case 'left':
                 top = targetRect.top + scrollY + (targetRect.height - tooltipRect.height) / 2;
-                left = targetRect.left + scrollX - tooltipRect.width - arrowSize;
+                left = targetRect.left + scrollX - tooltipRect.width - offset;
                 break;
         }
+
+        // Prevent tooltip from going outside viewport
+        const padding = 8;
+        left = Math.max(padding, Math.min(left, viewportWidth - tooltipRect.width - padding));
+        top = Math.max(padding, Math.min(top, viewportHeight + scrollY - tooltipRect.height - padding));
 
         setCoords({ top, left });
     };
@@ -184,16 +212,27 @@ const Tooltip: React.FC<TooltipProps> = ({
         return {};
     };
 
-    const arrowPosition = {
-        top: 'bottom',
-        right: 'left',
-        bottom: 'top',
-        left: 'right',
-    };
-
     const themeClasses = {
         dark: 'bg-gray-800 text-white',
-        light: 'bg-white text-gray-800 border border-gray-200',
+        light: 'bg-white text-gray-800 border border-gray-200 shadow-lg',
+    };
+
+    const getArrowClasses = () => {
+        const baseClasses = 'absolute';
+        const arrowColor = theme === 'dark' ? 'border-gray-800' : 'border-white';
+
+        switch (position) {
+            case 'top':
+                return `${baseClasses} bottom-0 left-1/2 transform -translate-x-1/2 translate-y-full border-l-transparent border-r-transparent border-t-4 ${arrowColor} border-b-0`;
+            case 'right':
+                return `${baseClasses} left-0 top-1/2 transform -translate-x-full -translate-y-1/2 border-t-transparent border-b-transparent border-r-4 ${arrowColor} border-l-0`;
+            case 'bottom':
+                return `${baseClasses} top-0 left-1/2 transform -translate-x-1/2 -translate-y-full border-l-transparent border-r-transparent border-b-4 ${arrowColor} border-t-0`;
+            case 'left':
+                return `${baseClasses} right-0 top-1/2 transform translate-x-full -translate-y-1/2 border-t-transparent border-b-transparent border-l-4 ${arrowColor} border-r-0`;
+            default:
+                return baseClasses;
+        }
     };
 
     // Clone the child element to add our event handlers
@@ -219,7 +258,7 @@ const Tooltip: React.FC<TooltipProps> = ({
             {isVisible && (
                 <div
                     ref={tooltipRef}
-                    className={`fixed z-50 py-1 px-2 text-sm rounded shadow-md ${themeClasses[theme]} ${className}`}
+                    className={`fixed z-[9999] py-2 px-3 text-sm rounded-md shadow-lg ${themeClasses[theme]} ${className}`}
                     style={{
                         top: `${coords.top}px`,
                         left: `${coords.left}px`,
@@ -227,23 +266,7 @@ const Tooltip: React.FC<TooltipProps> = ({
                     }}
                 >
                     {content}
-                    <div
-                        className={`absolute w-0 h-0`}
-                        style={{
-                            [`border-${arrowPosition[position]}-width`]: `${arrowSize}px`,
-                            [`border-${arrowPosition[position]}-style`]: 'solid',
-                            [`border-${arrowPosition[position]}-color`]: theme === 'dark' ? '#1f2937' : '#fff',
-                            borderWidth: arrowSize,
-                            borderColor: 'transparent',
-                            [`${arrowPosition[position]}`]: `-${arrowSize * 2}px`,
-                            left: position === 'top' || position === 'bottom' ? '50%' : undefined,
-                            top: position === 'left' || position === 'right' ? '50%' : undefined,
-                            transform:
-                                (position === 'top' || position === 'bottom') ? 'translateX(-50%)' :
-                                    (position === 'left' || position === 'right') ? 'translateY(-50%)' :
-                                        undefined
-                        }}
-                    />
+                    <div className={getArrowClasses()} />
                 </div>
             )}
         </>

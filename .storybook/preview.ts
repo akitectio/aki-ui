@@ -1,5 +1,7 @@
 import type { Preview } from "@storybook/react";
 import "../src/index.css";
+import { ToastProvider } from "../src/lib/components/Toast";
+import React from "react";
 
 const preview: Preview = {
   parameters: {
@@ -11,6 +13,13 @@ const preview: Preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <ToastProvider>
+        <Story />
+      </ToastProvider>
+    ),
+  ],
 };
 
 export default preview;

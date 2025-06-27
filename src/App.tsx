@@ -1,5 +1,8 @@
 import { Button, Card, Alert } from './lib/components';
 import { AkiUIProvider } from './lib/theme';
+import TooltipTest from './test-tooltip';
+import ToastTest from './test-toast';
+import TestChatbot from './test-chatbot';
 
 function App() {
     const handleOpenStorybook = () => {
@@ -27,8 +30,24 @@ function App() {
                             variant="primary"
                             fullWidth
                             onClick={handleOpenStorybook}
+                            className="mb-3"
                         >
                             Open Storybook
+                        </Button>
+                        <Button
+                            variant="secondary"
+                            fullWidth
+                            onClick={() => window.location.href = '/tooltip-test'}
+                            className="mb-3"
+                        >
+                            Test Tooltip
+                        </Button>
+                        <Button
+                            variant="secondary"
+                            fullWidth
+                            onClick={() => window.location.href = '/chatbot-test'}
+                        >
+                            Test Chatbot
                         </Button>
                     </Card.Body>
                     <Card.Footer className="text-sm text-gray-600">
@@ -36,6 +55,15 @@ function App() {
                         <code className="block bg-gray-100 p-2 mt-1 rounded">npm run storybook</code>
                     </Card.Footer>
                 </Card>
+
+                <TooltipTest />
+
+                <div style={{ marginTop: '40px', borderTop: '2px solid #e5e7eb', paddingTop: '40px' }}>
+                    <ToastTest />
+                </div>
+
+                {/* Chatbot is displayed on /chatbot-test route */}
+                {window.location.pathname === '/chatbot-test' && <TestChatbot />}
             </div>
         </AkiUIProvider>
     );

@@ -51,16 +51,16 @@ export { default as ButtonGroup } from "./ButtonGroup";
 export type { ButtonGroupProps } from "./ButtonGroup";
 
 /**
- * Card - A flexible container component for grouping related content
+ * Card - A flexible container for displaying content in a structured format
  */
 export { default as Card } from "./Card";
-export type {
-  CardProps,
-  CardHeaderProps,
-  CardBodyProps,
-  CardFooterProps,
-  CardImageProps,
-} from "./Card";
+export type { CardProps } from "./Card";
+
+/**
+ * Chatbot - A simple rule-based AI chatbot component
+ */
+export { default as Chatbot } from "./Chatbot";
+export type { ChatbotProps, ChatMessage, ChatbotRule } from "./Chatbot";
 
 /**
  * Dropdown - A toggleable menu for displaying a list of options
@@ -119,6 +119,84 @@ export type { SliderProps } from "./Slider";
  */
 export { default as Input } from "./Input";
 export type { InputProps, InputRef } from "./Input";
+
+/**
+ * InputGroup - A container for grouping input elements with addons and icons
+ */
+export {
+  default as InputGroup,
+  InputLeftAddon,
+  InputRightAddon,
+  InputLeftElement,
+  InputRightElement,
+} from "./InputGroup";
+export type {
+  InputGroupProps,
+  InputAddonProps,
+  InputElementProps,
+} from "./InputGroup";
+
+/**
+ * FloatingLabel - An input component with floating label animation
+ */
+export { default as FloatingLabel } from "./FloatingLabel";
+export type { FloatingLabelProps, FloatingLabelRef } from "./FloatingLabel";
+
+/**
+ * Breakpoints - Responsive breakpoint utilities and hooks
+ */
+export {
+  breakpoints,
+  useBreakpoint,
+  useMediaQuery,
+  getResponsiveClasses,
+  isBreakpoint,
+  Show,
+  useScreenSize,
+} from "./Breakpoints";
+export type { Breakpoint, ShowProps } from "./Breakpoints";
+
+/**
+ * Grid - A responsive grid layout component system
+ */
+export { default as Grid, GridItem, SimpleGrid } from "./Grid";
+export type { GridProps, GridItemProps, SimpleGridProps } from "./Grid";
+
+/**
+ * Stack - Layout components for organizing items in single dimension
+ */
+export { default as Stack, HStack, VStack, Spacer } from "./Stack";
+export type { StackProps, HStackProps, VStackProps } from "./Stack";
+
+/**
+ * FormLayout - A component for organizing form elements with flexible layouts
+ */
+export {
+  default as FormLayout,
+  FormRow,
+  FormColumn,
+  FormSection,
+} from "./FormLayout";
+export type {
+  FormLayoutProps,
+  FormRowProps,
+  FormColumnProps,
+  FormSectionProps,
+} from "./FormLayout";
+
+/**
+ * FormValidation - Components for form validation and error messaging
+ */
+export {
+  default as ValidationMessage,
+  FieldValidator,
+  ValidationRules,
+} from "./FormValidation";
+export type {
+  ValidationMessageProps,
+  FieldValidatorProps,
+  ValidationRule,
+} from "./FormValidation";
 
 /**
  * Checkbox - A component for binary choices
@@ -205,8 +283,14 @@ export type { TabsProps, TabProps } from "./Tabs";
 /**
  * Toast - A notification component for displaying feedback
  */
-export { ToastContainer, ToastProvider, toast, useToast } from "./Toast";
-export type { ToastProps, ToastContainerProps } from "./Toast";
+export { ToastContainer, ToastProvider, useToast, useToastAPI } from "./Toast";
+export type {
+  ToastProps,
+  ToastContainerProps,
+  ToastContextValue,
+  ToastPosition,
+  ToastVariant,
+} from "./Toast";
 
 /**
  * DataTable - A versatile table component with sorting, filtering, and pagination

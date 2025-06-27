@@ -448,66 +448,6 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
     );
 };
 
-// Export a simple function to show toasts without context
-let toastContainer: HTMLElement | null = null;
-let toastContextValue: ToastContextValue | null = null;
-
-// Helper to ensure the toast container exists
-const ensureContainer = (): ToastContextValue => {
-    if (toastContextValue) return toastContextValue;
-
-    if (!toastContainer) {
-        toastContainer = document.createElement('div');
-        toastContainer.id = 'aki-toast-root';
-        document.body.appendChild(toastContainer);
-
-        // Render the ToastContainer
-        const root = document.createElement('div');
-        toastContainer.appendChild(root);
-
-        // We're not actually rendering here since we don't have access to ReactDOM
-        // This is just a placeholder for the actual implementation
-        // The proper way would be to use ReactDOM.render or createRoot
-
-        // For now, we'll just create a mock context value
-        toastContextValue = {
-            show: () => 'mock-id',
-            update: () => { },
-            dismiss: () => { },
-            dismissAll: () => { },
-        };
-    }
-
-    // Ensure we always return a valid context value
-    if (!toastContextValue) {
-        toastContextValue = {
-            show: () => 'mock-id',
-            update: () => { },
-            dismiss: () => { },
-            dismissAll: () => { },
-        };
-    }
-
-    return toastContextValue;
-};
-
-// Simple API
-export const toast = {
-    show: (options: Omit<ToastProps, 'id'>) => ensureContainer().show(options),
-    success: (message: React.ReactNode, options?: Omit<ToastProps, 'id' | 'message' | 'variant'>) =>
-        ensureContainer().show({ message, variant: 'success', ...options }),
-    error: (message: React.ReactNode, options?: Omit<ToastProps, 'id' | 'message' | 'variant'>) =>
-        ensureContainer().show({ message, variant: 'error', ...options }),
-    warning: (message: React.ReactNode, options?: Omit<ToastProps, 'id' | 'message' | 'variant'>) =>
-        ensureContainer().show({ message, variant: 'warning', ...options }),
-    info: (message: React.ReactNode, options?: Omit<ToastProps, 'id' | 'message' | 'variant'>) =>
-        ensureContainer().show({ message, variant: 'info', ...options }),
-    update: (id: string, options: Partial<Omit<ToastProps, 'id'>>) =>
-        ensureContainer().update(id, options),
-    dismiss: (id: string) => ensureContainer().dismiss(id),
-    dismissAll: () => ensureContainer().dismissAll(),
-};
-
 // Toast Provider component
 export const ToastProvider: React.FC<ToastContainerProps & { children: React.ReactNode }> = ({
     children,
@@ -520,3 +460,6 @@ export const ToastProvider: React.FC<ToastContainerProps & { children: React.Rea
         </>
     );
 };
+
+// Export the default Toast component and ToastComponent
+export default ToastComponent;
