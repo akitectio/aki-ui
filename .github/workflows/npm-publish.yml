@@ -121,10 +121,21 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Create .npmrc file manually
+        run: |
+          echo "Creating .npmrc file manually..."
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
+          echo ""
+          echo "Created .npmrc file with content (masked):"
+          sed 's/npm_[A-Za-z0-9]*/npm_***MASKED***/g' ~/.npmrc
+          echo ""
+          echo "File permissions:"
+          ls -la ~/.npmrc
+
       - name: Verify npm authentication
         run: npm whoami
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Check package info before publishing
         run: |
@@ -144,8 +155,6 @@ jobs:
       - name: Publish to NPM
         id: npm_publish
         run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore original files for commit
         if: success()
