@@ -87,6 +87,24 @@ jobs:
       - name: Authenticate with npm
         run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
 
+      - name: Verify npm authentication
+        run: npm whoami
+
+      - name: Check package info before publishing
+        run: |
+          echo "Package name: $(node -p "require('./package.json').name")"
+          echo "Package version: $(node -p "require('./package.json').version")"
+          echo "Registry: $(npm config get registry)"
+
+          # Check if this is a scoped package
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          if [[ $PACKAGE_NAME == @* ]]; then
+            ORG_NAME=$(echo $PACKAGE_NAME | cut -d'/' -f1 | cut -d'@' -f2)
+            echo "This is a scoped package for organization: $ORG_NAME"
+            echo "Make sure the organization '$ORG_NAME' exists on npm and you have permission to publish to it."
+            echo "You can create an organization at: https://www.npmjs.com/org/create"
+          fi
+
       - name: Publish to NPM
         id: npm_publish
         run: npm publish --access public
