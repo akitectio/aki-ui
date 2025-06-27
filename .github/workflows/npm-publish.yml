@@ -84,77 +84,22 @@ jobs:
           cp NPM_README.md README.md.original
           cp NPM_README.md README.md
 
-      - name: Debug environment and npm setup
-        run: |
-          echo "=== Environment Debug ==="
-          echo "NODE_AUTH_TOKEN length: ${#NODE_AUTH_TOKEN}"
-          echo "NODE_AUTH_TOKEN starts with: ${NODE_AUTH_TOKEN:0:8}..."
-          echo "Current directory: $(pwd)"
-          echo "Home directory: $HOME"
-          echo ""
-          echo "=== NPM Debug ==="
-          echo "NPM version: $(npm --version)"
-          echo "Node version: $(node --version)"
-          echo ""
-          echo "=== .npmrc Debug ==="
-          echo "Global .npmrc location: $HOME/.npmrc"
-          if [ -f "$HOME/.npmrc" ]; then
-            echo ".npmrc exists at $HOME/.npmrc"
-            echo ".npmrc content (masked):"
-            sed 's/npm_[A-Za-z0-9]*/npm_***MASKED***/g' "$HOME/.npmrc"
-          else
-            echo "No .npmrc found at $HOME/.npmrc"
-          fi
-          echo ""
-          echo "Local .npmrc in project:"
-          if [ -f ".npmrc" ]; then
-            echo "Local .npmrc exists"
-            cat .npmrc
-          else
-            echo "No local .npmrc"
-          fi
-          echo ""
-          echo "=== NPM Config ==="
-          npm config list
-          echo ""
-          echo "Registry: $(npm config get registry)"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create .npmrc file manually
-        run: |
-          echo "Creating .npmrc file manually..."
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
-          echo "always-auth=true" >> ~/.npmrc
-          echo ""
-          echo "Created .npmrc file with content (masked):"
-          sed 's/npm_[A-Za-z0-9]*/npm_***MASKED***/g' ~/.npmrc
-          echo ""
-          echo "File permissions:"
-          ls -la ~/.npmrc
-
-      - name: Verify npm authentication
-        run: npm whoami
-
-      - name: Check package info before publishing
-        run: |
-          echo "Package name: $(node -p "require('./package.json').name")"
-          echo "Package version: $(node -p "require('./package.json').version")"
-          echo "Registry: $(npm config get registry)"
-
-          # Check if this is a scoped package
-          PACKAGE_NAME=$(node -p "require('./package.json').name")
-          if [[ $PACKAGE_NAME == @* ]]; then
-            ORG_NAME=$(echo $PACKAGE_NAME | cut -d'/' -f1 | cut -d'@' -f2)
-            echo "This is a scoped package for organization: $ORG_NAME"
-            echo "Make sure the organization '$ORG_NAME' exists on npm and you have permission to publish to it."
-            echo "You can create an organization at: https://www.npmjs.com/org/create"
-          fi
-
-      - name: Publish to NPM
+      - name: Publish to NPM using npm-publish action
         id: npm_publish
-        run: npm publish --provenance --access public
+        uses: JS-DevTools/npm-publish@v3
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: public
+          provenance: true
+
+      - name: Check publish results
+        run: |
+          if [ "${{ steps.npm_publish.outputs.published }}" == "true" ]; then
+            echo "🎉 Successfully published version ${{ steps.npm_publish.outputs.version }}"
+            echo "Type of change: ${{ steps.npm_publish.outputs.type }}"
+          else
+            echo "📝 Package was not published (${{ steps.npm_publish.outputs.reason }})"
+          fi
 
       - name: Restore original files for commit
         if: success()
