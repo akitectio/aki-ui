@@ -84,22 +84,35 @@ jobs:
           cp NPM_README.md README.md.original
           cp NPM_README.md README.md
 
-      - name: Publish to NPM using npm-publish action
-        id: npm_publish
-        uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          access: public
-          provenance: true
-
-      - name: Check publish results
+      - name: Check for NPM_TOKEN
         run: |
-          if [ "${{ steps.npm_publish.outputs.published }}" == "true" ]; then
-            echo "🎉 Successfully published version ${{ steps.npm_publish.outputs.version }}"
-            echo "Type of change: ${{ steps.npm_publish.outputs.type }}"
+          if [ -z "$NPM_TOKEN" ]; then
+            echo "ERROR: NPM_TOKEN environment variable is not set"
+            exit 1
           else
-            echo "📝 Package was not published (${{ steps.npm_publish.outputs.reason }})"
+            echo "NPM_TOKEN is set (length: ${#NPM_TOKEN})"
           fi
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to NPM directly
+        id: npm_publish
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+          npm publish --access public
+          PUBLISH_RESULT=$?
+          rm -f .npmrc
+
+          if [ $PUBLISH_RESULT -eq 0 ]; then
+            echo "🎉 Successfully published package"
+            PKG_VERSION=$(node -p "require('./package.json').version")
+            echo "Published version: $PKG_VERSION"
+          else
+            echo "❌ Failed to publish package"
+            exit 1
+          fi
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore original files for commit
         if: success()
