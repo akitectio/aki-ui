@@ -28,6 +28,7 @@ jobs:
     permissions:
       contents: write
       id-token: write
+      actions: write
     steps:
       - name: Check commit message
         id: check_commit
@@ -140,17 +141,22 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'publish-mcp.yml',
-              ref: 'main',
-              inputs: {
-                sync_mode: 'true',
-                version_increment: 'patch'
-              }
-            });
-            console.log('Triggered MCP publish workflow in sync mode')
+            try {
+              await github.rest.repos.createDispatchEvent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                event_type: 'publish-mcp-sync',
+                client_payload: {
+                  sync_mode: true,
+                  version_increment: 'patch',
+                  triggered_by: 'npm-publish'
+                }
+              });
+              console.log('✅ Triggered MCP publish via repository dispatch');
+            } catch (error) {
+              console.log('⚠️ Could not trigger MCP publish automatically:', error.message);
+              console.log('📝 Please manually run MCP publish workflow if needed');
+            }
 
       - name: Prepare package for publishing
         if: steps.check_commit.outputs.skip != 'true'

@@ -9,6 +9,8 @@ on:
       - "!mcp/package-lock.json"
   release:
     types: [published]
+  repository_dispatch:
+    types: [publish-mcp-sync]
   workflow_dispatch:
     inputs:
       version_increment:
@@ -34,6 +36,18 @@ jobs:
       contents: write
       id-token: write
     steps:
+      - name: Log event information
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Repository: ${{ github.repository }}"
+          echo "Ref: ${{ github.ref }}"
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "Dispatch event type: ${{ github.event.action }}"
+            echo "Triggered by: ${{ github.event.client_payload.triggered_by }}"
+            echo "Sync mode: ${{ github.event.client_payload.sync_mode }}"
+            echo "Version increment: ${{ github.event.client_payload.version_increment }}"
+          fi
+
       - name: Check commit message
         id: check_commit
         run: |
@@ -109,20 +123,37 @@ jobs:
         id: mcp_version
         run: |
           cd mcp
-          # Check if we're in sync mode (called from main workflow)
+          # Check if we're in sync mode (called from main workflow or repository dispatch)
+          SYNC_MODE="false"
+          VERSION_TYPE="patch"
+
+          # Handle workflow_dispatch inputs
           if [ "${{ github.event.inputs.sync_mode }}" = "true" ]; then
+            SYNC_MODE="true"
+          fi
+
+          if [ "${{ github.event.inputs.version_increment }}" != "" ]; then
+            VERSION_TYPE="${{ github.event.inputs.version_increment }}"
+          fi
+
+          # Handle repository_dispatch (from npm publish workflow)
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            if [ "${{ github.event.client_payload.sync_mode }}" = "true" ]; then
+              SYNC_MODE="true"
+            fi
+            if [ "${{ github.event.client_payload.version_increment }}" != "" ]; then
+              VERSION_TYPE="${{ github.event.client_payload.version_increment }}"
+            fi
+            echo "📦 Triggered by: ${{ github.event.client_payload.triggered_by }}"
+          fi
+
+          if [ "$SYNC_MODE" = "true" ]; then
             # Don't increment version, just use current version
             CURRENT_VERSION=$(node -p "require('./package.json').version")
             echo "new_version=v$CURRENT_VERSION" >> $GITHUB_OUTPUT
             echo "Sync mode: Using current MCP version v$CURRENT_VERSION"
           else
-            # Normal mode: increment version
-            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-              VERSION_TYPE="${{ github.event.inputs.version_increment }}"
-            else
-              # Auto increment patch version for push events
-              VERSION_TYPE="patch"
-            fi
+            # Normal mode: increment version using determined VERSION_TYPE
             NEW_VERSION=$(npm --no-git-tag-version version $VERSION_TYPE)
             echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
             echo "Incremented MCP version to $NEW_VERSION"
@@ -152,7 +183,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Commit MCP version bump and push
-        if: steps.check_commit.outputs.skip != 'true' && github.event.inputs.sync_mode != 'true'
+        if: steps.check_commit.outputs.skip != 'true' && github.event.inputs.sync_mode != 'true' && github.event.client_payload.sync_mode != 'true'
         run: |
           git add mcp/package.json mcp/package-lock.json
           git commit -m "chore: bump MCP server version to ${{ steps.mcp_version.outputs.new_version }}"
@@ -161,7 +192,7 @@ jobs:
           git push origin "mcp-${{ steps.mcp_version.outputs.new_version }}"
 
       - name: Create GitHub Release for MCP
-        if: steps.check_commit.outputs.skip != 'true' && github.event.inputs.sync_mode != 'true'
+        if: steps.check_commit.outputs.skip != 'true' && github.event.inputs.sync_mode != 'true' && github.event.client_payload.sync_mode != 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
