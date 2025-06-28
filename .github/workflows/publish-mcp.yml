@@ -21,6 +21,11 @@ on:
           - patch
           - minor
           - major
+      sync_mode:
+        description: "Sync mode - if true, only publish without version bump"
+        required: false
+        default: false
+        type: "boolean"
 
 jobs:
   publish-mcp:
@@ -38,6 +43,9 @@ jobs:
             echo "skip=true" >> $GITHUB_OUTPUT
           elif [[ "${{ github.event.head_commit.message }}" == *"(sync MCP)"* ]]; then
             echo "Skip workflow for synced version commits"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.head_commit.message }}" == *"(sync MCP + trigger MCP publish)"* ]]; then
+            echo "Skip workflow - MCP will be published via manual trigger"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT
@@ -102,15 +110,24 @@ jobs:
         id: mcp_version
         run: |
           cd mcp
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION_TYPE="${{ github.event.inputs.version_increment }}"
+          # Check if we're in sync mode (called from main workflow)
+          if [ "${{ github.event.inputs.sync_mode }}" = "true" ]; then
+            # Don't increment version, just use current version
+            CURRENT_VERSION=$(node -p "require('./package.json').version")
+            echo "new_version=v$CURRENT_VERSION" >> $GITHUB_OUTPUT
+            echo "Sync mode: Using current MCP version v$CURRENT_VERSION"
           else
-            # Auto increment patch version for push events
-            VERSION_TYPE="patch"
+            # Normal mode: increment version
+            if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+              VERSION_TYPE="${{ github.event.inputs.version_increment }}"
+            else
+              # Auto increment patch version for push events
+              VERSION_TYPE="patch"
+            fi
+            NEW_VERSION=$(npm --no-git-tag-version version $VERSION_TYPE)
+            echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+            echo "Incremented MCP version to $NEW_VERSION"
           fi
-          NEW_VERSION=$(npm --no-git-tag-version version $VERSION_TYPE)
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "Incremented MCP version to $NEW_VERSION"
 
       - name: Verify MCP package before publishing
         if: steps.check_commit.outputs.skip != 'true'
@@ -136,7 +153,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Commit MCP version bump and push
-        if: steps.check_commit.outputs.skip != 'true'
+        if: steps.check_commit.outputs.skip != 'true' && github.event.inputs.sync_mode != 'true'
         run: |
           git add mcp/package.json mcp/package-lock.json
           git commit -m "chore: bump MCP server version to ${{ steps.mcp_version.outputs.new_version }}"
@@ -145,7 +162,7 @@ jobs:
           git push origin "mcp-${{ steps.mcp_version.outputs.new_version }}"
 
       - name: Create GitHub Release for MCP
-        if: steps.check_commit.outputs.skip != 'true'
+        if: steps.check_commit.outputs.skip != 'true' && github.event.inputs.sync_mode != 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

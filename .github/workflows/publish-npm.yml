@@ -128,6 +128,24 @@ jobs:
           npm --no-git-tag-version version $VERSION_NUMBER
           echo "Synced MCP version to $VERSION_NUMBER"
 
+      - name: Trigger MCP publish workflow
+        if: steps.check_commit.outputs.skip != 'true'
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'publish-mcp.yml',
+              ref: 'main',
+              inputs: {
+                sync_mode: 'true',
+                version_increment: 'patch'
+              }
+            });
+            console.log('Triggered MCP publish workflow in sync mode')
+
       - name: Prepare package for publishing
         if: steps.check_commit.outputs.skip != 'true'
         run: |
@@ -181,7 +199,7 @@ jobs:
         if: steps.check_commit.outputs.skip != 'true'
         run: |
           git add package.json package-lock.json mcp/package.json
-          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP)"
+          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP + trigger MCP publish)"
           git tag "${{ steps.version.outputs.new_version }}"
           git push origin main
           git push origin "${{ steps.version.outputs.new_version }}"
