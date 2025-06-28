@@ -147,16 +147,33 @@ jobs:
             echo "📦 Triggered by: ${{ github.event.client_payload.triggered_by }}"
           fi
 
+          # Get package name from package.json
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          echo "Package name: $PACKAGE_NAME"
+
+          # Get the latest published version from npm registry
+          echo "Fetching latest version from npm registry..."
+          LATEST_NPM_VERSION=$(npm view "$PACKAGE_NAME" version 2>/dev/null || echo "0.0.0")
+          echo "Latest version on npm: $LATEST_NPM_VERSION"
+
+          # Get current local version
+          LOCAL_VERSION=$(node -p "require('./package.json').version")
+          echo "Local package.json version: $LOCAL_VERSION"
+
           if [ "$SYNC_MODE" = "true" ]; then
-            # Don't increment version, just use current version
-            CURRENT_VERSION=$(node -p "require('./package.json').version")
-            echo "new_version=v$CURRENT_VERSION" >> $GITHUB_OUTPUT
-            echo "Sync mode: Using current MCP version v$CURRENT_VERSION"
+            # Sync mode: use the latest npm version
+            echo "new_version=v$LATEST_NPM_VERSION" >> $GITHUB_OUTPUT
+            echo "Sync mode: Using latest npm version v$LATEST_NPM_VERSION"
           else
-            # Normal mode: increment version using determined VERSION_TYPE
+            # Normal mode: increment from the latest npm version, not local version
+            # First, update local package.json to match npm version
+            npm --no-git-tag-version version "$LATEST_NPM_VERSION" 2>/dev/null || true
+            echo "Updated local version to match npm: $LATEST_NPM_VERSION"
+            
+            # Then increment from there
             NEW_VERSION=$(npm --no-git-tag-version version $VERSION_TYPE)
             echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-            echo "Incremented MCP version to $NEW_VERSION"
+            echo "Incremented MCP version from $LATEST_NPM_VERSION to $NEW_VERSION"
           fi
 
       - name: Verify MCP package before publishing
