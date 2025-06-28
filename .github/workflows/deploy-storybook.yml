@@ -36,10 +36,6 @@ jobs:
 
       - name: Build Storybook
         run: npm run build-storybook:gh-pages
-        env:
-          NODE_ENV: production
-          STORYBOOK_BASE_URL: https://aki-ui.akitect.io
-          GITHUB_PAGES: true
 
       - name: Copy LLMs files
         run: |
