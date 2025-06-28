@@ -74,10 +74,6 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Install main project dependencies
-        if: steps.check_commit.outputs.skip != 'true'
-        run: npm ci
-
       - name: Install MCP server dependencies
         if: steps.check_commit.outputs.skip != 'true'
         run: |
@@ -119,6 +115,8 @@ jobs:
           npm pack --dry-run
           echo "Current npm user:"
           npm whoami
+          echo "Package name from package.json:"
+          cat package.json | grep '"name"' | head -1
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -126,6 +124,8 @@ jobs:
         if: steps.check_commit.outputs.skip != 'true'
         run: |
           cd mcp
+          echo "About to publish package:"
+          cat package.json | grep -E '"name"|"version"' | head -2
           npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
