@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Custom theme integration and example components
   - Comprehensive project structure with best practices
 
+### Changed
+
+- **Version Synchronization** - MCP server version now syncs with main @akitectio/aki-ui package
+- **Workflow Integration** - Automated version bumping in CI/CD pipeline
+
 ## [1.0.0] - 2024-12-19
 
 ### Initial Release

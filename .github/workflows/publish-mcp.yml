@@ -34,7 +34,10 @@ jobs:
         id: check_commit
         run: |
           if [[ "${{ github.event.head_commit.message }}" == *"chore: bump MCP server version"* ]]; then
-            echo "Skip workflow for version bump commits"
+            echo "Skip workflow for MCP version bump commits"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.event.head_commit.message }}" == *"(sync MCP)"* ]]; then
+            echo "Skip workflow for synced version commits"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
             echo "skip=false" >> $GITHUB_OUTPUT

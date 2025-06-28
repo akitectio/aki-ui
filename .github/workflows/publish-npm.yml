@@ -118,6 +118,16 @@ jobs:
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "Incremented version to $NEW_VERSION"
 
+      - name: Sync MCP server version
+        if: steps.check_commit.outputs.skip != 'true'
+        run: |
+          cd mcp
+          # Extract version number without 'v' prefix
+          MAIN_VERSION="${{ steps.version.outputs.new_version }}"
+          VERSION_NUMBER="${MAIN_VERSION#v}"
+          npm --no-git-tag-version version $VERSION_NUMBER
+          echo "Synced MCP version to $VERSION_NUMBER"
+
       - name: Prepare package for publishing
         if: steps.check_commit.outputs.skip != 'true'
         run: |
@@ -170,8 +180,8 @@ jobs:
       - name: Commit version bump and push
         if: steps.check_commit.outputs.skip != 'true'
         run: |
-          git add package.json package-lock.json
-          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }}"
+          git add package.json package-lock.json mcp/package.json
+          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP)"
           git tag "${{ steps.version.outputs.new_version }}"
           git push origin main
           git push origin "${{ steps.version.outputs.new_version }}"
