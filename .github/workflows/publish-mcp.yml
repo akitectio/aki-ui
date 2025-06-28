@@ -5,9 +5,8 @@ on:
     branches: [main]
     paths:
       - "mcp/**"
-    paths-ignore:
-      - "mcp/package.json"
-      - "mcp/package-lock.json"
+      - "!mcp/package.json"
+      - "!mcp/package-lock.json"
   release:
     types: [published]
   workflow_dispatch:
