@@ -47,6 +47,14 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Configure npm authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+          echo "always-auth=true" >> ~/.npmrc
 
       - name: Configure Git
         run: |
@@ -87,11 +95,22 @@ jobs:
       - name: Publish to npm
         id: npm_publish
         run: |
+          # Verify authentication first
+          echo "🔍 Verifying npm authentication..."
+          npm whoami
+          
           PKG_VERSION=$(node -p "require('./package.json').version")
           PKG_NAME=$(node -p "require('./package.json').name")
-          echo "� Publishing to npm"
+          echo "📦 Publishing to npm"
           echo "  Package: $PKG_NAME"
           echo "  Version: $PKG_VERSION"
+          
+          # Check if this version already exists
+          if npm view "$PKG_NAME@$PKG_VERSION" version >/dev/null 2>&1; then
+            echo "❌ Version $PKG_VERSION already exists on npm"
+            echo "Please increment the version and try again"
+            exit 1
+          fi
 
           # Check if package has scope (starts with @)
           if [[ $PKG_NAME == @* ]]; then
@@ -101,6 +120,8 @@ jobs:
             echo "Publishing public package"
             npm publish
           fi
+          
+          echo "✅ Successfully published $PKG_NAME@$PKG_VERSION"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
