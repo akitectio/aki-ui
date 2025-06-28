@@ -1,6 +1,6 @@
 {
     "name": "@akitectio/aki-ui-mcp-server",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "description": "Model Context Protocol server for Aki UI component library",
     "main": "dist/index.js",
     "bin": {
