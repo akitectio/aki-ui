@@ -73,7 +73,9 @@ jobs:
           echo "Node auth token length: ${#NODE_AUTH_TOKEN}"
           echo "Registry: $(npm config get registry)"
           echo "Auth token exists: $([[ -n "$NODE_AUTH_TOKEN" ]] && echo "yes" || echo "no")"
-          npm whoami
+          echo "Token prefix: ${NODE_AUTH_TOKEN:0:8}..."
+          echo "Testing npm authentication..."
+          npm whoami || echo "❌ NPM authentication failed - please check NPM_TOKEN secret"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
