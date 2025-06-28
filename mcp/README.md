@@ -17,6 +17,8 @@ Model Context Protocol server for Aki UI component library, providing AI assista
 
 - Generate React components using Aki UI
 - Support for forms, dashboards, cards, tables, layouts, and custom components
+- **Initialize complete projects** with Vite, Next.js, or Create React App
+- Project templates with TypeScript, routing, authentication, and more
 - Code validation and optimization suggestions
 - Performance and accessibility improvements
 
@@ -108,6 +110,7 @@ npm start
 
 ### Code Generation
 
+- `init_project` - Initialize complete React projects with Aki UI setup
 - `generate_component` - Generate React component code using Aki UI
 - `validate_code` - Validate component code for best practices
 - `optimize_component` - Optimize code for performance and accessibility
@@ -125,6 +128,13 @@ npm start
 - `apply_theme_vars` - Convert theme to CSS variables or Tailwind config
 
 ## Example Interactions
+
+### Initialize a New Project
+
+```text
+Human: Create a new Next.js admin dashboard project with Aki UI, TypeScript, authentication, and forms
+AI: Using init_project tool with projectType "next-js", features ["typescript", "auth", "forms", "router"]...
+```
 
 ### Search for Components
 

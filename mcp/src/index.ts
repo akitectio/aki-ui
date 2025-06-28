@@ -79,6 +79,8 @@ class AkiUIServer {
           case "list_all_components":
             return await this.componentDiscovery.listAllComponents();
 
+          case "init_project":
+            return await this.codeGeneration.initProject(args);
           case "generate_component":
             return await this.codeGeneration.generateComponent(args);
           case "validate_code":
