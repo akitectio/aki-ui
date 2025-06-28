@@ -75,7 +75,18 @@ jobs:
           echo "Auth token exists: $([[ -n "$NODE_AUTH_TOKEN" ]] && echo "yes" || echo "no")"
           echo "Token prefix: ${NODE_AUTH_TOKEN:0:8}..."
           echo "Testing npm authentication..."
-          npm whoami || echo "❌ NPM authentication failed - please check NPM_TOKEN secret"
+          if npm whoami; then
+            echo "✅ NPM authentication successful"
+            echo "Logged in as: $(npm whoami)"
+          else
+            echo "❌ NPM authentication failed"
+            echo "Please check:"
+            echo "1. NPM_TOKEN secret is valid and not expired"
+            echo "2. Token has 'Automation' type for CI/CD"
+            echo "3. Account has publish rights to @akitectio organization"
+            echo "4. Organization exists and account is member"
+            exit 1
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -121,8 +132,27 @@ jobs:
         run: |
           echo "Package contents:"
           npm pack --dry-run
-          echo "Current npm user:"
-          npm whoami
+          echo ""
+          echo "Checking npm authentication and package access..."
+          if npm whoami; then
+            NPM_USER=$(npm whoami)
+            echo "✅ Authenticated as: $NPM_USER"
+            
+            # Check if we can access the package
+            echo "Checking access to @akitectio/aki-ui..."
+            if npm access list packages @akitectio 2>/dev/null; then
+              echo "✅ Has access to @akitectio organization packages"
+            else
+              echo "⚠️  Cannot list @akitectio packages - checking individual package access..."
+            fi
+            
+            # Check package info
+            echo "Checking package info..."
+            npm view @akitectio/aki-ui --json || echo "Package may not exist yet (first publish)"
+          else
+            echo "❌ NPM authentication failed"
+            exit 1
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
