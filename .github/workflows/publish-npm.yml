@@ -23,6 +23,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: GITHUB_TOKEN
     permissions:
       contents: write
       id-token: write
