@@ -84,16 +84,25 @@ jobs:
           cp NPM_README.md README.md.original
           cp NPM_README.md README.md
 
-      # Tạm thời bỏ qua việc npm publish (đang gặp vấn đề xác thực)
-      - name: Skip npm publish and log version info
+      - name: Publish to npm
         id: npm_publish
         run: |
           PKG_VERSION=$(node -p "require('./package.json').version")
           PKG_NAME=$(node -p "require('./package.json').name")
-          echo "📝 Bỏ qua việc npm publish"
+          echo "� Publishing to npm"
           echo "  Package: $PKG_NAME"
           echo "  Version: $PKG_VERSION"
-          echo "  Lý do: Đang gặp vấn đề xác thực với npm"
+
+          # Check if package has scope (starts with @)
+          if [[ $PKG_NAME == @* ]]; then
+            echo "Publishing scoped package with public access"
+            npm publish --access public
+          else
+            echo "Publishing public package"
+            npm publish
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore original files for commit
         run: |
