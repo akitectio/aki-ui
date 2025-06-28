@@ -1,6 +1,11 @@
 name: Publish to npm
 
 on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "package.json"
+      - "package-lock.json"
   release:
     types: [published]
   workflow_dispatch:
@@ -22,7 +27,18 @@ jobs:
       contents: write
       id-token: write
     steps:
+      - name: Check commit message
+        id: check_commit
+        run: |
+          if [[ "${{ github.event.head_commit.message }}" == *"chore: bump version"* ]]; then
+            echo "Skip workflow for version bump commits"
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Checkout
+        if: steps.check_commit.outputs.skip != 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -30,33 +46,50 @@ jobs:
 
       # Setup .npmrc file to publish to npm
       - name: Setup Node.js
+        if: steps.check_commit.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
 
+      - name: Verify npm authentication
+        if: steps.check_commit.outputs.skip != 'true'
+        run: |
+          echo "Checking npm authentication..."
+          npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Install dependencies
+        if: steps.check_commit.outputs.skip != 'true'
         run: npm ci
 
       - name: Build package
+        if: steps.check_commit.outputs.skip != 'true'
         run: npm run build
 
       - name: Configure git
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.check_commit.outputs.skip != 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
       - name: Increment version
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.check_commit.outputs.skip != 'true'
         id: version
         run: |
-          VERSION_TYPE="${{ github.event.inputs.version_increment }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            VERSION_TYPE="${{ github.event.inputs.version_increment }}"
+          else
+            # Auto increment patch version for push events
+            VERSION_TYPE="patch"
+          fi
           NEW_VERSION=$(npm --no-git-tag-version version $VERSION_TYPE)
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "Incremented version to $NEW_VERSION"
 
       - name: Prepare package for publishing
+        if: steps.check_commit.outputs.skip != 'true'
         run: |
           # Backup original files
           cp README.md README.md.backup
@@ -64,17 +97,29 @@ jobs:
           # Use NPM README for publishing
           cp NPM_README.md README.md
 
+      - name: Verify package before publishing
+        if: steps.check_commit.outputs.skip != 'true'
+        run: |
+          echo "Package contents:"
+          npm pack --dry-run
+          echo "Current npm user:"
+          npm whoami
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish to npm
+        if: steps.check_commit.outputs.skip != 'true'
         run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore original README
+        if: steps.check_commit.outputs.skip != 'true'
         run: |
           mv README.md.backup README.md
 
       - name: Commit version bump and push
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.check_commit.outputs.skip != 'true'
         run: |
           git add package.json package-lock.json
           git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }}"
@@ -83,7 +128,7 @@ jobs:
           git push origin "${{ steps.version.outputs.new_version }}"
 
       - name: Create GitHub Release
-        if: github.event_name == 'workflow_dispatch'
+        if: steps.check_commit.outputs.skip != 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
