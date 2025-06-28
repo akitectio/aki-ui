@@ -5,6 +5,7 @@ import Card from '../lib/components/Card';
 
 export default {
     title: 'Documentation/Theming/Example',
+    tags: ['autodocs'],
 };
 
 // Display current theme values

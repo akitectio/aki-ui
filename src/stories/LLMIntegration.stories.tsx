@@ -7,11 +7,6 @@ const LLMIntegrationDemo = () => {
     const getBaseUrl = () => {
         if (typeof window === 'undefined') return '';
 
-        // Check for environment variables first
-        if (process.env.STORYBOOK_BASE_URL) {
-            return process.env.STORYBOOK_BASE_URL;
-        }
-
         // Check for GitHub Pages environment
         const isGitHubPages = window.location.hostname === 'akitectio.github.io';
         const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
@@ -81,8 +76,8 @@ const LLMIntegrationDemo = () => {
                     <h3 className="font-semibold text-blue-900 mb-2">🔍 Environment Debug</h3>
                     <div className="text-sm text-blue-800 space-y-1">
                         <p><strong>Hostname:</strong> {typeof window !== 'undefined' ? window.location.hostname : 'N/A'}</p>
-                        <p><strong>ENV Base URL:</strong> {process.env.STORYBOOK_BASE_URL || 'Not set'}</p>
-                        <p><strong>GitHub Pages:</strong> {process.env.GITHUB_PAGES || 'false'}</p>
+                        <p><strong>Is GitHub Pages:</strong> {typeof window !== 'undefined' && window.location.hostname === 'akitectio.github.io' ? 'true' : 'false'}</p>
+                        <p><strong>Is Localhost:</strong> {typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'true' : 'false'}</p>
                         <p><strong>Computed Base URL:</strong> {baseUrl}</p>
                         <p><strong>LLMs URL:</strong> {llmsUrl}</p>
                         <p><strong>Full URL:</strong> {llmsFullUrl}</p>
@@ -307,6 +302,7 @@ const LLMIntegrationDemo = () => {
 const meta: Meta = {
     title: 'Documentation/AI & LLM Integration',
     component: LLMIntegrationDemo,
+    tags: ['autodocs'],
     parameters: {
         layout: 'fullscreen',
         docs: {
