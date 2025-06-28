@@ -1,11 +1,11 @@
 # Aki UI - Complete Documentation
 
-> Aki UI is a modern React component library built with TypeScript and Tailwind CSS, featuring 37+ beautiful components with complete theming system, dark mode support, RTL support, and AI-friendly documentation. Created by Akitect.io for building beautiful websites faster.
+> Aki UI is a modern React component library built with TypeScript and Tailwind CSS, featuring 36+ beautiful components with complete theming system, dark mode support, RTL support, and AI-friendly documentation. Created by Akitect.io for building beautiful websites faster.
 
 ## Project Overview
 
 **Name:** @akitectio/aki-ui
-**Version:** 0.1.6
+**Version:** 0.1.14
 **License:** MIT
 **Technology Stack:** React 18, TypeScript, Tailwind CSS, Storybook
 **Repository:** https://github.com/akitectio/aki-ui

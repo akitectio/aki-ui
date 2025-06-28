@@ -1,69 +1,16 @@
-<div align="center">
-
 # Aki UI
 
-**Build beautiful websites faster with React components powered by Tailwind CSS**
+> Build beautiful websites faster with React components powered by Tailwind CSS
 
 [![npm version](https://badge.fury.io/js/@akitectio%2Faki-ui.svg)](https://badge.fury.io/js/@akitectio%2Faki-ui)
 [![npm downloads](https://img.shields.io/npm/dm/@akitectio/aki-ui.svg)](https://www.npmjs.com/package/@akitectio/aki-ui)
-[![License: MIT](htt#### LLM Training Resources
-
-Perfect for training AI models or feeding context to LLMs:
-
-- **📄 Component Docs** - Structured markdown with examples
-- **🔗 TypeScript Types** - Complete interface definitions
-- **💡 Usage Patterns** - Real-world implementation examples
-- **🎨 Design System** - Theme tokens and styling guidelines
-- **🎯 Best Practices** - Accessibility and performance tips
-
-#### MCP Server _(Available Now)_
-
-Real-time AI interaction server using Model Context Protocol:
-
-```bash
-# Install globally
-npm install -g @akitectio/aki-ui-mcp-server
-
-# Add to Claude Desktop config
-{
-  "mcpServers": {
-    "aki-ui": {
-      "command": "aki-ui-mcp",
-      "args": [],
-      "env": {}
-    }
-  }
-}
-```
-
-**Features:**
-
-- **🔍 Component Discovery** - Search and explore components in real-time
-- **🛠 Code Generation** - Generate React components using Aki UI
-- **📚 Dynamic Documentation** - Interactive documentation access
-- **🎨 Theme Management** - Custom theme generation and management
-- **✅ Code Validation** - Real-time code validation and optimization
-
-**Supported Clients:** Claude Desktop, ChatGPT Code Interpreter, and any MCP-compatible AI tool
-
-````bash
-# Use with AI tools:
-# 1. Direct link to AI assistant
-"Please review the documentation at https://akitectio.github.io/aki-ui/llms.txt"
-
-# 2. Copy content to AI prompt
-curl https://akitectio.github.io/aki-ui/llms.txt | pbcopy
-
-# 3. File upload to AI tools
-# Upload llms-full.txt to ChatGPT, Claude, etc.
-```shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![MCP Server](https://img.shields.io/npm/v/@akitectio/aki-ui-mcp-server.svg?label=MCP%20Server&color=blue)](https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 [![Storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://akitectio.github.io/aki-ui/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-[📖 Documentation](https://akitectio.github.io/aki-ui/) • [📦 NPM Package](https://www.npmjs.com/package/@akitectio/aki-ui) • [🐛 GitHub](https://github.com/akitectio/aki-ui)
-
-</div>
+**Links:** [📖 Documentation](https://akitectio.github.io/aki-ui/) • [📦 NPM Package](https://www.npmjs.com/package/@akitectio/aki-ui) • [🐛 GitHub](https://github.com/akitectio/aki-ui)
 
 ---
 
@@ -85,7 +32,7 @@ curl https://akitectio.github.io/aki-ui/llms.txt | pbcopy
 
 ```bash
 npm install @akitectio/aki-ui
-````
+```
 
 ### Basic Usage
 
@@ -116,11 +63,44 @@ function App() {
 }
 ```
 
+### MCP Server Installation
+
+For AI tools integration using Model Context Protocol:
+
+```bash
+# Install MCP server globally
+npm install -g @akitectio/aki-ui-mcp-server
+
+# Verify installation
+aki-ui-mcp --version
+```
+
+**Configure with Claude Desktop:**
+
+1. Open Claude Desktop settings
+1. Add to your MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "aki-ui": {
+      "command": "aki-ui-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}
+```
+
+1. Restart Claude Desktop to load the server
+
 ## 📋 Table of Contents
 
 - [Installation](#-installation)
+- [MCP Server](#mcp-server-installation)
 - [Components](#-components)
 - [Theming](#-theming)
+- [AI Integration](#-ai--llm-integration)
 - [Development](#-development)
 - [Contributing](#-contributing)
 - [License](#-license)
@@ -137,13 +117,13 @@ Make sure you have [React](https://reactjs.org/) and [Tailwind CSS](https://tail
 npm install @akitectio/aki-ui
 ```
 
-2. Import the CSS styles in your main file:
+1. Import the CSS styles in your main file:
 
 ```jsx
 import "@akitectio/aki-ui/css";
 ```
 
-3. Start using components:
+1. Start using components:
 
 ```jsx
 import { Button, Card } from "@akitectio/aki-ui";
@@ -276,7 +256,7 @@ npm run lint         # Lint code
 
 ### Project Structure
 
-```
+```text
 aki-ui/
 ├── src/
 │   ├── lib/                 # Component library source
@@ -431,9 +411,15 @@ Perfect for training AI models or feeding context to LLMs:
 
 Real-time AI interaction server using Model Context Protocol:
 
+**NPM Package:** [@akitectio/aki-ui-mcp-server](https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server)  
+**Binary:** `aki-ui-mcp`
+
 ```bash
 # Install globally
 npm install -g @akitectio/aki-ui-mcp-server
+
+# Verify installation
+aki-ui-mcp --version
 
 # Add to Claude Desktop config
 {
@@ -536,13 +522,11 @@ Join our growing community of developers building beautiful applications with Ak
 - **📚 [Documentation](https://akitectio.github.io/aki-ui/)** - Complete guides and API reference
 - **💭 [GitHub Discussions](https://github.com/akitectio/aki-ui/discussions)** - Ask questions and share ideas
 - **🐛 [GitHub Issues](https://github.com/akitectio/aki-ui/issues)** - Report bugs and request features
-- **📧 [Support Email](mailto:support@akitect.io)** - Direct support from our team
+- **📧 [Support Email](mailto:duy@akitect.io)** - Direct support from our team
 
 ### 🚀 Stay Updated
 
-- **📰 [Newsletter](https://akitect.io/newsletter)** - Get notified about new releases and features
-- **🐦 [Twitter](https://twitter.com/akitectio)** - Latest news and updates
-- **💼 [LinkedIn](https://linkedin.com/company/akitect)** - Professional updates and articles
+- **💼 [LinkedIn](https://www.linkedin.com/in/duydev)** - Professional updates and articles
 - **📺 [YouTube](https://youtube.com/@akitectio)** - Tutorials and design workshops
 
 ### 🏆 Showcase
@@ -551,7 +535,6 @@ Built something amazing with Aki UI? We'd love to feature your project!
 
 - **🌟 [Submit Your Project](https://github.com/akitectio/aki-ui/discussions/showcase)** - Share your creations
 - **📸 [Gallery](https://akitectio.github.io/aki-ui/showcase)** - Browse community projects
-- **🏅 [Featured Projects](https://akitect.io/showcase)** - Get featured on our main website
 
 ## 📝 License
 
@@ -559,10 +542,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-<div align="center">
+## 💝 Credits
 
 **Made with ❤️ by [Akitect.io](https://akitect.io)**
 
 [🌟 Star us on GitHub](https://github.com/akitectio/aki-ui)
-
-</div>

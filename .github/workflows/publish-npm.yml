@@ -118,6 +118,12 @@ jobs:
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "Incremented version to $NEW_VERSION"
 
+      - name: Update LLM documentation
+        if: steps.check_commit.outputs.skip != 'true'
+        run: |
+          npm run sync-all-docs
+          echo "Updated LLM documentation files with new version and component count"
+
       - name: Sync MCP server version
         if: steps.check_commit.outputs.skip != 'true'
         run: |
@@ -198,7 +204,7 @@ jobs:
       - name: Commit version bump and push
         if: steps.check_commit.outputs.skip != 'true'
         run: |
-          git add package.json package-lock.json mcp/package.json
+          git add package.json package-lock.json mcp/package.json public/llms.txt public/llms-full.txt
           git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP + trigger MCP publish)"
           git tag "${{ steps.version.outputs.new_version }}"
           git push origin main

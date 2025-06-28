@@ -1,15 +1,28 @@
-# Aki UI
+#!/usr/bin/env node
 
-> A modern React component library built with TypeScript and Tailwind CSS, featuring 36+ beautiful components with complete theming system, dark mode support, and AI-friendly documentation.
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Get __dirname equivalent in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Read package.json để lấy thông tin mới nhất
+const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json'), 'utf8'));
+
+// Template cho llms.txt (file ngắn)
+const llmsTemplate = `# Aki UI
+
+> A modern React component library built with TypeScript and Tailwind CSS, featuring 37+ beautiful components with complete theming system, dark mode support, and AI-friendly documentation.
 
 ## Key Information
 
 **Technology Stack:** React 18, TypeScript, Tailwind CSS, Storybook
-**Components:** 36+ pre-built UI components 
+**Components:** 37+ pre-built UI components 
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
-**Version:** 0.1.14
-**Last Updated:** June 28, 2025
+**Version:** ${packageJson.version}
 
 ## Documentation
 
@@ -27,14 +40,14 @@
 
 ## Installation & Usage
 
-```bash
+\`\`\`bash
 npm install @akitectio/aki-ui
-```
+\`\`\`
 
-```jsx
+\`\`\`jsx
 import { Button, Card, FormControl } from "@akitectio/aki-ui";
 import "@akitectio/aki-ui/css";
-```
+\`\`\`
 
 ## Theming System
 
@@ -59,9 +72,7 @@ import "@akitectio/aki-ui/css";
 - Theme customization assistance
 - Code analysis and optimization suggestions
 
-**Installation:** `npm install -g @akitectio/aki-ui-mcp-server`  
-**NPM Package:** [@akitectio/aki-ui-mcp-server](https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server)  
-**Version:** 0.1.14
+Installation: \`npm install -g @akitectio/aki-ui-mcp\`
 
 ## Development
 
@@ -79,5 +90,30 @@ import "@akitectio/aki-ui/css";
 
 **Created by:** Akitect.io
 **License:** MIT
-**Version:** 0.1.14
+**Version:** ${packageJson.version}
 **Homepage:** https://akitect.io
+`;
+
+// Đọc file llms-full.txt hiện tại và cập nhật version
+let llmsFullContent = fs.readFileSync(path.join(__dirname, '../public/llms-full.txt'), 'utf8');
+
+// Cập nhật version trong file llms-full.txt
+llmsFullContent = llmsFullContent.replace(
+    /\*\*Version:\*\* \d+\.\d+\.\d+/g,
+    `**Version:** ${packageJson.version}`
+);
+
+// Cập nhật thông tin trong Project Overview section
+llmsFullContent = llmsFullContent.replace(
+    /\*\*Name:\*\* @akitectio\/aki-ui\n\*\*Version:\*\* \d+\.\d+\.\d+/g,
+    `**Name:** @akitectio/aki-ui\n**Version:** ${packageJson.version}`
+);
+
+// Ghi file
+fs.writeFileSync(path.join(__dirname, '../public/llms.txt'), llmsTemplate);
+fs.writeFileSync(path.join(__dirname, '../public/llms-full.txt'), llmsFullContent);
+
+console.log(`✅ Updated LLM documentation files with version ${packageJson.version}`);
+console.log('📄 Files updated:');
+console.log('   - public/llms.txt');
+console.log('   - public/llms-full.txt');
