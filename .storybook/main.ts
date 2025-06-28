@@ -18,7 +18,18 @@ const config: StorybookConfig = {
   docs: {
     autodocs: "tag",
   },
-  staticDirs: ["../public"],
+  staticDirs: [
+    {
+      from: "../public",
+      to: "/",
+    },
+  ],
+  // Configure for GitHub Pages deployment
+  env: (config) => ({
+    ...config,
+    STORYBOOK_BASE_URL: process.env.STORYBOOK_BASE_URL || "",
+    GITHUB_PAGES: process.env.GITHUB_PAGES || "false",
+  }),
   async viteFinal(config) {
     // Configure esbuild to handle TypeScript and JSX
     config.esbuild = {

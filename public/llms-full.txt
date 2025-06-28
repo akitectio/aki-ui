@@ -1,0 +1,484 @@
+# Aki UI - Complete Documentation
+
+> Aki UI is a modern React component library built with TypeScript and Tailwind CSS, featuring 37+ beautiful components with complete theming system, dark mode support, RTL support, and AI-friendly documentation. Created by Akitect.io for building beautiful websites faster.
+
+## Project Overview
+
+**Name:** @akitectio/aki-ui
+**Version:** 0.1.6
+**License:** MIT
+**Technology Stack:** React 18, TypeScript, Tailwind CSS, Storybook
+**Repository:** https://github.com/akitectio/aki-ui
+**NPM Package:** https://www.npmjs.com/package/@akitectio/aki-ui
+**Documentation:** https://akitectio.github.io/aki-ui/
+**Creator:** Akitect.io (https://akitect.io)
+
+## Key Features
+
+- **37+ Beautiful Components** - Pre-built and customizable React components
+- **Complete Theming System** - Full theme customization with CSS variables and providers
+- **Dark Mode Support** - Built-in color mode switching with ColorModeProvider
+- **Full TypeScript Support** - Complete type definitions and IntelliSense
+- **Modern Stack** - Built with React 18 and Tailwind CSS
+- **Storybook Documentation** - 40+ interactive component stories
+- **RTL Support** - Right-to-left language support with DirectionProvider
+- **Responsive Design** - Mobile-first approach with Tailwind utilities
+- **Accessibility Focus** - ARIA attributes and keyboard navigation support
+
+## Installation
+
+```bash
+npm install @akitectio/aki-ui
+```
+
+## Basic Usage
+
+```jsx
+import { Button, Card, FormControl } from "@akitectio/aki-ui";
+import "@akitectio/aki-ui/css";
+
+function App() {
+  return (
+    <div className="p-6">
+      <Card className="max-w-md">
+        <Card.Header>
+          <h2 className="text-xl font-semibold">Welcome to Aki UI</h2>
+        </Card.Header>
+        <Card.Body className="space-y-4">
+          <FormControl
+            label="Email Address"
+            placeholder="Enter your email"
+            type="email"
+          />
+          <Button variant="primary" size="lg" className="w-full">
+            Get Started
+          </Button>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+}
+```
+
+## Component Library
+
+### Layout & Navigation Components
+
+**Grid** - Responsive grid system
+- Props: cols, gap, responsive variants
+- Usage: Layout organization, responsive design
+- Example: `<Grid cols={3} gap={4}>`
+
+**Stack** - Flexible layout stack
+- Props: direction, spacing, alignment
+- Usage: Vertical/horizontal layouts
+- Example: `<Stack direction="vertical" spacing={4}>`
+
+**Breadcrumb** - Navigation breadcrumbs
+- Props: items, separator, size
+- Usage: Page navigation, hierarchy display
+- Example: `<Breadcrumb items={[{label: 'Home', href: '/'}]}`
+
+**Pagination** - Page navigation
+- Props: currentPage, totalPages, onPageChange
+- Usage: Data pagination, navigation
+- Example: `<Pagination currentPage={1} totalPages={10}>`
+
+### Form Controls
+
+**Button** - Various button styles and states
+- Variants: primary, secondary, success, warning, error
+- Sizes: xs, sm, md, lg, xl
+- States: disabled, loading
+- Example: `<Button variant="primary" size="lg">Click Me</Button>`
+
+**Input** - Text input with validation
+- Types: text, email, password, number
+- Props: placeholder, disabled, error, validation
+- Example: `<Input type="email" placeholder="Enter email">`
+
+**Select** - Dropdown selection
+- Props: options, value, onChange, searchable
+- Usage: Option selection, form inputs
+- Example: `<Select options={[{value: '1', label: 'Option 1'}]}`
+
+**Checkbox** - Checkbox input
+- Props: checked, onChange, disabled, indeterminate
+- Usage: Boolean selections, form controls
+- Example: `<Checkbox checked={true} onChange={handleChange}>`
+
+**Radio** - Radio button input
+- Props: value, checked, onChange, name
+- Usage: Single selection from group
+- Example: `<Radio value="option1" checked={true}>`
+
+**Switch** - Toggle switch
+- Props: checked, onChange, disabled, size
+- Usage: On/off controls, feature toggles
+- Example: `<Switch checked={darkMode} onChange={toggleDarkMode}>`
+
+**Slider** - Range slider
+- Props: value, min, max, step, onChange
+- Usage: Numeric range selection
+- Example: `<Slider value={50} min={0} max={100}>`
+
+**FormControl** - Complete form control with label and validation
+- Props: label, error, helperText, required
+- Usage: Comprehensive form inputs
+- Example: `<FormControl label="Email" error="Invalid email">`
+
+### Data Display Components
+
+**Card** - Flexible content container
+- Sections: Header, Body, Footer, Image
+- Props: variant, size, hoverable
+- Example: `<Card><Card.Header>Title</Card.Header></Card>`
+
+**DataTable** - Advanced data table with sorting and filtering
+- Features: Sorting, filtering, pagination, selection
+- Props: data, columns, searchable, sortable
+- Usage: Data display, management interfaces
+
+**Badge** - Status and label badges
+- Variants: primary, secondary, success, warning, error
+- Sizes: sm, md, lg
+- Example: `<Badge variant="success">Active</Badge>`
+
+**Avatar** - User avatar component
+- Props: src, size, fallback, shape
+- Sizes: xs, sm, md, lg, xl
+- Example: `<Avatar src="/user.jpg" size="lg">`
+
+**Chip** - Compact elements for tags and filters
+- Props: label, onDelete, variant, size
+- Usage: Tags, filters, selections
+- Example: `<Chip label="Tag" onDelete={handleDelete}>`
+
+**Alert** - Alert messages
+- Variants: info, success, warning, error
+- Props: title, description, dismissible
+- Example: `<Alert variant="success" title="Success!">`
+
+### Feedback & Overlays
+
+**Modal** - Modal dialogs
+- Props: open, onClose, size, title
+- Usage: Dialogs, confirmations, forms
+- Example: `<Modal open={true} title="Confirm Action">`
+
+**Drawer** - Side panel drawer
+- Props: open, onClose, position, size
+- Positions: left, right, top, bottom
+- Example: `<Drawer open={true} position="right">`
+
+**Toast** - Toast notifications
+- Props: message, type, duration, position
+- Types: success, error, warning, info
+- Usage: Temporary notifications
+
+**Tooltip** - Contextual tooltips
+- Props: content, placement, trigger
+- Placements: top, bottom, left, right
+- Example: `<Tooltip content="Help text">`
+
+**Popover** - Rich popover content
+- Props: content, trigger, placement, open
+- Usage: Context menus, help content
+- Example: `<Popover content={<Menu />}>`
+
+**Spinner** - Loading indicators
+- Props: size, color, variant
+- Variants: circular, dots, bars
+- Example: `<Spinner size="lg">`
+
+**Skeleton** - Loading placeholders
+- Props: width, height, variant, animation
+- Usage: Loading states, content placeholders
+- Example: `<Skeleton width="100%" height="20px">`
+
+### Interactive Components
+
+**Dropdown** - Dropdown menus
+- Props: items, trigger, placement
+- Usage: Action menus, navigation
+- Example: `<Dropdown items={menuItems}>`
+
+**Tabs** - Tab navigation
+- Props: items, activeTab, onChange
+- Usage: Content organization, navigation
+- Example: `<Tabs items={[{label: 'Tab 1', content: 'Content'}]}`
+
+**Accordion** - Collapsible content
+- Props: items, allowMultiple, defaultOpen
+- Usage: FAQ sections, content organization
+- Example: `<Accordion items={accordionItems}>`
+
+**Chatbot** - AI chat interface
+- Props: messages, onSend, loading
+- Usage: AI assistants, customer support
+- Example: `<Chatbot messages={messages} onSend={handleSend}>`
+
+## Theming System
+
+### Theme Providers
+
+**ThemeProvider** - Main theme context provider
+```jsx
+<ThemeProvider theme={customTheme}>
+  <App />
+</ThemeProvider>
+```
+
+**ColorModeProvider** - Dark/light mode management
+```jsx
+<ColorModeProvider>
+  <App />
+</ColorModeProvider>
+```
+
+**DirectionProvider** - RTL/LTR direction support
+```jsx
+<DirectionProvider direction="rtl">
+  <App />
+</DirectionProvider>
+```
+
+**AkiUIProvider** - Complete provider wrapper
+```jsx
+<AkiUIProvider theme={theme} initialColorMode="dark" initialDirection="ltr">
+  <App />
+</AkiUIProvider>
+```
+
+### CSS Variables
+
+```css
+:root {
+  --aki-primary: #3b82f6;
+  --aki-secondary: #6b7280;
+  --aki-success: #10b981;
+  --aki-warning: #f59e0b;
+  --aki-error: #ef4444;
+  --aki-gray-50: #f9fafb;
+  --aki-gray-100: #f3f4f6;
+  --aki-gray-200: #e5e7eb;
+  --aki-gray-300: #d1d5db;
+  --aki-gray-400: #9ca3af;
+  --aki-gray-500: #6b7280;
+  --aki-gray-600: #4b5563;
+  --aki-gray-700: #374151;
+  --aki-gray-800: #1f2937;
+  --aki-gray-900: #111827;
+}
+```
+
+### Dark Mode Usage
+
+```jsx
+// Automatic dark mode detection
+<div className="dark">
+  <Button variant="primary">Dark Mode Button</Button>
+</div>
+
+// Using color mode hook
+const { colorMode, toggleColorMode } = useColorMode();
+```
+
+## AI Integration
+
+### Supported AI Tools
+
+- GitHub Copilot
+- Cursor IDE
+- Windsurf
+- Claude Dev
+- Codeium
+- Tabnine
+- ChatGPT Code Interpreter
+
+### AI Prompt Templates
+
+**Dashboard Creation:**
+"Create an admin dashboard using @akitectio/aki-ui with sidebar navigation, stats cards, data table, and charts. Include dark mode support."
+
+**Form Generation:**
+"Build a user registration form using Aki UI FormControl, validation, and proper accessibility attributes."
+
+**Landing Page:**
+"Design a modern landing page with Aki UI featuring hero section, feature cards, testimonials, and contact form."
+
+**E-commerce Interface:**
+"Create a product catalog page with Aki UI cards, filters, pagination, and shopping cart functionality."
+
+### TypeScript Definitions
+
+All components include complete TypeScript definitions for AI code completion:
+
+```typescript
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error';
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  disabled?: boolean;
+  loading?: boolean;
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+```
+
+## Development
+
+### Project Structure
+
+```
+aki-ui/
+├── src/
+│   ├── lib/                 # Component library source
+│   │   ├── components/      # UI components
+│   │   ├── theme/          # Theme system
+│   │   └── utils/          # Utility functions
+│   ├── stories/            # Storybook stories
+│   └── styles/             # Global styles
+├── .storybook/             # Storybook configuration
+└── public/                 # Public assets
+```
+
+### Available Scripts
+
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run storybook    # Start Storybook
+npm run test         # Run tests
+npm run lint         # Lint code
+```
+
+### Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes
+4. Write tests for your changes
+5. Run the test suite: `npm test`
+6. Submit a pull request
+
+## Examples
+
+### Complete Dashboard Example
+
+```jsx
+import { 
+  Card, DataTable, Button, Badge, Grid, Avatar, 
+  AkiUIProvider, useColorMode 
+} from "@akitectio/aki-ui";
+
+function Dashboard() {
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  return (
+    <AkiUIProvider>
+      <div className="p-6 space-y-6">
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Dashboard</h1>
+          <Button onClick={toggleColorMode}>
+            {colorMode === 'light' ? '🌙' : '☀️'}
+          </Button>
+        </div>
+
+        <Grid cols={1} mdCols={2} lgCols={4} gap={4}>
+          <Card>
+            <Card.Body className="flex items-center space-x-4">
+              <Avatar size="lg" src="/user-icon.png" />
+              <div>
+                <p className="text-2xl font-bold">2,547</p>
+                <p className="text-gray-600">Total Users</p>
+              </div>
+              <Badge variant="success">+12%</Badge>
+            </Card.Body>
+          </Card>
+          
+          <Card>
+            <Card.Body className="flex items-center space-x-4">
+              <Avatar size="lg" src="/revenue-icon.png" />
+              <div>
+                <p className="text-2xl font-bold">$42,531</p>
+                <p className="text-gray-600">Revenue</p>
+              </div>
+              <Badge variant="success">+8%</Badge>
+            </Card.Body>
+          </Card>
+        </Grid>
+
+        <Card>
+          <Card.Header>
+            <h3 className="text-lg font-semibold">User Management</h3>
+            <Button variant="primary" size="sm">Add User</Button>
+          </Card.Header>
+          <Card.Body>
+            <DataTable
+              data={userData}
+              columns={userColumns}
+              searchable
+              sortable
+              pagination
+            />
+          </Card.Body>
+        </Card>
+      </div>
+    </AkiUIProvider>
+  );
+}
+```
+
+### Form Example
+
+```jsx
+import { FormControl, Button, Card, Alert } from "@akitectio/aki-ui";
+
+function RegistrationForm() {
+  return (
+    <Card className="max-w-md mx-auto">
+      <Card.Header>
+        <h2 className="text-xl font-semibold">Create Account</h2>
+      </Card.Header>
+      <Card.Body className="space-y-4">
+        <Alert variant="info" title="Welcome!" 
+               description="Please fill out the form below." />
+        
+        <FormControl
+          label="Full Name"
+          placeholder="Enter your full name"
+          required
+        />
+        
+        <FormControl
+          label="Email Address"
+          placeholder="Enter your email"
+          type="email"
+          required
+        />
+        
+        <FormControl
+          label="Password"
+          placeholder="Create a password"
+          type="password"
+          required
+        />
+        
+        <Button variant="primary" className="w-full">
+          Create Account
+        </Button>
+      </Card.Body>
+    </Card>
+  );
+}
+```
+
+## Contact & Support
+
+- **GitHub:** https://github.com/akitectio/aki-ui
+- **NPM:** https://www.npmjs.com/package/@akitectio/aki-ui
+- **Documentation:** https://akitectio.github.io/aki-ui/
+- **Email:** support@akitect.io
+- **Website:** https://akitect.io
+- **Issues:** https://github.com/akitectio/aki-ui/issues
+- **Discussions:** https://github.com/akitectio/aki-ui/discussions

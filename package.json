@@ -58,8 +58,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006 --no-version-updates",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build --output-dir storybook-static",
     "build-storybook:gh-pages": "storybook build --output-dir storybook-static --docs",
+    "build-storybook:local": "npm run build-storybook && npm run copy-llms-files",
+    "copy-llms-files": "cp public/llms.txt storybook-static/ && cp public/llms-full.txt storybook-static/",
     "prepublishOnly": "npm run build:prod",
     "size-check": "npm run build && bundlesize",
     "install:legacy": "npm install --legacy-peer-deps"
