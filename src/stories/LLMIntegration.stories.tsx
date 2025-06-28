@@ -48,6 +48,7 @@ const LLMIntegrationDemo = () => {
         { name: 'Codeium', status: 'Supported', badge: 'success' },
         { name: 'Tabnine', status: 'Supported', badge: 'success' },
         { name: 'ChatGPT', status: 'Supported', badge: 'success' },
+        { name: 'MCP Server', status: 'Available Now', badge: 'success' },
     ];
 
     const promptTemplates = [
@@ -265,6 +266,33 @@ const LLMIntegrationDemo = () => {
                                 </code>
                             </div>
                         </Alert>
+
+                        <Alert variant="success">
+                            <div>
+                                <h4 className="font-semibold">🔌 MCP Server Integration ✅</h4>
+                                <p>Connect AI assistants directly to Aki UI components in real-time:</p>
+                                <code className="block mt-2 p-2 bg-gray-100 rounded text-sm">
+                                    "AI assistants can now query components, validate code, and generate optimized solutions dynamically"
+                                </code>
+
+                                <div className="mt-3 p-3 bg-green-50 rounded border-l-4 border-green-500">
+                                    <p className="text-sm text-green-800 font-medium">📦 Installation:</p>
+                                    <div className="mt-2 text-xs text-green-700">
+                                        <code>npm install -g @akitectio/aki-ui-mcp</code>
+                                    </div>
+                                </div>
+
+                                <div className="mt-3 p-3 bg-blue-50 rounded border-l-4 border-blue-500">
+                                    <p className="text-sm text-blue-800 font-medium">⚙️ Claude Desktop Setup:</p>
+                                    <div className="mt-2 text-xs text-blue-700 space-y-1">
+                                        <p>1. <code>npm run mcp:install</code> - Install MCP server dependencies</p>
+                                        <p>2. <code>npm run mcp:build</code> - Build the MCP server</p>
+                                        <p>3. Add to Claude Desktop config or other MCP clients</p>
+                                        <p>4. Enjoy real-time AI interactions with Aki UI!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </Alert>
                     </div>
                 </Card.Body>
             </Card>
@@ -297,6 +325,44 @@ const LLMIntegrationDemo = () => {
                             </ul>
                         </div>
                     </Grid>
+
+                    {/* New MCP Section */}
+                    <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
+                        <div className="flex items-center space-x-2 mb-3">
+                            <span className="text-xl">🔌</span>
+                            <h3 className="font-semibold text-blue-800">Model Context Protocol (MCP) Server</h3>
+                            <Badge variant="primary">In Development</Badge>
+                        </div>
+                        <p className="text-sm text-blue-700 mb-3">
+                            Interactive AI tool that provides real-time access to Aki UI components and documentation
+                        </p>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 className="font-medium text-blue-800 mb-2">🛠 Core Features:</h4>
+                                <ul className="text-xs text-blue-600 space-y-1">
+                                    <li>• Real-time component search</li>
+                                    <li>• Code generation & validation</li>
+                                    <li>• Theme customization tools</li>
+                                    <li>• Interactive documentation</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-medium text-blue-800 mb-2">🎯 Benefits:</h4>
+                                <ul className="text-xs text-blue-600 space-y-1">
+                                    <li>• Dynamic AI interactions</li>
+                                    <li>• Faster development workflow</li>
+                                    <li>• Intelligent code suggestions</li>
+                                    <li>• Enhanced AI assistant capabilities</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <Alert variant="success" className="mt-4">
+                            <div>
+                                <h4 className="font-semibold text-sm">✅ MCP Server Available Now</h4>
+                                <p className="text-xs">The Aki UI MCP Server is now available! AI assistants can directly interact with our component library, providing dynamic code generation and real-time documentation access. Install with: <code>npm install -g @akitectio/aki-ui-mcp</code></p>
+                            </div>
+                        </Alert>
+                    </div>
                 </Card.Body>
             </Card>
         </div>

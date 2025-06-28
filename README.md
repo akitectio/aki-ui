@@ -16,14 +16,35 @@ Perfect for training AI models or feeding context to LLMs:
 - **🎨 Design System** - Theme tokens and styling guidelines
 - **🎯 Best Practices** - Accessibility and performance tips
 
-#### LLMs.txt Files
+#### MCP Server _(Available Now)_
 
-We provide structured data files specifically for AI systems:
+Real-time AI interaction server using Model Context Protocol:
 
-- **📝 [llms.txt](https://akitectio.github.io/aki-ui/llms.txt)** - Streamlined overview for quick AI understanding
-- **📚 [llms-full.txt](https://akitectio.github.io/aki-ui/llms-full.txt)** - Complete documentation in single file
-- **🤖 AI-Optimized** - Markdown format optimized for LLM processing
-- **🔄 Auto-Updated** - Synchronized with latest component updates
+```bash
+# Install globally
+npm install -g @akitectio/aki-ui-mcp-server
+
+# Add to Claude Desktop config
+{
+  "mcpServers": {
+    "aki-ui": {
+      "command": "aki-ui-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}
+```
+
+**Features:**
+
+- **🔍 Component Discovery** - Search and explore components in real-time
+- **🛠 Code Generation** - Generate React components using Aki UI
+- **📚 Dynamic Documentation** - Interactive documentation access
+- **🎨 Theme Management** - Custom theme generation and management
+- **✅ Code Validation** - Real-time code validation and optimization
+
+**Supported Clients:** Claude Desktop, ChatGPT Code Interpreter, and any MCP-compatible AI tool
 
 ````bash
 # Use with AI tools:
@@ -405,6 +426,36 @@ Perfect for training AI models or feeding context to LLMs:
 - **💡 Usage Patterns** - Real-world implementation examples
 - **🎨 Design System** - Theme tokens and styling guidelines
 - **🎯 Best Practices** - Accessibility and performance tips
+
+#### MCP Server _(Available Now)_
+
+Real-time AI interaction server using Model Context Protocol:
+
+```bash
+# Install globally
+npm install -g @akitectio/aki-ui-mcp-server
+
+# Add to Claude Desktop config
+{
+  "mcpServers": {
+    "aki-ui": {
+      "command": "aki-ui-mcp",
+      "args": [],
+      "env": {}
+    }
+  }
+}
+```
+
+**Features:**
+
+- **🔍 Component Discovery** - Search and explore components in real-time
+- **🛠 Code Generation** - Generate React components using Aki UI
+- **📚 Dynamic Documentation** - Interactive documentation access
+- **🎨 Theme Management** - Custom theme generation and management
+- **✅ Code Validation** - Real-time code validation and optimization
+
+**Supported Clients:** Claude Desktop, ChatGPT Code Interpreter, and any MCP-compatible AI tool
 
 ### 🔮 **Future AI Features** _(Roadmap)_
 

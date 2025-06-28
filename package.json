@@ -64,7 +64,12 @@
     "copy-llms-files": "cp public/llms.txt storybook-static/ && cp public/llms-full.txt storybook-static/",
     "prepublishOnly": "npm run build:prod",
     "size-check": "npm run build && bundlesize",
-    "install:legacy": "npm install --legacy-peer-deps"
+    "install:legacy": "npm install --legacy-peer-deps",
+    "mcp:install": "cd mcp && npm install",
+    "mcp:build": "cd mcp && npm run build",
+    "mcp:dev": "cd mcp && npm run dev",
+    "mcp:start": "cd mcp && npm start",
+    "mcp:publish": "cd mcp && ./publish.sh"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

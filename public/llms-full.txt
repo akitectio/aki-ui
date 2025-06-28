@@ -296,6 +296,28 @@ const { colorMode, toggleColorMode } = useColorMode();
 - Tabnine
 - ChatGPT Code Interpreter
 
+### MCP Server (Model Context Protocol) - Coming Soon
+
+Aki UI will provide a dedicated MCP server for enhanced AI integration:
+
+**Core Capabilities:**
+- Real-time component discovery and search
+- Dynamic code generation with validation
+- Interactive documentation queries
+- Theme customization assistance  
+- Code analysis and optimization suggestions
+- Accessibility auditing tools
+
+**Usage Example:**
+```typescript
+// AI assistants can directly query for components
+const searchResults = await mcp.searchComponents("form");
+const generatedCode = await mcp.generateComponent("LoginForm", {
+  validation: true,
+  darkMode: true
+});
+```
+
 ### AI Prompt Templates
 
 **Dashboard Creation:**

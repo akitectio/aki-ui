@@ -1,0 +1,63 @@
+{
+    "name": "@akitectio/aki-ui-mcp-server",
+    "version": "1.0.0",
+    "description": "Model Context Protocol server for Aki UI component library",
+    "main": "dist/index.js",
+    "bin": {
+        "aki-ui-mcp": "dist/index.js"
+    },
+    "type": "module",
+    "scripts": {
+        "build": "tsc",
+        "dev": "tsx watch src/index.ts",
+        "start": "node dist/index.js",
+        "type-check": "tsc --noEmit",
+        "prepublishOnly": "npm run build",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "^0.5.0",
+        "zod": "^3.22.4"
+    },
+    "devDependencies": {
+        "@types/node": "^20.10.0",
+        "tsx": "^4.6.0",
+        "typescript": "^5.3.0"
+    },
+    "keywords": [
+        "mcp",
+        "model-context-protocol",
+        "aki-ui",
+        "ai",
+        "llm",
+        "components",
+        "react",
+        "typescript",
+        "claude",
+        "chatgpt",
+        "copilot"
+    ],
+    "author": {
+        "name": "Akitect.io",
+        "email": "duy@akitect.io",
+        "url": "https://akitect.io"
+    },
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/akitectio/aki-ui.git",
+        "directory": "mcp"
+    },
+    "homepage": "https://akitectio.github.io/aki-ui",
+    "bugs": {
+        "url": "https://github.com/akitectio/aki-ui/issues"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "files": [
+        "dist/**/*",
+        "README.md",
+        "LICENSE"
+    ]
+}

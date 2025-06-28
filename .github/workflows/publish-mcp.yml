@@ -1,12 +1,13 @@
-name: Publish to npm
+name: Publish MCP Server to npm
 
 on:
   push:
     branches: [main]
+    paths:
+      - "mcp/**"
     paths-ignore:
-      - "package.json"
-      - "package-lock.json"
-      - "mcp/**" # MCP has its own workflow
+      - "mcp/package.json"
+      - "mcp/package-lock.json"
   release:
     types: [published]
   workflow_dispatch:
@@ -22,7 +23,7 @@ on:
           - major
 
 jobs:
-  publish:
+  publish-mcp:
     runs-on: ubuntu-latest
     environment: GITHUB_TOKEN
     permissions:
@@ -32,7 +33,7 @@ jobs:
       - name: Check commit message
         id: check_commit
         run: |
-          if [[ "${{ github.event.head_commit.message }}" == *"chore: bump version"* ]]; then
+          if [[ "${{ github.event.head_commit.message }}" == *"chore: bump MCP server version"* ]]; then
             echo "Skip workflow for version bump commits"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
@@ -46,7 +47,6 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Setup .npmrc file to publish to npm
       - name: Setup Node.js
         if: steps.check_commit.outputs.skip != 'true'
         uses: actions/setup-node@v4
@@ -74,13 +74,21 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Install dependencies
+      - name: Install main project dependencies
         if: steps.check_commit.outputs.skip != 'true'
         run: npm ci
 
-      - name: Build package
+      - name: Install MCP server dependencies
         if: steps.check_commit.outputs.skip != 'true'
-        run: npm run build
+        run: |
+          cd mcp
+          npm ci
+
+      - name: Build MCP server
+        if: steps.check_commit.outputs.skip != 'true'
+        run: |
+          cd mcp
+          npm run build
 
       - name: Configure git
         if: steps.check_commit.outputs.skip != 'true'
@@ -88,10 +96,11 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-      - name: Increment version
+      - name: Increment MCP version
         if: steps.check_commit.outputs.skip != 'true'
-        id: version
+        id: mcp_version
         run: |
+          cd mcp
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             VERSION_TYPE="${{ github.event.inputs.version_increment }}"
           else
@@ -100,63 +109,72 @@ jobs:
           fi
           NEW_VERSION=$(npm --no-git-tag-version version $VERSION_TYPE)
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "Incremented version to $NEW_VERSION"
+          echo "Incremented MCP version to $NEW_VERSION"
 
-      - name: Prepare package for publishing
+      - name: Verify MCP package before publishing
         if: steps.check_commit.outputs.skip != 'true'
         run: |
-          # Backup original files
-          cp README.md README.md.backup
-
-          # Use NPM README for publishing
-          cp NPM_README.md README.md
-
-      - name: Verify package before publishing
-        if: steps.check_commit.outputs.skip != 'true'
-        run: |
-          echo "Package contents:"
+          cd mcp
+          echo "MCP package contents:"
           npm pack --dry-run
           echo "Current npm user:"
           npm whoami
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish to npm
+      - name: Publish MCP server to npm
         if: steps.check_commit.outputs.skip != 'true'
-        run: npm publish --provenance --access public
+        run: |
+          cd mcp
+          npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Restore original README
+      - name: Commit MCP version bump and push
         if: steps.check_commit.outputs.skip != 'true'
         run: |
-          mv README.md.backup README.md
-
-      - name: Commit version bump and push
-        if: steps.check_commit.outputs.skip != 'true'
-        run: |
-          git add package.json package-lock.json
-          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }}"
-          git tag "${{ steps.version.outputs.new_version }}"
+          git add mcp/package.json mcp/package-lock.json
+          git commit -m "chore: bump MCP server version to ${{ steps.mcp_version.outputs.new_version }}"
+          git tag "mcp-${{ steps.mcp_version.outputs.new_version }}"
           git push origin main
-          git push origin "${{ steps.version.outputs.new_version }}"
+          git push origin "mcp-${{ steps.mcp_version.outputs.new_version }}"
 
-      - name: Create GitHub Release
+      - name: Create GitHub Release for MCP
         if: steps.check_commit.outputs.skip != 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.version.outputs.new_version }}
-          release_name: Release ${{ steps.version.outputs.new_version }}
+          tag_name: mcp-${{ steps.mcp_version.outputs.new_version }}
+          release_name: MCP Server Release ${{ steps.mcp_version.outputs.new_version }}
           body: |
-            ## Changes
-            - Version bump to ${{ steps.version.outputs.new_version }}
-            - Published to npm: https://www.npmjs.com/package/@akitectio/aki-ui
+            ## Aki UI MCP Server ${{ steps.mcp_version.outputs.new_version }}
 
-            ## Installation
+            Model Context Protocol server for Aki UI component library integration with AI tools.
+
+            ### Installation
             ```bash
-            npm install @akitectio/aki-ui@${{ steps.version.outputs.new_version }}
+            npm install -g @akitectio/aki-ui-mcp@${{ steps.mcp_version.outputs.new_version }}
             ```
+
+            ### Configuration
+            Add to your MCP client configuration:
+            ```json
+            {
+              "mcpServers": {
+                "aki-ui": {
+                  "command": "aki-ui-mcp"
+                }
+              }
+            }
+            ```
+
+            ### Features
+            - Component discovery and documentation
+            - Code generation with Aki UI components
+            - Theme management and customization
+            - Real-time integration with AI development tools
+
+            See the [MCP README](https://github.com/akitectio/aki-ui/tree/main/mcp) for detailed usage instructions.
           draft: false
           prerelease: false
