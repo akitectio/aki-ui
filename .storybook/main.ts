@@ -33,10 +33,13 @@ const config: StorybookConfig = {
   async viteFinal(config) {
     // Don't set base path for custom domain (aki-ui.akitect.io)
     // Only set for standard GitHub Pages (akitectio.github.io/aki-ui)
-    if (process.env.GITHUB_PAGES === "true" && process.env.STORYBOOK_BASE_URL?.includes('github.io/aki-ui')) {
+    if (
+      process.env.GITHUB_PAGES === "true" &&
+      process.env.STORYBOOK_BASE_URL?.includes("github.io/aki-ui")
+    ) {
       config.base = "/aki-ui/";
     }
-    
+
     // Configure esbuild to handle TypeScript and JSX
     config.esbuild = {
       loader: "tsx",
