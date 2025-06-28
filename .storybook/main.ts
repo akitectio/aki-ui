@@ -31,6 +31,11 @@ const config: StorybookConfig = {
     GITHUB_PAGES: process.env.GITHUB_PAGES || "false",
   }),
   async viteFinal(config) {
+    // Set base path for GitHub Pages
+    if (process.env.GITHUB_PAGES === "true") {
+      config.base = "/aki-ui/";
+    }
+    
     // Configure esbuild to handle TypeScript and JSX
     config.esbuild = {
       loader: "tsx",

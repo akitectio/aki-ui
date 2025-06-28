@@ -8,11 +8,16 @@ const LLMIntegrationDemo = () => {
         if (typeof window === 'undefined') return '';
 
         // Check for GitHub Pages environment
-        const isGitHubPages = window.location.hostname === 'akitectio.github.io';
+        const isGitHubPages = window.location.hostname === 'akitectio.github.io' || window.location.hostname === 'aki-ui.akitect.io';
         const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
         if (isGitHubPages) {
-            return 'https://akitectio.github.io/aki-ui';
+            // Handle both GitHub Pages URL patterns
+            if (window.location.hostname === 'aki-ui.akitect.io') {
+                return 'https://aki-ui.akitect.io';
+            } else {
+                return 'https://akitectio.github.io/aki-ui';
+            }
         } else if (isLocalhost) {
             return window.location.origin;
         } else {
