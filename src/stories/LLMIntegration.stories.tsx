@@ -312,36 +312,21 @@ const meta: Meta = {
         docs: {
             description: {
                 component: `
-# AI & LLM Integration
+# AI & LLM Integration Overview
 
-Aki UI is designed to work seamlessly with AI tools and Large Language Models (LLMs). This integration helps developers generate beautiful UIs faster and more efficiently.
+This component demonstrates how Aki UI integrates with AI tools and provides resources for AI-assisted development.
 
-## Key Features
+## Documentation Resources
 
-- **LLMs.txt Files**: Structured documentation files optimized for AI consumption
-- **AI Tool Support**: Compatible with GitHub Copilot, Cursor, Windsurf, and more
-- **Prompt Templates**: Proven templates for generating UI with AI
-- **TypeScript Definitions**: Complete type definitions for AI code completion
+The component below showcases access to structured documentation files and provides examples of how to use Aki UI with various AI assistants for rapid UI development.
 
-## LLMs.txt Standard
+**Available Resources:**
+- Interactive llms.txt file viewer
+- Copy-to-clipboard functionality for AI prompts  
+- Debug information for different environments
+- Best practices for AI-assisted development
 
-We follow the [llms.txt standard](https://llmstxt.org/) to provide structured data for AI systems:
-
-- **llms.txt**: Quick overview for context windows
-- **llms-full.txt**: Complete documentation for comprehensive training
-
-## Usage with AI Tools
-
-1. **Provide Context**: Share our llms.txt URL with AI assistants
-2. **Use Templates**: Leverage our proven prompt templates
-3. **Iterate**: Refine generated code with Aki UI patterns
-
-## Benefits
-
-- **Faster Development**: Generate complex layouts instantly
-- **Better Accuracy**: AI understands Aki UI patterns and best practices
-- **Consistent Code**: Generated code follows Aki UI conventions
-- **Enhanced Productivity**: Spend less time on boilerplate, more on features
+Use the interactive demo below to explore how Aki UI works with AI tools.
         `,
             },
         },
