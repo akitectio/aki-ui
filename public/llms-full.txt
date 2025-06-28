@@ -5,7 +5,7 @@
 ## Project Overview
 
 **Name:** @akitectio/aki-ui
-**Version:** 0.1.15
+**Version:** 0.1.16
 **License:** MIT
 **Technology Stack:** React 18, TypeScript, Tailwind CSS, Storybook
 **Repository:** https://github.com/akitectio/aki-ui
