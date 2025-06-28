@@ -90,10 +90,9 @@ const LLMIntegrationDemo = () => {
                 </Card.Body>
             </Card>
 
-            {/* Header */}
+            {/* Introduction */}
             <div className="text-center space-y-4">
-                <h1 className="text-3xl font-bold">🤖 AI & LLM Integration</h1>
-                <p className="text-gray-600 max-w-2xl mx-auto">
+                <p className="text-gray-600 max-w-2xl mx-auto text-lg">
                     Aki UI is designed to work seamlessly with AI tools and LLMs. Generate beautiful UIs faster and more efficiently!
                 </p>
             </div>
