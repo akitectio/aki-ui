@@ -1,0 +1,46 @@
+name: Test NPM Authentication
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-npm-auth:
+    runs-on: ubuntu-latest
+    environment: npm-publishing
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Setup .npmrc
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Test NPM Authentication
+        run: |
+          echo "Testing NPM authentication..."
+          echo "Token length: ${#NODE_AUTH_TOKEN}"
+          echo "Token prefix: ${NODE_AUTH_TOKEN:0:8}..."
+
+          if npm whoami; then
+            NPM_USER=$(npm whoami)
+            echo "✅ Success! Logged in as: $NPM_USER"
+            
+            echo "Checking @akitectio organization access..."
+            npm access list packages @akitectio 2>/dev/null || echo "No org packages or no access"
+            
+            echo "Checking specific package..."
+            npm view @akitectio/aki-ui --json || echo "Package doesn't exist (OK for first publish)"
+            
+          else
+            echo "❌ Authentication failed"
+            echo "Please check NPM_TOKEN secret"
+            exit 1
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
