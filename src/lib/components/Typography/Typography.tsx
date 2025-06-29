@@ -84,7 +84,7 @@ interface TypographyProps {
    */
   children?: React.ReactNode;
   /**
-   * HTML attributes
+   * Any other HTML attributes
    */
   [key: string]: any;
 }
@@ -186,7 +186,10 @@ const getWeightClasses = (weight: TypographyWeight): string => {
 /**
  * Typography component
  */
-const Typography = ({
+const Typography = React.forwardRef<
+  HTMLElement,
+  TypographyProps
+>(({
   variant = 'body1',
   component,
   align = 'inherit',
@@ -202,7 +205,7 @@ const Typography = ({
   className = '',
   children,
   ...props
-}: TypographyProps) => {
+}, ref) => {
   const Component = component || getDefaultComponent(variant);
   
   const classes = [
@@ -224,12 +227,15 @@ const Typography = ({
   return React.createElement(
     Component,
     {
+      ref,
       className: classes,
       ...props
     },
     children
   );
-};
+});
+
+Typography.displayName = 'Typography';
 
 export type { TypographyProps };
 export { Typography };

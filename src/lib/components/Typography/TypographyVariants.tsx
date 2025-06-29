@@ -78,10 +78,10 @@ export const Link: React.FC<LinkProps> = ({
       variant={variant}
       color={color}
       className={`hover:underline cursor-pointer transition-colors ${className}`}
+      {...rest}
       href={href}
       target={target}
       rel={rel}
-      {...rest}
     >
       {children}
     </Typography>
