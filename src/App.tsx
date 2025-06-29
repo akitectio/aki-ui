@@ -1,32 +1,45 @@
 import { AkiUIProvider } from './lib/theme';
 import { Router, Route } from './components/Router';
-import HomePage from './pages/HomePage';
-import DocsPage from './pages/DocsPage';
+import ErrorBoundary from './components/ErrorBoundary';
+import NewHomePage from './pages/NewHomePage';
+import NewDocsPage from './pages/NewDocsPage';
+import ComponentsPage from './pages/ComponentsPage';
 import TemplatesPage from './pages/TemplatesPage';
 import PlaygroundPage from './pages/PlaygroundPage';
-import DemoPage from './pages/DemoPage';
 
 function App() {
     return (
-        <AkiUIProvider>
-            <Router initialRoute="/">
-                <Route path="/">
-                    <HomePage />
-                </Route>
-                <Route path="/docs">
-                    <DocsPage />
-                </Route>
-                <Route path="/templates">
-                    <TemplatesPage />
-                </Route>
-                <Route path="/playground">
-                    <PlaygroundPage />
-                </Route>
-                <Route path="/demo">
-                    <DemoPage />
-                </Route>
-            </Router>
-        </AkiUIProvider>
+        <ErrorBoundary>
+            <AkiUIProvider>
+                <Router initialRoute="/">
+                    <Route path="/">
+                        <ErrorBoundary>
+                            <NewHomePage />
+                        </ErrorBoundary>
+                    </Route>
+                    <Route path="/docs">
+                        <ErrorBoundary>
+                            <NewDocsPage />
+                        </ErrorBoundary>
+                    </Route>
+                    <Route path="/templates">
+                        <ErrorBoundary>
+                            <TemplatesPage />
+                        </ErrorBoundary>
+                    </Route>
+                    <Route path="/playground">
+                        <ErrorBoundary>
+                            <PlaygroundPage />
+                        </ErrorBoundary>
+                    </Route>
+                    <Route path="/components">
+                        <ErrorBoundary>
+                            <ComponentsPage />
+                        </ErrorBoundary>
+                    </Route>
+                </Router>
+            </AkiUIProvider>
+        </ErrorBoundary>
     );
 }
 

@@ -13,7 +13,9 @@ import {
     Grid,
     GridItem,
     HStack,
-    VStack
+    VStack,
+    Typography,
+    Navbar
 } from '../lib/components';
 import { useRouter } from '../components/Router';
 import { VERSION } from '../lib/version';
@@ -29,25 +31,222 @@ import {
     BellIcon,
     EyeIcon,
     PencilIcon,
-    TrashIcon
+    TrashIcon,
+    PlayIcon,
+    StarIcon,
+    LightBulbIcon,
+    RocketLaunchIcon,
+    BoltIcon,
+    SparklesIcon
 } from '@heroicons/react/24/outline';
+import { CheckIcon } from '@heroicons/react/20/solid';
 
 const HomePage: React.FC = () => {
     const { navigate } = useRouter();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="bg-white">
+            {/* Navigation */}
+            <Navbar variant="light" className="border-b border-gray-200">
+                <Navbar.Brand href="/">
+                    <CubeIcon className="h-8 w-8 text-indigo-600" />
+                    <span className="ml-2 text-xl font-bold text-gray-900">Aki UI</span>
+                </Navbar.Brand>
+                
+                <Navbar.Item href="/docs">Documentation</Navbar.Item>
+                <Navbar.Item href="/demo">Components</Navbar.Item>
+                <Navbar.Item href="/templates">Templates</Navbar.Item>
+                <Navbar.Item href="/playground">Playground</Navbar.Item>
+                
+                <div className="flex items-center space-x-4 ml-auto">
+                    <Button variant="ghost" size="sm" onClick={() => window.open('https://github.com/akitectio/aki-ui', '_blank')}>
+                        GitHub
+                    </Button>
+                    <Button variant="primary" size="sm" onClick={() => navigate('/docs')}>
+                        Get Started
+                    </Button>
+                </div>
+            </Navbar>
+
             {/* Hero Section */}
-            <div className="relative overflow-hidden">
-                <div className="max-w-7xl mx-auto">
-                    <div className="relative z-10 pb-8 bg-transparent sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-                        <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                            <div className="sm:text-center lg:text-left">
-                                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                                    <span className="block xl:inline">Aki UI</span>{' '}
-                                    <span className="block text-indigo-600 xl:inline">Component Library</span>
-                                </h1>
-                                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+            <div className="relative">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-4xl text-center">
+                        <div className="py-20 sm:py-24 lg:py-32">
+                            <Typography variant="h1" className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+                                Rapidly build modern{' '}
+                                <span className="text-indigo-600">websites</span>{' '}
+                                without ever leaving your HTML.
+                            </Typography>
+                            <Typography variant="body1" className="mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
+                                A utility-first React component library packed with beautiful components like{' '}
+                                <code className="text-sm font-semibold text-gray-900">Button</code>,{' '}
+                                <code className="text-sm font-semibold text-gray-900">Card</code>, and{' '}
+                                <code className="text-sm font-semibold text-gray-900">DataTable</code>{' '}
+                                that can be composed to build any design, directly in your markup.
+                            </Typography>
+                            
+                            <div className="mt-10 flex items-center justify-center gap-x-6">
+                                <Button 
+                                    variant="primary" 
+                                    size="lg" 
+                                    className="px-8 py-3"
+                                    onClick={() => navigate('/docs')}
+                                >
+                                    Get started
+                                </Button>
+                                <Button 
+                                    variant="ghost" 
+                                    size="lg" 
+                                    className="px-8 py-3"
+                                    onClick={() => navigate('/demo')}
+                                >
+                                    <PlayIcon className="h-5 w-5 mr-2" />
+                                    Live demo
+                                </Button>
+                            </div>
+
+                            <div className="mt-8 flex items-center justify-center space-x-6 text-sm">
+                                <div className="flex items-center text-gray-500">
+                                    <StarIcon className="h-4 w-4 text-yellow-400 mr-1" />
+                                    36+ Components
+                                </div>
+                                <div className="flex items-center text-gray-500">
+                                    <CheckIcon className="h-4 w-4 text-green-500 mr-1" />
+                                    TypeScript Ready
+                                </div>
+                                <div className="flex items-center text-gray-500">
+                                    <BoltIcon className="h-4 w-4 text-indigo-500 mr-1" />
+                                    Tailwind CSS
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Code Preview */}
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-5xl">
+                        <div className="rounded-2xl bg-gray-900 p-8 ring-1 ring-gray-900/10 shadow-2xl">
+                            <div className="flex items-center mb-6">
+                                <div className="flex space-x-2">
+                                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                                </div>
+                                <div className="flex-1 text-center">
+                                    <Typography variant="caption" className="text-gray-400">
+                                        App.tsx
+                                    </Typography>
+                                </div>
+                            </div>
+                            <pre className="text-sm text-gray-300 overflow-x-auto">
+                                <code>{`import { Button, Card, Badge, Grid } from '@akitectio/aki-ui';
+
+function App() {
+  return (
+    <Grid cols={{ base: 1, md: 2, lg: 3 }} gap={6}>
+      <Card className="p-6">
+        <Card.Header>
+          <h3 className="font-semibold">Project Alpha</h3>
+          <Badge variant="success">Active</Badge>
+        </Card.Header>
+        <Card.Body>
+          <p className="text-gray-600 mb-4">
+            A modern web application built with Aki UI components.
+          </p>
+          <Button variant="primary" size="sm">
+            View Details
+          </Button>
+        </Card.Body>
+      </Card>
+      {/* More cards... */}
+    </Grid>
+  );
+}`}</code>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Live Preview */}
+            <div className="py-24 sm:py-32">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-2xl text-center mb-16">
+                        <Typography variant="h2" className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                            See it in action
+                        </Typography>
+                        <Typography variant="body1" className="mt-4 text-lg text-gray-600">
+                            This is the actual result rendered in your browser.
+                        </Typography>
+                    </div>
+                    
+                    <div className="mx-auto max-w-6xl">
+                        <Grid cols={{ base: 1, md: 2, lg: 3 }} gap={6}>
+                            <Card className="p-6">
+                                <Card.Header className="flex items-center justify-between mb-4">
+                                    <Typography variant="h5" className="font-semibold">Project Alpha</Typography>
+                                    <Badge variant="success">Active</Badge>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Typography variant="body2" className="text-gray-600 mb-4">
+                                        A modern web application built with Aki UI components.
+                                    </Typography>
+                                    <Button variant="primary" size="sm">
+                                        View Details
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                            
+                            <Card className="p-6">
+                                <Card.Header className="flex items-center justify-between mb-4">
+                                    <Typography variant="h5" className="font-semibold">Project Beta</Typography>
+                                    <Badge variant="warning">In Progress</Badge>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Typography variant="body2" className="text-gray-600 mb-4">
+                                        E-commerce platform with advanced features and integrations.
+                                    </Typography>
+                                    <Button variant="outline-primary" size="sm">
+                                        View Details
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                            
+                            <Card className="p-6">
+                                <Card.Header className="flex items-center justify-between mb-4">
+                                    <Typography variant="h5" className="font-semibold">Project Gamma</Typography>
+                                    <Badge variant="secondary">Planning</Badge>
+                                </Card.Header>
+                                <Card.Body>
+                                    <Typography variant="body2" className="text-gray-600 mb-4">
+                                        Mobile application with cross-platform compatibility.
+                                    </Typography>
+                                    <Button variant="ghost" size="sm">
+                                        View Details
+                                    </Button>
+                                </Card.Body>
+                            </Card>
+                        </Grid>
+                    </div>
+                </div>
+            </div>
+
+            {/* Why Aki UI Section */}
+            <div className="bg-gray-50 py-24 sm:py-32">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-2xl text-center">
+                        <Typography variant="overline" className="text-indigo-600 font-semibold">
+                            Why Aki UI?
+                        </Typography>
+                        <Typography variant="h2" className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                            Built for the modern web.
+                        </Typography>
+                        <Typography variant="body1" className="mt-6 text-lg leading-8 text-gray-600">
+                            Aki UI is unapologetically modern, and takes advantage of all the latest and greatest React features to make the developer experience as enjoyable as possible.
+                        </Typography>
+                    </div>
                                     A modern React UI component library built with TypeScript and Tailwind CSS.
                                     Build beautiful, accessible, and responsive applications with ease.
                                 </p>
@@ -103,51 +302,44 @@ const HomePage: React.FC = () => {
                             <CubeIcon className="h-24 w-24 mx-auto mb-4 opacity-80" />
                             <div className="text-lg font-semibold">Beautiful Components</div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* Features Section */}
-            <div className="py-12 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="lg:text-center">
-                        <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Features</h2>
-                        <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                            Why Choose Aki UI?
-                        </p>
-                        <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                            Built with modern technologies and best practices for the best developer experience.
-                        </p>
-                    </div>
-
-                    <div className="mt-10">
-                        <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
-                            <Card className="p-6 text-center">
-                                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto">
-                                    <CodeBracketIcon className="h-6 w-6" />
+                    
+                    <div className="mt-20">
+                        <Grid cols={{ base: 1, md: 3 }} gap={8}>
+                            {/* TypeScript Support */}
+                            <div className="text-center">
+                                <div className="mx-auto h-16 w-16 rounded-xl bg-indigo-100 flex items-center justify-center">
+                                    <CodeBracketIcon className="h-8 w-8 text-indigo-600" />
                                 </div>
-                                <h3 className="mt-4 text-lg leading-6 font-medium text-gray-900">Built with TypeScript</h3>
-                                <p className="mt-2 text-base text-gray-500">
-                                    Full TypeScript support with comprehensive type definitions for better developer experience.
-                                </p>
-                            </Card>
+                                <Typography variant="h6" className="mt-6 font-semibold text-gray-900">
+                                    Built with TypeScript
+                                </Typography>
+                                <Typography variant="body2" className="mt-2 text-gray-600">
+                                    Full TypeScript support with comprehensive type definitions for better developer experience and IntelliSense.
+                                </Typography>
+                            </div>
 
-                            <Card className="p-6 text-center">
-                                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto">
-                                    <CubeIcon className="h-6 w-6" />
+                            {/* Component Library */}
+                            <div className="text-center">
+                                <div className="mx-auto h-16 w-16 rounded-xl bg-green-100 flex items-center justify-center">
+                                    <CubeIcon className="h-8 w-8 text-green-600" />
                                 </div>
-                                <h3 className="mt-4 text-lg leading-6 font-medium text-gray-900">Tailwind CSS</h3>
-                                <p className="mt-2 text-base text-gray-500">
-                                    Built on top of Tailwind CSS for utility-first styling and easy customization.
-                                </p>
-                            </Card>
+                                <Typography variant="h6" className="mt-6 font-semibold text-gray-900">
+                                    36+ Components
+                                </Typography>
+                                <Typography variant="body2" className="mt-2 text-gray-600">
+                                    Comprehensive component library with forms, navigation, data display, and interactive elements.
+                                </Typography>
+                            </div>
 
-                            <Card className="p-6 text-center">
-                                <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white mx-auto">
-                                    <ShieldCheckIcon className="h-6 w-6" />
+                            {/* Accessibility */}
+                            <div className="text-center">
+                                <div className="mx-auto h-16 w-16 rounded-xl bg-purple-100 flex items-center justify-center">
+                                    <ShieldCheckIcon className="h-8 w-8 text-purple-600" />
                                 </div>
-                                <h3 className="mt-4 text-lg leading-6 font-medium text-gray-900">Accessible by Default</h3>
-                                <p className="mt-2 text-base text-gray-500">
+                                <Typography variant="h6" className="mt-6 font-semibold text-gray-900">
+                                    Accessible by Default
+                                </Typography>
+                                <Typography variant="body2" className="mt-2 text-gray-600">
                                     All components are built with accessibility in mind, following WCAG guidelines.
                                 </p>
                             </Card>
