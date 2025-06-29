@@ -357,8 +357,4 @@ export {
   a11yTypography,
   responsiveTypography,
 } from "./Typography";
-export type {
-  TypographyProps,
-  HeadingProps,
-  LinkProps,
-} from "./Typography";
+export type { TypographyProps, HeadingProps, LinkProps } from "./Typography";
