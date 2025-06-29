@@ -34,7 +34,7 @@ interface TypographyProps {
   /**
    * HTML element to render
    */
-  component?: keyof JSX.IntrinsicElements;
+  component?: React.ElementType;
   /**
    * Text alignment
    */
@@ -82,7 +82,11 @@ interface TypographyProps {
   /**
    * Content to render
    */
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  /**
+   * HTML attributes
+   */
+  [key: string]: any;
 }
 
 /**
@@ -111,7 +115,7 @@ const getVariantClasses = (variant: TypographyVariant): string => {
 /**
  * Get default HTML component based on variant
  */
-const getDefaultComponent = (variant: TypographyVariant): keyof JSX.IntrinsicElements => {
+const getDefaultComponent = (variant: TypographyVariant): React.ElementType => {
   const componentMap = {
     h1: 'h1',
     h2: 'h2', 

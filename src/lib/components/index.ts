@@ -360,5 +360,5 @@ export {
 export type {
   TypographyProps,
   HeadingProps,
-  LinkTypographyProps,
+  LinkProps,
 } from "./Typography";
