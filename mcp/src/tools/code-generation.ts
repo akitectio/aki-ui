@@ -128,6 +128,9 @@ export class CodeGenerationTool {
       includeExamples = true,
     } = args;
 
+    const hasTypeScript =
+      features.includes("typescript") || projectType !== "react-app";
+
     const projectStructure = this.generateProjectStructure(
       projectType,
       projectName,
@@ -169,6 +172,17 @@ ${projectStructure.mainApp}
 ${projectStructure.themeConfig}
 \`\`\`
 
+### Path Aliases Configuration
+\`\`\`${
+            projectType === "next-js"
+              ? "javascript"
+              : hasTypeScript
+              ? "typescript"
+              : "javascript"
+          }
+${projectStructure.configWithAliases}
+\`\`\`
+
 ${
   includeExamples
     ? `
@@ -183,10 +197,21 @@ ${projectStructure.exampleComponents}
 ## Next Steps
 1. Run the installation commands above
 2. Copy the generated files to your project
-3. Start development: \`npm run dev\`
-4. Customize theme and components as needed
+3. Configure path aliases by copying the configuration above to your vite.config.ts/next.config.js/tsconfig.json
+4. Start development: \`npm run dev\`
+5. Use path aliases in your imports (e.g., \`import Button from '@akitectio/aki-ui'\` for Aki UI components, \`import MyComponent from '@/components/MyComponent'\` for your components)
+6. Customize theme and components as needed
 
-Your ${projectType} project with Aki UI is ready to go! 🚀`,
+## Path Aliases Available
+- \`@/*\` → \`./src/*\`
+- \`@/components/*\` → \`./src/components/*\`
+- \`@/pages/*\` → \`./src/pages/*\`
+- \`@/hooks/*\` → \`./src/hooks/*\`
+- \`@/utils/*\` → \`./src/utils/*\`
+- \`@/styles/*\` → \`./src/styles/*\`
+- \`@/types/*\` → \`./src/types/*\`
+
+Your ${projectType} project with Aki UI and path aliases is ready to go! 🚀`,
         },
       ],
     };
@@ -472,7 +497,6 @@ Your ${projectType} project with Aki UI is ready to go! 🚀`,
         </form>
       </Card.Body>
     </Card>
-  );
 }`;
   }
 
@@ -796,7 +820,6 @@ export default memo(YourComponent);`;
 │   └── favicon.ico
 ├── src/
 │   ├── components/
-│   │   ├── ui/          # Aki UI component wrappers
 │   │   ├── layout/      # Layout components
 │   │   └── common/      # Shared components
 │   ├── pages/           # Page components
@@ -850,6 +873,12 @@ export default memo(YourComponent);`;
     // Theme configuration
     const themeConfig = this.generateThemeConfig(theme, hasTypeScript);
 
+    // Vite/TypeScript config with aliases
+    const configWithAliases = this.generateConfigWithAliases(
+      projectType,
+      hasTypeScript
+    );
+
     // Example components
     const exampleComponents = includeExamples
       ? this.generateExampleComponents(features, hasTypeScript)
@@ -861,6 +890,7 @@ export default memo(YourComponent);`;
       packageJson,
       mainApp,
       themeConfig,
+      configWithAliases,
       exampleComponents,
     };
   }
@@ -1008,16 +1038,16 @@ export default memo(YourComponent);`;
         ? "import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';"
         : "",
       hasAuth ? "import { Auth0Provider } from '@auth0/auth0-react';" : "",
-      "import { ThemeProvider } from '@akitectio/aki-ui';",
+      "import { AkiUIProvider } from '@akitectio/aki-ui';",
       "",
-      "// Pages",
-      "import Home from './pages/Home';",
-      "import About from './pages/About';",
-      "import Dashboard from './pages/Dashboard';",
-      hasAuth ? "import Login from './pages/Login';" : "",
+      "// Pages (using path aliases)",
+      "import Home from '@/pages/Home';",
+      "import About from '@/pages/About';",
+      "import Dashboard from '@/pages/Dashboard';",
+      hasAuth ? "import Login from '@/pages/Login';" : "",
       "",
       "// Styles",
-      "import './styles/globals.css';",
+      "import '@/styles/globals.css';",
     ].filter(Boolean);
 
     const themeObject = this.getThemeObject(theme);
@@ -1045,7 +1075,7 @@ const customTheme = ${JSON.stringify(themeObject, null, 2)};
 
 function App() {
   return (
-    <ThemeProvider theme={customTheme}>
+    <AkiUIProvider theme={customTheme} initialColorMode="light">
       ${
         hasAuth
           ? `<Auth0Provider
@@ -1059,13 +1089,109 @@ function App() {
       }
         ${appContent}
       ${hasAuth ? "</Auth0Provider>" : ""}
-    </ThemeProvider>
+    </AkiUIProvider>
   );
 }
 
 export default App;`;
 
     return app;
+  }
+
+  private generateConfigWithAliases(
+    projectType: string,
+    hasTypeScript: boolean
+  ): string {
+    if (
+      projectType === "vite-react" ||
+      projectType === "dashboard" ||
+      projectType === "website" ||
+      projectType === "admin-panel" ||
+      projectType === "portfolio"
+    ) {
+      // Vite config with aliases
+      return `import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+      '@/components': path.resolve(__dirname, './src/components'),
+      '@/pages': path.resolve(__dirname, './src/pages'),
+      '@/hooks': path.resolve(__dirname, './src/hooks'),
+      '@/utils': path.resolve(__dirname, './src/utils'),
+      '@/styles': path.resolve(__dirname, './src/styles'),
+      '@/types': path.resolve(__dirname, './src/types'),
+    },
+  },
+})`;
+    } else if (projectType === "next-js") {
+      // Next.js config with aliases
+      return `/** @type {import('next').NextConfig} */
+const path = require('path')
+
+const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, './src'),
+      '@/components': path.resolve(__dirname, './src/components'),
+      '@/pages': path.resolve(__dirname, './src/pages'),
+      '@/hooks': path.resolve(__dirname, './src/hooks'),
+      '@/utils': path.resolve(__dirname, './src/utils'),
+      '@/styles': path.resolve(__dirname, './src/styles'),
+      '@/types': path.resolve(__dirname, './src/types'),
+    }
+    return config
+  },
+}
+
+module.exports = nextConfig`;
+    }
+
+    // TypeScript path mapping
+    if (hasTypeScript) {
+      return `{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/pages/*": ["./src/pages/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/utils/*": ["./src/utils/*"],
+      "@/styles/*": ["./src/styles/*"],
+      "@/types/*": ["./src/types/*"]
+    }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}`;
+    }
+
+    return "";
   }
 
   private generateThemeConfig(theme: string, hasTypeScript: boolean): string {

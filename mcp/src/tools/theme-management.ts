@@ -1,20 +1,143 @@
 import { Tool, CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 
+/**
+ * Aki UI Theme Management System
+ *
+ * Aki UI provides a comprehensive theming system with the following providers:
+ *
+ * 1. **AkiUIProvider** - Main provider (recommended)
+ *    Combines ThemeProvider, ColorModeProvider, and DirectionProvider
+ *
+ *    Usage:
+ *    ```tsx
+ *    import { AkiUIProvider } from '@akitectio/aki-ui';
+ *
+ *    const customTheme = {
+ *      colors: {
+ *        primary: 'emerald-600',
+ *        secondary: 'gray-600',
+ *      }
+ *    };
+ *
+ *    <AkiUIProvider
+ *      theme={customTheme}
+ *      initialColorMode="dark"
+ *      initialDirection="ltr"
+ *    >
+ *      <App />
+ *    </AkiUIProvider>
+ *    ```
+ *
+ * 2. **ThemeProvider** - Core theme provider
+ *    ```tsx
+ *    import { ThemeProvider } from '@akitectio/aki-ui';
+ *
+ *    <ThemeProvider theme={customTheme}>
+ *      <App />
+ *    </ThemeProvider>
+ *    ```
+ *
+ * 3. **ColorModeProvider** - Light/Dark mode management
+ *    ```tsx
+ *    import { ColorModeProvider } from '@akitectio/aki-ui';
+ *
+ *    <ColorModeProvider initialColorMode="dark">
+ *      <App />
+ *    </ColorModeProvider>
+ *    ```
+ *
+ * 4. **DirectionProvider** - RTL/LTR text direction
+ *    ```tsx
+ *    import { DirectionProvider } from '@akitectio/aki-ui';
+ *
+ *    <DirectionProvider initialDirection="rtl">
+ *      <App />
+ *    </DirectionProvider>
+ *    ```
+ *
+ * Available Hooks:
+ * - **useTheme()** - Access current theme configuration
+ * - **useColorMode()** - Manage light/dark mode
+ * - **useDirection()** - Manage text direction (LTR/RTL)
+ *
+ * Theme Structure follows TypeScript interface:
+ * ```typescript
+ * interface Theme {
+ *   colors: {
+ *     primary: string;
+ *     secondary: string;
+ *     accent: string;
+ *     success: string;
+ *     warning: string;
+ *     error: string;
+ *     info: string;
+ *   };
+ *   radius: { sm: string; md: string; lg: string; xl: string; "2xl": string; full: string; };
+ *   shadows: { sm: string; md: string; lg: string; xl: string; "2xl": string; none: string; };
+ *   fontSizes: { xs: string; sm: string; md: string; lg: string; xl: string; "2xl": string; "3xl": string; "4xl": string; };
+ *   spacing: { xs: string; sm: string; md: string; lg: string; xl: string; "2xl": string; "3xl": string; "4xl": string; };
+ *   transitions: { fast: string; normal: string; slow: string; };
+ *   fontFamily: { base: string; heading: string; mono: string; };
+ * }
+ * ```
+ */
+
 interface ThemeConfig {
   colors?: {
     primary?: string;
     secondary?: string;
+    accent?: string;
     success?: string;
     warning?: string;
     error?: string;
+    info?: string;
+  };
+  radius?: {
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
+    "2xl"?: string;
+    full?: string;
+  };
+  shadows?: {
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
+    "2xl"?: string;
+    none?: string;
+  };
+  fontSizes?: {
+    xs?: string;
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
+    "2xl"?: string;
+    "3xl"?: string;
+    "4xl"?: string;
+  };
+  spacing?: {
+    xs?: string;
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
+    "2xl"?: string;
+    "3xl"?: string;
+    "4xl"?: string;
+  };
+  transitions?: {
+    fast?: string;
+    normal?: string;
+    slow?: string;
   };
   fontFamily?: {
-    sans?: string[];
-    serif?: string[];
-    mono?: string[];
+    base?: string;
+    heading?: string;
+    mono?: string;
   };
-  spacing?: Record<string, string>;
-  borderRadius?: Record<string, string>;
 }
 
 export class ThemeManagementTool {
@@ -165,16 +288,39 @@ export class ThemeManagementTool {
   async getDefaultTheme(): Promise<ThemeConfig> {
     return {
       colors: {
-        primary: "#3b82f6",
-        secondary: "#64748b",
-        success: "#10b981",
-        warning: "#f59e0b",
-        error: "#ef4444",
+        primary: "blue-600",
+        secondary: "gray-500",
+        accent: "amber-500",
+        success: "green-500",
+        warning: "yellow-500",
+        error: "red-500",
+        info: "sky-500",
       },
-      fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        serif: ["Georgia", "serif"],
-        mono: ["Monaco", "Consolas", "monospace"],
+      radius: {
+        sm: "0.125rem",
+        md: "0.375rem",
+        lg: "0.5rem",
+        xl: "0.75rem",
+        "2xl": "1rem",
+        full: "9999px",
+      },
+      shadows: {
+        sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+        "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        none: "none",
+      },
+      fontSizes: {
+        xs: "0.75rem",
+        sm: "0.875rem",
+        md: "1rem",
+        lg: "1.125rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
       },
       spacing: {
         xs: "0.25rem",
@@ -183,14 +329,18 @@ export class ThemeManagementTool {
         lg: "1.5rem",
         xl: "2rem",
         "2xl": "3rem",
+        "3xl": "4rem",
+        "4xl": "5rem",
       },
-      borderRadius: {
-        none: "0",
-        sm: "0.25rem",
-        md: "0.375rem",
-        lg: "0.5rem",
-        xl: "0.75rem",
-        full: "9999px",
+      transitions: {
+        fast: "150ms ease-in-out",
+        normal: "200ms ease-in-out",
+        slow: "300ms ease-in-out",
+      },
+      fontFamily: {
+        base: "ui-sans-serif, system-ui, sans-serif",
+        heading: "ui-sans-serif, system-ui, sans-serif",
+        mono: "ui-monospace, SFMono-Regular, Consolas, monospace",
       },
     };
   }
@@ -200,18 +350,20 @@ export class ThemeManagementTool {
     primaryColor?: string,
     preferences: any = {}
   ): ThemeConfig {
-    const baseTheme = {
+    const baseTheme: ThemeConfig = {
       colors: {
         primary: primaryColor || this.getStyleDefaults(style).primary,
-        secondary: "#64748b",
-        success: "#10b981",
-        warning: "#f59e0b",
-        error: "#ef4444",
+        secondary: "gray-500",
+        accent: "amber-500",
+        success: "green-500",
+        warning: "yellow-500",
+        error: "red-500",
+        info: "sky-500",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        serif: ["Georgia", "serif"],
-        mono: ["Monaco", "Consolas", "monospace"],
+        base: "ui-sans-serif, system-ui, sans-serif",
+        heading: "ui-sans-serif, system-ui, sans-serif",
+        mono: "ui-monospace, SFMono-Regular, Consolas, monospace",
       },
       spacing: preferences.largeSpacing
         ? {
@@ -221,6 +373,8 @@ export class ThemeManagementTool {
             lg: "2rem",
             xl: "3rem",
             "2xl": "4rem",
+            "3xl": "5rem",
+            "4xl": "6rem",
           }
         : {
             xs: "0.25rem",
@@ -229,70 +383,94 @@ export class ThemeManagementTool {
             lg: "1.5rem",
             xl: "2rem",
             "2xl": "3rem",
+            "3xl": "4rem",
+            "4xl": "5rem",
           },
-      borderRadius: preferences.roundedCorners
+      radius: preferences.roundedCorners
         ? {
-            none: "0",
             sm: "0.5rem",
             md: "0.75rem",
             lg: "1rem",
             xl: "1.5rem",
+            "2xl": "2rem",
             full: "9999px",
           }
         : {
-            none: "0",
             sm: "0.125rem",
-            md: "0.25rem",
-            lg: "0.375rem",
-            xl: "0.5rem",
+            md: "0.375rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            "2xl": "1rem",
             full: "9999px",
           },
+      fontSizes: {
+        xs: "0.75rem",
+        sm: "0.875rem",
+        md: "1rem",
+        lg: "1.125rem",
+        xl: "1.25rem",
+        "2xl": "1.5rem",
+        "3xl": "1.875rem",
+        "4xl": "2.25rem",
+      },
+      shadows: {
+        sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+        md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+        "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        none: "none",
+      },
+      transitions: {
+        fast: "150ms ease-in-out",
+        normal: "200ms ease-in-out",
+        slow: "300ms ease-in-out",
+      },
     };
 
     // Apply style-specific modifications
     switch (style) {
       case "modern":
-        baseTheme.colors = {
-          ...baseTheme.colors,
-          primary: primaryColor || "#6366f1",
-          secondary: "#8b5cf6",
-        };
+        if (baseTheme.colors) {
+          baseTheme.colors.primary = primaryColor || "indigo-600";
+          baseTheme.colors.secondary = "purple-600";
+        }
         break;
 
       case "classic":
-        baseTheme.colors = {
-          ...baseTheme.colors,
-          primary: primaryColor || "#1f2937",
-          secondary: "#374151",
-        };
-        baseTheme.fontFamily.sans = ["Times New Roman", "serif"];
+        if (baseTheme.colors) {
+          baseTheme.colors.primary = primaryColor || "gray-800";
+          baseTheme.colors.secondary = "gray-600";
+        }
+        if (baseTheme.fontFamily) {
+          baseTheme.fontFamily.base = "Georgia, serif";
+          baseTheme.fontFamily.heading = "Georgia, serif";
+        }
         break;
 
       case "minimal":
-        baseTheme.colors = {
-          ...baseTheme.colors,
-          primary: primaryColor || "#000000",
-          secondary: "#6b7280",
-        };
+        if (baseTheme.colors) {
+          baseTheme.colors.primary = primaryColor || "slate-900";
+          baseTheme.colors.secondary = "slate-600";
+        }
         break;
 
       case "colorful":
-        baseTheme.colors = {
-          ...baseTheme.colors,
-          primary: primaryColor || "#ec4899",
-          secondary: "#8b5cf6",
-          success: "#06d6a0",
-          warning: "#ffd60a",
-          error: "#f72585",
-        };
+        if (baseTheme.colors) {
+          baseTheme.colors.primary = primaryColor || "pink-500";
+          baseTheme.colors.secondary = "purple-600";
+          baseTheme.colors.accent = "orange-500";
+          baseTheme.colors.success = "emerald-500";
+          baseTheme.colors.warning = "amber-500";
+          baseTheme.colors.error = "rose-500";
+        }
         break;
 
       case "dark":
-        baseTheme.colors = {
-          ...baseTheme.colors,
-          primary: primaryColor || "#60a5fa",
-          secondary: "#94a3b8",
-        };
+        if (baseTheme.colors) {
+          baseTheme.colors.primary = primaryColor || "blue-400";
+          baseTheme.colors.secondary = "slate-400";
+        }
         break;
     }
 
@@ -301,12 +479,12 @@ export class ThemeManagementTool {
 
   private getStyleDefaults(style: string): { primary: string } {
     const defaults = {
-      modern: { primary: "#6366f1" },
-      classic: { primary: "#1f2937" },
-      minimal: { primary: "#000000" },
-      colorful: { primary: "#ec4899" },
-      dark: { primary: "#60a5fa" },
-      custom: { primary: "#3b82f6" },
+      modern: { primary: "indigo-600" },
+      classic: { primary: "gray-800" },
+      minimal: { primary: "slate-900" },
+      colorful: { primary: "pink-500" },
+      dark: { primary: "blue-400" },
+      custom: { primary: "blue-600" },
     };
 
     return defaults[style as keyof typeof defaults] || defaults.custom;
@@ -329,21 +507,38 @@ export class ThemeManagementTool {
       });
     }
 
-    // Border radius
-    if (config.borderRadius) {
-      Object.entries(config.borderRadius).forEach(([key, value]) => {
+    // Radius
+    if (config.radius) {
+      Object.entries(config.radius).forEach(([key, value]) => {
         variables.push(`  --aki-radius-${key}: ${value};`);
+      });
+    }
+
+    // Font sizes
+    if (config.fontSizes) {
+      Object.entries(config.fontSizes).forEach(([key, value]) => {
+        variables.push(`  --aki-fontSize-${key}: ${value};`);
+      });
+    }
+
+    // Shadows
+    if (config.shadows) {
+      Object.entries(config.shadows).forEach(([key, value]) => {
+        variables.push(`  --aki-shadow-${key}: ${value};`);
+      });
+    }
+
+    // Transitions
+    if (config.transitions) {
+      Object.entries(config.transitions).forEach(([key, value]) => {
+        variables.push(`  --aki-transition-${key}: ${value};`);
       });
     }
 
     // Font families
     if (config.fontFamily) {
       Object.entries(config.fontFamily).forEach(([key, value]) => {
-        variables.push(
-          `  --aki-font-${key}: ${
-            Array.isArray(value) ? value.join(", ") : value
-          };`
-        );
+        variables.push(`  --aki-font-${key}: ${value};`);
       });
     }
 
@@ -359,7 +554,10 @@ export class ThemeManagementTool {
           colors: config.colors,
           fontFamily: config.fontFamily,
           spacing: config.spacing,
-          borderRadius: config.borderRadius,
+          borderRadius: config.radius,
+          fontSize: config.fontSizes,
+          boxShadow: config.shadows,
+          transitionDuration: config.transitions,
         },
       },
     };
