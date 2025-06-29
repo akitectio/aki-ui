@@ -1,6 +1,34 @@
 import React from 'react';
-import { Button, Card, Badge } from '../lib/components';
-import { ArrowRightIcon, CodeBracketIcon, CubeIcon, ShieldCheckIcon } from '@heroicons/react/24/outline';
+import {
+    Button,
+    Card,
+    Badge,
+    Avatar,
+    DataTable,
+    Input,
+    Select,
+    Switch,
+    Alert,
+    Breadcrumb,
+    Grid,
+    GridItem,
+    HStack,
+    VStack
+} from '../lib/components';
+import {
+    ArrowRightIcon,
+    CodeBracketIcon,
+    CubeIcon,
+    ShieldCheckIcon,
+    ChartBarIcon,
+    UserGroupIcon,
+    DocumentTextIcon,
+    CogIcon,
+    BellIcon,
+    EyeIcon,
+    PencilIcon,
+    TrashIcon
+} from '@heroicons/react/24/outline';
 
 const HomePage: React.FC = () => {
     return (
@@ -109,6 +137,360 @@ const HomePage: React.FC = () => {
                                     All components are built with accessibility in mind, following WCAG guidelines.
                                 </p>
                             </Card>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Admin Template Showcase Section */}
+            <div className="bg-gray-900 py-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="lg:text-center mb-12">
+                        <h2 className="text-base text-indigo-400 font-semibold tracking-wide uppercase">Showcase</h2>
+                        <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-4xl">
+                            Admin Template Built with Aki UI
+                        </p>
+                        <p className="mt-4 max-w-2xl text-xl text-gray-300 lg:mx-auto">
+                            See how easy it is to build a complete admin dashboard using our component library.
+                        </p>
+                    </div>
+
+                    {/* Mini Admin Dashboard Preview */}
+                    <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
+                        {/* Dashboard Header */}
+                        <div className="bg-indigo-600 px-6 py-4">
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-4">
+                                    <div className="text-white font-bold text-lg">AdminPro Dashboard</div>
+                                    <Breadcrumb className="text-indigo-200">
+                                        <span className="text-indigo-200 hover:text-white cursor-pointer">Home</span>
+                                        <span className="text-white">Dashboard</span>
+                                    </Breadcrumb>
+                                </div>
+                                <div className="flex items-center space-x-3">
+                                    <Button variant="outline-light" size="sm" className="text-white hover:bg-indigo-700">
+                                        <BellIcon className="h-5 w-5" />
+                                    </Button>
+                                    <Avatar
+                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                        alt="Admin User"
+                                        size="sm"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Dashboard Content */}
+                        <div className="p-6">
+                            {/* Stats Cards */}
+                            <Grid cols={{ base: 1, sm: 2, lg: 4 }} gap={6} className="mb-8">
+                                <GridItem>
+                                    <Card className="p-6">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <UserGroupIcon className="h-8 w-8 text-indigo-600" />
+                                            </div>
+                                            <div className="ml-5 w-0 flex-1">
+                                                <dl>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Total Users</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">71,897</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </GridItem>
+                                <GridItem>
+                                    <Card className="p-6">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <ChartBarIcon className="h-8 w-8 text-green-600" />
+                                            </div>
+                                            <div className="ml-5 w-0 flex-1">
+                                                <dl>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Revenue</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">$58,445</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </GridItem>
+                                <GridItem>
+                                    <Card className="p-6">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <DocumentTextIcon className="h-8 w-8 text-yellow-600" />
+                                            </div>
+                                            <div className="ml-5 w-0 flex-1">
+                                                <dl>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Orders</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">12,234</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </GridItem>
+                                <GridItem>
+                                    <Card className="p-6">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <CogIcon className="h-8 w-8 text-red-600" />
+                                            </div>
+                                            <div className="ml-5 w-0 flex-1">
+                                                <dl>
+                                                    <dt className="text-sm font-medium text-gray-500 truncate">Support Tickets</dt>
+                                                    <dd className="text-lg font-medium text-gray-900">142</dd>
+                                                </dl>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </GridItem>
+                            </Grid>
+
+                            {/* Dashboard Content Grid */}
+                            <Grid cols={{ base: 1, lg: 3 }} gap={6}>
+                                {/* Recent Users Table */}
+                                <GridItem colSpan={{ base: 1, lg: 2 }}>
+                                    <Card className="p-6">
+                                        <div className="flex items-center justify-between mb-4">
+                                            <h3 className="text-lg font-medium text-gray-900">Recent Users</h3>
+                                            <div className="flex items-center space-x-2">
+                                                <Input
+                                                    placeholder="Search users..."
+                                                    size="sm"
+                                                    className="w-48"
+                                                />
+                                                <Select
+                                                    placeholder="Filter by role"
+                                                    size="sm"
+                                                    className="w-32"
+                                                    options={[
+                                                        { value: 'admin', label: 'Admin' },
+                                                        { value: 'user', label: 'User' },
+                                                        { value: 'moderator', label: 'Moderator' }
+                                                    ]}
+                                                />
+                                            </div>
+                                        </div>
+                                        <DataTable
+                                            data={[
+                                                {
+                                                    id: 1,
+                                                    name: 'John Doe',
+                                                    email: 'john@example.com',
+                                                    role: 'Admin',
+                                                    status: 'Active',
+                                                    lastLogin: '2 hours ago'
+                                                },
+                                                {
+                                                    id: 2,
+                                                    name: 'Jane Smith',
+                                                    email: 'jane@example.com',
+                                                    role: 'User',
+                                                    status: 'Active',
+                                                    lastLogin: '1 day ago'
+                                                },
+                                                {
+                                                    id: 3,
+                                                    name: 'Mike Johnson',
+                                                    email: 'mike@example.com',
+                                                    role: 'Moderator',
+                                                    status: 'Inactive',
+                                                    lastLogin: '3 days ago'
+                                                },
+                                                {
+                                                    id: 4,
+                                                    name: 'Sarah Wilson',
+                                                    email: 'sarah@example.com',
+                                                    role: 'User',
+                                                    status: 'Active',
+                                                    lastLogin: '5 minutes ago'
+                                                }
+                                            ]}
+                                            columns={[
+                                                {
+                                                    header: 'Name',
+                                                    accessor: 'name',
+                                                    cell: (value: any, row: any) => (
+                                                        <div className="flex items-center">
+                                                            <Avatar
+                                                                fallback={value}
+                                                                size="sm"
+                                                                className="mr-3"
+                                                            />
+                                                            <div>
+                                                                <div className="text-sm font-medium text-gray-900">{value}</div>
+                                                                <div className="text-sm text-gray-500">{row.email}</div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                },
+                                                {
+                                                    header: 'Role',
+                                                    accessor: 'role',
+                                                    cell: (value: any) => (
+                                                        <Badge
+                                                            variant={value === 'Admin' ? 'primary' : value === 'Moderator' ? 'warning' : 'secondary'}
+                                                        >
+                                                            {value}
+                                                        </Badge>
+                                                    )
+                                                },
+                                                {
+                                                    header: 'Status',
+                                                    accessor: 'status',
+                                                    cell: (value: any) => (
+                                                        <Badge
+                                                            variant={value === 'Active' ? 'success' : 'danger'}
+                                                        >
+                                                            {value}
+                                                        </Badge>
+                                                    )
+                                                },
+                                                {
+                                                    header: 'Last Login',
+                                                    accessor: 'lastLogin'
+                                                },
+                                                {
+                                                    header: 'Actions',
+                                                    accessor: 'actions',
+                                                    cell: () => (
+                                                        <HStack spacing={2}>
+                                                            <Button variant="outline-info" size="sm">
+                                                                <EyeIcon className="h-4 w-4" />
+                                                            </Button>
+                                                            <Button variant="outline-warning" size="sm">
+                                                                <PencilIcon className="h-4 w-4" />
+                                                            </Button>
+                                                            <Button variant="outline-danger" size="sm">
+                                                                <TrashIcon className="h-4 w-4" />
+                                                            </Button>
+                                                        </HStack>
+                                                    )
+                                                }
+                                            ]}
+                                        />
+                                    </Card>
+                                </GridItem>
+
+                                {/* Settings Panel */}
+                                <GridItem>
+                                    <VStack spacing={6}>
+                                        {/* Quick Actions */}
+                                        <Card className="p-6 w-full">
+                                            <h3 className="text-lg font-medium text-gray-900 mb-4">Quick Actions</h3>
+                                            <VStack spacing={3}>
+                                                <Button variant="primary" className="w-full">
+                                                    Create New User
+                                                </Button>
+                                                <Button variant="outline-primary" className="w-full">
+                                                    Export Data
+                                                </Button>
+                                                <Button variant="outline-secondary" className="w-full">
+                                                    System Backup
+                                                </Button>
+                                            </VStack>
+                                        </Card>
+
+                                        {/* System Settings */}
+                                        <Card className="p-6 w-full">
+                                            <h3 className="text-lg font-medium text-gray-900 mb-4">System Settings</h3>
+                                            <VStack spacing={4}>
+                                                <div className="flex items-center justify-between w-full">
+                                                    <span className="text-sm text-gray-700">Email Notifications</span>
+                                                    <Switch defaultChecked />
+                                                </div>
+                                                <div className="flex items-center justify-between w-full">
+                                                    <span className="text-sm text-gray-700">Auto Backup</span>
+                                                    <Switch defaultChecked />
+                                                </div>
+                                                <div className="flex items-center justify-between w-full">
+                                                    <span className="text-sm text-gray-700">Maintenance Mode</span>
+                                                    <Switch />
+                                                </div>
+                                                <div className="flex items-center justify-between w-full">
+                                                    <span className="text-sm text-gray-700">Debug Mode</span>
+                                                    <Switch />
+                                                </div>
+                                            </VStack>
+                                        </Card>
+
+                                        {/* System Status */}
+                                        <Card className="p-6 w-full">
+                                            <h3 className="text-lg font-medium text-gray-900 mb-4">System Status</h3>
+                                            <VStack spacing={3}>
+                                                <Alert variant="success" className="text-sm">
+                                                    All systems operational
+                                                </Alert>
+                                                <div className="w-full">
+                                                    <div className="flex justify-between text-sm text-gray-600 mb-1">
+                                                        <span>Server Load</span>
+                                                        <span>23%</span>
+                                                    </div>
+                                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                                        <div className="bg-green-600 h-2 rounded-full" style={{ width: '23%' }}></div>
+                                                    </div>
+                                                </div>
+                                                <div className="w-full">
+                                                    <div className="flex justify-between text-sm text-gray-600 mb-1">
+                                                        <span>Memory Usage</span>
+                                                        <span>67%</span>
+                                                    </div>
+                                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                                        <div className="bg-yellow-500 h-2 rounded-full" style={{ width: '67%' }}></div>
+                                                    </div>
+                                                </div>
+                                            </VStack>
+                                        </Card>
+                                    </VStack>
+                                </GridItem>
+                            </Grid>
+                        </div>
+                    </div>
+
+                    {/* Features Used */}
+                    <div className="mt-12">
+                        <h3 className="text-xl font-semibold text-white text-center mb-8">
+                            Components Used in This Admin Template
+                        </h3>
+                        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                            {[
+                                'Card', 'DataTable', 'Button', 'Input', 'Select', 'Avatar',
+                                'Badge', 'Alert', 'Switch', 'Grid', 'Stack', 'Breadcrumb'
+                            ].map((component) => (
+                                <div key={component} className="bg-gray-800 rounded-lg p-3 text-center">
+                                    <span className="text-indigo-300 text-sm font-medium">{component}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* CTA */}
+                    <div className="mt-12 text-center">
+                        <h3 className="text-2xl font-bold text-white mb-4">
+                            Ready to Build Your Own?
+                        </h3>
+                        <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+                            This entire admin dashboard was built using just a handful of Aki UI components.
+                            Get started today and create beautiful, functional interfaces in minutes.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Button
+                                variant="primary"
+                                size="lg"
+                                className="px-8 py-3"
+                                onClick={() => window.location.href = '/docs/getting-started'}
+                            >
+                                Start Building
+                                <ArrowRightIcon className="ml-2 h-5 w-5" />
+                            </Button>
+                            <Button
+                                variant="outline-light"
+                                size="lg"
+                                className="px-8 py-3"
+                                onClick={() => window.location.href = '/docs/templates'}
+                            >
+                                View More Templates
+                            </Button>
                         </div>
                     </div>
                 </div>
