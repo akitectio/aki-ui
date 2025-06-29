@@ -91,6 +91,29 @@ export type {
 } from "./Modal";
 
 /**
+ * Navbar - A navigation component for website/app header with brand, links, and mobile toggle
+ */
+export { default as Navbar } from "./Navbar";
+export type {
+  NavbarProps,
+  NavbarBrandProps,
+  NavbarItemProps,
+  NavbarCollapseProps,
+} from "./Navbar";
+
+/**
+ * VerticalNavbar - A vertical sidebar navigation component for dashboards and admin panels
+ */
+export { default as VerticalNavbar } from "./VerticalNavbar";
+export type {
+  VerticalNavbarProps,
+  VerticalNavbarHeaderProps,
+  VerticalNavbarItemProps,
+  VerticalNavbarGroupProps,
+  VerticalNavbarFooterProps,
+} from "./VerticalNavbar";
+
+/**
  * Pagination - A component for navigating through multiple pages of content
  */
 export { default as Pagination } from "./Pagination";
@@ -304,3 +327,38 @@ export type {
   Filter as DataTableFilter,
   PaginationState as DataTablePaginationState,
 } from "./DataTable";
+
+/**
+ * Typography - A component for rendering text with consistent styling
+ */
+export {
+  Typography,
+  H1,
+  H2,
+  H3,
+  H4,
+  H5,
+  H6,
+  Body,
+  SmallText,
+  Caption,
+  Subtitle,
+  Overline,
+  Link,
+  Code,
+  Pre,
+  Blockquote,
+  Label,
+  ErrorText,
+  HelperText,
+  typographyTheme,
+  typographyScale,
+  semanticTypography,
+  a11yTypography,
+  responsiveTypography,
+} from "./Typography";
+export type {
+  TypographyProps,
+  HeadingProps,
+  LinkTypographyProps,
+} from "./Typography";

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="300" height="80" viewBox="0 0 300 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="akiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- AKI UI as paths instead of text -->
+  <!-- A -->
+  <path d="M30,60 L45,20 L60,60 Z" fill="url(#akiGrad)" />
+  <path d="M38,45 L52,45 L52,48 L38,48 Z" fill="url(#akiGrad)" />
+  
+  <!-- K -->
+  <path d="M70,20 L80,20 L80,60 L70,60 Z" fill="url(#akiGrad)" />
+  <path d="M80,40 L100,20 L113,20 L90,42 L115,60 L102,60 L80,40 Z" fill="url(#akiGrad)" />
+  
+  <!-- I -->
+  <path d="M123,20 L143,20 L143,28 L138,28 L138,52 L143,52 L143,60 L123,60 L123,52 L128,52 L128,28 L123,28 Z" fill="url(#akiGrad)" />
+  
+  <!-- Space -->
+  
+  <!-- U -->
+  <path d="M160,20 L180,20 L180,50 C180,53 178,56 175,58 C172,60 168,60 165,60 C162,60 158,60 155,58 C152,56 150,53 150,50 L150,20 L160,20 L160,48 C160,49 161,50 162,50 C163,50 164,49 164,48 L164,20 L170,20 L170,48 C170,49 171,50 172,50 C173,50 174,49 174,48 L174,20 Z" fill="#3B82F6" />
+  
+  <!-- I -->
+  <path d="M190,20 L210,20 L210,28 L205,28 L205,52 L210,52 L210,60 L190,60 L190,52 L195,52 L195,28 L190,28 Z" fill="#3B82F6" />
+</svg>

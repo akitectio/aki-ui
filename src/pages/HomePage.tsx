@@ -15,6 +15,8 @@ import {
     HStack,
     VStack
 } from '../lib/components';
+import { useRouter } from '../components/Router';
+import { VERSION } from '../lib/version';
 import {
     ArrowRightIcon,
     CodeBracketIcon,
@@ -31,6 +33,8 @@ import {
 } from '@heroicons/react/24/outline';
 
 const HomePage: React.FC = () => {
+    const { navigate } = useRouter();
+
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
             {/* Hero Section */}
@@ -50,7 +54,7 @@ const HomePage: React.FC = () => {
 
                                 <div className="mt-8 flex items-center gap-4">
                                     <Badge variant="primary" className="text-sm">
-                                        Current version: v0.1.0
+                                        Current version: v{VERSION}
                                     </Badge>
                                 </div>
 
@@ -60,9 +64,9 @@ const HomePage: React.FC = () => {
                                             variant="primary"
                                             size="lg"
                                             className="w-full flex items-center justify-center px-8 py-3"
-                                            onClick={() => window.location.href = '/docs/getting-started'}
+                                            onClick={() => navigate('/demo')}
                                         >
-                                            Get Started
+                                            Live Demo
                                             <ArrowRightIcon className="ml-2 h-5 w-5" />
                                         </Button>
                                     </div>
@@ -71,9 +75,19 @@ const HomePage: React.FC = () => {
                                             variant="outline-primary"
                                             size="lg"
                                             className="w-full flex items-center justify-center px-8 py-3"
-                                            onClick={() => window.location.href = '/docs/components'}
+                                            onClick={() => navigate('/docs')}
                                         >
-                                            Components
+                                            Documentation
+                                        </Button>
+                                    </div>
+                                    <div className="mt-3 sm:mt-0 sm:ml-3">
+                                        <Button
+                                            variant="outline"
+                                            size="lg"
+                                            className="w-full flex items-center justify-center px-8 py-3"
+                                            onClick={() => navigate('/templates')}
+                                        >
+                                            Templates
                                         </Button>
                                     </div>
                                 </div>
@@ -478,7 +492,7 @@ const HomePage: React.FC = () => {
                                 variant="primary"
                                 size="lg"
                                 className="px-8 py-3"
-                                onClick={() => window.location.href = '/docs/getting-started'}
+                                onClick={() => navigate('/docs')}
                             >
                                 Start Building
                                 <ArrowRightIcon className="ml-2 h-5 w-5" />
@@ -487,9 +501,9 @@ const HomePage: React.FC = () => {
                                 variant="outline-light"
                                 size="lg"
                                 className="px-8 py-3"
-                                onClick={() => window.location.href = '/docs/templates'}
+                                onClick={() => navigate('/templates')}
                             >
-                                View More Templates
+                                View Templates
                             </Button>
                         </div>
                     </div>

@@ -1,0 +1,23 @@
+<link rel="icon" href="/aki_ui_logo.svg" />
+<style>
+  /* Style for the Storybook header */
+  .sidebar-header img,
+  .sidebar-header svg {
+    display: none !important; /* Hide default Storybook logo */
+  }
+
+  .sidebar-header::after {
+    content: "Aki UI";
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+</style>

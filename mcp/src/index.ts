@@ -20,6 +20,8 @@ import { ComponentDiscoveryTool } from "./tools/component-discovery.js";
 import { CodeGenerationTool } from "./tools/code-generation.js";
 import { DocumentationTool } from "./tools/documentation.js";
 import { ThemeManagementTool } from "./tools/theme-management.js";
+import { OptimizationTool } from "./tools/optimization.js";
+import { ValidationTool } from "./tools/validation.js";
 
 class AkiUIServer {
   private server: Server;
@@ -27,6 +29,8 @@ class AkiUIServer {
   private codeGeneration: CodeGenerationTool;
   private documentation: DocumentationTool;
   private themeManagement: ThemeManagementTool;
+  private optimization: OptimizationTool;
+  private validation: ValidationTool;
 
   constructor() {
     this.server = new Server(
@@ -49,6 +53,8 @@ class AkiUIServer {
     this.codeGeneration = new CodeGenerationTool();
     this.documentation = new DocumentationTool();
     this.themeManagement = new ThemeManagementTool();
+    this.optimization = new OptimizationTool();
+    this.validation = new ValidationTool();
 
     this.setupHandlers();
   }
@@ -62,6 +68,8 @@ class AkiUIServer {
           ...this.codeGeneration.getTools(),
           ...this.documentation.getTools(),
           ...this.themeManagement.getTools(),
+          this.optimization,
+          this.validation,
         ],
       };
     });
@@ -84,9 +92,9 @@ class AkiUIServer {
           case "generate_component":
             return await this.codeGeneration.generateComponent(args);
           case "validate_code":
-            return await this.codeGeneration.validateCode(args);
+            return await this.validation.call(args);
           case "optimize_component":
-            return await this.codeGeneration.optimizeComponent(args);
+            return await this.optimization.call(args);
 
           case "search_docs":
             return await this.documentation.searchDocs(args);

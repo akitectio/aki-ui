@@ -45,23 +45,64 @@ import "@akitectio/aki-ui/css";
 
 ## AI Integration
 
-- **AI-Friendly:** Works with GitHub Copilot, Cursor, Windsurf, Claude Dev
+- **Supported AI Tools:** GitHub Copilot, Cursor IDE, Windsurf, Claude Dev, Codeium, Tabnine, ChatGPT Code Interpreter
 - **TypeScript Definitions:** Complete type definitions for AI code completion
 - **Structured Documentation:** Markdown-based docs optimized for LLM training
-- **Component Examples:** Real-world usage patterns for AI code generation
-- **MCP Server (Available Now):** Model Context Protocol server for dynamic AI interactions
 
-### MCP Server Features (Available)
-- **Project Initialization:** Complete project setup with Vite, Next.js, or Create React App
+### MCP Server (Model Context Protocol)
+
+Aki UI provides a dedicated MCP server for enhanced AI integration:
+
+**Installation:**
+```bash
+npm install -g @akitectio/aki-ui-mcp
+```
+
+**Core Capabilities:**
+- **Project Initialization:** Complete project setup with templates
 - Real-time component discovery and search
-- Dynamic code generation and validation  
+- Dynamic code generation with validation
 - Interactive documentation queries
 - Theme customization assistance
 - Code analysis and optimization suggestions
+- Accessibility auditing tools
 
+<<<<<<< HEAD
 **Installation:** `npm install -g @akitectio/aki-ui-mcp-server`  
 **NPM Package:** [@akitectio/aki-ui-mcp-server](https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server)  
 **Version:** 0.1.19
+=======
+**Usage Examples:**
+```typescript
+// Initialize a new project
+await mcp.initProject({
+  projectType: "next-js",
+  projectName: "my-app", 
+  features: ["typescript", "auth", "forms"]
+});
+
+// AI assistants can directly query for components
+const searchResults = await mcp.searchComponents("form");
+const generatedCode = await mcp.generateComponent("LoginForm", {
+  validation: true,
+  darkMode: true
+});
+```
+
+### AI Prompt Templates
+
+**Dashboard Creation:**
+"Create an admin dashboard using @akitectio/aki-ui with sidebar navigation, stats cards, data table, and charts. Include dark mode support."
+
+**Form Generation:**
+"Build a user registration form using Aki UI FormControl, validation, and proper accessibility attributes."
+
+**Landing Page:**
+"Design a modern landing page with Aki UI featuring hero section, feature cards, testimonials, and contact form."
+
+**E-commerce Interface:**
+"Create a product catalog page with Aki UI cards, filters, pagination, and shopping cart functionality."
+>>>>>>> a5285ab (Add VerticalNavbar component stories with various configurations and custom icons)
 
 ## Development
 

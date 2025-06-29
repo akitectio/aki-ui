@@ -5,32 +5,38 @@ const theme = create({
   base: "light",
 
   // UI
-  colorPrimary: "#4F46E5",
-  colorSecondary: "#7C3AED",
+  colorPrimary: "#6366F1", // Indigo 500
+  colorSecondary: "#8B5CF6", // Violet 500
 
   // Typography
-  fontBase: '"Inter", sans-serif',
-  fontCode: '"Fira Code", monospace',
+  fontBase: '"Inter", system-ui, -apple-system, sans-serif',
+  fontCode: '"Fira Code", "JetBrains Mono", monospace',
 
   // Text colors
-  textColor: "#1F2937",
+  textColor: "#111827", // Gray 900
   textInverseColor: "#FFFFFF",
 
   // Toolbar default and active colors
-  barTextColor: "#6B7280",
-  barSelectedColor: "#4F46E5",
-  barBg: "#FFFFFF",
+  barTextColor: "#4B5563", // Gray 600
+  barSelectedColor: "#6366F1", // Indigo 500
+  barBg: "#F9FAFB", // Gray 50
 
   // Form colors
-  inputBg: "#F9FAFB",
-  inputBorder: "#D1D5DB",
-  inputTextColor: "#1F2937",
-  inputBorderRadius: 6,
+  inputBg: "#F3F4F6", // Gray 100
+  inputBorder: "#D1D5DB", // Gray 300
+  inputTextColor: "#111827", // Gray 900
+  inputBorderRadius: 8,
+
+  // App background colors
+  appBg: "#FFFFFF",
+  appContentBg: "#FFFFFF",
+  appBorderColor: "#E5E7EB", // Gray 200
+  appBorderRadius: 12,
 
   // Brand
-  brandTitle: "Aki UI",
+  brandTitle: "Aki UI Component Library",
   brandUrl: "https://github.com/akitectio/aki-ui",
-  brandImage: "./aki_ui_logo.svg",
+  brandImage: "/aki-ui-logo-safe.svg", // Using our safe SVG version
   brandTarget: "_blank",
 });
 

@@ -1,4 +1,5 @@
-// Configure Storybook manager
+// Note: The main theme configuration is in manager.ts
+// This file is kept for reference but the active configuration is in manager.ts
 import { addons } from '@storybook/manager-api';
 
 addons.setConfig({
@@ -8,13 +9,6 @@ addons.setConfig({
     panelPosition: 'bottom',
     enableShortcuts: true,
     showToolbar: true,
-    theme: undefined,
-    selectedPanel: undefined,
-    initialActive: 'sidebar',
-    sidebar: {
-        showRoots: false,
-        collapsedRoots: ['other'],
-    },
     toolbar: {
         title: { hidden: false },
         zoom: { hidden: false },
