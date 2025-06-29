@@ -5,6 +5,7 @@ type BadgeVariant =
     | 'secondary'
     | 'success'
     | 'danger'
+    | 'error'  // Add error variant
     | 'warning'
     | 'info'
     | 'light'
@@ -72,34 +73,39 @@ export interface BadgeProps {
 
 const variantStyles: Record<BadgeVariant, { bg: string; text: string; outlined: string }> = {
     primary: {
-        bg: 'bg-blue-500',
+        bg: 'bg-primary-500',
         text: 'text-white',
-        outlined: 'text-blue-500 border-blue-500'
+        outlined: 'text-primary-500 border-primary-500'
     },
     secondary: {
-        bg: 'bg-gray-500',
+        bg: 'bg-secondary-500',
         text: 'text-white',
-        outlined: 'text-gray-500 border-gray-500'
+        outlined: 'text-secondary-500 border-secondary-500'
     },
     success: {
-        bg: 'bg-green-500',
+        bg: 'bg-success-500',
         text: 'text-white',
-        outlined: 'text-green-500 border-green-500'
+        outlined: 'text-success-500 border-success-500'
     },
     danger: {
         bg: 'bg-red-500',
         text: 'text-white',
         outlined: 'text-red-500 border-red-500'
     },
-    warning: {
-        bg: 'bg-yellow-500',
+    error: {
+        bg: 'bg-error-500',
         text: 'text-white',
-        outlined: 'text-yellow-500 border-yellow-500'
+        outlined: 'text-error-500 border-error-500'
+    },
+    warning: {
+        bg: 'bg-warning-500',
+        text: 'text-white',
+        outlined: 'text-warning-500 border-warning-500'
     },
     info: {
-        bg: 'bg-cyan-500',
+        bg: 'bg-blue-500',
         text: 'text-white',
-        outlined: 'text-cyan-500 border-cyan-500'
+        outlined: 'text-blue-500 border-blue-500'
     },
     light: {
         bg: 'bg-gray-200',
@@ -129,7 +135,7 @@ const Badge: React.FC<BadgeProps> = ({
         return null;
     }
 
-    const styles = variantStyles[variant];
+    const styles = variantStyles[variant] || variantStyles.primary; // Fallback to primary if variant not found
     const baseClasses = 'inline-flex items-center justify-center font-medium';
 
     const sizeClasses = small ? 'text-xs px-1.5 py-0.5' : 'text-xs px-2.5 py-0.5';

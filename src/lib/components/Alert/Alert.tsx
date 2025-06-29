@@ -151,7 +151,7 @@ const Alert: React.FC<AlertProps> = ({
         return null;
     }
 
-    const styles = variantStyles[variant];
+    const styles = variantStyles[variant] || variantStyles.primary; // Fallback to primary if variant not found
 
     const handleDismiss = () => {
         setDismissed(true);

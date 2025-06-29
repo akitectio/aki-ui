@@ -15,6 +15,15 @@ import {
   Resource,
 } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
+import { readFileSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const packageJson = JSON.parse(
+  readFileSync(join(__dirname, "../package.json"), "utf-8")
+);
+const version = packageJson.version;
 
 import { ComponentDiscoveryTool } from "./tools/component-discovery.js";
 import { CodeGenerationTool } from "./tools/code-generation.js";
@@ -36,7 +45,7 @@ class AkiUIServer {
     this.server = new Server(
       {
         name: "aki-ui-mcp-server",
-        version: "1.0.0",
+        version: version,
         description:
           "Model Context Protocol server for Aki UI component library",
       },

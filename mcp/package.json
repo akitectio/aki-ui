@@ -1,10 +1,6 @@
 {
     "name": "@akitectio/aki-ui-mcp-server",
-<<<<<<< HEAD
     "version": "0.1.19",
-=======
-    "version": "0.2.0",
->>>>>>> a5285ab (Add VerticalNavbar component stories with various configurations and custom icons)
     "description": "Model Context Protocol server for Aki UI component library",
     "main": "dist/index.js",
     "bin": {

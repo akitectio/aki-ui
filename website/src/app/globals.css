@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom theme variables */
+:root {
+    /* Light mode colors */
+    --aki-color-primary: #0ea5e9;
+    --aki-color-secondary: #8b5cf6;
+    --aki-color-success: #10b981;
+    --aki-color-warning: #f59e0b;
+    --aki-color-error: #ef4444;
+    --aki-color-info: #3b82f6;
+
+    /* Background colors */
+    --background-start-rgb: 248, 250, 252;
+    --background-end-rgb: 255, 255, 255;
+    --foreground-rgb: 15, 23, 42;
+
+    /* Border and shadow colors */
+    --border-color: 226, 232, 240;
+    --shadow-color: 0, 0, 0, 0.1;
+
+    /* Spacing and layout */
+    --aki-spacing-xs: 0.25rem;
+    --aki-spacing-sm: 0.5rem;
+    --aki-spacing-md: 1rem;
+    --aki-spacing-lg: 1.5rem;
+    --aki-spacing-xl: 2rem;
+    --aki-spacing-2xl: 3rem;
+
+    /* Border radius */
+    --aki-radius-sm: 0.5rem;
+    --aki-radius-md: 0.75rem;
+    --aki-radius-lg: 1rem;
+    --aki-radius-xl: 1.5rem;
+    --aki-radius-full: 9999px;
+}
+
+/* Dark mode */
+.dark {
+    --aki-color-primary: #38bdf8;
+    --aki-color-secondary: #a78bfa;
+    --aki-color-success: #34d399;
+    --aki-color-warning: #fbbf24;
+    --aki-color-error: #f87171;
+    --aki-color-info: #60a5fa;
+
+    --background-start-rgb: 15, 23, 42;
+    --background-end-rgb: 2, 6, 23;
+    --foreground-rgb: 248, 250, 252;
+
+    --border-color: 51, 65, 85;
+    --shadow-color: 0, 0, 0, 0.3;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+        --aki-color-primary: #38bdf8;
+        --aki-color-secondary: #a78bfa;
+        --aki-color-success: #34d399;
+        --aki-color-warning: #fbbf24;
+        --aki-color-error: #f87171;
+        --aki-color-info: #60a5fa;
+
+        --background-start-rgb: 15, 23, 42;
+        --background-end-rgb: 2, 6, 23;
+        --foreground-rgb: 248, 250, 252;
+
+        --border-color: 51, 65, 85;
+        --shadow-color: 0, 0, 0, 0.3;
+    }
+}
+
+body {
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+/* Utility classes */
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    .aki-shadow-sm {
+        box-shadow: 0 1px 2px 0 rgba(var(--shadow-color));
+    }
+
+    .aki-shadow-md {
+        box-shadow:
+            0 4px 6px -1px rgba(var(--shadow-color)),
+            0 2px 4px -1px rgba(var(--shadow-color));
+    }
+
+    .aki-shadow-lg {
+        box-shadow:
+            0 10px 15px -3px rgba(var(--shadow-color)),
+            0 4px 6px -2px rgba(var(--shadow-color));
+    }
+
+    .aki-container {
+        max-width: 80rem;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    @media (min-width: 640px) {
+        .aki-container {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .aki-container {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+    }
+
+    .aki-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow:
+            0 1px 3px 0 rgba(0, 0, 0, 0.1),
+            0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        border: 1px solid rgb(226, 232, 240);
+    }
+
+    .dark .aki-card {
+        background-color: rgb(30, 41, 59);
+        border-color: rgb(51, 65, 85);
+    }
+
+    .aki-gradient-bg {
+        background: linear-gradient(135deg, var(--aki-color-primary) 0%, var(--aki-color-secondary) 100%);
+    }
+}

@@ -10,6 +10,7 @@ type ButtonVariant =
     | 'light'
     | 'dark'
     | 'link'
+    | 'outline'
     | 'outline-primary'
     | 'outline-secondary'
     | 'outline-success'
@@ -116,21 +117,22 @@ const Button: React.FC<ButtonProps> = ({
 
     // Variant classes (colors)
     const variantClasses: Record<ButtonVariant, string> = {
-        'primary': 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500',
-        'secondary': 'bg-gray-600 hover:bg-gray-700 text-white focus:ring-gray-500',
-        'success': 'bg-green-600 hover:bg-green-700 text-white focus:ring-green-500',
+        'primary': 'bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500',
+        'secondary': 'bg-secondary-600 hover:bg-secondary-700 text-white focus:ring-secondary-500',
+        'success': 'bg-success-600 hover:bg-success-700 text-white focus:ring-success-500',
         'danger': 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
-        'warning': 'bg-yellow-500 hover:bg-yellow-600 text-white focus:ring-yellow-500',
-        'info': 'bg-cyan-600 hover:bg-cyan-700 text-white focus:ring-cyan-500',
+        'warning': 'bg-warning-500 hover:bg-warning-600 text-white focus:ring-warning-500',
+        'info': 'bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500',
         'light': 'bg-gray-100 hover:bg-gray-200 text-gray-800 focus:ring-gray-300',
         'dark': 'bg-gray-800 hover:bg-gray-900 text-white focus:ring-gray-700',
-        'link': 'bg-transparent text-blue-600 hover:text-blue-800 hover:underline focus:ring-blue-500',
-        'outline-primary': 'bg-transparent border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-500',
-        'outline-secondary': 'bg-transparent border border-gray-600 text-gray-600 hover:bg-gray-600 hover:text-white focus:ring-gray-500',
-        'outline-success': 'bg-transparent border border-green-600 text-green-600 hover:bg-green-600 hover:text-white focus:ring-green-500',
+        'link': 'bg-transparent text-primary-600 hover:text-primary-800 hover:underline focus:ring-primary-500',
+        'outline': 'bg-transparent border border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:ring-primary-500',
+        'outline-primary': 'bg-transparent border border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white focus:ring-primary-500',
+        'outline-secondary': 'bg-transparent border border-secondary-600 text-secondary-600 hover:bg-secondary-600 hover:text-white focus:ring-secondary-500',
+        'outline-success': 'bg-transparent border border-success-600 text-success-600 hover:bg-success-600 hover:text-white focus:ring-success-500',
         'outline-danger': 'bg-transparent border border-red-600 text-red-600 hover:bg-red-600 hover:text-white focus:ring-red-500',
-        'outline-warning': 'bg-transparent border border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-white focus:ring-yellow-500',
-        'outline-info': 'bg-transparent border border-cyan-600 text-cyan-600 hover:bg-cyan-600 hover:text-white focus:ring-cyan-500',
+        'outline-warning': 'bg-transparent border border-warning-500 text-warning-500 hover:bg-warning-500 hover:text-white focus:ring-warning-500',
+        'outline-info': 'bg-transparent border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white focus:ring-blue-500',
         'outline-light': 'bg-transparent border border-gray-300 text-gray-300 hover:bg-gray-300 hover:text-gray-800 focus:ring-gray-300',
         'outline-dark': 'bg-transparent border border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white focus:ring-gray-700'
     };

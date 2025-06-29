@@ -4,6 +4,12 @@ import react from "@vitejs/plugin-react";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  server: {
+    historyApiFallback: true,
+  },
+  preview: {
+    historyApiFallback: true,
+  },
   resolve: {
     alias: [
       { find: "@", replacement: "/src" },
@@ -20,7 +26,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: "src/index.minimal.ts",
+      entry: "src/index.ts",
       name: "AkiUI",
       fileName: (format) => `aki-ui.${format}.js`,
       formats: ["es", "umd"],

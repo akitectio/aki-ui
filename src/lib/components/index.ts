@@ -82,7 +82,7 @@ export type { FormControlProps } from "./FormControl";
 /**
  * Modal - A dialog box/popup window that displays content over the current page
  */
-export { default as Modal } from "./Modal";
+export { default as Modal, ModalHeader, ModalBody, ModalFooter } from "./Modal";
 export type {
   ModalProps,
   ModalHeaderProps,
