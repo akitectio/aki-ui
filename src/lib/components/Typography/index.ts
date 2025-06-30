@@ -24,7 +24,7 @@ export {
   ErrorText,
   HelperText,
 } from "./TypographyVariants";
-export type { HeadingProps, LinkTypographyProps } from "./TypographyVariants";
+export type { HeadingProps, LinkProps } from "./TypographyVariants";
 
 // Export typography theme utilities
 export {

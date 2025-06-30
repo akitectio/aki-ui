@@ -34,7 +34,7 @@ interface TypographyProps {
   /**
    * HTML element to render
    */
-  component?: keyof JSX.IntrinsicElements;
+  component?: React.ElementType;
   /**
    * Text alignment
    */
@@ -82,7 +82,11 @@ interface TypographyProps {
   /**
    * Content to render
    */
-  children: React.ReactNode;
+  children?: React.ReactNode;
+  /**
+   * Any other HTML attributes
+   */
+  [key: string]: any;
 }
 
 /**
@@ -111,7 +115,7 @@ const getVariantClasses = (variant: TypographyVariant): string => {
 /**
  * Get default HTML component based on variant
  */
-const getDefaultComponent = (variant: TypographyVariant): keyof JSX.IntrinsicElements => {
+const getDefaultComponent = (variant: TypographyVariant): React.ElementType => {
   const componentMap = {
     h1: 'h1',
     h2: 'h2', 
@@ -182,7 +186,10 @@ const getWeightClasses = (weight: TypographyWeight): string => {
 /**
  * Typography component
  */
-const Typography = ({
+const Typography = React.forwardRef<
+  HTMLElement,
+  TypographyProps
+>(({
   variant = 'body1',
   component,
   align = 'inherit',
@@ -198,7 +205,7 @@ const Typography = ({
   className = '',
   children,
   ...props
-}: TypographyProps) => {
+}, ref) => {
   const Component = component || getDefaultComponent(variant);
   
   const classes = [
@@ -220,12 +227,15 @@ const Typography = ({
   return React.createElement(
     Component,
     {
+      ref,
       className: classes,
       ...props
     },
     children
   );
-};
+});
+
+Typography.displayName = 'Typography';
 
 export type { TypographyProps };
 export { Typography };

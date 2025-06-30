@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { VerticalNavbar } from '../lib';
+import { getVersionBadge } from '../lib/version';
 import { 
   HomeIcon, 
   ChartBarIcon, 
@@ -195,7 +196,7 @@ export const WithBadges: Story = {
 
         <VerticalNavbar.Footer>
           <div className="text-xs text-gray-400 text-center">
-            v1.0.0 • © 2025 Aki UI
+            {getVersionBadge()} • © 2025 Aki UI
           </div>
         </VerticalNavbar.Footer>
       </VerticalNavbar>

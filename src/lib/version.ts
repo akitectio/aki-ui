@@ -1,6 +1,15 @@
 // Auto-generated version info
 // This file is automatically updated when package.json version changes
-export const VERSION = "0.1.18";
-export const PACKAGE_NAME = "@akitectio/aki-ui";
-export const DESCRIPTION =
-  "A modern React UI component library built with TypeScript and Tailwind CSS";
+import packageJson from "../../package.json";
+
+export const VERSION = packageJson.version;
+export const PACKAGE_NAME = packageJson.name;
+export const DESCRIPTION = packageJson.description;
+
+export const getVersion = () => {
+  return VERSION;
+};
+
+export const getVersionBadge = () => {
+  return `v${VERSION}`;
+};

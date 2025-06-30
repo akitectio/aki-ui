@@ -56,107 +56,110 @@ export const Overline: React.FC<HeadingProps> = (props) => (
  * Specialized typography components
  */
 
-export interface LinkTypographyProps extends TypographyProps {
+export interface LinkProps extends Omit<TypographyProps, 'component'> {
   href?: string;
   target?: string;
   rel?: string;
 }
 
-export const Link: React.FC<LinkTypographyProps> = ({ 
+export const Link: React.FC<LinkProps> = ({ 
   href, 
   target, 
   rel,
   className = '',
   color = 'primary',
-  ...props 
-}) => (
-  <Typography
-    component="a"
-    href={href}
-    target={target}
-    rel={rel}
-    color={color}
-    className={`hover:underline cursor-pointer transition-colors ${className}`}
-    {...props}
-  />
-);
+  variant = 'body1',
+  children,
+  ...rest 
+}) => {
+  return (
+    <Typography
+      component="a"
+      variant={variant}
+      color={color}
+      className={`hover:underline cursor-pointer transition-colors ${className}`}
+      {...rest}
+      href={href}
+      target={target}
+      rel={rel}
+    >
+      {children}
+    </Typography>
+  );
+};
 
-export const Code: React.FC<TypographyProps> = ({ 
+export const Code: React.FC<Omit<TypographyProps, 'component'>> = ({ 
   className = '',
   children,
-  ...props 
+  ...rest 
 }) => (
   <Typography
     component="code"
     className={`bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono ${className}`}
-    {...props}
+    {...rest}
   >
     {children}
   </Typography>
 );
 
-export const Pre: React.FC<TypographyProps> = ({ 
+export const Pre: React.FC<Omit<TypographyProps, 'component'>> = ({ 
   className = '',
   children,
-  ...props 
+  ...rest 
 }) => (
   <Typography
     component="pre"
     className={`bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-sm font-mono overflow-x-auto ${className}`}
-    {...props}
+    {...rest}
   >
     {children}
   </Typography>
 );
 
-export const Blockquote: React.FC<TypographyProps> = ({ 
+export const Blockquote: React.FC<Omit<TypographyProps, 'component'>> = ({ 
   className = '',
   children,
-  ...props 
+  ...rest 
 }) => (
   <Typography
     component="blockquote"
     className={`border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic ${className}`}
-    {...props}
+    {...rest}
   >
     {children}
   </Typography>
 );
 
-export const Label: React.FC<TypographyProps> = ({ 
+export const Label: React.FC<Omit<TypographyProps, 'component'>> = ({ 
   className = '',
   weight = 'medium',
-  ...props 
+  ...rest 
 }) => (
   <Typography
     component="label"
     variant="body2"
     weight={weight}
     className={`block ${className}`}
-    {...props}
+    {...rest}
   />
 );
 
-export const ErrorText: React.FC<TypographyProps> = ({ 
-  color = 'error',
-  variant = 'caption',
-  ...props 
+export const ErrorText: React.FC<Omit<TypographyProps, 'color' | 'variant'>> = ({ 
+  ...rest 
 }) => (
   <Typography
-    color={color}
-    variant={variant}
-    {...props}
+    color="error"
+    variant="caption"
+    {...rest}
   />
 );
 
-export const HelperText: React.FC<TypographyProps> = ({ 
-  color = 'secondary',
-  variant = 'caption',
-  ...props 
+export const HelperText: React.FC<Omit<TypographyProps, 'color' | 'variant'>> = ({ 
+  ...rest 
 }) => (
   <Typography
-    color={color}
-    variant={variant}
-    {...props}
+    color="secondary"
+    variant="caption"
+    {...rest}
   />
 );

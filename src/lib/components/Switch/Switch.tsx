@@ -91,26 +91,29 @@ const Switch: React.FC<SwitchProps> = ({
             switch: 'w-9 h-5',
             thumb: 'h-4 w-4',
             translate: 'translate-x-4',
+            padding: 'p-0.5',
         },
         md: {
             switch: 'w-11 h-6',
             thumb: 'h-5 w-5',
             translate: 'translate-x-5',
+            padding: 'p-0.5',
         },
         lg: {
             switch: 'w-14 h-7',
             thumb: 'h-6 w-6',
             translate: 'translate-x-7',
+            padding: 'p-0.5',
         },
     };
 
     const colorClasses = {
-        primary: 'bg-blue-600',
-        secondary: 'bg-purple-600',
-        success: 'bg-green-500',
+        primary: 'bg-primary-600',
+        secondary: 'bg-secondary-600',
+        success: 'bg-success-600',
         danger: 'bg-red-500',
-        warning: 'bg-yellow-500',
-        info: 'bg-cyan-500',
+        warning: 'bg-warning-500',
+        info: 'bg-blue-500',
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -123,17 +126,27 @@ const Switch: React.FC<SwitchProps> = ({
         onChange?.(newChecked);
     };
 
+    const handleLabelClick = () => {
+        if (disabled) return;
+        
+        const newChecked = !isChecked;
+        if (!isControlled) {
+            setInternalChecked(newChecked);
+        }
+        onChange?.(newChecked);
+    };
+
     const switchId = id || `switch-${Math.random().toString(36).substring(2, 9)}`;
 
     return (
         <div className={`inline-flex items-center ${className}`}>
             {label && labelPosition === 'left' && (
-                <label
-                    htmlFor={switchId}
-                    className={`mr-2 text-sm ${disabled ? 'text-gray-400' : 'text-gray-700'}`}
+                <span
+                    onClick={handleLabelClick}
+                    className={`mr-3 text-sm select-none cursor-pointer ${disabled ? 'text-gray-400 cursor-not-allowed' : 'text-gray-700 dark:text-gray-300'}`}
                 >
                     {label}
-                </label>
+                </span>
             )}
 
             <div className="relative inline-block">
@@ -150,24 +163,24 @@ const Switch: React.FC<SwitchProps> = ({
 
                 <label
                     htmlFor={switchId}
-                    className={`block ${sizeClasses[size].switch} ${isChecked ? colorClasses[color] : 'bg-gray-200'
-                        } rounded-full transition-colors duration-200 ease-in-out ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                    className={`flex items-center ${sizeClasses[size].switch} ${sizeClasses[size].padding} ${isChecked ? colorClasses[color] : 'bg-gray-200 dark:bg-gray-600'
+                        } rounded-full transition-all duration-200 ease-in-out ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:shadow-md'
                         }`}
                 >
                     <div
-                        className={`${sizeClasses[size].thumb} rounded-full bg-white shadow transform transition-transform duration-200 ease-in-out ${isChecked ? sizeClasses[size].translate : 'translate-x-0'
+                        className={`${sizeClasses[size].thumb} rounded-full bg-white shadow-md transform transition-transform duration-200 ease-in-out ${isChecked ? sizeClasses[size].translate : 'translate-x-0'
                             }`}
                     />
                 </label>
             </div>
 
             {label && labelPosition === 'right' && (
-                <label
-                    htmlFor={switchId}
-                    className={`ml-2 text-sm ${disabled ? 'text-gray-400' : 'text-gray-700'}`}
+                <span
+                    onClick={handleLabelClick}
+                    className={`ml-3 text-sm select-none cursor-pointer ${disabled ? 'text-gray-400 cursor-not-allowed' : 'text-gray-700 dark:text-gray-300'}`}
                 >
                     {label}
-                </label>
+                </span>
             )}
         </div>
     );
