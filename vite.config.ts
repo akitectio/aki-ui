@@ -1,5 +1,28 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
+// Read version from package.json
+const packageJson = JSON.parse(
+  readFileSync(resolve(__dirname, "package.json"), "utf-8")
+);
+const version = packageJson.version;
+
+const cssBanner = `/*!
+ * Aki UI Component Library v${version}
+ * https://aki-ui.akitect.io
+ * 
+ * Copyright (c) 2024-2025 Akitect.io
+ * Licensed under the MIT License
+ * 
+ * Author: Akitect.io <duy@akitect.io>
+ * Website: https://akitect.io
+ * Repository: https://github.com/akitectio/aki-ui
+ * 
+ * Built with React, TypeScript, and Tailwind CSS
+ */
+`;
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -31,6 +54,7 @@ export default defineConfig({
       fileName: (format) => `aki-ui.${format}.js`,
       formats: ["es", "umd"],
     },
+    cssCodeSplit: false,
     rollupOptions: {
       external: [
         "react",
@@ -41,6 +65,13 @@ export default defineConfig({
         "react-chartjs-2",
       ],
       output: {
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith(".css")) {
+            return "index.css";
+          }
+          return "[name].[ext]";
+        },
+        banner: cssBanner,
         globals: {
           react: "React",
           "react-dom": "ReactDOM",

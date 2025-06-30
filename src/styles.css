@@ -1,0 +1,257 @@
+/*!
+ * Aki UI Component Library v{{VERSION}}
+ * https://aki-ui.akitect.io
+ * 
+ * Copyright (c) 2024-2025 Akitect.io
+ * Licensed under the MIT License
+ * 
+ * Author: Akitect.io <duy@akitect.io>
+ * Website: https://akitect.io
+ * Repository: https://github.com/akitectio/aki-ui
+ * 
+ * Built with React, TypeScript, and Tailwind CSS
+ */
+
+/* Aki UI Component Library Styles */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* Base styles */
+* {
+    box-sizing: border-box;
+}
+
+/* Component specific styles */
+.aki-ui-component {
+    --aki-primary: #3b82f6;
+    --aki-secondary: #6366f1;
+    --aki-success: #10b981;
+    --aki-warning: #f59e0b;
+    --aki-error: #ef4444;
+    --aki-gray-50: #f9fafb;
+    --aki-gray-100: #f3f4f6;
+    --aki-gray-200: #e5e7eb;
+    --aki-gray-300: #d1d5db;
+    --aki-gray-400: #9ca3af;
+    --aki-gray-500: #6b7280;
+    --aki-gray-600: #4b5563;
+    --aki-gray-700: #374151;
+    --aki-gray-800: #1f2937;
+    --aki-gray-900: #111827;
+}
+
+/* Button styles */
+.aki-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.aki-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.aki-button-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.aki-button-md {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.aki-button-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.aki-button-primary {
+    background-color: var(--aki-primary);
+    color: white;
+}
+
+.aki-button-primary:hover:not(:disabled) {
+    background-color: #2563eb;
+}
+
+.aki-button-secondary {
+    background-color: var(--aki-secondary);
+    color: white;
+}
+
+.aki-button-secondary:hover:not(:disabled) {
+    background-color: #4f46e5;
+}
+
+.aki-button-outline {
+    background-color: transparent;
+    border-color: var(--aki-gray-300);
+    color: var(--aki-gray-700);
+}
+
+.aki-button-outline:hover:not(:disabled) {
+    background-color: var(--aki-gray-50);
+}
+
+.aki-button-ghost {
+    background-color: transparent;
+    color: var(--aki-gray-700);
+}
+
+.aki-button-ghost:hover:not(:disabled) {
+    background-color: var(--aki-gray-100);
+}
+
+/* Card styles */
+.aki-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--aki-gray-200);
+}
+
+/* Input styles */
+.aki-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--aki-gray-300);
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    transition:
+        border-color 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
+}
+
+.aki-input:focus {
+    outline: none;
+    border-color: var(--aki-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.aki-input:disabled {
+    background-color: var(--aki-gray-50);
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Badge styles */
+.aki-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1rem;
+}
+
+.aki-badge-primary {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--aki-primary);
+}
+
+.aki-badge-secondary {
+    background-color: rgba(99, 102, 241, 0.1);
+    color: var(--aki-secondary);
+}
+
+.aki-badge-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--aki-success);
+}
+
+.aki-badge-warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--aki-warning);
+}
+
+.aki-badge-error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--aki-error);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .aki-ui-component {
+        --aki-gray-50: #1f2937;
+        --aki-gray-100: #374151;
+        --aki-gray-200: #4b5563;
+        --aki-gray-300: #6b7280;
+        --aki-gray-400: #9ca3af;
+        --aki-gray-500: #d1d5db;
+        --aki-gray-600: #e5e7eb;
+        --aki-gray-700: #f3f4f6;
+        --aki-gray-800: #f9fafb;
+        --aki-gray-900: #ffffff;
+    }
+
+    .aki-card {
+        background-color: var(--aki-gray-50);
+        border-color: var(--aki-gray-200);
+    }
+
+    .aki-input {
+        background-color: var(--aki-gray-50);
+        border-color: var(--aki-gray-200);
+        color: var(--aki-gray-900);
+    }
+
+    .aki-button-outline {
+        color: var(--aki-gray-700);
+        border-color: var(--aki-gray-300);
+    }
+
+    .aki-button-ghost {
+        color: var(--aki-gray-700);
+    }
+}
+
+/* Animation utilities */
+@keyframes aki-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes aki-slide-in {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.aki-fade-in {
+    animation: aki-fade-in 0.2s ease-out;
+}
+
+.aki-slide-in {
+    animation: aki-slide-in 0.2s ease-out;
+}
+
+/* Focus visible utilities */
+.aki-focus-visible:focus-visible {
+    outline: 2px solid var(--aki-primary);
+    outline-offset: 2px;
+}

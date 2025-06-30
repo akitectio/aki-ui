@@ -283,3 +283,6 @@ bower_components
 
 # node-waf configuration
 .lock-wscript
+
+# dist directory for build artifacts
+dist
