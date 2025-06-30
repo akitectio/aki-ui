@@ -1,0 +1,47 @@
+{
+  "timestamp": "2025-06-30T03:18:30.639Z",
+  "checks": {
+    "score": 64,
+    "issues": 0,
+    "warnings": 4,
+    "success": 7
+  },
+  "recommendations": [
+    {
+      "category": "Technical SEO",
+      "items": [
+        "Tạo và upload sitemap.xml",
+        "Optimize robots.txt",
+        "Implement canonical URLs",
+        "Add meta viewport tags"
+      ]
+    },
+    {
+      "category": "Content SEO",
+      "items": [
+        "Optimize title tags (50-60 characters)",
+        "Write compelling meta descriptions (150-160 characters)",
+        "Use header tags hierarchy (H1, H2, H3)",
+        "Add alt text for images"
+      ]
+    },
+    {
+      "category": "Performance SEO",
+      "items": [
+        "Optimize Core Web Vitals",
+        "Implement image lazy loading",
+        "Minimize JavaScript bundles",
+        "Use CDN for static assets"
+      ]
+    },
+    {
+      "category": "Local SEO",
+      "items": [
+        "Add structured data for organization",
+        "Create Google My Business profile",
+        "Implement breadcrumb navigation",
+        "Add social media meta tags"
+      ]
+    }
+  ]
+}

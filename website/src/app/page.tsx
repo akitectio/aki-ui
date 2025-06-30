@@ -26,6 +26,17 @@ export default function Home() {
               <Link href="/docs/components" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                 Components
               </Link>
+              <a 
+                href="https://aki-ui.vercel.app/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1"
+              >
+                Storybook
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
               <ThemeToggle />
               <Button variant="primary" asChild>
                 <Link href="/docs">Get Started</Link>
@@ -59,6 +70,19 @@ export default function Home() {
             </Button>
             <Button variant="secondary" size="lg" className="shadow-md hover:shadow-lg transition-shadow" asChild>
               <Link href="/docs/components">Browse Components</Link>
+            </Button>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="shadow-md hover:shadow-lg transition-shadow border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20" 
+              asChild
+            >
+              <a href="https://aki-ui.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                🚀 Live Storybook
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
             </Button>
             <Button variant="outline" size="lg" className="shadow-md hover:shadow-lg transition-shadow border-2 border-purple-500 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20" asChild>
               <Link href="/docs/llm">🤖 AI & LLM</Link>
@@ -379,11 +403,24 @@ export function UserProfile({ user }) {
               </ul>
             </div>
             <div>
-              <h4 className="font-medium text-gray-900 dark:text-white mb-4">Components</h4>
+              <h4 className="font-medium text-gray-900 dark:text-white mb-4">Resources</h4>
               <ul className="space-y-2 text-sm">
                 <li><Link href="/docs/components/button" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Button</Link></li>
                 <li><Link href="/docs/components/card" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Card</Link></li>
                 <li><Link href="/docs/components/input" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Input</Link></li>
+                <li>
+                  <a 
+                    href="https://aki-ui.vercel.app/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white flex items-center gap-1"
+                  >
+                    🚀 Storybook
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </li>
               </ul>
             </div>
             <div>

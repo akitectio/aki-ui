@@ -1,14 +1,8 @@
 import type { Metadata } from 'next'
 import { DocsLayoutClient } from '@/components/DocsLayoutClient'
+import { seoConfigs } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Documentation',
-  description: 'Complete documentation for Aki UI React component library including guides, examples, and API references.',
-  openGraph: {
-    title: 'Aki UI Documentation',
-    description: 'Complete documentation for Aki UI React component library including guides, examples, and API references.',
-  },
-}
+export const metadata: Metadata = seoConfigs.docs
 
 export default function DocsLayout({
   children,

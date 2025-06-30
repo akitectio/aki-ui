@@ -5,40 +5,77 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import './globals.css'
+import { ThemeProvider } from '@/components/ThemeProvider'
+
+const inter = Inter({ subsets: ['latin'] })
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://aki-ui.akitect.io'),
   title: {
     default: 'Aki UI - Modern React Component Library',
     template: '%s | Aki UI'
   },
-  description: 'A comprehensive, accessible, and customizable React component library built for modern applications.',
-  keywords: ['React', 'Components', 'UI Library', 'TypeScript', 'Tailwind CSS', 'Accessibility'],
-  authors: [{ name: 'Akitect.io Team' }],
+  description: 'A comprehensive, accessible, and customizable React component library built for modern applications. Featuring AI-powered integration, TypeScript support, and Tailwind CSS styling.',
+  keywords: [
+    'React', 'Components', 'UI Library', 'TypeScript', 'Tailwind CSS', 
+    'Accessibility', 'Modern UI', 'Component Library', 'AI Integration',
+    'MCP Support', 'Design System', 'Frontend Framework', 'React Components',
+    'Customizable UI', 'Developer Tools', 'Web Development'
+  ],
+  authors: [{ name: 'Akitect.io Team', url: 'https://akitect.io' }],
   creator: 'Akitect.io',
   publisher: 'Akitect.io',
-  robots: 'index, follow',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  alternates: {
+    canonical: 'https://aki-ui.akitect.io',
+  },
+  verification: {
+    google: 'your-google-verification-code', // Replace with actual verification code
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: 'https://aki-ui.akitect.io',
     siteName: 'Aki UI',
     title: 'Aki UI - Modern React Component Library',
-    description: 'A comprehensive, accessible, and customizable React component library built for modern applications.',
+    description: 'A comprehensive, accessible, and customizable React component library built for modern applications. Featuring AI-powered integration, TypeScript support, and Tailwind CSS styling.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Aki UI - Modern React Component Library',
+        type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@akitectio', // Replace with actual Twitter handle
+    creator: '@akitectio', // Replace with actual Twitter handle
     title: 'Aki UI - Modern React Component Library',
     description: 'A comprehensive, accessible, and customizable React component library built for modern applications.',
-    images: ['/og-image.png'],
+    images: [
+      {
+        url: '/og-image.png',
+        alt: 'Aki UI - Modern React Component Library',
+      },
+    ],
   },
+  category: 'technology',
 }
 
 export default function RootLayout({
@@ -46,8 +83,42 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: 'Aki UI',
+    description: 'A comprehensive, accessible, and customizable React component library built for modern applications',
+    url: 'https://aki-ui.akitect.io',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Web Browser',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'Akitect.io',
+      url: 'https://akitect.io',
+    },
+    programmingLanguage: ['TypeScript', 'JavaScript', 'React'],
+    license: 'https://opensource.org/licenses/MIT',
+  }
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={inter.className}>
         <ThemeProvider>
           {children}

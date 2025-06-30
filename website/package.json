@@ -8,7 +8,9 @@
         "build:gh-pages": "NODE_ENV=production next build",
         "start": "next start",
         "lint": "next lint",
-        "type-check": "tsc --noEmit"
+        "type-check": "tsc --noEmit",
+        "seo:check": "node scripts/check-seo.js",
+        "seo:analyze": "npm run seo:check && echo 'Run this before deployment to ensure SEO compliance'"
     },
     "dependencies": {
         "@akitectio/aki-ui": "file:../",

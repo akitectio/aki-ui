@@ -29,8 +29,11 @@ import { ComponentDiscoveryTool } from "./tools/component-discovery.js";
 import { CodeGenerationTool } from "./tools/code-generation.js";
 import { DocumentationTool } from "./tools/documentation.js";
 import { ThemeManagementTool } from "./tools/theme-management.js";
-import { OptimizationTool } from "./tools/optimization.js";
-import { ValidationTool } from "./tools/validation.js";
+import {
+  OptimizationTool,
+  OptimizeComponentRequest,
+} from "./tools/optimization.js";
+import { ValidationTool, ValidateCodeRequest } from "./tools/validation.js";
 
 class AkiUIServer {
   private server: Server;
@@ -101,9 +104,19 @@ class AkiUIServer {
           case "generate_component":
             return await this.codeGeneration.generateComponent(args);
           case "validate_code":
-            return await this.validation.call(args);
+            if (!args || typeof args !== "object" || !("code" in args)) {
+              throw new Error("Missing 'code' argument for validate_code");
+            }
+            return await this.validation.call(
+              args as unknown as ValidateCodeRequest
+            );
           case "optimize_component":
-            return await this.optimization.call(args);
+            if (!args || typeof args !== "object" || !("code" in args)) {
+              throw new Error("Missing 'code' argument for optimize_component");
+            }
+            return await this.optimization.call(
+              args as unknown as OptimizeComponentRequest
+            );
 
           case "search_docs":
             return await this.documentation.searchDocs(args);
