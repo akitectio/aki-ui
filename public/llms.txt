@@ -8,7 +8,7 @@
 **Components:** 39+ pre-built UI components 
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
-**Version:** 0.1.20
+**Version:** 0.1.21
 **Last Updated:** June 30, 2025
 
 ## Documentation
@@ -61,7 +61,7 @@ import "@akitectio/aki-ui/css";
 
 **Installation:** `npm install -g @akitectio/aki-ui-mcp-server`  
 **NPM Package:** [@akitectio/aki-ui-mcp-server](https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server)  
-**Version:** 0.1.20
+**Version:** 0.1.21
 
 ## Development
 
@@ -79,5 +79,5 @@ import "@akitectio/aki-ui/css";
 
 **Created by:** Akitect.io
 **License:** MIT
-**Version:** 0.1.20
+**Version:** 0.1.21
 **Homepage:** https://akitect.io
