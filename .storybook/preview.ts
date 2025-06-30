@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react";
-import "../src/index.css";
+import "../src/styles.css";
 import { ToastProvider } from "../src/lib/components/Toast";
 import React from "react";
 import { withThemeByClassName } from "@storybook/addon-themes";
