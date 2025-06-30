@@ -52,17 +52,17 @@ const llmsTemplate = `# Aki UI
 
 ## Documentation
 
-- [Storybook Documentation](https://akitectio.github.io/aki-ui/) - Interactive component documentation and playground
+- [Storybook Documentation](https://aki-ui.akitect.io/storybook) - Interactive component documentation and playground
 - [NPM Package](https://www.npmjs.com/package/@akitectio/aki-ui) - Installation and package information
 - [GitHub Repository](https://github.com/akitectio/aki-ui) - Source code and issues
 
 ## Component Categories
 
-- [Layout & Navigation](https://akitectio.github.io/aki-ui/?path=/docs/components-grid--docs) - Grid, Stack, Breadcrumb, Pagination
-- [Form Controls](https://akitectio.github.io/aki-ui/?path=/docs/components-button--docs) - Button, Input, Select, Checkbox, Radio, Switch, Slider, FormControl
-- [Data Display](https://akitectio.github.io/aki-ui/?path=/docs/components-card--docs) - Card, DataTable, Badge, Avatar, Chip, Alert
-- [Feedback & Overlays](https://akitectio.github.io/aki-ui/?path=/docs/components-modal--docs) - Modal, Drawer, Toast, Tooltip, Popover, Spinner, Skeleton
-- [Interactive](https://akitectio.github.io/aki-ui/?path=/docs/components-dropdown--docs) - Dropdown, Tabs, Accordion, Chatbot
+- [Layout & Navigation](https://aki-ui.akitect.io/storybook/?path=/docs/components-grid--docs) - Grid, Stack, Breadcrumb, Pagination
+- [Form Controls](https://aki-ui.akitect.io/storybook/?path=/docs/components-button--docs) - Button, Input, Select, Checkbox, Radio, Switch, Slider, FormControl
+- [Data Display](https://aki-ui.akitect.io/storybook/?path=/docs/components-card--docs) - Card, DataTable, Badge, Avatar, Chip, Alert
+- [Feedback & Overlays](https://aki-ui.akitect.io/storybook/?path=/docs/components-modal--docs) - Modal, Drawer, Toast, Tooltip, Popover, Spinner, Skeleton
+- [Interactive](https://aki-ui.akitect.io/storybook/?path=/docs/components-dropdown--docs) - Dropdown, Tabs, Accordion, Chatbot
 
 ## Installation & Usage
 

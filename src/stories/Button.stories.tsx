@@ -171,3 +171,40 @@ export const WithIcons: Story = {
         </div>
     ),
 };
+
+export const AsChild: StoryObj<typeof Button> = {
+    name: 'As Child (Link)',
+    parameters: {
+        docs: {
+            description: {
+                story: 'When `asChild` is true, the button renders its child element with button styles. This is useful for wrapping Link components while maintaining button appearance.',
+            },
+        },
+    },
+    render: () => (
+        <div className="flex flex-col gap-4 items-center">
+            <Button variant="primary" asChild>
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                    Link styled as Button
+                </a>
+            </Button>
+            
+            <Button variant="outline" asChild>
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                    Outline Link Button
+                </a>
+            </Button>
+            
+            <Button variant="secondary" size="lg" asChild>
+                <a href="#" onClick={(e) => e.preventDefault()}>
+                    Large Link Button
+                </a>
+            </Button>
+            
+            <div className="text-sm text-gray-600 mt-4 text-center">
+                <p>These look like buttons but are actually &lt;a&gt; elements</p>
+                <p>Check the DOM inspector to verify</p>
+            </div>
+        </div>
+    ),
+};

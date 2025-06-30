@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { 
@@ -160,6 +161,47 @@ const docCategories: DocCategory[] = [
 export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onClose?: () => void }) {
   const pathname = usePathname()
 
+  // Close sidebar on Escape key
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen && onClose) {
+        onClose()
+      }
+    }
+
+    document.addEventListener('keydown', handleEscapeKey)
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey)
+    }
+  }, [isOpen, onClose])
+
+  // Close sidebar on window resize to desktop size
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024 && isOpen && onClose) {
+        onClose()
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [isOpen, onClose])
+
+  // Prevent body scroll when sidebar is open on mobile
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
+
   return (
     <>
       {/* Mobile backdrop */}
@@ -182,8 +224,8 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
             const Icon = category.icon
             return (
               <div key={category.id}>
-                <div className="flex items-center px-2 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  <Icon className="w-4 h-4 mr-2" />
+                <div className="flex items-center px-2 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                  <Icon className="w-4 h-4 mr-2 text-gray-700 dark:text-gray-300" />
                   {category.title}
                 </div>
                 <ul className="mt-2 space-y-1">
@@ -214,13 +256,13 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
                                   block px-3 py-1.5 text-sm rounded-md transition-colors
                                   ${pathname === subsection.href
                                     ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
-                                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200'
+                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200'
                                   }
                                 `}
                                 onClick={() => onClose?.()}
                               >
                                 <span className="flex items-center">
-                                  <span className="w-2 h-2 bg-gray-300 dark:bg-gray-600 rounded-full mr-3 flex-shrink-0"></span>
+                                  <span className="w-2 h-2 bg-gray-400 dark:bg-gray-600 rounded-full mr-3 flex-shrink-0"></span>
                                   {subsection.title}
                                 </span>
                               </Link>

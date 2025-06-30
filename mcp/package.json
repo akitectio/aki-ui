@@ -48,7 +48,7 @@
         "url": "git+https://github.com/akitectio/aki-ui.git",
         "directory": "mcp"
     },
-    "homepage": "https://akitectio.github.io/aki-ui",
+    "homepage": "https://aki-ui.akitect.io",
     "bugs": {
         "url": "https://github.com/akitectio/aki-ui/issues"
     },

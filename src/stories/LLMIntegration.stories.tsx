@@ -425,7 +425,7 @@ export const InteractiveDemo: Story = {
                             <p>Copy this prompt and paste it into ChatGPT, Claude, or your AI assistant:</p>
                             <div className="mt-3 p-3 bg-gray-50 rounded border">
                                 <code className="text-sm">
-                                    Please review the Aki UI documentation at https://akitectio.github.io/aki-ui/llms.txt and then create a modern dashboard with cards, a data table, and navigation using these components.
+                                    Please review the Aki UI documentation at https://aki-ui.akitect.io/llms.txt and then create a modern dashboard with cards, a data table, and navigation using these components.
                                 </code>
                             </div>
                             <Button
@@ -433,7 +433,7 @@ export const InteractiveDemo: Story = {
                                 size="sm"
                                 className="mt-3"
                                 onClick={() => {
-                                    const prompt = "Please review the Aki UI documentation at https://akitectio.github.io/aki-ui/llms.txt and then create a modern dashboard with cards, a data table, and navigation using these components.";
+                                    const prompt = "Please review the Aki UI documentation at https://aki-ui.akitect.io/llms.txt and then create a modern dashboard with cards, a data table, and navigation using these components.";
                                     navigator.clipboard.writeText(prompt);
                                     alert('Prompt copied to clipboard!');
                                 }}

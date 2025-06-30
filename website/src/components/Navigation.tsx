@@ -13,16 +13,21 @@ interface NavigationProps {
   className?: string
   onMenuClick?: () => void
   showMobileMenu?: boolean
+  isMobileMenuOpen?: boolean
 }
 
 export function Navigation({ 
   showGetStarted = true, 
   className = '', 
   onMenuClick,
-  showMobileMenu = false 
+  showMobileMenu = false,
+  isMobileMenuOpen: externalMobileMenuOpen
 }: NavigationProps) {
   const pathname = usePathname()
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Use external state for mobile menu if provided (e.g., in docs mode)
+  const effectiveMobileMenuOpen = showMobileMenu ? externalMobileMenuOpen : isMobileMenuOpen
 
   const navigationItems = [
     { href: '/docs', label: 'Documentation', isActive: pathname?.startsWith('/docs') },
@@ -55,7 +60,7 @@ export function Navigation({
                 <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 via-primary-500 to-secondary-600 bg-clip-text text-transparent group-hover:from-primary-700 group-hover:to-secondary-700 transition-all duration-300">
                   Aki UI
                 </span>
-                <span className="text-xs text-gray-600 dark:text-gray-300 font-medium tracking-wide hidden sm:block">
+                <span className="text-xs text-gray-700 dark:text-gray-300 font-medium tracking-wide hidden sm:block">
                   Modern React Components
                 </span>
               </div>
@@ -63,7 +68,7 @@ export function Navigation({
             <div className="hidden sm:flex items-center space-x-2">
               <Badge 
                 variant="secondary" 
-                className="bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200/50 dark:border-gray-600/50 px-2.5 py-1 text-xs font-medium shadow-sm"
+                className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/50 dark:to-indigo-900/50 text-blue-700 dark:text-blue-200 border border-blue-200/50 dark:border-blue-700/50 px-2.5 py-1 text-xs font-medium shadow-sm hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-800/50 dark:hover:to-indigo-800/50 transition-colors"
               >
                 {getVersionBadge()}
               </Badge>
@@ -132,14 +137,15 @@ export function Navigation({
                   setMobileMenuOpen(!isMobileMenuOpen)
                 }
               }}
-              className="md:hidden p-2.5 rounded-xl text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 transition-all duration-300 shadow-sm hover:shadow-md"
+              className="md:hidden p-2.5 rounded-xl text-gray-900 dark:text-white bg-white/90 dark:bg-gray-800/90 border border-gray-300/70 dark:border-gray-600/70 hover:bg-white dark:hover:bg-gray-700 hover:border-gray-400 dark:hover:border-gray-500 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm hover:scale-105 active:scale-95"
               aria-controls="mobile-menu"
-              aria-expanded={isMobileMenuOpen}
+              aria-expanded={effectiveMobileMenuOpen}
+              aria-label={effectiveMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
-              {isMobileMenuOpen ? (
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+              {effectiveMobileMenuOpen ? (
+                <XMarkIcon className="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true" />
               ) : (
-                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+                <Bars3Icon className="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -147,7 +153,7 @@ export function Navigation({
       </div>
 
       {/* Mobile Menu - Only show if not in docs mode */}
-      {isMobileMenuOpen && !showMobileMenu && (
+      {effectiveMobileMenuOpen && !showMobileMenu && (
         <div className="md:hidden border-t border-gray-200/30 dark:border-gray-700/30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl">
           <div className="px-4 py-6 space-y-4">
             {navigationItems.map((item) => (

@@ -59,6 +59,13 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     as?: React.ElementType;
 
     /**
+     * When true, the button will render its child as the underlying element
+     * This is useful for wrapping Link components while maintaining button styles
+     * @default false
+     */
+    asChild?: boolean;
+
+    /**
      * Additional CSS classes to apply to the button
      */
     className?: string;
@@ -96,6 +103,7 @@ const Button: React.FC<ButtonProps> = ({
     isLoading = false,
     loadingText,
     as: Component = 'button',
+    asChild = false,
     className = '',
     rounded = false,
     pill = false,
@@ -158,6 +166,20 @@ const Button: React.FC<ButtonProps> = ({
         stateClasses,
         className
     ].join(' ');
+
+    // Filter out custom props that shouldn't be passed to DOM
+    // asChild is already destructured from function params, so props won't contain it
+
+    // If asChild is true, clone the child element and apply button styles
+    if (asChild && React.isValidElement(children)) {
+        const childProps = children.props as any;
+        return React.cloneElement(children, {
+            className: `${buttonClasses} ${childProps.className || ''}`.trim(),
+            disabled: disabled || isLoading,
+            ...props,
+            ...childProps, // Child props take precedence
+        });
+    }
 
     return (
         <Component

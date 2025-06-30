@@ -7,10 +7,10 @@
 [![MCP Server](https://img.shields.io/npm/v/@akitectio/aki-ui-mcp-server.svg?label=MCP%20Server&color=blue)](https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
-[![Storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://akitectio.github.io/aki-ui/)
+[![Storybook](https://img.shields.io/badge/Storybook-FF4785?logo=storybook&logoColor=white)](https://aki-ui.akitect.io/storybook)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-**Links:** [📖 Documentation](https://akitectio.github.io/aki-ui/) • [📦 NPM Package](https://www.npmjs.com/package/@akitectio/aki-ui) • [🐛 GitHub](https://github.com/akitectio/aki-ui)
+**Links:** [📖 Documentation](https://aki-ui.akitect.io/docs) • [📦 NPM Package](https://www.npmjs.com/package/@akitectio/aki-ui) • [🐛 GitHub](https://github.com/akitectio/aki-ui)
 
 ---
 
@@ -271,7 +271,7 @@ aki-ui/
 
 ## 📖 Documentation
 
-Visit our [Storybook documentation](https://akitectio.github.io/aki-ui/) to:
+Visit our [Storybook documentation](https://aki-ui.akitect.io/storybook) to:
 
 - 🎮 **Interactive Examples** - Try components with live code examples
 - 🎨 **Design System** - Explore our design tokens and guidelines
@@ -519,7 +519,7 @@ Join our growing community of developers building beautiful applications with Ak
 
 ### 💬 Get Help & Support
 
-- **📚 [Documentation](https://akitectio.github.io/aki-ui/)** - Complete guides and API reference
+- **📚 [Documentation](https://aki-ui.akitect.io/docs)** - Complete guides and API reference
 - **💭 [GitHub Discussions](https://github.com/akitectio/aki-ui/discussions)** - Ask questions and share ideas
 - **🐛 [GitHub Issues](https://github.com/akitectio/aki-ui/issues)** - Report bugs and request features
 - **📧 [Support Email](mailto:duy@akitect.io)** - Direct support from our team
@@ -534,7 +534,7 @@ Join our growing community of developers building beautiful applications with Ak
 Built something amazing with Aki UI? We'd love to feature your project!
 
 - **🌟 [Submit Your Project](https://github.com/akitectio/aki-ui/discussions/showcase)** - Share your creations
-- **📸 [Gallery](https://akitectio.github.io/aki-ui/showcase)** - Browse community projects
+- **📸 [Gallery](https://aki-ui.akitect.io/showcase)** - Browse community projects
 
 ## 📝 License
 

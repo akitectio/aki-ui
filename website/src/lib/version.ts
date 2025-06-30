@@ -5,6 +5,6 @@ export const getVersion = () => {
   return packageVersion;
 };
 
-export const getVersionBadge = () => {
-  return `v${packageVersion}`;
+export const getVersionBadge = (prefix = "v") => {
+  return `${prefix}${packageVersion}`;
 };

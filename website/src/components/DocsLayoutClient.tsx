@@ -12,12 +12,17 @@ export function DocsLayoutClient({
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen)
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <Navigation 
         showGetStarted={false} 
-        onMenuClick={() => setIsSidebarOpen(true)}
+        onMenuClick={toggleSidebar}
         showMobileMenu={true}
+        isMobileMenuOpen={isSidebarOpen}
       />
       <div className="flex">
         <DocsSidebar 
