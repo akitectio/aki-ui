@@ -1,4 +1,4 @@
-name: Deploy Storybook to GitHub Pages
+name: Deploy Website to GitHub Pages
 
 on:
   push:
@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy-storybook:
+  deploy-website:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -31,19 +31,30 @@ jobs:
         with:
           node-version: "20.x"
 
-      - name: Install dependencies
+      - name: Install root dependencies
         run: npm ci
 
-      - name: Build Storybook
-        run: npm run build-storybook:gh-pages
+      - name: Install website dependencies
+        run: cd website && npm install
 
-      - name: Copy LLMs files
+      - name: Build Aki UI library
+        run: npm run build:prod
+
+      - name: Build website
+        run: npm run website:build
+        env:
+          NODE_ENV: production
+
+      - name: Copy LLMs files to website
         run: |
-          cp public/llms.txt storybook-static/
-          cp public/llms-full.txt storybook-static/
+          cp public/llms.txt website/out/
+          cp public/llms-full.txt website/out/
 
       - name: Add .nojekyll file
-        run: touch storybook-static/.nojekyll
+        run: touch website/out/.nojekyll
+
+      - name: Add CNAME file for custom domain
+        run: echo "aki-ui.akitect.io" > website/out/CNAME
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -51,7 +62,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./storybook-static"
+          path: "./website/out"
 
       - name: Deploy to GitHub Pages
         id: deployment

@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://aki-ui.akitect.io'),
   title: {
     default: 'Aki UI - Modern React Component Library',
     template: '%s | Aki UI'
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://aki-ui.com',
+    url: 'https://aki-ui.akitect.io',
     siteName: 'Aki UI',
     title: 'Aki UI - Modern React Component Library',
     description: 'A comprehensive, accessible, and customizable React component library built for modern applications.',

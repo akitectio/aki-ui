@@ -12,6 +12,13 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_VERSION: packageJson.version,
   },
+  // GitHub Pages configuration with custom domain
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+  // No basePath or assetPrefix needed for custom domain
 }
 
 module.exports = nextConfig
