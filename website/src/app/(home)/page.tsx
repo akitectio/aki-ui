@@ -2,49 +2,14 @@
 
 import Link from 'next/link'
 import { Button, Card, Badge } from '@akitectio/aki-ui'
-import { ThemeToggle } from '@/components/ThemeToggle'
+import { Navigation } from '@/components/Navigation'
 import { ComponentShowcase } from '@/components/ComponentShowcase'
-import { getVersionBadge } from '@/lib/version'
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-900">
       {/* Navigation */}
-      <nav className="border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
-                Aki UI
-              </Link>
-              <Badge variant="secondary" className="ml-3 hidden sm:inline-flex">{getVersionBadge()}</Badge>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link href="/docs" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                Documentation
-              </Link>
-              <Link href="/docs/components" className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
-                Components
-              </Link>
-              <a 
-                href="https://aki-ui.vercel.app/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors flex items-center gap-1"
-              >
-                Storybook
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-              <ThemeToggle />
-              <Button variant="primary" asChild>
-                <Link href="/docs">Get Started</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navigation />
 
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8">

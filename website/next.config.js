@@ -14,7 +14,6 @@ const nextConfig = {
   },
   // GitHub Pages configuration with custom domain
   output: 'export',
-  trailingSlash: true,
   images: {
     unoptimized: true,
   },

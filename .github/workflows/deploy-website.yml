@@ -44,6 +44,8 @@ jobs:
         run: npm run website:build
         env:
           NODE_ENV: production
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+          NEXT_PUBLIC_SITE_URL: https://aki-ui.akitect.io
 
       - name: Copy LLMs files to website
         run: |
