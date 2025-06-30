@@ -6,6 +6,11 @@ const meta: Meta<typeof Button> = {
     component: Button,
     parameters: {
         layout: 'centered',
+        docs: {
+            description: {
+                component: 'Customizable button component with multiple variants, sizes, and states. Supports primary, secondary, outline, and ghost styles for various use cases.',
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {

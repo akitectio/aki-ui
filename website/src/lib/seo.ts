@@ -161,60 +161,433 @@ export const seoConfigs = {
   },
 };
 
-// Generate component-specific SEO
-export function generateComponentSEO(
-  componentName: string,
-  description?: string
-): Metadata {
-  const formattedName =
-    componentName.charAt(0).toUpperCase() + componentName.slice(1);
+/**
+ * Page-specific SEO configurations
+ * Maps page paths to their SEO metadata
+ */
+export const pageSEOConfigs: Record<string, SEOProps> = {
+  // Home page
+  "/": {
+    title: "Aki UI - Modern React Component Library",
+    description:
+      "Build beautiful, accessible React applications with Aki UI. A comprehensive component library featuring AI-powered integration, TypeScript support, and customizable Tailwind CSS styling.",
+    keywords: [
+      "react library",
+      "component framework",
+      "UI kit",
+      "typescript",
+      "tailwind css",
+      "AI integration",
+    ],
+    type: "website",
+    section: "Homepage",
+  },
+
+  // Documentation pages
+  "/docs": {
+    title: "Documentation - Aki UI",
+    description:
+      "Complete documentation for Aki UI component library. Learn how to install, customize, and use our React components in your projects.",
+    keywords: ["documentation", "guides", "tutorial", "help", "api reference"],
+    section: "Documentation",
+  },
+
+  "/docs/installation": {
+    title: "Installation Guide - Aki UI",
+    description:
+      "Step-by-step installation guide for Aki UI. Learn how to install and set up the component library in your React project with npm, yarn, or CDN.",
+    keywords: [
+      "installation",
+      "setup",
+      "npm",
+      "yarn",
+      "cdn",
+      "getting started",
+      "configuration",
+    ],
+    section: "Getting Started",
+  },
+
+  "/docs/theming": {
+    title: "Theming & Customization - Aki UI",
+    description:
+      "Learn how to customize Aki UI components with themes, CSS variables, and Tailwind CSS classes. Create your own design system and brand colors.",
+    keywords: [
+      "theming",
+      "customization",
+      "css variables",
+      "design tokens",
+      "styling",
+      "brand colors",
+      "design system",
+    ],
+    section: "Customization",
+  },
+
+  "/docs/color-modes": {
+    title: "Color Modes & Dark Theme - Aki UI",
+    description:
+      "Implement dark mode and light mode in your Aki UI application. Learn about color mode configuration, theme switching, and accessibility best practices.",
+    keywords: [
+      "dark mode",
+      "light mode",
+      "color modes",
+      "theme switching",
+      "accessibility",
+      "user preferences",
+    ],
+    section: "Theming",
+  },
+
+  "/docs/mcp": {
+    title: "MCP Integration - AI-Powered Development",
+    description:
+      "Learn about Model Context Protocol (MCP) integration with Aki UI. AI-powered component development, code generation, and intelligent design assistance.",
+    keywords: [
+      "MCP",
+      "AI integration",
+      "model context protocol",
+      "AI development",
+      "code generation",
+      "intelligent design",
+    ],
+    section: "AI Integration",
+  },
+
+  // Component documentation
+  "/docs/components": {
+    title: "Components Overview - Aki UI",
+    description:
+      "Explore all available components in Aki UI library. Interactive examples, comprehensive API documentation, and usage guidelines for every component.",
+    keywords: [
+      "components",
+      "overview",
+      "component library",
+      "UI elements",
+      "react components",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/button": {
+    title: "Button Component - Aki UI",
+    description:
+      "Customizable button component with multiple variants, sizes, and states. Includes primary, secondary, outline, and ghost styles with full accessibility support.",
+    keywords: [
+      "button",
+      "cta",
+      "action",
+      "click",
+      "interactive",
+      "form controls",
+      "accessibility",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/card": {
+    title: "Card Component - Aki UI",
+    description:
+      "Flexible card container component for displaying content. Perfect for organizing information with headers, footers, actions, and responsive layouts.",
+    keywords: [
+      "card",
+      "container",
+      "panel",
+      "content",
+      "layout",
+      "grid",
+      "responsive",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/input": {
+    title: "Input Component - Aki UI",
+    description:
+      "Form input component with validation, labels, and various input types. Includes support for disabled states, error handling, and accessibility features.",
+    keywords: [
+      "input",
+      "form",
+      "text field",
+      "validation",
+      "form controls",
+      "accessibility",
+      "error handling",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/modal": {
+    title: "Modal Component - Aki UI",
+    description:
+      "Modal dialog component for displaying overlay content with backdrop and focus management. Supports various sizes, configurations, and accessibility features.",
+    keywords: [
+      "modal",
+      "dialog",
+      "popup",
+      "overlay",
+      "lightbox",
+      "focus management",
+      "accessibility",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/alert": {
+    title: "Alert Component - Aki UI",
+    description:
+      "Alert component for displaying important messages with different severity levels and optional actions. Includes success, error, warning, and info variants.",
+    keywords: [
+      "alert",
+      "notification",
+      "message",
+      "warning",
+      "error",
+      "success",
+      "info",
+      "feedback",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/badge": {
+    title: "Badge Component - Aki UI",
+    description:
+      "Small badge component for displaying status, counts, or labels. Available in multiple colors, sizes, and variants for various use cases.",
+    keywords: [
+      "badge",
+      "label",
+      "tag",
+      "status",
+      "indicator",
+      "count",
+      "notification",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/avatar": {
+    title: "Avatar Component - Aki UI",
+    description:
+      "User avatar component supporting images, initials, and fallback states. Includes various sizes, shapes, and accessibility features.",
+    keywords: [
+      "avatar",
+      "profile",
+      "user",
+      "image",
+      "initials",
+      "fallback",
+      "user interface",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/checkbox": {
+    title: "Checkbox Component - Aki UI",
+    description:
+      "Accessible checkbox component with custom styling and indeterminate state support. Perfect for forms and multi-selection interfaces.",
+    keywords: [
+      "checkbox",
+      "form",
+      "selection",
+      "input",
+      "boolean",
+      "multi-select",
+      "accessibility",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/radio": {
+    title: "Radio Component - Aki UI",
+    description:
+      "Radio button component for single selection from multiple options. Fully accessible, customizable, and perfect for form interfaces.",
+    keywords: [
+      "radio",
+      "form",
+      "selection",
+      "input",
+      "choice",
+      "single select",
+      "accessibility",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/switch": {
+    title: "Switch Component - Aki UI",
+    description:
+      "Toggle switch component for boolean inputs. Perfect for settings, preferences, and on/off controls with smooth animations.",
+    keywords: [
+      "switch",
+      "toggle",
+      "boolean",
+      "settings",
+      "preferences",
+      "on/off",
+      "animation",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/tabs": {
+    title: "Tabs Component - Aki UI",
+    description:
+      "Tab component for organizing content into separate views with keyboard navigation support. Includes horizontal and vertical orientations.",
+    keywords: [
+      "tabs",
+      "navigation",
+      "panels",
+      "content",
+      "tabbed interface",
+      "keyboard navigation",
+    ],
+    section: "Components",
+  },
+
+  // Additional pages
+  "/playground": {
+    title: "Component Playground - Aki UI",
+    description:
+      "Interactive playground for testing and experimenting with Aki UI components. Try different configurations, see live results, and generate code.",
+    keywords: [
+      "playground",
+      "interactive",
+      "testing",
+      "experimentation",
+      "live demo",
+      "code generation",
+    ],
+    section: "Tools",
+  },
+
+  "/docs/layout": {
+    title: "Layout Components - Aki UI",
+    description:
+      "Layout components for structuring your application. Grid systems, flex containers, responsive utilities, and spacing controls.",
+    keywords: [
+      "layout",
+      "grid",
+      "flex",
+      "responsive",
+      "structure",
+      "spacing",
+      "container",
+    ],
+    section: "Components",
+  },
+
+  "/docs/forms": {
+    title: "Form Components - Aki UI",
+    description:
+      "Comprehensive form components and validation utilities for building accessible and user-friendly forms with React.",
+    keywords: [
+      "forms",
+      "validation",
+      "form controls",
+      "input",
+      "accessibility",
+      "user experience",
+      "form design",
+    ],
+    section: "Components",
+  },
+
+  "/docs/introduction": {
+    title: "Introduction - Aki UI",
+    description:
+      "Get started with Aki UI, a modern React component library. Learn about features, philosophy, and how to integrate into your project.",
+    keywords: [
+      "introduction",
+      "getting started",
+      "overview",
+      "features",
+      "philosophy",
+      "react library",
+    ],
+    section: "Getting Started",
+  },
+
+  "/docs/llm": {
+    title: "LLM Integration - Aki UI",
+    description:
+      "Learn how to integrate Large Language Models with Aki UI components for enhanced AI-powered user experiences.",
+    keywords: [
+      "LLM",
+      "AI integration",
+      "large language models",
+      "AI components",
+      "chatbot",
+      "AI assistance",
+    ],
+    section: "AI Integration",
+  },
+};
+
+/**
+ * Get SEO metadata for a specific page path
+ */
+export const getPageSEO = (path: string): Metadata => {
+  const config = pageSEOConfigs[path];
+
+  if (!config) {
+    // Generate default SEO for unknown pages
+    const pathSegments = path.split("/").filter(Boolean);
+    const lastSegment = pathSegments[pathSegments.length - 1];
+    const title =
+      lastSegment
+        ?.split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ") || "Page";
+
+    return generateSEO({
+      title: `${title} - Aki UI`,
+      description: `${title} page in Aki UI component library documentation.`,
+      url: path,
+      section: "Documentation",
+    });
+  }
 
   return generateSEO({
-    title: `${formattedName} Component`,
-    description:
-      description ||
-      `Learn how to use the ${formattedName} component in Aki UI. Complete API reference, examples, and customization options.`,
-    keywords: [
-      `${formattedName} Component`,
-      "React Component",
-      componentName,
-      "API Reference",
-    ],
-    url: `/docs/components/${componentName.toLowerCase()}`,
-    type: "article",
-    section: "Components",
-    tags: ["component", "react", componentName],
+    ...config,
+    url: path,
   });
-}
+};
 
-// Generate structured data for components
-export function generateComponentStructuredData(
-  componentName: string,
-  description: string
-) {
+/**
+ * Generate breadcrumb structured data
+ */
+export const generateBreadcrumbStructuredData = (
+  breadcrumbs: Array<{ name: string; url: string }>
+) => {
   return {
     "@context": "https://schema.org",
-    "@type": "TechArticle",
-    headline: `${componentName} Component - Aki UI`,
-    description,
-    author: {
-      "@type": "Organization",
-      name: "Akitect.io",
-      url: "https://akitect.io",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Akitect.io",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://aki-ui.akitect.io/logo.png",
-      },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://aki-ui.akitect.io/docs/components/${componentName.toLowerCase()}`,
-    },
-    datePublished: new Date().toISOString(),
-    dateModified: new Date().toISOString(),
+    "@type": "BreadcrumbList",
+    itemListElement: breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `https://aki-ui.akitect.io${item.url}`,
+    })),
   };
-}
+};
+
+/**
+ * Generate FAQ structured data for documentation pages
+ */
+export const generateFAQStructuredData = (
+  faqs: Array<{ question: string; answer: string }>
+) => {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+};

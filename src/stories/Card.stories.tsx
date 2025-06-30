@@ -6,6 +6,11 @@ const meta: Meta<typeof Card> = {
     component: Card,
     parameters: {
         layout: 'centered',
+        docs: {
+            description: {
+                component: 'Flexible card container component for displaying content with optional headers, footers, and actions. Perfect for organizing information in a clean, structured layout.',
+            },
+        },
     },
     tags: ['autodocs'],
     argTypes: {
