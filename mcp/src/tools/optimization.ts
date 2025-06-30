@@ -13,34 +13,25 @@ export interface OptimizeComponentRequest {
   focus?: "performance" | "accessibility" | "bundle-size" | "best-practices";
 }
 
-export class OptimizationTool implements Tool {
+export class OptimizationTool {
   name = "optimize_component";
   description =
     "Optimize React component code for better performance and accessibility";
-  inputSchema = z.object({
-    code: z.string().describe("React component code to optimize"),
-    focus: z
-      .enum(["performance", "accessibility", "bundle-size", "best-practices"])
-      .optional()
-      .describe("Optimization focus area"),
-  });
-  outputSchema = z.object({
-    optimizedCode: z.string().describe("Optimized React component code"),
-    suggestions: z
-      .array(
-        z.object({
-          type: z.enum([
-            "performance",
-            "accessibility",
-            "bundle-size",
-            "best-practices",
-          ]),
-          description: z.string(),
-          impact: z.enum(["high", "medium", "low"]),
-        })
-      )
-      .describe("List of optimization suggestions"),
-  });
+  inputSchema = {
+    type: "object" as const,
+    properties: {
+      code: {
+        type: "string",
+        description: "React component code to optimize",
+      },
+      focus: {
+        type: "string",
+        enum: ["performance", "accessibility", "bundle-size", "best-practices"],
+        description: "Optimization focus area",
+      },
+    },
+    required: ["code"],
+  };
 
   async call(params: OptimizeComponentRequest): Promise<CallToolResult> {
     const { code, focus = "best-practices" } = params;
@@ -107,10 +98,19 @@ export class OptimizationTool implements Tool {
     }
 
     return {
-      result: {
-        optimizedCode,
-        suggestions,
-      },
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(
+            {
+              optimizedCode,
+              suggestions,
+            },
+            null,
+            2
+          ),
+        },
+      ],
     };
   }
 }

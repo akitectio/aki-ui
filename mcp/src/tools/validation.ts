@@ -25,31 +25,19 @@ export interface ValidateCodeRequest {
   code: string;
 }
 
-export class ValidationTool implements Tool {
+export class ValidationTool {
   name = "validate_code";
   description = "Validate React/Aki UI component code for best practices";
-  inputSchema = z.object({
-    code: z.string().describe("React component code to validate"),
-  });
-  outputSchema = z.object({
-    isValid: z.boolean().describe("Whether the code is valid"),
-    errors: z.array(
-      z.object({
-        line: z.number(),
-        message: z.string(),
-        severity: z.literal("error"),
-        code: z.string(),
-      })
-    ),
-    warnings: z.array(
-      z.object({
-        line: z.number(),
-        message: z.string(),
-        severity: z.literal("warning"),
-        code: z.string(),
-      })
-    ),
-  });
+  inputSchema = {
+    type: "object" as const,
+    properties: {
+      code: {
+        type: "string",
+        description: "React component code to validate",
+      },
+    },
+    required: ["code"],
+  };
 
   async call(params: ValidateCodeRequest): Promise<CallToolResult> {
     const { code } = params;
@@ -102,11 +90,20 @@ export class ValidationTool implements Tool {
     });
 
     return {
-      result: {
-        isValid: errors.length === 0,
-        errors,
-        warnings,
-      },
+      content: [
+        {
+          type: "text",
+          text: JSON.stringify(
+            {
+              isValid: errors.length === 0,
+              errors,
+              warnings,
+            },
+            null,
+            2
+          ),
+        },
+      ],
     };
   }
 }
