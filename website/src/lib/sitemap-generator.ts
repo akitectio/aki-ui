@@ -104,7 +104,7 @@ export function analyzeSEO() {
     "public/robots.txt",
     "public/sitemap.xml",
     "public/favicon.ico",
-    "public/og-image.png",
+    "public/aki-ui-banner.png",
   ];
 
   requiredFiles.forEach((file) => {

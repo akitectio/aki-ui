@@ -4,16 +4,12 @@
 
 ## Key Information
 
-
-**Name:** @akitectio/aki-ui
-**Version:** 0.1.24
-**License:** MIT
 **Technology Stack:** React 18, TypeScript, Tailwind CSS, Storybook
 **Components:** 39+ pre-built UI components 
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
-**Version:** 0.1.22
-**Updated:** June 30, 2025
+**Version:** 0.1.24
+**Updated:** July 1, 2025
 
 ## Documentation & Resources
 
@@ -378,4 +374,4 @@ function MyComponent({ buttonProps, cardProps }: MyComponentProps) {
 **Storybook:** https://aki-ui.akitect.io/storybook
 
 ---
-*Generated automatically from Aki UI v0.1.22 on June 30, 2025*
+*Generated automatically from Aki UI v0.1.24 on July 1, 2025*

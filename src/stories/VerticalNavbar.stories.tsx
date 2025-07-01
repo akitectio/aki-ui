@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { VerticalNavbar } from '../lib';
 import { getVersionBadge } from '../lib/version';
-import { 
-  HomeIcon, 
-  ChartBarIcon, 
-  DocumentTextIcon, 
-  UserGroupIcon, 
+import {
+  HomeIcon,
+  ChartBarIcon,
+  DocumentTextIcon,
+  UserGroupIcon,
   CogIcon,
   BellIcon,
   InboxIcon,
@@ -17,13 +17,13 @@ import {
 } from '@heroicons/react/24/outline';
 
 // Import custom icons từ thư mục riêng
-import { 
+import {
   HomeIcon as CustomHomeIcon,
-  ChartIcon as CustomChartIcon,
-  DocumentIcon as CustomDocumentIcon,
+  ChartBarIcon as CustomChartIcon,
+  DocumentTextIcon as CustomDocumentIcon,
   UsersIcon as CustomUsersIcon,
-  SettingsIcon as CustomSettingsIcon
-} from '../icons';
+  Cog6ToothIcon as CustomSettingsIcon
+} from '@heroicons/react/24/outline';
 
 const meta: Meta<typeof VerticalNavbar> = {
   title: 'Components/VerticalNavbar',
@@ -72,8 +72,8 @@ export const Default: Story = {
       <VerticalNavbar>
         <VerticalNavbar.Header>
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">A</span>
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+              <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6 object-contain" />
             </div>
             <span className="font-bold text-lg">Aki UI</span>
           </div>
@@ -143,24 +143,24 @@ export const WithBadges: Story = {
       <VerticalNavbar variant="dark">
         <VerticalNavbar.Header>
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">A</span>
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+              <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6 object-contain" />
             </div>
             <span className="font-bold text-lg text-white">Admin Panel</span>
           </div>
         </VerticalNavbar.Header>
 
         <VerticalNavbar.Group title="Dashboard">
-          <VerticalNavbar.Item 
-            href="/" 
-            active 
+          <VerticalNavbar.Item
+            href="/"
+            active
             icon={<HomeIcon />}
             badge={<span className="bg-blue-500 text-white text-xs px-2 py-1 rounded-full">New</span>}
           >
             Overview
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/analytics" 
+          <VerticalNavbar.Item
+            href="/analytics"
             icon={<PresentationChartLineIcon />}
             badge={<span className="bg-green-500 text-white text-xs px-2 py-1 rounded-full">Live</span>}
           >
@@ -169,15 +169,15 @@ export const WithBadges: Story = {
         </VerticalNavbar.Group>
 
         <VerticalNavbar.Group title="Communication">
-          <VerticalNavbar.Item 
-            href="/inbox" 
+          <VerticalNavbar.Item
+            href="/inbox"
             icon={<InboxIcon />}
             badge={<span className="bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">5</span>}
           >
             Inbox
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/notifications" 
+          <VerticalNavbar.Item
+            href="/notifications"
             icon={<BellIcon />}
             badge={<span className="bg-orange-500 text-white text-xs px-1.5 py-0.5 rounded-full min-w-[20px] text-center">12</span>}
           >
@@ -219,8 +219,8 @@ export const Collapsible: Story = {
       <VerticalNavbar collapsible defaultCollapsed={false} variant="primary">
         <VerticalNavbar.Header collapsible>
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-              <span className="text-blue-600 font-bold text-sm">A</span>
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+              <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6 object-contain" />
             </div>
             <span className="font-bold text-lg text-white">Aki UI</span>
           </div>
@@ -304,16 +304,16 @@ export const ECommerceDashboard: Story = {
         </VerticalNavbar.Header>
 
         <VerticalNavbar.Group title="Overview">
-          <VerticalNavbar.Item 
-            href="/" 
-            active 
+          <VerticalNavbar.Item
+            href="/"
+            active
             icon={<HomeIcon />}
             badge={<div className="w-2 h-2 bg-green-500 rounded-full"></div>}
           >
             Dashboard
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/analytics" 
+          <VerticalNavbar.Item
+            href="/analytics"
             icon={<ChartBarIcon />}
           >
             Analytics
@@ -321,21 +321,21 @@ export const ECommerceDashboard: Story = {
         </VerticalNavbar.Group>
 
         <VerticalNavbar.Group title="Sales">
-          <VerticalNavbar.Item 
-            href="/orders" 
+          <VerticalNavbar.Item
+            href="/orders"
             icon={<CreditCardIcon />}
             badge={<span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">24</span>}
           >
             Orders
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/products" 
+          <VerticalNavbar.Item
+            href="/products"
             icon={<ShoppingCartIcon />}
           >
             Products
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/customers" 
+          <VerticalNavbar.Item
+            href="/customers"
             icon={<UserGroupIcon />}
             badge={<span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">1.2k</span>}
           >
@@ -497,8 +497,8 @@ export const MobileResponsive: Story = {
       <VerticalNavbar overlay variant="secondary">
         <VerticalNavbar.Header>
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">M</span>
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+              <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6 object-contain" />
             </div>
             <span className="font-bold text-lg text-white">Mobile App</span>
           </div>
@@ -594,8 +594,8 @@ export const MobileResponsive: Story = {
 export const MinimalSidebar: Story = {
   render: () => (
     <div className="flex h-screen bg-gray-100">
-      <VerticalNavbar 
-        collapsible 
+      <VerticalNavbar
+        collapsible
         defaultCollapsed={true}
         variant="light"
         width="280px"
@@ -604,49 +604,49 @@ export const MinimalSidebar: Story = {
       >
         <VerticalNavbar.Header>
           <div className="flex items-center justify-center">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-sm">
-              <span className="text-white font-bold text-lg">A</span>
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
+              <img src="/aki-ui-icon.png" alt="Aki UI" className="w-8 h-8 object-contain" />
             </div>
           </div>
         </VerticalNavbar.Header>
 
         <VerticalNavbar.Group>
-          <VerticalNavbar.Item 
-            href="/" 
-            active 
+          <VerticalNavbar.Item
+            href="/"
+            active
             icon={<HomeIcon />}
             badge={<div className="w-2 h-2 bg-green-500 rounded-full"></div>}
           >
             Dashboard
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/analytics" 
+          <VerticalNavbar.Item
+            href="/analytics"
             icon={<ChartBarIcon />}
           >
             Analytics
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/projects" 
+          <VerticalNavbar.Item
+            href="/projects"
             icon={<FolderIcon />}
             badge={<span className="bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded-full font-medium">3</span>}
           >
             Projects
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/calendar" 
+          <VerticalNavbar.Item
+            href="/calendar"
             icon={<CalendarIcon />}
           >
             Calendar
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/messages" 
+          <VerticalNavbar.Item
+            href="/messages"
             icon={<InboxIcon />}
             badge={<span className="bg-red-100 text-red-700 text-xs px-2 py-0.5 rounded-full font-medium">12</span>}
           >
             Messages
           </VerticalNavbar.Item>
-          <VerticalNavbar.Item 
-            href="/settings" 
+          <VerticalNavbar.Item
+            href="/settings"
             icon={<CogIcon />}
           >
             Settings
@@ -671,10 +671,10 @@ export const MinimalSidebar: Story = {
             Minimal Collapsible Sidebar
           </h1>
           <p className="text-gray-600 mb-8">
-            This example shows a clean, minimal sidebar that starts in collapsed mode. 
+            This example shows a clean, minimal sidebar that starts in collapsed mode.
             Click the expand button (top-right of sidebar) to see the full navigation labels.
           </p>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
               <div className="flex items-center mb-4">
@@ -768,14 +768,14 @@ export const WithCustomIcons: Story = {
       <VerticalNavbar variant="light" collapsible>
         <VerticalNavbar.Header>
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">C</span>
+            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
+              <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6 object-contain" />
             </div>
             <span className="font-bold text-lg">Custom App</span>
           </div>
         </VerticalNavbar.Header>
 
-        <VerticalNavbar.Group title="Navigation" icon={<CustomHomeIcon size={16} />}>
+        <VerticalNavbar.Group title="Navigation" icon={<CustomHomeIcon className="w-4 h-4" />}>
           <VerticalNavbar.Item href="/" active icon={<CustomHomeIcon />}>
             Dashboard
           </VerticalNavbar.Item>
@@ -823,7 +823,7 @@ export const WithCustomIcons: Story = {
             <div className="space-y-4 text-gray-600">
               <p><strong>Cách 1: Inline SVG Components</strong></p>
               <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
-{`const CustomIcon = () => (
+                {`const CustomIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
     <path d="...your svg path"/>
   </svg>
@@ -833,10 +833,10 @@ export const WithCustomIcons: Story = {
   Menu Item
 </VerticalNavbar.Item>`}
               </pre>
-              
+
               <p><strong>Cách 2: Icon Components với Props</strong></p>
               <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
-{`// src/icons/index.tsx
+                {`// src/icons/index.tsx
 export const MyIcon: React.FC<IconProps> = ({ size = 20, color = "currentColor" }) => (
   <svg width={size} height={size} stroke={color}>
     <path d="..."/>
@@ -850,7 +850,7 @@ import { MyIcon } from '../icons';
 
               <p><strong>Cách 3: Import từ file SVG</strong></p>
               <pre className="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
-{`// Với Vite/React
+                {`// Với Vite/React
 import MyIconSVG from './assets/my-icon.svg?react';
 <VerticalNavbar.Item icon={<MyIconSVG />}>Menu</VerticalNavbar.Item>`}
               </pre>

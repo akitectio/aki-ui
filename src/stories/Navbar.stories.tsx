@@ -46,7 +46,7 @@ export const Default: Story = {
       <Navbar>
         <Navbar.Brand href="/">
           <div className="flex items-center space-x-2">
-            <img src="/aki_ui_logo.svg" alt="Logo" className="h-8 w-8" />
+            <img src="/aki-ui-icon.png" alt="Logo" className="h-8 w-8" />
             <span className="font-bold text-xl">Aki UI</span>
           </div>
         </Navbar.Brand>
@@ -72,7 +72,7 @@ export const Primary: Story = {
       <Navbar variant="primary">
         <Navbar.Brand href="/">
           <div className="flex items-center space-x-2">
-            <img src="/aki_ui_logo.svg" alt="Logo" className="h-8 w-8" />
+            <img src="/aki-ui-icon.png" alt="Logo" className="h-8 w-8" />
             <span className="font-bold text-xl">Aki UI</span>
           </div>
         </Navbar.Brand>
@@ -95,7 +95,7 @@ export const Dark: Story = {
       <Navbar variant="dark">
         <Navbar.Brand href="/">
           <div className="flex items-center space-x-2">
-            <img src="/aki_ui_logo.svg" alt="Logo" className="h-8 w-8" />
+            <img src="/aki-ui-icon.png" alt="Logo" className="h-8 w-8" />
             <span className="font-bold text-xl">Aki UI</span>
           </div>
         </Navbar.Brand>
@@ -118,7 +118,7 @@ export const FixedTop: Story = {
       <Navbar variant="light" position="fixed-top">
         <Navbar.Brand href="/">
           <div className="flex items-center space-x-2">
-            <img src="/aki_ui_logo.svg" alt="Logo" className="h-8 w-8" />
+            <img src="/aki-ui-icon.png" alt="Logo" className="h-8 w-8" />
             <span className="font-bold text-xl">Fixed Top</span>
           </div>
         </Navbar.Brand>
@@ -134,8 +134,8 @@ export const FixedTop: Story = {
         </p>
         {Array.from({ length: 20 }, (_, i) => (
           <p key={i} className="mb-4 text-gray-600">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor 
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
             exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
         ))}

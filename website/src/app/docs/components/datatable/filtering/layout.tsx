@@ -27,7 +27,7 @@ const pageInfo = {
     ],
     features: [
         "Column-specific filtering",
-        "Global search functionality", 
+        "Global search functionality",
         "Custom filter types",
         "Real-time filtering",
         "Performance optimization",
@@ -46,11 +46,11 @@ const pageInfo = {
             "name": "Aki UI"
         },
         "publisher": {
-            "@type": "Organization", 
+            "@type": "Organization",
             "name": "Akitect.io",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://aki-ui.akitect.io/aki-ui-logo.svg"
+                "url": "https://aki-ui.akitect.io/aki-ui-icon.png"
             }
         },
         "mainEntityOfPage": {
