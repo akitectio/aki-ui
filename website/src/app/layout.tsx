@@ -4,6 +4,8 @@ import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { Analytics } from '@/components/Analytics'
 import { GA_TRACKING_ID, isAnalyticsEnabled } from '@/lib/analytics'
+import { Suspense } from 'react'
+import { ToastProviderWrapper } from '@/components/ToastProviderWrapper'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +17,7 @@ export const metadata: Metadata = {
   },
   description: 'A comprehensive, accessible, and customizable React component library built for modern applications. Featuring AI-powered integration, TypeScript support, and Tailwind CSS styling.',
   keywords: [
-    'React', 'Components', 'UI Library', 'TypeScript', 'Tailwind CSS', 
+    'React', 'Components', 'UI Library', 'TypeScript', 'Tailwind CSS',
     'Accessibility', 'Modern UI', 'Component Library', 'AI Integration',
     'MCP Support', 'Design System', 'Frontend Framework', 'React Components',
     'Customizable UI', 'Developer Tools', 'Web Development'
@@ -109,7 +111,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        
+
         {/* Google Analytics */}
         {isAnalyticsEnabled() && (
           <>
@@ -134,7 +136,7 @@ export default function RootLayout({
             />
           </>
         )}
-        
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -142,8 +144,12 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <ThemeProvider>
-          {children}
-          <Analytics />
+          <ToastProviderWrapper>
+            {children}
+            <Suspense fallback={null}>
+              <Analytics />
+            </Suspense>
+          </ToastProviderWrapper>
         </ThemeProvider>
       </body>
     </html>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { 
@@ -10,7 +10,8 @@ import {
   DocumentTextIcon,
   CommandLineIcon,
   SparklesIcon,
-  QuestionMarkCircleIcon
+  QuestionMarkCircleIcon,
+  ChevronRightIcon
 } from '@heroicons/react/24/outline'
 
 interface Subsection {
@@ -45,6 +46,33 @@ const docCategories: DocCategory[] = [
     ]
   },
   {
+    id: 'ai-integration',
+    title: 'AI INTEGRATION',
+    icon: CommandLineIcon,
+    sections: [
+      { 
+        id: 'llm', 
+        title: 'LLM Integration',
+        href: '/docs/llm',
+        subsections: [
+          { id: 'setup', title: 'Setup', href: '/docs/llm/setup' },
+          { id: 'ai-tools', title: 'Supported AI Tools', href: '/docs/llm/ai-tools' },
+          { id: 'examples', title: 'Examples', href: '/docs/llm/examples' },
+        ]
+      },
+      { 
+        id: 'mcp', 
+        title: 'MCP Integration',
+        href: '/docs/mcp',
+        subsections: [
+          { id: 'installation', title: 'Installation', href: '/docs/mcp/installation' },
+          { id: 'usage', title: 'Usage', href: '/docs/mcp/usage' },
+          { id: 'api', title: 'API Reference', href: '/docs/mcp/api' },
+        ]
+      },
+    ]
+  },
+  {
     id: 'components',
     title: 'COMPONENTS',
     icon: CubeIcon,
@@ -71,6 +99,21 @@ const docCategories: DocCategory[] = [
           { id: 'badge', title: 'Badge', href: '/docs/components/badge' },
           { id: 'avatar', title: 'Avatar', href: '/docs/components/avatar' },
           { id: 'alert', title: 'Alert', href: '/docs/components/alert' },
+        ]
+      },
+      { 
+        id: 'data-components', 
+        title: 'Data Components',
+        href: '/docs/components#data',
+        subsections: [
+          { id: 'datatable', title: 'DataTable', href: '/docs/components/datatable' },
+          { id: 'datatable-basic', title: 'DataTable - Basic', href: '/docs/components/datatable/basic' },
+          { id: 'datatable-advanced', title: 'DataTable - Advanced', href: '/docs/components/datatable/advanced' },
+          { id: 'datatable-server', title: 'DataTable - Server Side', href: '/docs/components/datatable/server-side' },
+          { id: 'datatable-filtering', title: 'DataTable - Filtering', href: '/docs/components/datatable/filtering' },
+          { id: 'datatable-editable', title: 'DataTable - Editable', href: '/docs/components/datatable/editable' },
+          { id: 'datatable-export', title: 'DataTable - Export', href: '/docs/components/datatable/export' },
+          { id: 'datatable-responsive', title: 'DataTable - Responsive', href: '/docs/components/datatable/responsive' },
         ]
       },
       { 
@@ -122,33 +165,6 @@ const docCategories: DocCategory[] = [
     ]
   },
   {
-    id: 'ai-integration',
-    title: 'AI INTEGRATION',
-    icon: CommandLineIcon,
-    sections: [
-      { 
-        id: 'llm', 
-        title: 'LLM Integration',
-        href: '/docs/llm',
-        subsections: [
-          { id: 'setup', title: 'Setup', href: '/docs/llm/setup' },
-          { id: 'ai-tools', title: 'Supported AI Tools', href: '/docs/llm/ai-tools' },
-          { id: 'examples', title: 'Examples', href: '/docs/llm/examples' },
-        ]
-      },
-      { 
-        id: 'mcp', 
-        title: 'MCP Integration',
-        href: '/docs/mcp',
-        subsections: [
-          { id: 'installation', title: 'Installation', href: '/docs/mcp/installation' },
-          { id: 'usage', title: 'Usage', href: '/docs/mcp/usage' },
-          { id: 'api', title: 'API Reference', href: '/docs/mcp/api' },
-        ]
-      },
-    ]
-  },
-  {
     id: 'support',
     title: 'SUPPORT',
     icon: QuestionMarkCircleIcon,
@@ -160,6 +176,57 @@ const docCategories: DocCategory[] = [
 
 export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onClose?: () => void }) {
   const pathname = usePathname()
+  const [expandedSections, setExpandedSections] = useState<string[]>([])
+  const [expandedCategories, setExpandedCategories] = useState<string[]>(['getting-started', 'ai-integration', 'components'])
+
+  // Auto-expand sections and categories based on current pathname
+  useEffect(() => {
+    const currentSectionIds: string[] = []
+    const currentCategoryIds: string[] = []
+    
+    docCategories.forEach((category) => {
+      let categoryHasActive = false
+      
+      category.sections.forEach((section) => {
+        if (pathname === section.href) {
+          categoryHasActive = true
+        }
+        
+        if (section.subsections) {
+          const hasActiveSubsection = section.subsections.some(
+            (subsection) => pathname === subsection.href
+          )
+          if (hasActiveSubsection || pathname === section.href) {
+            currentSectionIds.push(section.id)
+            categoryHasActive = true
+          }
+        }
+      })
+      
+      if (categoryHasActive) {
+        currentCategoryIds.push(category.id)
+      }
+    })
+    
+    setExpandedSections(currentSectionIds)
+    setExpandedCategories(prev => [...new Set([...prev, ...currentCategoryIds])])
+  }, [pathname])
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections(prev => 
+      prev.includes(sectionId) 
+        ? prev.filter(id => id !== sectionId)
+        : [...prev, sectionId]
+    )
+  }
+
+  const toggleCategory = (categoryId: string) => {
+    setExpandedCategories(prev => 
+      prev.includes(categoryId) 
+        ? prev.filter(id => id !== categoryId)
+        : [...prev, categoryId]
+    )
+  }
 
   // Close sidebar on Escape key
   useEffect(() => {
@@ -222,57 +289,96 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
         <nav className="px-4 pb-6 space-y-6 overflow-y-auto h-full">
           {docCategories.map((category) => {
             const Icon = category.icon
+            const isCategoryExpanded = expandedCategories.includes(category.id)
+            
             return (
               <div key={category.id}>
-                <div className="flex items-center px-2 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                  <Icon className="w-4 h-4 mr-2 text-gray-700 dark:text-gray-300" />
-                  {category.title}
-                </div>
-                <ul className="mt-2 space-y-1">
-                  {category.sections.map((section) => (
-                    <li key={section.id}>
-                      <Link
-                        href={section.href}
-                        className={`
-                          block px-2 py-2 text-sm rounded-md transition-colors
-                          ${pathname === section.href
-                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
-                            : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700'
-                          }
-                        `}
-                        onClick={() => onClose?.()}
-                      >
-                        {section.title}
-                      </Link>
+                <button
+                  onClick={() => toggleCategory(category.id)}
+                  className="w-full flex items-center justify-between px-2 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-md transition-colors"
+                  aria-expanded={isCategoryExpanded}
+                  aria-label={`${isCategoryExpanded ? 'Collapse' : 'Expand'} ${category.title} section`}
+                >
+                  <div className="flex items-center">
+                    <Icon className="w-4 h-4 mr-2 text-gray-700 dark:text-gray-300" />
+                    {category.title}
+                  </div>
+                  <ChevronRightIcon 
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      isCategoryExpanded ? 'rotate-90' : ''
+                    }`} 
+                  />
+                </button>
+                
+                {isCategoryExpanded && (
+                  <ul className="mt-2 space-y-1">
+                    {category.sections.map((section) => {
+                      const hasSubsections = section.subsections && section.subsections.length > 0
+                      const isExpanded = expandedSections.includes(section.id)
                       
-                      {/* Subsections (menu cấp 2) */}
-                      {section.subsections && (
-                        <ul className="mt-1 ml-4 space-y-1 border-l border-gray-200 dark:border-gray-700">
-                          {section.subsections.map((subsection) => (
-                            <li key={subsection.id}>
-                              <Link
-                                href={subsection.href}
-                                className={`
-                                  block px-3 py-1.5 text-sm rounded-md transition-colors
-                                  ${pathname === subsection.href
-                                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
-                                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200'
-                                  }
-                                `}
-                                onClick={() => onClose?.()}
+                      return (
+                        <li key={section.id}>
+                          <div className="flex items-center">
+                            <Link
+                              href={section.href}
+                              className={`
+                                flex-1 block px-2 py-2 text-sm rounded-md transition-colors
+                                ${pathname === section.href
+                                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
+                                  : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                }
+                              `}
+                              onClick={() => onClose?.()}
+                            >
+                              {section.title}
+                            </Link>
+                            
+                            {/* Toggle button for sections with subsections */}
+                            {hasSubsections && (
+                              <button
+                                onClick={() => toggleSection(section.id)}
+                                className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                aria-label={isExpanded ? 'Collapse section' : 'Expand section'}
                               >
-                                <span className="flex items-center">
-                                  <span className="w-2 h-2 bg-gray-400 dark:bg-gray-600 rounded-full mr-3 flex-shrink-0"></span>
-                                  {subsection.title}
-                                </span>
-                              </Link>
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
+                                <ChevronRightIcon 
+                                  className={`w-4 h-4 transition-transform duration-200 ${
+                                    isExpanded ? 'rotate-90' : ''
+                                  }`} 
+                                />
+                              </button>
+                            )}
+                          </div>
+                          
+                          {/* Subsections (menu cấp 2) - Only show when expanded */}
+                          {hasSubsections && isExpanded && (
+                            <ul className="mt-1 ml-4 space-y-1 border-l border-gray-200 dark:border-gray-700">
+                              {section.subsections.map((subsection) => (
+                                <li key={subsection.id}>
+                                  <Link
+                                    href={subsection.href}
+                                    className={`
+                                      block px-3 py-1.5 text-sm rounded-md transition-colors
+                                      ${pathname === subsection.href
+                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200'
+                                      }
+                                    `}
+                                    onClick={() => onClose?.()}
+                                  >
+                                    <span className="flex items-center">
+                                      <span className="w-2 h-2 bg-gray-400 dark:bg-gray-600 rounded-full mr-3 flex-shrink-0"></span>
+                                      {subsection.title}
+                                    </span>
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
               </div>
             )
           })}

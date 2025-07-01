@@ -406,7 +406,7 @@ function BasicModal() {
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2 font-mono text-sm">onClose</td>
-                <td className="border border-gray-300 px-4 py-2 font-mono text-sm">() => void</td>
+                <td className="border border-gray-300 px-4 py-2 font-mono text-sm">{`() => void`}</td>
                 <td className="border border-gray-300 px-4 py-2">-</td>
                 <td className="border border-gray-300 px-4 py-2">Callback function called when the modal should close</td>
               </tr>
@@ -488,7 +488,7 @@ function BasicModal() {
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2 font-mono text-sm">onClose</td>
-                <td className="border border-gray-300 px-4 py-2 font-mono text-sm">() => void</td>
+                <td className="border border-gray-300 px-4 py-2 font-mono text-sm">{`() => void`}</td>
                 <td className="border border-gray-300 px-4 py-2">-</td>
                 <td className="border border-gray-300 px-4 py-2">Callback function called when the close button is clicked</td>
               </tr>

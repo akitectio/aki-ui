@@ -68,7 +68,7 @@ export function Navigation({
             <div className="hidden sm:flex items-center space-x-2">
               <Badge 
                 variant="secondary" 
-                className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/50 dark:to-indigo-900/50 text-blue-700 dark:text-blue-200 border border-blue-200/50 dark:border-blue-700/50 px-2.5 py-1 text-xs font-medium shadow-sm hover:from-blue-100 hover:to-indigo-100 dark:hover:from-blue-800/50 dark:hover:to-indigo-800/50 transition-colors"
+                className="bg-gradient-to-r from-primary-100 to-secondary-100 dark:from-blue-900/50 dark:to-indigo-900/50 text-primary-800 dark:text-blue-200 border border-primary-200/50 dark:border-blue-700/50 px-2.5 py-1 text-xs font-medium shadow-sm hover:from-primary-200 hover:to-secondary-200 dark:hover:from-blue-800/50 dark:hover:to-indigo-800/50 transition-colors"
               >
                 {getVersionBadge()}
               </Badge>

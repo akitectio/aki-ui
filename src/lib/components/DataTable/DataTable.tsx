@@ -681,6 +681,9 @@ export function DataTable<T>({
                 placeholder={`Filter ${column.header}...`}
                 value={filter?.value || ''}
                 onChange={(e) => handleFilter(column.accessor as string, e.target.value)}
+                onClick={(e) => e.stopPropagation()}
+                onFocus={(e) => e.stopPropagation()}
+                onMouseDown={(e) => e.stopPropagation()}
             />
         );
     }, [filterable, filtersMap, handleFilter]);
