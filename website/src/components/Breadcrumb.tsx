@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid'
-import { generateBreadcrumbStructuredData } from '@/lib/performance'
+import { generateBreadcrumbStructuredData } from '@/lib/seo'
 
 interface BreadcrumbItem {
   name: string
@@ -12,11 +12,16 @@ interface BreadcrumbItem {
 }
 
 interface BreadcrumbProps {
-  items: BreadcrumbItem[]
+  items?: BreadcrumbItem[]
   className?: string
 }
 
-export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
+export function Breadcrumb({ items = [], className = '' }: BreadcrumbProps) {
+  // Early return if no items
+  if (!items || items.length === 0) {
+    return null
+  }
+
   // Generate structured data for SEO
   const structuredData = generateBreadcrumbStructuredData(
     items.map(item => ({ name: item.name, url: item.href }))
@@ -36,7 +41,7 @@ export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
             <div>
               <Link
                 href="/"
-                className="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400"
+                className="text-gray-500 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-300"
                 aria-label="Home"
               >
                 <HomeIcon className="h-5 w-5 flex-shrink-0" />
@@ -49,13 +54,13 @@ export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
             <li key={item.href}>
               <div className="flex items-center">
                 <ChevronRightIcon
-                  className="h-5 w-5 flex-shrink-0 text-gray-400"
+                  className="h-5 w-5 flex-shrink-0 text-gray-500 dark:text-gray-400"
                   aria-hidden="true"
                 />
                 
                 {item.current ? (
                   <span
-                    className="ml-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                    className="ml-2 text-sm font-medium text-gray-800 dark:text-gray-200"
                     aria-current="page"
                   >
                     {item.name}
@@ -63,7 +68,7 @@ export function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
                 ) : (
                   <Link
                     href={item.href}
-                    className="ml-2 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="ml-2 text-sm font-medium text-gray-600 hover:text-gray-800 dark:text-gray-300 dark:hover:text-gray-200"
                   >
                     {item.name}
                   </Link>

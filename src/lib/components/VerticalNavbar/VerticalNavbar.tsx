@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 import { ChevronDownIcon, ChevronRightIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 type VerticalNavbarVariant = 'primary' | 'secondary' | 'light' | 'dark';
@@ -6,6 +6,8 @@ type VerticalNavbarSize = 'sm' | 'md' | 'lg';
 
 interface VerticalNavbarContextValue {
     collapsed: boolean;
+    mobileOpen?: boolean;
+    closeMobile?: () => void;
 }
 
 const VerticalNavbarContext = createContext<VerticalNavbarContextValue>({ collapsed: false });
@@ -148,7 +150,17 @@ const VerticalNavbarItem: React.FC<VerticalNavbarItemProps> = ({
     badge,
     onClick
 }) => {
-    const { collapsed } = useContext(VerticalNavbarContext);
+    const { collapsed, closeMobile } = useContext(VerticalNavbarContext);
+    
+    const handleClick = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+        if (onClick) {
+            onClick(event);
+        }
+        // Close mobile menu when item is clicked
+        if (closeMobile) {
+            closeMobile();
+        }
+    };
     
     const baseClasses = `
         flex items-center justify-between px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 mx-2
@@ -184,7 +196,7 @@ const VerticalNavbarItem: React.FC<VerticalNavbarItemProps> = ({
             <a
                 href={href}
                 className={baseClasses}
-                onClick={onClick}
+                onClick={handleClick}
                 title={collapsed ? children?.toString() : undefined}
             >
                 {content}
@@ -197,7 +209,7 @@ const VerticalNavbarItem: React.FC<VerticalNavbarItemProps> = ({
             type="button"
             className={baseClasses}
             disabled={disabled}
-            onClick={onClick}
+            onClick={handleClick}
             title={collapsed ? children?.toString() : undefined}
         >
             {content}
@@ -309,6 +321,34 @@ const VerticalNavbar: React.FC<VerticalNavbarProps> & {
         setMobileOpen(!mobileOpen);
     };
 
+    // Close mobile menu on Escape key
+    useEffect(() => {
+        const handleEscapeKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && mobileOpen) {
+                setMobileOpen(false);
+            }
+        };
+
+        document.addEventListener('keydown', handleEscapeKey);
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKey);
+        };
+    }, [mobileOpen]);
+
+    // Close mobile menu on window resize to desktop size
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) {
+                setMobileOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const variantClasses = {
         primary: 'bg-blue-900 text-white border-blue-800',
         secondary: 'bg-gray-800 text-white border-gray-700',
@@ -325,7 +365,7 @@ const VerticalNavbar: React.FC<VerticalNavbarProps> & {
     const currentWidth = collapsed ? collapsedWidth : width;
 
     return (
-        <VerticalNavbarContext.Provider value={{ collapsed }}>
+        <VerticalNavbarContext.Provider value={{ collapsed, mobileOpen, closeMobile: () => setMobileOpen(false) }}>
             {/* Mobile overlay */}
             {overlay && mobileOpen && (
                 <div 

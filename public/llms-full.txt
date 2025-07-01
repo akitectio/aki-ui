@@ -1,519 +1,381 @@
 # Aki UI - Complete Documentation
 
-> Aki UI is a modern React component library built with TypeScript and Tailwind CSS, featuring 39+ beautiful components with complete theming system, dark mode support, RTL support, and AI-friendly documentation. Created by Akitect.io for building beautiful websites faster.
+> A modern React component library built with TypeScript and Tailwind CSS, featuring 39+ beautiful components with complete theming system, dark mode support, and AI-friendly documentation.
 
-## Project Overview
+## Key Information
+
 
 **Name:** @akitectio/aki-ui
 **Version:** 0.1.24
 **License:** MIT
 **Technology Stack:** React 18, TypeScript, Tailwind CSS, Storybook
-**Repository:** https://github.com/akitectio/aki-ui
-**NPM Package:** https://www.npmjs.com/package/@akitectio/aki-ui
-**Documentation:** https://akitectio.github.io/aki-ui/
-**Creator:** Akitect.io (https://akitect.io)
+**Components:** 39+ pre-built UI components 
+**Features:** Dark mode, RTL support, responsive design, accessibility focus
+**Package:** @akitectio/aki-ui on NPM
+**Version:** 0.1.22
+**Updated:** June 30, 2025
 
-## Key Features
+## Documentation & Resources
 
-- **37+ Beautiful Components** - Pre-built and customizable React components
-- **Complete Theming System** - Full theme customization with CSS variables and providers
-- **Dark Mode Support** - Built-in color mode switching with ColorModeProvider
-- **Full TypeScript Support** - Complete type definitions and IntelliSense
-- **Modern Stack** - Built with React 18 and Tailwind CSS
-- **Storybook Documentation** - 40+ interactive component stories
-- **RTL Support** - Right-to-left language support with DirectionProvider
-- **Responsive Design** - Mobile-first approach with Tailwind utilities
-- **Accessibility Focus** - ARIA attributes and keyboard navigation support
+**Main Documentation:** https://aki-ui.akitect.io/docs
+**Component Demos:** https://aki-ui.akitect.io/storybook
+**Installation Guide:** https://aki-ui.akitect.io/docs/installation
+**Theme Customization:** https://aki-ui.akitect.io/docs/theming
+**MCP Server Setup:** https://aki-ui.akitect.io/docs/mcp
 
 ## Installation
 
 ```bash
+# Install the package
 npm install @akitectio/aki-ui
+
+# Or with yarn
+yarn add @akitectio/aki-ui
+
+# Or with pnpm  
+pnpm add @akitectio/aki-ui
 ```
 
-## Basic Usage
+## Basic Setup
 
-```jsx
-import { Button, Card, FormControl } from "@akitectio/aki-ui";
-import "@akitectio/aki-ui/css";
+```tsx
+// Import CSS in your main file (e.g., main.tsx or App.tsx)
+import '@akitectio/aki-ui/styles.css';
+
+// Import components
+import { Button, Card, Badge } from '@akitectio/aki-ui';
 
 function App() {
   return (
-    <div className="p-6">
+    <div className="p-4">
       <Card className="max-w-md">
-        <Card.Header>
-          <h2 className="text-xl font-semibold">Welcome to Aki UI</h2>
-        </Card.Header>
-        <Card.Body className="space-y-4">
-          <FormControl
-            label="Email Address"
-            placeholder="Enter your email"
-            type="email"
-          />
-          <Button variant="primary" size="lg" className="w-full">
-            Get Started
-          </Button>
-        </Card.Body>
+        <h1>Welcome to Aki UI</h1>
+        <Button variant="primary">Get Started</Button>
+        <Badge variant="success">Ready to use</Badge>
       </Card>
     </div>
   );
 }
 ```
 
-## Component Library
+## Component Categories
 
-### Layout & Navigation Components
+### Layout Components
+- **Container:** Responsive container with max-width constraints
+- **Grid:** CSS Grid system for layouts
+- **Stack:** Flexible vertical/horizontal stacking
+- **Divider:** Visual separation between content
+- **Spacer:** Flexible spacing component
 
-**Grid** - Responsive grid system
-- Props: cols, gap, responsive variants
-- Usage: Layout organization, responsive design
-- Example: `<Grid cols={3} gap={4}>`
+### Navigation Components  
+- **Navbar:** Responsive navigation bar
+- **Breadcrumb:** Hierarchical navigation
+- **Pagination:** Page navigation controls
+- **Tabs:** Tabbed content navigation
+- **Steps:** Step-by-step process indicator
 
-**Stack** - Flexible layout stack
-- Props: direction, spacing, alignment
-- Usage: Vertical/horizontal layouts
-- Example: `<Stack direction="vertical" spacing={4}>`
-
-**Breadcrumb** - Navigation breadcrumbs
-- Props: items, separator, size
-- Usage: Page navigation, hierarchy display
-- Example: `<Breadcrumb items={[{label: 'Home', href: '/'}]}`
-
-**Pagination** - Page navigation
-- Props: currentPage, totalPages, onPageChange
-- Usage: Data pagination, navigation
-- Example: `<Pagination currentPage={1} totalPages={10}>`
-
-### Form Controls
-
-**Button** - Various button styles and states
-- Variants: primary, secondary, success, warning, error
-- Sizes: xs, sm, md, lg, xl
-- States: disabled, loading
-- Example: `<Button variant="primary" size="lg">Click Me</Button>`
-
-**Input** - Text input with validation
-- Types: text, email, password, number
-- Props: placeholder, disabled, error, validation
-- Example: `<Input type="email" placeholder="Enter email">`
-
-**Select** - Dropdown selection
-- Props: options, value, onChange, searchable
-- Usage: Option selection, form inputs
-- Example: `<Select options={[{value: '1', label: 'Option 1'}]}`
-
-**Checkbox** - Checkbox input
-- Props: checked, onChange, disabled, indeterminate
-- Usage: Boolean selections, form controls
-- Example: `<Checkbox checked={true} onChange={handleChange}>`
-
-**Radio** - Radio button input
-- Props: value, checked, onChange, name
-- Usage: Single selection from group
-- Example: `<Radio value="option1" checked={true}>`
-
-**Switch** - Toggle switch
-- Props: checked, onChange, disabled, size
-- Usage: On/off controls, feature toggles
-- Example: `<Switch checked={darkMode} onChange={toggleDarkMode}>`
-
-**Slider** - Range slider
-- Props: value, min, max, step, onChange
-- Usage: Numeric range selection
-- Example: `<Slider value={50} min={0} max={100}>`
-
-**FormControl** - Complete form control with label and validation
-- Props: label, error, helperText, required
-- Usage: Comprehensive form inputs
-- Example: `<FormControl label="Email" error="Invalid email">`
+### Data Entry Components
+- **Input:** Text input with variants and validation
+- **Textarea:** Multi-line text input
+- **Select:** Dropdown selection with search
+- **Checkbox:** Single or grouped checkboxes
+- **Radio:** Radio button groups
+- **Switch:** Toggle switch control
+- **DatePicker:** Date selection component
+- **FileUpload:** File upload with drag & drop
 
 ### Data Display Components
+- **Table:** Basic table component
+- **DataTable:** Advanced table with sorting, filtering, pagination
+- **List:** Flexible list component
+- **Card:** Content container with header/footer
+- **Badge:** Status and labeling component
+- **Avatar:** User profile images and initials
+- **Tooltip:** Contextual information overlay
+- **Popover:** Rich content overlay
 
-**Card** - Flexible content container
-- Sections: Header, Body, Footer, Image
-- Props: variant, size, hoverable
-- Example: `<Card><Card.Header>Title</Card.Header></Card>`
-
-**DataTable** - Advanced data table with sorting and filtering
-- Features: Sorting, filtering, pagination, selection
-- Props: data, columns, searchable, sortable
-- Usage: Data display, management interfaces
-
-**Badge** - Status and label badges
-- Variants: primary, secondary, success, warning, error
-- Sizes: sm, md, lg
-- Example: `<Badge variant="success">Active</Badge>`
-
-**Avatar** - User avatar component
-- Props: src, size, fallback, shape
-- Sizes: xs, sm, md, lg, xl
-- Example: `<Avatar src="/user.jpg" size="lg">`
-
-**Chip** - Compact elements for tags and filters
-- Props: label, onDelete, variant, size
-- Usage: Tags, filters, selections
-- Example: `<Chip label="Tag" onDelete={handleDelete}>`
-
-**Alert** - Alert messages
-- Variants: info, success, warning, error
-- Props: title, description, dismissible
-- Example: `<Alert variant="success" title="Success!">`
-
-### Feedback & Overlays
-
-**Modal** - Modal dialogs
-- Props: open, onClose, size, title
-- Usage: Dialogs, confirmations, forms
-- Example: `<Modal open={true} title="Confirm Action">`
-
-**Drawer** - Side panel drawer
-- Props: open, onClose, position, size
-- Positions: left, right, top, bottom
-- Example: `<Drawer open={true} position="right">`
-
-**Toast** - Toast notifications
-- Props: message, type, duration, position
-- Types: success, error, warning, info
-- Usage: Temporary notifications
-
-**Tooltip** - Contextual tooltips
-- Props: content, placement, trigger
-- Placements: top, bottom, left, right
-- Example: `<Tooltip content="Help text">`
-
-**Popover** - Rich popover content
-- Props: content, trigger, placement, open
-- Usage: Context menus, help content
-- Example: `<Popover content={<Menu />}>`
-
-**Spinner** - Loading indicators
-- Props: size, color, variant
-- Variants: circular, dots, bars
-- Example: `<Spinner size="lg">`
-
-**Skeleton** - Loading placeholders
-- Props: width, height, variant, animation
-- Usage: Loading states, content placeholders
-- Example: `<Skeleton width="100%" height="20px">`
+### Feedback Components
+- **Alert:** Status messages and notifications
+- **Toast:** Temporary notification messages
+- **Modal:** Dialog overlays
+- **Drawer:** Slide-out panels
+- **Loading:** Loading indicators and spinners
+- **Progress:** Progress bars and indicators
+- **Skeleton:** Loading placeholder animations
 
 ### Interactive Components
+- **Button:** Primary action component with variants
+- **ButtonGroup:** Grouped button controls
+- **Dropdown:** Dropdown menus and actions
+- **Menu:** Context and navigation menus
+- **Accordion:** Collapsible content sections
+- **Collapse:** Show/hide content toggle
 
-**Dropdown** - Dropdown menus
-- Props: items, trigger, placement
-- Usage: Action menus, navigation
-- Example: `<Dropdown items={menuItems}>`
+## Theme System
 
-**Tabs** - Tab navigation
-- Props: items, activeTab, onChange
-- Usage: Content organization, navigation
-- Example: `<Tabs items={[{label: 'Tab 1', content: 'Content'}]}`
+Aki UI includes a comprehensive theme system built on CSS custom properties:
 
-**Accordion** - Collapsible content
-- Props: items, allowMultiple, defaultOpen
-- Usage: FAQ sections, content organization
-- Example: `<Accordion items={accordionItems}>`
+```tsx
+import { ThemeProvider, createTheme } from '@akitectio/aki-ui';
 
-**Chatbot** - AI chat interface
-- Props: messages, onSend, loading
-- Usage: AI assistants, customer support
-- Example: `<Chatbot messages={messages} onSend={handleSend}>`
-
-## Theming System
-
-### Theme Providers
-
-**ThemeProvider** - Main theme context provider
-```jsx
-<ThemeProvider theme={customTheme}>
-  <App />
-</ThemeProvider>
-```
-
-**ColorModeProvider** - Dark/light mode management
-```jsx
-<ColorModeProvider>
-  <App />
-</ColorModeProvider>
-```
-
-**DirectionProvider** - RTL/LTR direction support
-```jsx
-<DirectionProvider direction="rtl">
-  <App />
-</DirectionProvider>
-```
-
-**AkiUIProvider** - Complete provider wrapper
-```jsx
-<AkiUIProvider theme={theme} initialColorMode="dark" initialDirection="ltr">
-  <App />
-</AkiUIProvider>
-```
-
-### CSS Variables
-
-```css
-:root {
-  --aki-primary: #3b82f6;
-  --aki-secondary: #6b7280;
-  --aki-success: #10b981;
-  --aki-warning: #f59e0b;
-  --aki-error: #ef4444;
-  --aki-gray-50: #f9fafb;
-  --aki-gray-100: #f3f4f6;
-  --aki-gray-200: #e5e7eb;
-  --aki-gray-300: #d1d5db;
-  --aki-gray-400: #9ca3af;
-  --aki-gray-500: #6b7280;
-  --aki-gray-600: #4b5563;
-  --aki-gray-700: #374151;
-  --aki-gray-800: #1f2937;
-  --aki-gray-900: #111827;
-}
-```
-
-### Dark Mode Usage
-
-```jsx
-// Automatic dark mode detection
-<div className="dark">
-  <Button variant="primary">Dark Mode Button</Button>
-</div>
-
-// Using color mode hook
-const { colorMode, toggleColorMode } = useColorMode();
-```
-
-## AI Integration
-
-### Supported AI Tools
-
-- GitHub Copilot
-- Cursor IDE
-- Windsurf
-- Claude Dev
-- Codeium
-- Tabnine
-- ChatGPT Code Interpreter
-
-### MCP Server (Model Context Protocol) - Available Now
-
-Aki UI provides a dedicated MCP server for enhanced AI integration:
-
-**Installation:**
-```bash
-npm install -g @akitectio/aki-ui-mcp
-```
-
-**Core Capabilities:**
-- **Project Initialization:** Complete project setup with templates
-- Real-time component discovery and search
-- Dynamic code generation with validation
-- Interactive documentation queries
-- Theme customization assistance  
-- Code analysis and optimization suggestions
-- Accessibility auditing tools
-
-**Usage Examples:**
-```typescript
-// Initialize a new project
-await mcp.initProject({
-  projectType: "next-js",
-  projectName: "my-app", 
-  features: ["typescript", "auth", "forms"]
+const customTheme = createTheme({
+  colors: {
+    primary: '#3B82F6',
+    secondary: '#6B7280',
+    success: '#10B981',
+    danger: '#EF4444',
+    warning: '#F59E0B',
+    info: '#3B82F6'
+  },
+  spacing: {
+    sm: '0.5rem',
+    md: '1rem', 
+    lg: '1.5rem'
+  },
+  borderRadius: {
+    sm: '0.25rem',
+    md: '0.375rem',
+    lg: '0.5rem'
+  }
 });
 
-// AI assistants can directly query for components
-const searchResults = await mcp.searchComponents("form");
-const generatedCode = await mcp.generateComponent("LoginForm", {
-  validation: true,
-  darkMode: true
-});
-```
-
-### AI Prompt Templates
-
-**Dashboard Creation:**
-"Create an admin dashboard using @akitectio/aki-ui with sidebar navigation, stats cards, data table, and charts. Include dark mode support."
-
-**Form Generation:**
-"Build a user registration form using Aki UI FormControl, validation, and proper accessibility attributes."
-
-**Landing Page:**
-"Design a modern landing page with Aki UI featuring hero section, feature cards, testimonials, and contact form."
-
-**E-commerce Interface:**
-"Create a product catalog page with Aki UI cards, filters, pagination, and shopping cart functionality."
-
-### TypeScript Definitions
-
-All components include complete TypeScript definitions for AI code completion:
-
-```typescript
-interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'error';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  disabled?: boolean;
-  loading?: boolean;
-  children: React.ReactNode;
-  onClick?: () => void;
-}
-```
-
-## Development
-
-### Project Structure
-
-```
-aki-ui/
-├── src/
-│   ├── lib/                 # Component library source
-│   │   ├── components/      # UI components
-│   │   ├── theme/          # Theme system
-│   │   └── utils/          # Utility functions
-│   ├── stories/            # Storybook stories
-│   └── styles/             # Global styles
-├── .storybook/             # Storybook configuration
-└── public/                 # Public assets
-```
-
-### Available Scripts
-
-```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run storybook    # Start Storybook
-npm run test         # Run tests
-npm run lint         # Lint code
-```
-
-### Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes
-4. Write tests for your changes
-5. Run the test suite: `npm test`
-6. Submit a pull request
-
-## Examples
-
-### Complete Dashboard Example
-
-```jsx
-import { 
-  Card, DataTable, Button, Badge, Grid, Avatar, 
-  AkiUIProvider, useColorMode 
-} from "@akitectio/aki-ui";
-
-function Dashboard() {
-  const { colorMode, toggleColorMode } = useColorMode();
-
+function App() {
   return (
-    <AkiUIProvider>
-      <div className="p-6 space-y-6">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <Button onClick={toggleColorMode}>
-            {colorMode === 'light' ? '🌙' : '☀️'}
-          </Button>
-        </div>
-
-        <Grid cols={1} mdCols={2} lgCols={4} gap={4}>
-          <Card>
-            <Card.Body className="flex items-center space-x-4">
-              <Avatar size="lg" src="/user-icon.png" />
-              <div>
-                <p className="text-2xl font-bold">2,547</p>
-                <p className="text-gray-600">Total Users</p>
-              </div>
-              <Badge variant="success">+12%</Badge>
-            </Card.Body>
-          </Card>
-          
-          <Card>
-            <Card.Body className="flex items-center space-x-4">
-              <Avatar size="lg" src="/revenue-icon.png" />
-              <div>
-                <p className="text-2xl font-bold">$42,531</p>
-                <p className="text-gray-600">Revenue</p>
-              </div>
-              <Badge variant="success">+8%</Badge>
-            </Card.Body>
-          </Card>
-        </Grid>
-
-        <Card>
-          <Card.Header>
-            <h3 className="text-lg font-semibold">User Management</h3>
-            <Button variant="primary" size="sm">Add User</Button>
-          </Card.Header>
-          <Card.Body>
-            <DataTable
-              data={userData}
-              columns={userColumns}
-              searchable
-              sortable
-              pagination
-            />
-          </Card.Body>
-        </Card>
-      </div>
-    </AkiUIProvider>
+    <ThemeProvider theme={customTheme}>
+      <YourApp />
+    </ThemeProvider>
   );
 }
 ```
 
-### Form Example
+## Component Usage Examples
 
-```jsx
-import { FormControl, Button, Card, Alert } from "@akitectio/aki-ui";
+### Button Component
+```tsx
+import { Button } from '@akitectio/aki-ui';
 
-function RegistrationForm() {
+// Basic button
+<Button variant="primary">Click Me</Button>
+
+// With loading state
+<Button variant="primary" isLoading>Submitting...</Button>
+
+// With icons
+<Button 
+  variant="outline" 
+  startIcon={<PlusIcon />}
+  endIcon={<ArrowIcon />}
+>
+  Add Item
+</Button>
+
+// Full width
+<Button variant="secondary" fullWidth>Full Width</Button>
+
+// Sizes
+<Button size="sm">Small</Button>
+<Button size="md">Medium</Button>
+<Button size="lg">Large</Button>
+```
+
+### Card Component
+```tsx
+import { Card } from '@akitectio/aki-ui';
+
+<Card>
+  <Card.Header>
+    <h3>Card Title</h3>
+  </Card.Header>
+  <Card.Body>
+    <p>Card content goes here</p>
+  </Card.Body>
+  <Card.Footer>
+    <Button variant="primary">Action</Button>
+  </Card.Footer>
+</Card>
+```
+
+### Form Components
+```tsx
+import { Input, Select, Checkbox, Button } from '@akitectio/aki-ui';
+
+<form>
+  <Input 
+    label="Email"
+    type="email"
+    placeholder="Enter your email"
+    required
+  />
+  
+  <Select 
+    label="Country"
+    options={[
+      { value: 'us', label: 'United States' },
+      { value: 'ca', label: 'Canada' }
+    ]}
+  />
+  
+  <Checkbox label="Subscribe to newsletter" />
+  
+  <Button type="submit" variant="primary">
+    Submit
+  </Button>
+</form>
+```
+
+### DataTable Component
+```tsx
+import { DataTable } from '@akitectio/aki-ui';
+
+const data = [
+  { id: 1, name: 'John Doe', email: 'john@example.com', status: 'active' },
+  { id: 2, name: 'Jane Smith', email: 'jane@example.com', status: 'inactive' }
+];
+
+const columns = [
+  { key: 'name', label: 'Name', sortable: true },
+  { key: 'email', label: 'Email' },
+  { 
+    key: 'status', 
+    label: 'Status',
+    render: (value) => (
+      <Badge variant={value === 'active' ? 'success' : 'secondary'}>
+        {value}
+      </Badge>
+    )
+  }
+];
+
+<DataTable 
+  data={data}
+  columns={columns}
+  pagination
+  searchable
+  sortable
+/>
+```
+
+## MCP Server Integration
+
+Aki UI includes a Model Context Protocol (MCP) server for AI assistants:
+
+```json
+{
+  "mcpServers": {
+    "aki-ui": {
+      "command": "npx",
+      "args": ["@akitectio/aki-ui-mcp"]
+    }
+  }
+}
+```
+
+The MCP server provides:
+- Component generation tools
+- Theme customization utilities  
+- Code validation and optimization
+- Usage examples and best practices
+- Real-time component documentation
+
+## AI Integration Features
+
+- **llms.txt standard compliance** for AI tool integration
+- **Detailed component documentation** with TypeScript definitions
+- **Usage examples and best practices** for each component
+- **Theme system with CSS custom properties** for easy customization
+- **Storybook integration** for interactive component exploration
+- **MCP server** for AI assistant integration
+- **TypeScript support** with full type definitions
+- **Accessibility guidelines** and ARIA attributes
+- **Responsive design patterns** and mobile-first approach
+
+## Advanced Usage
+
+### Custom Hooks
+```tsx
+import { useTheme, useToast, useModal } from '@akitectio/aki-ui';
+
+function MyComponent() {
+  const { theme, toggleTheme } = useTheme();
+  const { showToast } = useToast();
+  const { openModal, closeModal } = useModal();
+  
+  const handleAction = () => {
+    showToast('Action completed!', { variant: 'success' });
+  };
+  
   return (
-    <Card className="max-w-md mx-auto">
-      <Card.Header>
-        <h2 className="text-xl font-semibold">Create Account</h2>
-      </Card.Header>
-      <Card.Body className="space-y-4">
-        <Alert variant="info" title="Welcome!" 
-               description="Please fill out the form below." />
-        
-        <FormControl
-          label="Full Name"
-          placeholder="Enter your full name"
-          required
-        />
-        
-        <FormControl
-          label="Email Address"
-          placeholder="Enter your email"
-          type="email"
-          required
-        />
-        
-        <FormControl
-          label="Password"
-          placeholder="Create a password"
-          type="password"
-          required
-        />
-        
-        <Button variant="primary" className="w-full">
-          Create Account
-        </Button>
-      </Card.Body>
+    <Button onClick={handleAction}>
+      Show Toast
+    </Button>
+  );
+}
+```
+
+### Compound Components
+```tsx
+import { Accordion } from '@akitectio/aki-ui';
+
+<Accordion>
+  <Accordion.Item value="item1">
+    <Accordion.Trigger>Section 1</Accordion.Trigger>
+    <Accordion.Content>
+      Content for section 1
+    </Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="item2">
+    <Accordion.Trigger>Section 2</Accordion.Trigger>
+    <Accordion.Content>
+      Content for section 2
+    </Accordion.Content>
+  </Accordion.Item>
+</Accordion>
+```
+
+## Performance Optimization
+
+- **Tree-shakable** - Import only what you need
+- **Lazy loading** - Components load on demand
+- **Optimized bundle size** - Minimal runtime overhead
+- **CSS-in-JS free** - Uses Tailwind CSS for styling
+- **Modern React patterns** - Hooks, Suspense, Concurrent features
+
+## Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## TypeScript Support
+
+Full TypeScript support with comprehensive type definitions:
+
+```tsx
+import type { ButtonProps, CardProps } from '@akitectio/aki-ui';
+
+interface MyComponentProps {
+  buttonProps?: ButtonProps;
+  cardProps?: CardProps;
+}
+
+function MyComponent({ buttonProps, cardProps }: MyComponentProps) {
+  return (
+    <Card {...cardProps}>
+      <Button {...buttonProps}>Click me</Button>
     </Card>
   );
 }
 ```
 
-## Contact & Support
+## Support & Community
 
-- **GitHub:** https://github.com/akitectio/aki-ui
-- **NPM:** https://www.npmjs.com/package/@akitectio/aki-ui
-- **Documentation:** https://akitectio.github.io/aki-ui/
-- **Email:** support@akitect.io
-- **Website:** https://akitect.io
-- **Issues:** https://github.com/akitectio/aki-ui/issues
-- **Discussions:** https://github.com/akitectio/aki-ui/discussions
+**GitHub:** https://github.com/akitectio/aki-ui
+**NPM:** https://www.npmjs.com/package/@akitectio/aki-ui
+**Issues:** https://github.com/akitectio/aki-ui/issues
+**Discussions:** https://github.com/akitectio/aki-ui/discussions
+**Website:** https://aki-ui.akitect.io
+**Storybook:** https://aki-ui.akitect.io/storybook
+
+---
+*Generated automatically from Aki UI v0.1.22 on June 30, 2025*

@@ -121,8 +121,29 @@ export const ToastContext = React.createContext<ToastContextValue | undefined>(u
 // Hook for using the toast context
 export const useToast = (): ToastContextValue => {
     const context = React.useContext(ToastContext);
+
+    // If no context, check the environment
     if (!context) {
-        throw new Error('useToast must be used within a ToastProvider');
+        // Always return a no-op implementation instead of throwing errors
+        // This makes the hook more resilient and SSR-safe
+        if (typeof window === 'undefined') {
+            // Return a no-op implementation for SSR
+            return {
+                show: () => '',
+                update: () => { },
+                dismiss: () => { },
+                dismissAll: () => { },
+            };
+        } else {
+            // On the client, return a fallback that logs a warning instead of throwing
+            console.warn('useToast: ToastProvider not found. Toast functionality will be disabled. Please wrap your app with ToastProvider.');
+            return {
+                show: () => '',
+                update: () => { },
+                dismiss: () => { },
+                dismissAll: () => { },
+            };
+        }
     }
     return context;
 };
@@ -331,9 +352,17 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
 }) => {
     const [toasts, setToasts] = useState<ToastProps[]>([]);
     const [container, setContainer] = useState<HTMLElement | null>(null);
+    const [isMounted, setIsMounted] = useState(false);
+
+    // Ensure we're mounted on the client before rendering
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     // Create container element
     useEffect(() => {
+        if (!isMounted) return; // Only run on client
+
         const existingContainer = document.getElementById('aki-toast-container');
         if (existingContainer) {
             setContainer(existingContainer);
@@ -350,7 +379,7 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
                 document.body.removeChild(containerToRemove);
             }
         };
-    }, []);
+    }, [isMounted]);
 
     // Position classes
     const getPositionClasses = () => {
@@ -425,8 +454,8 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
         };
     }, [handleToastClose, limit]);
 
-    // If no container, don't render
-    if (!container) return null;
+    // If not mounted or no container, don't render
+    if (!isMounted || !container) return null;
 
     return createPortal(
         <ToastContext.Provider value={contextValue}>
@@ -448,16 +477,138 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
     );
 };
 
-// Toast Provider component
+// Toast Provider component that properly provides context
 export const ToastProvider: React.FC<ToastContainerProps & { children: React.ReactNode }> = ({
     children,
-    ...props
+    position = 'top-right',
+    limit = 10,
+    gap = 'md',
+    className = '',
 }) => {
+    const [toasts, setToasts] = useState<ToastProps[]>([]);
+    const [container, setContainer] = useState<HTMLElement | null>(null);
+    const [isMounted, setIsMounted] = useState(false);
+
+    // Ensure we're mounted on the client before rendering
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    // Create container element
+    useEffect(() => {
+        if (!isMounted) return; // Only run on client
+
+        const existingContainer = document.getElementById('aki-toast-container');
+        if (existingContainer) {
+            setContainer(existingContainer);
+        } else {
+            const newContainer = document.createElement('div');
+            newContainer.id = 'aki-toast-container';
+            document.body.appendChild(newContainer);
+            setContainer(newContainer);
+        }
+
+        return () => {
+            const containerToRemove = document.getElementById('aki-toast-container');
+            if (containerToRemove && containerToRemove.childElementCount === 0) {
+                document.body.removeChild(containerToRemove);
+            }
+        };
+    }, [isMounted]);
+
+    // Position classes
+    const getPositionClasses = () => {
+        switch (position) {
+            case 'top':
+                return 'top-0 left-1/2 transform -translate-x-1/2';
+            case 'top-right':
+                return 'top-0 right-0';
+            case 'top-left':
+                return 'top-0 left-0';
+            case 'bottom':
+                return 'bottom-0 left-1/2 transform -translate-x-1/2';
+            case 'bottom-right':
+                return 'bottom-0 right-0';
+            case 'bottom-left':
+                return 'bottom-0 left-0';
+            default:
+                return 'top-0 right-0';
+        }
+    };
+
+    // Gap classes
+    const getGapClasses = () => {
+        switch (gap) {
+            case 'sm': return 'space-y-2';
+            case 'md': return 'space-y-3';
+            case 'lg': return 'space-y-4';
+            default: return 'space-y-3';
+        }
+    };
+
+    // Handle toast close
+    const handleToastClose = useCallback((id: string) => {
+        setToasts((prevToasts) => prevToasts.filter((toast) => toast.id !== id));
+    }, []);
+
+    // Context value
+    const contextValue = React.useMemo<ToastContextValue>(() => {
+        return {
+            show: (options) => {
+                const id = `toast-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                const newToast: ToastProps = {
+                    ...options,
+                    id,
+                    onClose: (toastId) => {
+                        handleToastClose(toastId);
+                        if (options.onClose) {
+                            options.onClose(toastId);
+                        }
+                    },
+                };
+
+                setToasts((prevToasts) => {
+                    // Respect the limit
+                    const updatedToasts = [...prevToasts, newToast];
+                    return updatedToasts.slice(-limit);
+                });
+
+                return id;
+            },
+            update: (id, options) => {
+                setToasts((prevToasts) =>
+                    prevToasts.map((toast) =>
+                        toast.id === id ? { ...toast, ...options } : toast
+                    )
+                );
+            },
+            dismiss: handleToastClose,
+            dismissAll: () => {
+                setToasts([]);
+            },
+        };
+    }, [handleToastClose, limit]);
+
     return (
-        <>
+        <ToastContext.Provider value={contextValue}>
             {children}
-            <ToastContainer {...props} />
-        </>
+            {isMounted && container && createPortal(
+                <div
+                    className={`
+                        fixed p-4 z-50 flex flex-col items-end
+                        ${getPositionClasses()}
+                        ${getGapClasses()}
+                        ${className}
+                    `}
+                    aria-live="polite"
+                >
+                    {toasts.map((toast) => (
+                        <ToastComponent key={toast.id} {...toast} />
+                    ))}
+                </div>,
+                container
+            )}
+        </ToastContext.Provider>
     );
 };
 

@@ -384,7 +384,7 @@ function DismissibleAlert() {
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2 font-mono text-sm">onDismiss</td>
-                <td className="border border-gray-300 px-4 py-2 font-mono text-sm">() => void</td>
+                <td className="border border-gray-300 px-4 py-2 font-mono text-sm">{`() => void`}</td>
                 <td className="border border-gray-300 px-4 py-2">-</td>
                 <td className="border border-gray-300 px-4 py-2">Callback when the alert is dismissed</td>
               </tr>

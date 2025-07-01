@@ -77,7 +77,7 @@ function App() {
 
 ## Documentation & Examples
 
-- 📖 **Full Documentation**: [Storybook Documentation](https://akitectio.github.io/aki-ui)
+- 📖 **Full Documentation**: [Storybook Documentation](https://aki-ui.akitect.io/storybook)
 - 🎮 **Interactive Examples**: Explore components in our Storybook
 - 🔧 **API Reference**: Complete props and methods documentation
 - 🎨 **Design System**: Colors, typography, spacing guidelines

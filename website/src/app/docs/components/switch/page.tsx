@@ -267,7 +267,7 @@ function ControlledSwitch() {
               </tr>
               <tr>
                 <td className="border border-gray-300 px-4 py-2 font-mono text-sm">onChange</td>
-                <td className="border border-gray-300 px-4 py-2 font-mono text-sm">(checked: boolean) => void</td>
+                <td className="border border-gray-300 px-4 py-2 font-mono text-sm">{`(checked: boolean) => void`}</td>
                 <td className="border border-gray-300 px-4 py-2">-</td>
                 <td className="border border-gray-300 px-4 py-2">Called when the switch state changes</td>
               </tr>

@@ -326,11 +326,13 @@ CACHE_TTL=7200`}</CodeBlock>
             
             <div>
               <h4 className="font-medium mb-2">Expected Output</h4>
-              <div className="bg-green-50 border border-green-200 p-3 rounded text-sm">
-                <pre className="text-green-800">{`✓ Aki UI MCP Server ${getVersionBadge()}
+              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/50 p-3 rounded text-sm">
+                <pre className="text-green-800 dark:text-green-200">
+{`✓ Aki UI MCP Server `}<span className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-green-100 dark:bg-green-800/50 text-green-800 dark:text-green-200 border border-green-200 dark:border-green-600">{getVersionBadge()}</span>{`
 ✓ Connection: OK
 ✓ Available tools: 15
-✓ Ready to use with AI assistants`}</pre>
+✓ Ready to use with AI assistants`}
+                </pre>
               </div>
             </div>
           </div>

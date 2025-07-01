@@ -522,6 +522,21 @@ export const pageSEOConfigs: Record<string, SEOProps> = {
     ],
     section: "AI Integration",
   },
+
+  "/404": {
+    title: "404 - Page Not Found - Aki UI",
+    description:
+      "This page demonstrates a custom 404 error page built with Aki UI components. Features responsive design, helpful navigation, and modern styling.",
+    keywords: [
+      "404",
+      "page not found",
+      "error page",
+      "custom 404",
+      "user experience",
+      "navigation",
+    ],
+    section: "Examples",
+  },
 };
 
 /**

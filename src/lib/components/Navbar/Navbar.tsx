@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 type NavbarVariant = 'primary' | 'secondary' | 'light' | 'dark' | 'transparent';
 type NavbarPosition = 'static' | 'fixed-top' | 'fixed-bottom' | 'sticky-top';
@@ -140,12 +140,19 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
     const disabledClassName = disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer";
     const className = `${baseClassName} ${activeClassName} ${disabledClassName}`;
 
+    const handleClick = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+        if (onClick) {
+            onClick(event);
+        }
+        // Note: Mobile menu closing is handled by the parent Navbar component via click outside detection
+    };
+
     if (href && !disabled) {
         return (
             <a 
                 href={href} 
                 className={`${className} no-underline`}
-                onClick={onClick}
+                onClick={handleClick}
                 {...props}
             >
                 {children}
@@ -156,7 +163,7 @@ const NavbarItem: React.FC<NavbarItemProps> = ({
     return (
         <button 
             className={className}
-            onClick={onClick}
+            onClick={handleClick}
             disabled={disabled}
             {...props}
         >
@@ -194,11 +201,54 @@ const Navbar: React.FC<NavbarProps> & {
     ...props 
 }) => {
     const [isCollapsed, setIsCollapsed] = useState(true);
+    const navbarRef = useRef<HTMLElement>(null);
 
     const handleToggle = () => {
         setIsCollapsed(!isCollapsed);
         onToggle?.();
     };
+
+    // Close mobile menu when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (navbarRef.current && !navbarRef.current.contains(event.target as Node) && !isCollapsed) {
+                setIsCollapsed(true);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isCollapsed]);
+
+    // Close mobile menu on window resize to desktop size
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 768) {
+                setIsCollapsed(true);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    // Close mobile menu when pressing Escape key
+    useEffect(() => {
+        const handleEscapeKey = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && !isCollapsed) {
+                setIsCollapsed(true);
+            }
+        };
+
+        document.addEventListener('keydown', handleEscapeKey);
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKey);
+        };
+    }, [isCollapsed]);
 
     const getVariantClasses = () => {
         switch (variant) {
@@ -250,17 +300,26 @@ const Navbar: React.FC<NavbarProps> & {
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
         >
-            <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M4 6h16M4 12h16M4 18h16" 
-            />
+            {isCollapsed ? (
+                <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M4 6h16M4 12h16M4 18h16" 
+                />
+            ) : (
+                <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M6 18L18 6M6 6l12 12" 
+                />
+            )}
         </svg>
     );
 
     return (
-        <nav className={finalClassName} {...props}>
+        <nav ref={navbarRef} className={finalClassName} {...props}>
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-14 sm:h-16">
                     {/* Brand and toggle button wrapper */}
@@ -282,7 +341,7 @@ const Navbar: React.FC<NavbarProps> & {
                             aria-expanded={!isCollapsed}
                             aria-label="Toggle navigation menu"
                         >
-                            <span className="sr-only">Open main menu</span>
+                            <span className="sr-only">{isCollapsed ? 'Open main menu' : 'Close main menu'}</span>
                             <div className={`transition-transform duration-300 ${!isCollapsed ? 'rotate-90' : ''}`}>
                                 {toggleContent || defaultToggleContent}
                             </div>
