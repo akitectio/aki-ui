@@ -4,6 +4,10 @@
 
 ## Key Information
 
+
+**Name:** @akitectio/aki-ui
+**Version:** 0.1.24
+**License:** MIT
 **Technology Stack:** React 18, TypeScript, Tailwind CSS, Storybook
 **Components:** 39+ pre-built UI components 
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
