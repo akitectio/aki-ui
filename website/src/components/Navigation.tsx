@@ -83,8 +83,8 @@ export function Navigation({
                 key={item.href}
                 href={item.href}
                 className={`relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group ${item.isActive
-                    ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 shadow-sm border border-primary-200/50 dark:border-primary-700/50'
-                    : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
+                  ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 shadow-sm border border-primary-200/50 dark:border-primary-700/50'
+                  : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
                   }`}
               >
                 {item.label}
@@ -161,8 +161,8 @@ export function Navigation({
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${item.isActive
-                    ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-700/50'
-                    : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30'
+                  ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-700/50'
+                  : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30'
                   }`}
               >
                 {item.label}

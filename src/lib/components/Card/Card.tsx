@@ -195,8 +195,8 @@ const Card: React.FC<CardProps> & {
     borderRadius = 'md',
     align = 'left',
     as: Component = 'div',
-    onClick,
-    style,
+    onClick = () => { }, // Add default value here
+    style = {}, // Add default value here
 }) => {
         // Base classes
         const baseClasses = 'overflow-hidden';
@@ -233,7 +233,9 @@ const Card: React.FC<CardProps> & {
         const bgClasses = bgColor === 'white' ? 'bg-white' : `bg-${bgColor}`;
 
         // Clickable classes
-        const clickableClasses = onClick ? 'cursor-pointer' : '';
+        // Check if onClick is the default no-op function or a custom handler
+        const isDefaultOnClick = onClick.toString() === (() => { }).toString();
+        const clickableClasses = isDefaultOnClick ? '' : 'cursor-pointer';
 
         // Combine all classes
         const cardClasses = [

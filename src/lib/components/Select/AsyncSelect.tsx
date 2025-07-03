@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import type { ForwardRefRenderFunction } from 'react';
 import Select from './Select';
 import type { SelectOption, SelectProps, SelectRef } from './Select';
 import Chip from '../Chip';
@@ -8,7 +9,7 @@ export interface AsyncSelectProps extends Omit<SelectProps, 'options'> {
     /**
      * Function to load options asynchronously
      */
-    loadOptions?: (inputValue: string) => Promise<SelectOption[]>;
+    loadOptions: (inputValue: string) => Promise<SelectOption[]>;
 
     /**
      * Delay in milliseconds before triggering the loadOptions function
@@ -65,7 +66,7 @@ export interface AsyncSelectProps extends Omit<SelectProps, 'options'> {
  * AsyncSelect component that extends the base Select component with
  * async loading capabilities, similar to Select2
  */
-const AsyncSelect = React.forwardRef<SelectRef, AsyncSelectProps>((props, ref) => {
+const AsyncSelectComponent: ForwardRefRenderFunction<SelectRef, AsyncSelectProps> = (props, ref) => {
     const {
         loadOptions,
         debounceMs = 300,
@@ -97,8 +98,6 @@ const AsyncSelect = React.forwardRef<SelectRef, AsyncSelectProps>((props, ref) =
 
     // Debounced load options function
     const debouncedLoadOptions = useCallback((value: string) => {
-        if (!loadOptions) return;
-
         const trimmedValue = value.trim();
 
         // Check if we already have cached results
@@ -132,7 +131,7 @@ const AsyncSelect = React.forwardRef<SelectRef, AsyncSelectProps>((props, ref) =
 
     // Handle input change with debounce
     useEffect(() => {
-        if (!inputValue || !loadOptions) return;
+        if (!inputValue) return;
 
         const handler = setTimeout(() => {
             debouncedLoadOptions(inputValue);
@@ -145,10 +144,10 @@ const AsyncSelect = React.forwardRef<SelectRef, AsyncSelectProps>((props, ref) =
 
     // Initial load of options if defaultOptions is true
     useEffect(() => {
-        if (defaultOptions === true && loadOptions) {
+        if (defaultOptions === true) {
             debouncedLoadOptions('');
         }
-    }, [defaultOptions, loadOptions, debouncedLoadOptions]);
+    }, [defaultOptions, debouncedLoadOptions]);
 
     // Prepare options with creatable option if needed
     const prepareOptions = () => {
@@ -254,7 +253,9 @@ const AsyncSelect = React.forwardRef<SelectRef, AsyncSelectProps>((props, ref) =
             )}
         </div>
     );
-});
+};
+
+const AsyncSelect = React.forwardRef<SelectRef, AsyncSelectProps>(AsyncSelectComponent);
 
 AsyncSelect.displayName = 'AsyncSelect';
 

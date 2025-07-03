@@ -35,14 +35,14 @@ export interface ButtonGroupProps {
     ariaLabel?: string;
 }
 
-const ButtonGroup: React.FC<ButtonGroupProps> = ({
+const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(({
     children,
     className = '',
     vertical = false,
-    size,
+    size = 'md',
     equalWidth = false,
     ariaLabel = 'Button group',
-}) => {
+}, ref) => {
     // Clone children to pass size prop to Button components
     const enhancedChildren = React.Children.map(children, (child) => {
         if (!React.isValidElement(child)) {
@@ -69,10 +69,11 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({
       `}
             role="group"
             aria-label={ariaLabel}
+            ref={ref}
         >
             {enhancedChildren}
         </div>
     );
-};
+});
 
 export default ButtonGroup;

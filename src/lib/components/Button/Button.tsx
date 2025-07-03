@@ -96,7 +96,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 /**
  * Primary UI component for user interaction
  */
-const Button: React.FC<ButtonProps> = ({
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     variant = 'primary',
     size = 'md',
     fullWidth = false,
@@ -112,7 +112,7 @@ const Button: React.FC<ButtonProps> = ({
     disabled,
     children,
     ...props
-}) => {
+}, ref) => {
     // Base classes
     const baseClasses = 'inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors';
 
@@ -176,6 +176,7 @@ const Button: React.FC<ButtonProps> = ({
         return React.cloneElement(children, {
             className: `${buttonClasses} ${childProps.className || ''}`.trim(),
             disabled: disabled || isLoading,
+            ref: ref, // Pass the ref to the child component
             ...props,
             ...childProps, // Child props take precedence
         });
@@ -185,6 +186,7 @@ const Button: React.FC<ButtonProps> = ({
         <Component
             className={buttonClasses}
             disabled={disabled || isLoading}
+            ref={ref} // Pass the ref to the Component
             {...props}
         >
             {isLoading && (
@@ -221,6 +223,6 @@ const Button: React.FC<ButtonProps> = ({
             )}
         </Component>
     );
-};
+});
 
 export default Button;
