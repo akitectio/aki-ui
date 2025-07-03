@@ -9,75 +9,58 @@
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
 **Version:** 0.1.26
-**Last Updated:** July 3, 2025
+**Updated:** July 3, 2025
 
-## Documentation
+## Documentation & Resources
 
-- [Storybook Documentation](https://aki-ui.akitect.io/storybook) - Interactive component documentation and playground
-- [NPM Package](https://www.npmjs.com/package/@akitectio/aki-ui) - Installation and package information
-- [GitHub Repository](https://github.com/akitectio/aki-ui) - Source code and issues
+**Main Documentation:** https://aki-ui.akitect.io/docs
+**Component Demos:** https://aki-ui.akitect.io/storybook
+**Installation Guide:** https://aki-ui.akitect.io/docs/installation
+**Theme Customization:** https://aki-ui.akitect.io/docs/theming
+**MCP Server Setup:** https://aki-ui.akitect.io/docs/mcp
 
-## Component Categories
-
-- [Layout & Navigation](https://aki-ui.akitect.io/storybook/?path=/docs/components-grid--docs) - Grid, Stack, Breadcrumb, Pagination
-- [Form Controls](https://aki-ui.akitect.io/storybook/?path=/docs/components-button--docs) - Button, Input, Select, Checkbox, Radio, Switch, Slider, FormControl
-- [Data Display](https://aki-ui.akitect.io/storybook/?path=/docs/components-card--docs) - Card, DataTable, Badge, Avatar, Chip, Alert
-- [Feedback & Overlays](https://aki-ui.akitect.io/storybook/?path=/docs/components-modal--docs) - Modal, Drawer, Toast, Tooltip, Popover, Spinner, Skeleton
-- [Interactive](https://aki-ui.akitect.io/storybook/?path=/docs/components-dropdown--docs) - Dropdown, Tabs, Accordion, Chatbot
-
-## Installation & Usage
+## Quick Start
 
 ```bash
 npm install @akitectio/aki-ui
 ```
 
-```jsx
-import { Button, Card, FormControl } from "@akitectio/aki-ui";
-import "@akitectio/aki-ui/css";
+```tsx
+import { Button, Card, Badge } from '@akitectio/aki-ui';
+
+function App() {
+  return (
+    <Card>
+      <Button variant="primary">Hello World</Button>
+      <Badge variant="success">Ready</Badge>
+    </Card>
+  );
+}
 ```
 
-## Theming System
+## Available Components
 
-- **Theme Providers:** ThemeProvider, ColorModeProvider, DirectionProvider
-- **CSS Variables:** Complete customization with CSS custom properties
-- **Dark Mode:** Built-in color mode switching
-- **RTL Support:** Right-to-left language support
+**Layout:** Container, Grid, Stack, Divider, Spacer
+**Navigation:** Navbar, Breadcrumb, Pagination, Tabs, Steps
+**Data Entry:** Input, Textarea, Select, Checkbox, Radio, Switch, DatePicker, FileUpload
+**Data Display:** Table, DataTable, List, Card, Badge, Avatar, Tooltip, Popover
+**Feedback:** Alert, Toast, Modal, Drawer, Loading, Progress, Skeleton
+**Interactive:** Button, ButtonGroup, Dropdown, Menu, Accordion, Collapse
 
-## AI Integration
+## AI Integration Features
 
-- **AI-Friendly:** Works with GitHub Copilot, Cursor, Windsurf, Claude Dev
-- **TypeScript Definitions:** Complete type definitions for AI code completion
-- **Structured Documentation:** Markdown-based docs optimized for LLM training
-- **Component Examples:** Real-world usage patterns for AI code generation
-- **MCP Server (Available Now):** Model Context Protocol server for dynamic AI interactions
+- llms.txt standard compliance for AI tool integration
+- Detailed component documentation with TypeScript definitions
+- Usage examples and best practices for each component
+- Theme system with CSS custom properties
+- Storybook integration for interactive component exploration
 
-### MCP Server Features (Available)
-- **Project Initialization:** Complete project setup with Vite, Next.js, or Create React App
-- Real-time component discovery and search
-- Dynamic code generation and validation  
-- Interactive documentation queries
-- Theme customization assistance
-- Code analysis and optimization suggestions
+## Support & Community
 
-**Installation:** `npm install -g @akitectio/aki-ui-mcp-server`  
-**NPM Package:** [@akitectio/aki-ui-mcp-server](https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server)  
-**Version:** 0.1.26
+**GitHub:** https://github.com/akitectio/aki-ui
+**NPM:** https://www.npmjs.com/package/@akitectio/aki-ui
+**Issues:** https://github.com/akitectio/aki-ui/issues
+**Website:** https://aki-ui.akitect.io
 
-## Development
-
-- [Contributing Guide](https://github.com/akitectio/aki-ui/blob/main/CONTRIBUTING.md) - How to contribute to the project
-- [Development Setup](https://github.com/akitectio/aki-ui#development) - Local development instructions
-- [Storybook Stories](https://github.com/akitectio/aki-ui/tree/main/src/stories) - Component story examples
-
-## Community
-
-- [GitHub Discussions](https://github.com/akitectio/aki-ui/discussions) - Ask questions and share ideas
-- [GitHub Issues](https://github.com/akitectio/aki-ui/issues) - Report bugs and request features
-- [Support Email](mailto:support@akitect.io) - Direct support from the team
-
-## Company
-
-**Created by:** Akitect.io
-**License:** MIT
-**Version:** 0.1.26
-**Homepage:** https://akitect.io
+---
+*Generated automatically from Aki UI v0.1.26 on July 3, 2025*

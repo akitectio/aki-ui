@@ -55,9 +55,15 @@ export function ToastProvider({
         }
 
         return () => {
+            // Safer cleanup - check if container exists and has no children before removing
             const containerToRemove = document.getElementById('aki-toast-container');
-            if (containerToRemove && containerToRemove.childElementCount === 0) {
-                document.body.removeChild(containerToRemove);
+            if (containerToRemove && containerToRemove.parentNode && !containerToRemove.hasChildNodes()) {
+                try {
+                    document.body.removeChild(containerToRemove);
+                } catch (error) {
+                    // Silently handle case where container was already removed
+                    console.debug('Toast container already removed');
+                }
             }
         };
     }, []);
@@ -138,7 +144,7 @@ export function ToastProvider({
     return (
         <ToastContext.Provider value={contextValue}>
             {children}
-            {isMounted && container && createPortal(
+            {isMounted && container && document.body.contains(container) && createPortal(
                 <div
                     className={`
                         fixed p-4 z-50 flex flex-col items-end

@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
-const packageJson = require('../package.json')
+import { readFileSync } from 'fs'
+import { join } from 'path'
+
+const packageJson = JSON.parse(readFileSync(join(process.cwd(), '../package.json'), 'utf8'))
 
 const nextConfig = {
   transpilePackages: ['@akitectio/aki-ui'],
@@ -20,4 +23,4 @@ const nextConfig = {
   // No basePath or assetPrefix needed for custom domain
 }
 
-module.exports = nextConfig
+export default nextConfig
