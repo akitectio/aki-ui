@@ -1,13 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemap
 Sitemap: https://aki-ui.akitect.io/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1
-
-# Disallow common non-content URLs (if any)
-Disallow: /api/
-Disallow: /_next/
-Disallow: /admin/

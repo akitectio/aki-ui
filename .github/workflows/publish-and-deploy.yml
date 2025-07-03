@@ -245,8 +245,8 @@ jobs:
       - name: Commit version bump and push
         if: steps.check_commit.outputs.skip != 'true'
         run: |
-          git add package.json package-lock.json mcp/package.json mcp/package-lock.json public/llms.txt public/llms-full.txt
-          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP + auto-discovery)"
+          git add package.json package-lock.json mcp/package.json mcp/package-lock.json public/llms.txt public/llms-full.txt public/sitemap.xml public/robots.txt
+          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP + auto-discovery + sitemap)"
           git tag "${{ steps.version.outputs.new_version }}"
           git tag "mcp-${{ steps.version.outputs.new_version }}"
           git push origin main
@@ -354,10 +354,20 @@ jobs:
           NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
           NEXT_PUBLIC_SITE_URL: https://aki-ui.akitect.io
 
-      - name: Copy LLMs files to website
+      - name: Generate sitemap and copy files to website
         run: |
+          # Generate fresh sitemap with current date
+          npm run generate-sitemap
+
+          # Copy LLMs files to website
           cp public/llms.txt website/out/
           cp public/llms-full.txt website/out/
+
+          # Copy updated sitemap and robots.txt to website
+          cp public/sitemap.xml website/out/
+          cp public/robots.txt website/out/
+
+          echo "✅ Copied all files to website/out/"
 
       - name: Add .nojekyll file
         run: touch website/out/.nojekyll

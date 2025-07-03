@@ -158,8 +158,19 @@ llmsFullContent = llmsFullContent.replace(
 fs.writeFileSync(path.join(__dirname, '../public/llms.txt'), llmsTemplate);
 fs.writeFileSync(path.join(__dirname, '../public/llms-full.txt'), llmsFullContent);
 
+// Generate sitemap.xml and robots.txt
+import { execSync } from 'child_process';
+try {
+    execSync('node scripts/generate-sitemap.js', { stdio: 'inherit' });
+    console.log('✅ Generated sitemap.xml and robots.txt');
+} catch (error) {
+    console.warn('⚠️  Warning: Could not generate sitemap:', error.message);
+}
+
 console.log(`✅ Updated LLM documentation files`);
 console.log('📄 Files updated:');
 console.log('   - public/llms.txt');
 console.log('   - public/llms-full.txt');
+console.log('   - public/sitemap.xml');
+console.log('   - public/robots.txt');
 console.log(`🔄 Synced versions: Main ${mainPackageJson.version}, MCP ${mcpPackageJson.version}`);
