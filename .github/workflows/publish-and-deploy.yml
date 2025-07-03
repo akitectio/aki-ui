@@ -159,7 +159,13 @@ jobs:
             npm ci --legacy-peer-deps
           fi
 
-          # Build MCP server
+          # Sync component metadata before building MCP
+          echo "🔄 Syncing component metadata from Aki UI..."
+          cd ../
+          npm run mcp:sync-metadata
+          cd mcp
+
+          # Build MCP server with updated metadata
           npm run build
 
           # Verify package before publishing
@@ -240,7 +246,7 @@ jobs:
         if: steps.check_commit.outputs.skip != 'true'
         run: |
           git add package.json package-lock.json mcp/package.json mcp/package-lock.json public/llms.txt public/llms-full.txt
-          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP)"
+          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP + auto-discovery)"
           git tag "${{ steps.version.outputs.new_version }}"
           git tag "mcp-${{ steps.version.outputs.new_version }}"
           git push origin main

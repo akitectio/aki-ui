@@ -34,6 +34,9 @@ import {
   OptimizeComponentRequest,
 } from "./tools/optimization.js";
 import { ValidationTool, ValidateCodeRequest } from "./tools/validation.js";
+import { FormTools } from "./tools/form-tools.js";
+import { LayoutTools } from "./tools/layout-tools.js";
+import { TestingTools } from "./tools/testing-tools.js";
 
 class AkiUIServer {
   private server: Server;
@@ -43,6 +46,9 @@ class AkiUIServer {
   private themeManagement: ThemeManagementTool;
   private optimization: OptimizationTool;
   private validation: ValidationTool;
+  private formTools: FormTools;
+  private layoutTools: LayoutTools;
+  private testingTools: TestingTools;
 
   constructor() {
     this.server = new Server(
@@ -67,6 +73,9 @@ class AkiUIServer {
     this.themeManagement = new ThemeManagementTool();
     this.optimization = new OptimizationTool();
     this.validation = new ValidationTool();
+    this.formTools = new FormTools();
+    this.layoutTools = new LayoutTools();
+    this.testingTools = new TestingTools();
 
     this.setupHandlers();
   }
@@ -82,6 +91,9 @@ class AkiUIServer {
           ...this.themeManagement.getTools(),
           this.optimization,
           this.validation,
+          ...this.formTools.getTools(),
+          ...this.layoutTools.getTools(),
+          ...this.testingTools.getTools(),
         ],
       };
     });
@@ -131,6 +143,36 @@ class AkiUIServer {
             return await this.themeManagement.generateTheme(args);
           case "apply_theme_vars":
             return await this.themeManagement.applyThemeVars(args);
+
+          // Form Tools
+          case "generate_form":
+            return await this.formTools.generateForm(args);
+          case "validate_form_schema":
+            return await this.formTools.validateFormSchema(args);
+          case "suggest_form_fields":
+            return await this.formTools.getFormFieldSuggestions(args);
+          case "optimize_form_layout":
+            return await this.formTools.generateForm(args); // Same as generate_form for now
+
+          // Layout Tools
+          case "generate_layout":
+            return await this.layoutTools.generateLayout(args);
+          case "calculate_grid":
+            return await this.layoutTools.calculateGrid(args);
+          case "check_responsive":
+            return await this.layoutTools.validateResponsiveDesign(args);
+          case "suggest_layout_patterns":
+            return await this.layoutTools.generateLayout(args); // Same as generate_layout for now
+
+          // Testing Tools
+          case "generate_tests":
+            return await this.testingTools.generateTests(args);
+          case "audit_accessibility":
+            return await this.testingTools.generateAccessibilityAudit(args);
+          case "benchmark_performance":
+            return await this.testingTools.generatePerformanceBenchmark(args);
+          case "setup_visual_testing":
+            return await this.testingTools.generateTests(args); // Same as generate_tests for now
 
           default:
             throw new Error(`Unknown tool: ${name}`);

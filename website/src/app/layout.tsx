@@ -6,7 +6,6 @@ import { Analytics } from '@/components/Analytics'
 import { GA_TRACKING_ID, isAnalyticsEnabled } from '@/lib/analytics'
 import { Suspense } from 'react'
 import { ToastProvider } from '@/components/ToastProvider'
-import { GurubaseWidget } from '@/components/GurubaseWidget'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -159,7 +158,6 @@ export default function RootLayout({
             <Suspense fallback={null}>
               <Analytics />
             </Suspense>
-            <GurubaseWidget />
           </ToastProvider>
         </ThemeProvider>
       </body>

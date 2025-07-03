@@ -56,3 +56,7 @@ node_modules/
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Auto-generated metadata files
+src/tools/component-metadata.json
+dist/tools/component-metadata.json

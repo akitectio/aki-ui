@@ -61,7 +61,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "npm run update-llm-docs && npm run build:types && vite build && node scripts/add-css-banner.js && node scripts/build-adapters.js",
+    "build": "npm run update-llm-docs && npm run build:types && vite build && node scripts/add-css-banner.js && node scripts/build-adapters.js && npm run mcp:sync-metadata",
     "build:types": "tsc -p tsconfig.build.json",
     "build:clean": "rm -rf dist",
     "build:prod": "npm run build:clean && npm run build",
@@ -82,6 +82,7 @@
     "install:all": "npm install && npm run mcp:install",
     "mcp:install": "cd mcp && npm install",
     "mcp:build": "cd mcp && npm run build",
+    "mcp:sync-metadata": "cd mcp && npm run build && node sync-metadata.js",
     "mcp:dev": "cd mcp && npm run dev",
     "mcp:start": "cd mcp && npm start",
     "mcp:publish": "cd mcp && ./publish.sh",

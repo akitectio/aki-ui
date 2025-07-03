@@ -34,6 +34,144 @@ Model Context Protocol server for Aki UI component library, providing AI assista
 - Generate custom themes with different styles and preferences
 - Convert theme configurations to CSS variables or Tailwind config
 
+### 📝 Form Tools (New)
+
+- Generate form components with validation schemas
+- Schema validation and type checking
+- Smart field suggestions based on data types
+- Form layout optimization and accessibility compliance
+
+### 🎛 Layout Tools (New)
+
+- Generate responsive layout components
+- Grid system calculator and optimization
+- Responsive design validation
+- Layout pattern recommendations
+
+### 🧪 Testing Tools (New)
+
+- Generate component tests (unit, integration, accessibility)
+- Automated accessibility auditing
+- Performance benchmarking and optimization
+- Visual regression testing support
+
+## Known Limitations & Future Enhancements
+
+### ✅ Recently Addressed Areas
+
+#### 🔄 Component Coverage ✅
+
+- **Status**: **COMPLETED** - Expanded from ~10 to 30+ components
+- **Added**: All major Aki UI components now covered
+- **Next Steps**: Regular audits to ensure new components are added
+
+#### 📝 Form Tools ✅
+
+- **Status**: **COMPLETED** - Full form tool category implemented
+- **Added**: Form generation, schema validation, field suggestions
+- **Next Steps**: Advanced form patterns and complex validation
+
+#### 🎛 Layout Tools ✅
+
+- **Status**: **COMPLETED** - Layout tool category implemented
+- **Added**: Layout generation, grid calculations, responsive validation
+- **Next Steps**: Advanced layout patterns and animations
+
+#### 🧪 Testing Tools ✅
+
+- **Status**: **COMPLETED** - Testing tool category implemented
+- **Added**: Test generation, accessibility audits, performance benchmarks
+- **Next Steps**: Integration with popular testing frameworks
+
+### Missing/Incomplete Areas
+
+The MCP server is continuously evolving. Here are areas that still need expansion:
+
+#### 🔄 Component Coverage
+
+- **Status**: Recently expanded from ~10 to 30+ components
+- **Missing**: Some newer components may not be fully documented
+- **Next Steps**: Regular audits to ensure all Aki UI components are covered
+
+#### 🎨 Advanced Theme Tools
+
+- **Current**: Basic theme generation and CSS conversion
+- **Missing**:
+  - Theme migration between versions
+  - Design token management
+  - Color palette generation
+  - Advanced theme inheritance
+- **Planned**: Full design system management tools
+
+#### 🚀 Migration & Upgrade Tools
+
+- **Missing**:
+  - Component migration helpers (v1 → v2)
+  - Breaking change detection
+  - Automated refactoring tools
+  - Dependency update guidance
+- **Planned**: Complete migration assistant toolkit
+
+#### 📱 Advanced Layout Features
+
+- **Current**: Basic responsive layout generation
+- **Missing**:
+  - Complex grid systems
+  - Dynamic layout adaptation
+  - Multi-device preview
+  - Layout performance analysis
+- **In Progress**: Enhanced layout intelligence
+
+#### 🔧 Development Tools
+
+- **Missing**:
+  - Live preview integration
+  - Hot reload optimization
+  - Bundle analysis
+  - Component playground
+- **Planned**: Full development environment integration
+
+#### 📊 Analytics & Monitoring
+
+- **Missing**:
+  - Component usage analytics
+  - Performance monitoring
+  - Error tracking
+  - User interaction patterns
+- **Future**: Comprehensive monitoring suite
+
+#### 🌐 Integration Tools
+
+- **Current**: Basic project initialization
+- **Missing**:
+  - CMS integrations
+  - Backend API connections
+  - Third-party service integrations
+  - Custom adapter generation
+- **Roadmap**: Extensive integration ecosystem
+
+#### 🎯 AI Enhancement Areas
+
+- **Current**: Basic code generation and optimization
+- **Missing**:
+  - Context-aware suggestions
+  - Learning from user patterns
+  - Intelligent refactoring
+  - Predictive component recommendations
+- **Vision**: Fully AI-powered development assistant
+
+### Contributing to Missing Areas
+
+We welcome contributions to address these limitations:
+
+1. **Component Coverage**: Help audit and add missing components
+2. **Tool Development**: Implement new tool categories
+3. **Documentation**: Improve tool descriptions and examples
+4. **Testing**: Add comprehensive test coverage
+5. **Integration**: Build connections with external tools
+
+See our [Contributing Guidelines](../CONTRIBUTING.md) for more information.
+
 ## Installation
 
 ### From npm (Recommended)
@@ -127,6 +265,27 @@ npm start
 - `generate_theme` - Generate custom theme configurations
 - `apply_theme_vars` - Convert theme to CSS variables or Tailwind config
 
+### Form Tools (New)
+
+- `generate_form` - Generate form components with validation schemas
+- `validate_form_schema` - Validate form schemas and types
+- `suggest_form_fields` - Smart field suggestions based on data types
+- `optimize_form_layout` - Form layout optimization and accessibility compliance
+
+### Layout Tools (New)
+
+- `generate_layout` - Generate responsive layout components
+- `calculate_grid` - Grid system calculator and optimization
+- `check_responsive` - Responsive design validation
+- `suggest_layout_patterns` - Layout pattern recommendations
+
+### Testing Tools (New)
+
+- `generate_tests` - Generate component tests (unit, integration, accessibility)
+- `audit_accessibility` - Automated accessibility auditing
+- `benchmark_performance` - Performance benchmarking and optimization
+- `setup_visual_testing` - Visual regression testing support
+
 ## Example Interactions
 
 ### Initialize a New Project
@@ -155,6 +314,27 @@ AI: Using generate_component tool with type "dashboard"...
 ```text
 Human: What are the accessibility best practices for Aki UI?
 AI: Using get_best_practices tool with topic "accessibility"...
+```
+
+### Generate Forms (New)
+
+```text
+Human: Create a user registration form with validation
+AI: Using generate_form tool with schema validation and field suggestions...
+```
+
+### Layout Generation (New)
+
+```text
+Human: Generate a responsive grid layout for a product catalog
+AI: Using generate_layout tool with responsive grid calculations...
+```
+
+### Testing Support (New)
+
+```text
+Human: Generate accessibility tests for my button component
+AI: Using generate_tests tool with accessibility focus and audit_accessibility...
 ```
 
 ## Resources
@@ -194,5 +374,3 @@ This MCP server is designed to work seamlessly with the Aki UI component library
 ## Contributing
 
 This MCP server is part of the Aki UI ecosystem. See the main project's contributing guidelines for information on how to contribute.
-
-# Test MCP workflow trigger Sat Jun 28 20:04:40 +07 2025
