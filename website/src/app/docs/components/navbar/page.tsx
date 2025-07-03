@@ -1,6 +1,6 @@
 'use client'
 
-import { Navbar } from '@akitectio/aki-ui'
+import { Navbar } from '@/components/client-components'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -14,7 +14,7 @@ export default function NavbarPage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Navbar } from '@akitectio/aki-ui'`}
+                        {`import { Navbar } from '@/components/client-components'`}
                     </CodeBlock>
                 </section>
 

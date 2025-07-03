@@ -48,12 +48,10 @@
     "./dist/index.css": "./dist/index.css",
     "./style.css": "./dist/index.css",
     "./adapters/nextjs": {
-      "types": "./dist/types/adapters/nextjs/index.d.ts",
       "import": "./dist/adapters/nextjs/index.js",
       "require": "./dist/adapters/nextjs/index.js"
     },
     "./adapters": {
-      "types": "./dist/types/adapters/index.d.ts",
       "import": "./dist/adapters/index.js",
       "require": "./dist/adapters/index.js"
     }
@@ -63,7 +61,7 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:types && vite build && node scripts/add-css-banner.js",
+    "build": "npm run build:types && vite build && node scripts/add-css-banner.js && node scripts/build-adapters.js",
     "build:types": "tsc -p tsconfig.build.json",
     "build:clean": "rm -rf dist",
     "build:prod": "npm run build:clean && npm run build",

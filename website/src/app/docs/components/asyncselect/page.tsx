@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 // @ts-ignore - Importing directly from package
-import { AsyncSelect } from '@akitectio/aki-ui'
+import { AsyncSelect } from '@/components/client-components'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 

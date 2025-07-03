@@ -25,10 +25,10 @@ export default function SpinnerPage() {
             <section>
                 <h2 className="text-2xl font-semibold mb-4">Import</h2>
                 <CodeBlock language="tsx">
-                    {`import { Spinner } from '@akitectio/aki-ui'
+                    {`import { Spinner } from '@/components/client-components'
 
 // TypeScript types
-import type { SpinnerProps } from '@akitectio/aki-ui'`}
+import type { SpinnerProps } from '@/components/client-components'`}
                 </CodeBlock>
             </section>
 
@@ -44,7 +44,7 @@ import type { SpinnerProps } from '@akitectio/aki-ui'`}
                         </div>
                     </div>
                     <CodeBlock language="tsx">
-                        {`import { Spinner } from '@akitectio/aki-ui'
+                        {`import { Spinner } from '@/components/client-components'
 
 function BasicSpinner() {
   return <Spinner />

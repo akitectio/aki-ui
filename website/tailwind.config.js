@@ -99,5 +99,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Plugin line-clamp không cần thiết với Tailwind CSS v3.3+
+  ],
 }

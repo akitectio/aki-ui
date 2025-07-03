@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { DataTable, Card, Badge, Button } from '@akitectio/aki-ui'
+import { DataTable, Card, Badge, Button } from '@/components/client-components'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
@@ -195,7 +195,7 @@ export default function ResponsiveDataTablePage() {
           />
 
           <CodeBlock className="mt-4">
-            {`import { DataTable, Badge } from '@akitectio/aki-ui'
+            {`import { DataTable, Badge } from '@/components/client-components'
 
 const columns = [
   {
@@ -251,7 +251,7 @@ const columns = [
           />
 
           <CodeBlock className="mt-4">
-            {`import { DataTable, Badge } from '@akitectio/aki-ui'
+            {`import { DataTable, Badge } from '@/components/client-components'
 
 const columns = [
   {

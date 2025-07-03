@@ -1,6 +1,6 @@
 'use client'
 
-import { Avatar, Card, Badge } from '@akitectio/aki-ui'
+import { Avatar, Card, Badge } from '@/components/client-components'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
@@ -14,7 +14,7 @@ export default function AvatarPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Import</h2>
           <CodeBlock language="typescript">
-            {`import { Avatar } from '@akitectio/aki-ui'`}
+            {`import { Avatar } from '@/components/client-components'`}
           </CodeBlock>
         </section>
 

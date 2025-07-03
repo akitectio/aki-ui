@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Card, Badge, Button, useToast } from '@akitectio/aki-ui'
+import { Card, Badge, Button, useToast } from '@/components/client-components'
 import { PageHeader } from '@/components/PageHeader'
 
 const componentCategories = [

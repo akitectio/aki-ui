@@ -43,7 +43,7 @@ export default function DropdownPage() {
   DropdownToggle,
   DropdownMenu,
   DropdownItem 
-} from '@akitectio/aki-ui'
+} from '@/components/client-components'
 
 // TypeScript types
 import type { 
@@ -51,7 +51,7 @@ import type {
   DropdownToggleProps,
   DropdownMenuProps,
   DropdownItemProps 
-} from '@akitectio/aki-ui'`}
+} from '@/components/client-components'`}
                 </CodeBlock>
             </section>
 
@@ -91,7 +91,7 @@ import type {
                         </div>
                     </div>
                     <CodeBlock language="tsx">
-                        {`import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from '@akitectio/aki-ui'
+                        {`import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from '@/components/client-components'
 
 function BasicDropdown() {
   return (

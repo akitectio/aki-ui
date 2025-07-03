@@ -13,7 +13,7 @@ export default function FloatingLabelPage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { FloatingLabel } from '@akitectio/aki-ui'`}
+                        {`import { FloatingLabel } from '@/components/client-components'`}
                     </CodeBlock>
                 </section>
 
@@ -39,7 +39,7 @@ export default function FloatingLabelPage() {
                                 </div>
                             </div>
                             <CodeBlock language="tsx">
-                                {`import { FloatingLabel } from '@akitectio/aki-ui'
+                                {`import { FloatingLabel } from '@/components/client-components'
 
 export default function MyForm() {
   return (

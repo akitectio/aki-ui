@@ -1,12 +1,27 @@
 'use client'
 
 import Link from 'next/link'
+import { useState } from 'react'
 import { Navigation } from '@/components/Navigation'
 import { ComponentShowcase } from '@/components/ComponentShowcase'
 import { ToastDemo } from '@/components/ToastDemo'
-import { ClientBadge, ClientButton, ClientCard } from '@/components/ClientDrawer'
+import { FloatingSearch } from '@/components/FloatingSearch'
+import { Badge, Button, Card } from '@/components/client-components'
 
 export default function Home() {
+  const [copyText, setCopyText] = useState('Copy')
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText('npm install @akitectio/aki-ui')
+      setCopyText('Copied!')
+      setTimeout(() => setCopyText('Copy'), 2000)
+    } catch (err) {
+      console.error('Failed to copy: ', err)
+      setCopyText('Failed')
+      setTimeout(() => setCopyText('Copy'), 2000)
+    }
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-900">
       {/* Navigation */}
@@ -16,9 +31,9 @@ export default function Home() {
       <section className="relative py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex justify-center mb-6">
-            <ClientBadge variant="primary" className="mb-4 shadow-lg">
+            <Badge variant="primary" className="mb-4 shadow-lg">
               🤖 AI-Powered UI • LLM Integration • MCP Support
-            </ClientBadge>
+            </Badge>
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
             Build Beautiful UIs with{' '}
@@ -31,13 +46,13 @@ export default function Home() {
             Create stunning user interfaces with AI-powered development tools, LLM integration, and Model Context Protocol (MCP) support.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <ClientButton size="lg" className="shadow-lg hover:shadow-xl transition-shadow" asChild>
+            <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow" asChild>
               <Link href="/docs/installation">Get Started</Link>
-            </ClientButton>
-            <ClientButton variant="secondary" size="lg" className="shadow-md hover:shadow-lg transition-shadow" asChild>
+            </Button>
+            <Button variant="secondary" size="lg" className="shadow-md hover:shadow-lg transition-shadow" asChild>
               <Link href="/docs/components">Browse Components</Link>
-            </ClientButton>
-            <ClientButton
+            </Button>
+            <Button
               variant="outline"
               size="lg"
               className="shadow-md hover:shadow-lg transition-shadow border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
@@ -49,10 +64,10 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                 </svg>
               </a>
-            </ClientButton>
-            <ClientButton variant="outline" size="lg" className="shadow-md hover:shadow-lg transition-shadow border-2 border-purple-500 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20" asChild>
+            </Button>
+            <Button variant="outline" size="lg" className="shadow-md hover:shadow-lg transition-shadow border-2 border-purple-500 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20" asChild>
               <Link href="/docs/llm">🤖 AI & LLM</Link>
-            </ClientButton>
+            </Button>
           </div>
 
           {/* Quick Start */}
@@ -60,7 +75,12 @@ export default function Home() {
             <div className="bg-slate-900 dark:bg-slate-800 rounded-xl p-6 text-left shadow-2xl border border-slate-700">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-slate-400 text-sm font-medium">Quick Install</span>
-                <button className="text-slate-400 hover:text-white text-sm transition-colors">Copy</button>
+                <button
+                  onClick={handleCopy}
+                  className="text-slate-400 hover:text-white text-sm transition-colors px-2 py-1 rounded hover:bg-slate-700"
+                >
+                  {copyText}
+                </button>
               </div>
               <code className="text-emerald-400 font-mono text-lg">npm install @akitectio/aki-ui</code>
             </div>
@@ -75,9 +95,9 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <ClientBadge variant="primary" className="mb-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+            <Badge variant="primary" className="mb-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
               🚀 AI-Powered Development
-            </ClientBadge>
+            </Badge>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
               Supercharge Your Development with{' '}
               <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
@@ -141,7 +161,7 @@ export default function Home() {
             <div className="bg-slate-900 dark:bg-slate-800 rounded-2xl p-6 shadow-2xl border border-slate-700">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-slate-400 text-sm font-medium">AI-Generated Component</span>
-                <ClientBadge variant="secondary" className="bg-purple-600 text-white">✨ AI</ClientBadge>
+                <Badge variant="secondary" className="bg-purple-600 text-white">✨ AI</Badge>
               </div>
               <pre className="text-sm text-slate-300 overflow-x-auto">
                 <code>{`// Generated with: "Create a user profile card"
@@ -149,7 +169,7 @@ import { Card, Avatar, Button } from '@akitectio/aki-ui'
 
 export function UserProfile({ user }) {
   return (
-    <ClientCard className="p-6">
+    <Card className="p-6">
       <div className="flex items-center space-x-4">
         <Avatar src={user.avatar} alt={user.name} />
         <div>
@@ -157,10 +177,10 @@ export function UserProfile({ user }) {
           <p className="text-gray-600">{user.role}</p>
         </div>
       </div>
-      <ClientButton className="mt-4 w-full">
+      <Button className="mt-4 w-full">
         View Profile
-      </ClientButton>
-    </ClientCard>
+      </Button>
+    </Card>
   )
 }`}</code>
               </pre>
@@ -169,12 +189,12 @@ export function UserProfile({ user }) {
 
           <div className="mt-12 text-center">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <ClientButton size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg" asChild>
+              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg" asChild>
                 <Link href="/docs/llm">Explore LLM Integration</Link>
-              </ClientButton>
-              <ClientButton variant="outline" size="lg" className="border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20" asChild>
+              </Button>
+              <Button variant="outline" size="lg" className="border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20" asChild>
                 <Link href="/docs/mcp">Learn about MCP</Link>
-              </ClientButton>
+              </Button>
             </div>
           </div>
         </div>
@@ -193,7 +213,7 @@ export function UserProfile({ user }) {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <ClientCard className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -203,9 +223,9 @@ export function UserProfile({ user }) {
               <p className="text-gray-600 dark:text-gray-300">
                 Built with TypeScript for excellent developer experience and type safety.
               </p>
-            </ClientCard>
+            </Card>
 
-            <ClientCard className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -215,9 +235,9 @@ export function UserProfile({ user }) {
               <p className="text-gray-600 dark:text-gray-300">
                 WCAG 2.1 compliant components with proper ARIA attributes and keyboard navigation.
               </p>
-            </ClientCard>
+            </Card>
 
-            <ClientCard className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17v4a2 2 0 002 2h4M13 13h4a2 2 0 012 2v4a2 2 0 01-2 2M9 9l3 3" />
@@ -227,9 +247,9 @@ export function UserProfile({ user }) {
               <p className="text-gray-600 dark:text-gray-300">
                 Flexible theming system with Tailwind CSS integration for easy customization.
               </p>
-            </ClientCard>
+            </Card>
 
-            <ClientCard className="p-6 text-center hover:shadow-lg transition-shadow border-2 border-purple-200 dark:border-purple-800">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow border-2 border-purple-200 dark:border-purple-800">
               <div className="w-12 h-12 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900 dark:to-blue-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
@@ -239,9 +259,9 @@ export function UserProfile({ user }) {
               <p className="text-gray-600 dark:text-gray-300">
                 AI-optimized components with clear APIs that work perfectly with Large Language Models.
               </p>
-            </ClientCard>
+            </Card>
 
-            <ClientCard className="p-6 text-center hover:shadow-lg transition-shadow border-2 border-blue-200 dark:border-blue-800">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow border-2 border-blue-200 dark:border-blue-800">
               <div className="w-12 h-12 bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900 dark:to-indigo-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -251,9 +271,9 @@ export function UserProfile({ user }) {
               <p className="text-gray-600 dark:text-gray-300">
                 Built-in Model Context Protocol server for seamless AI assistant integration.
               </p>
-            </ClientCard>
+            </Card>
 
-            <ClientCard className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -263,9 +283,9 @@ export function UserProfile({ user }) {
               <p className="text-gray-600 dark:text-gray-300">
                 Built-in dark mode support with seamless theme switching capabilities.
               </p>
-            </ClientCard>
+            </Card>
 
-            <ClientCard className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -275,9 +295,9 @@ export function UserProfile({ user }) {
               <p className="text-gray-600 dark:text-gray-300">
                 Tree-shakable components with optimized bundle size and minimal runtime overhead.
               </p>
-            </ClientCard>
+            </Card>
 
-            <ClientCard className="p-6 text-center hover:shadow-lg transition-shadow">
+            <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-indigo-600 dark:text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -287,7 +307,7 @@ export function UserProfile({ user }) {
               <p className="text-gray-600 dark:text-gray-300">
                 Comprehensive documentation with examples, API references, and best practices.
               </p>
-            </ClientCard>
+            </Card>
           </div>
         </div>
       </section>
@@ -330,14 +350,14 @@ export function UserProfile({ user }) {
             Install Aki UI and start building beautiful interfaces today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <ClientButton size="lg" asChild>
+            <Button size="lg" asChild>
               <Link href="/docs/installation">Get Started Now</Link>
-            </ClientButton>
-            <ClientButton variant="outline" size="lg" asChild>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
               <a href="https://github.com/akitectio/aki-ui" target="_blank" rel="noopener noreferrer">
                 View on GitHub
               </a>
-            </ClientButton>
+            </Button>
           </div>
         </div>
       </section>
@@ -365,7 +385,7 @@ export function UserProfile({ user }) {
               <ul className="space-y-2 text-sm">
                 <li><Link href="/docs/llm" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">🤖 LLM Support</Link></li>
                 <li><Link href="/docs/mcp" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">⚡ MCP Protocol</Link></li>
-                <li><Link href="/docs/llm/ai-tools" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">AI Tools</Link></li>
+                <li><Link href="/docs/llm/ai-tools" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">🛠️ AI Tools</Link></li>
               </ul>
             </div>
             <div>
@@ -405,6 +425,9 @@ export function UserProfile({ user }) {
           </div>
         </div>
       </footer>
+
+      {/* Floating Search */}
+      <FloatingSearch />
     </div>
   )
 }

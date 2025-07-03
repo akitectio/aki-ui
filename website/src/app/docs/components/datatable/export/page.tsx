@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { DataTable, Card, Badge, Button, Select, Alert, Checkbox } from '@akitectio/aki-ui'
+import { DataTable, Card, Badge, Button, Select, Alert, Checkbox } from '@/components/client-components'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
@@ -543,7 +543,7 @@ export default function DataTableExportPage() {
           <div className="bg-gray-50 rounded-lg p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-3">Basic Export Setup</h3>
             <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-              <code>{`import { DataTable, Button, Select } from '@akitectio/aki-ui';
+              <code>{`import { DataTable, Button, Select } from '@/components/client-components';
 
 function ExportableDataTable() {
   const [data, setData] = useState(users);

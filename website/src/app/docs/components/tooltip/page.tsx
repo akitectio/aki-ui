@@ -20,10 +20,10 @@ export default function TooltipPage() {
             <section>
                 <h2 className="text-2xl font-semibold mb-4">Import</h2>
                 <CodeBlock language="tsx">
-                    {`import { Tooltip } from '@akitectio/aki-ui'
+                    {`import { Tooltip } from '@/components/client-components'
 
 // TypeScript types
-import type { TooltipProps } from '@akitectio/aki-ui'`}
+import type { TooltipProps } from '@/components/client-components'`}
                 </CodeBlock>
             </section>
 
@@ -52,7 +52,7 @@ import type { TooltipProps } from '@akitectio/aki-ui'`}
                         </div>
                     </div>
                     <CodeBlock language="tsx">
-                        {`import { Tooltip } from '@akitectio/aki-ui'
+                        {`import { Tooltip } from '@/components/client-components'
 
 function BasicTooltip() {
   return (

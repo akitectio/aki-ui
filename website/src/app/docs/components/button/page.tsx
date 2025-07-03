@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
-import { Button, Card } from '@akitectio/aki-ui'
+import { Button, Card } from '@/components/client-components'
 
 export default function ButtonPage() {
   const [loading, setLoading] = useState(false)
@@ -22,7 +22,7 @@ export default function ButtonPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Import</h2>
           <CodeBlock language="typescript">
-            {`import { Button } from '@akitectio/aki-ui'`}
+            {`import { Button } from '@/components/client-components'`}
           </CodeBlock>
         </section>
 
