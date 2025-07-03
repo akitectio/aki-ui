@@ -65,6 +65,10 @@ jobs:
         with:
           node-version: "20.x"
           registry-url: "https://registry.npmjs.org"
+          cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            mcp/package-lock.json
 
       - name: Setup .npmrc manually
         if: steps.check_commit.outputs.skip != 'true'
@@ -99,6 +103,17 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Cache node_modules
+        if: steps.check_commit.outputs.skip != 'true'
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            mcp/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json', 'mcp/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install dependencies
         if: steps.check_commit.outputs.skip != 'true'
         run: |
@@ -111,6 +126,17 @@ jobs:
           cd ../
 
           echo "✅ Installed dependencies for root and MCP projects"
+
+      - name: Cache node_modules
+        if: steps.check_commit.outputs.skip != 'true'
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            mcp/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json', 'mcp/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Build package
         if: steps.check_commit.outputs.skip != 'true'
@@ -347,18 +373,50 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
+          cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            website/package.json
 
       - name: Install root dependencies
         run: npm ci --legacy-peer-deps
 
+      - name: Cache website node_modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            website/node_modules
+          key: ${{ runner.os }}-website-${{ hashFiles('package-lock.json', 'website/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-website-
+
       - name: Install website dependencies
         run: |
           cd website
-          npm ci --legacy-peer-deps
+          # Try npm ci first, fallback to npm install if package-lock.json issues
+          npm ci --legacy-peer-deps 2>/dev/null || {
+            echo "⚠️ npm ci failed, falling back to npm install..."
+            rm -f package-lock.json
+            npm install --legacy-peer-deps
+          }
           echo "✅ Installed website dependencies"
+          key: ${{ runner.os }}-website-${{ hashFiles('package-lock.json', 'website/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-website-
 
       - name: Build Aki UI library
         run: npm run build:prod
+
+      - name: Cache Next.js build
+        uses: actions/cache@v3
+        with:
+          path: |
+            website/.next/cache
+            website/out
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('website/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
 
       - name: Build website
         run: npm run website:build
