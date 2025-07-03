@@ -32,10 +32,10 @@ jobs:
           node-version: "20.x"
 
       - name: Install root dependencies
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Install website dependencies
-        run: cd website && npm install
+        run: cd website && npm install --legacy-peer-deps
 
       - name: Build Aki UI library
         run: npm run build:prod
