@@ -3,10 +3,10 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Badge } from '@akitectio/aki-ui'
 import { ThemeToggle } from './ThemeToggle'
 import { getVersionBadge } from '@/lib/version'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Badge } from '@akitectio/aki-ui'
 
 interface NavigationProps {
   showGetStarted?: boolean
@@ -68,7 +68,7 @@ export function Navigation({
             <div className="hidden sm:flex items-center space-x-2">
               <Badge
                 variant="secondary"
-                className="bg-gradient-to-r from-primary-100 to-secondary-100 dark:from-blue-900/50 dark:to-indigo-900/50 text-primary-800 dark:text-blue-200 border border-primary-200/50 dark:border-blue-700/50 px-2.5 py-1 text-xs font-medium shadow-sm hover:from-primary-200 hover:to-secondary-200 dark:hover:from-blue-800/50 dark:hover:to-indigo-800/50 transition-colors"
+                className="bg-gradient-to-r from-primary-500/90 to-secondary-500/90 dark:from-blue-900/50 dark:to-indigo-900/50 text-white dark:text-blue-200 border border-primary-400/50 dark:border-blue-700/50 px-2.5 py-1 text-xs font-medium shadow-sm hover:from-primary-600 hover:to-secondary-600 dark:hover:from-blue-800/50 dark:hover:to-indigo-800/50 transition-colors"
               >
                 {getVersionBadge()}
               </Badge>

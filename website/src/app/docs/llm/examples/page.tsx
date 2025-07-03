@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { Button, Card, Badge, Alert, Tabs, Tab } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
-import { 
+import {
   SparklesIcon,
   CommandLineIcon,
   CodeBracketIcon,
@@ -43,11 +43,10 @@ const CodeBlock = ({ children, language = 'tsx' }: { children: string; language?
             size="sm"
             variant="ghost"
             onClick={handleCopy}
-            className={`text-xs transition-all duration-200 ${
-              copied 
-                ? 'text-green-400 bg-green-500/10' 
+            className={`text-xs transition-all duration-200 ${copied
+                ? 'text-green-400 bg-green-500/10'
                 : 'text-gray-400 hover:text-white hover:bg-gray-700'
-            }`}
+              }`}
           >
             {copied ? (
               <>
@@ -376,7 +375,7 @@ export default function LLMExamplesPage() {
               <div className="absolute bottom-10 right-10 w-40 h-40 bg-purple-200/20 dark:bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-r from-blue-100/10 to-purple-100/10 dark:from-blue-400/5 dark:to-purple-400/5 rounded-full blur-3xl"></div>
             </div>
-            
+
             <div className="relative z-10 p-8 lg:p-12">
               <div className="flex items-center justify-center mb-8">
                 <div className="relative">
@@ -386,20 +385,20 @@ export default function LLMExamplesPage() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="text-center max-w-4xl mx-auto">
                 <h2 className="text-4xl lg:text-5xl font-extrabold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent leading-tight">
                   AI-Powered UI Development
                   <span className="block text-3xl lg:text-4xl mt-2">Examples & Templates</span>
                 </h2>
-                
+
                 <p className="text-xl lg:text-2xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed font-light">
-                  Transform your development workflow with AI assistance. 
+                  Transform your development workflow with AI assistance.
                   <span className="block mt-2 font-medium bg-gradient-to-r from-gray-600 to-gray-800 dark:from-gray-300 dark:to-gray-100 bg-clip-text text-transparent">
                     Real examples • Production-ready code • Copy-paste prompts
                   </span>
                 </p>
-                
+
                 {/* Feature highlights */}
                 <div className="grid md:grid-cols-3 gap-6 mb-8 max-w-3xl mx-auto">
                   <div className="flex items-center justify-center space-x-3 p-4 bg-white/60 dark:bg-gray-800/60 rounded-xl border border-white/20 dark:border-gray-700/50 backdrop-blur-sm">
@@ -411,7 +410,7 @@ export default function LLMExamplesPage() {
                       <div className="text-sm text-gray-600 dark:text-gray-300">Examples</div>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center justify-center space-x-3 p-4 bg-white/60 dark:bg-gray-800/60 rounded-xl border border-white/20 dark:border-gray-700/50 backdrop-blur-sm">
                     <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
                       <ClipboardDocumentIcon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
@@ -421,7 +420,7 @@ export default function LLMExamplesPage() {
                       <div className="text-sm text-gray-600 dark:text-gray-300">Prompts</div>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-center justify-center space-x-3 p-4 bg-white/60 dark:bg-gray-800/60 rounded-xl border border-white/20 dark:border-gray-700/50 backdrop-blur-sm">
                     <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg">
                       <CodeBracketIcon className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -432,10 +431,10 @@ export default function LLMExamplesPage() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 px-8 py-4"
                     onClick={() => document.getElementById('examples-section')?.scrollIntoView({ behavior: 'smooth' })}
                   >
@@ -471,62 +470,62 @@ export default function LLMExamplesPage() {
               </Badge>
             </div>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-8">
             {examples.map((example) => {
               const isSelected = selectedExample.id === example.id
-              
+
               return (
-                <Card 
+                <Card
                   key={example.id}
                   className={
                     isSelected
                       ? 'group relative overflow-hidden cursor-pointer transition-all duration-300 border-2 hover:shadow-xl hover:-translate-y-1 border-blue-500 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/50 dark:to-indigo-950/50 shadow-lg scale-105'
                       : 'group relative overflow-hidden cursor-pointer transition-all duration-300 border-2 hover:shadow-xl hover:-translate-y-1 border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 bg-white dark:bg-gray-800'
                   }
-                onClick={() => setSelectedExample(example)}
-              >
-                {/* Gradient overlay for selected state */}
-                {isSelected && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 dark:from-blue-400/10 dark:to-purple-400/10"></div>
-                )}
-                
-                <div className="relative p-5">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <h3 className="font-bold text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {example.title}
-                      </h3>
-                      <div className="flex items-center space-x-2 mt-2">
-                        <Badge 
-                          variant={difficultyColors[example.difficulty as keyof typeof difficultyColors] as any} 
-                          size="sm"
-                          className="font-medium"
-                        >
-                          {example.difficulty}
-                        </Badge>
-                        <Badge variant="outline" size="sm" className="text-xs">
-                          {example.category}
-                        </Badge>
+                  onClick={() => setSelectedExample(example)}
+                >
+                  {/* Gradient overlay for selected state */}
+                  {isSelected && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 dark:from-blue-400/10 dark:to-purple-400/10"></div>
+                  )}
+
+                  <div className="relative p-5">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex-1">
+                        <h3 className="font-bold text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                          {example.title}
+                        </h3>
+                        <div className="flex items-center space-x-2 mt-2">
+                          <Badge
+                            variant={difficultyColors[example.difficulty as keyof typeof difficultyColors] as any}
+                            size="sm"
+                            className="font-medium"
+                          >
+                            {example.difficulty}
+                          </Badge>
+                          <Badge variant="outline" size="sm" className="text-xs">
+                            {example.category}
+                          </Badge>
+                        </div>
                       </div>
+
+                      {/* Selection indicator */}
+                      <div className={
+                        isSelected
+                          ? 'w-3 h-3 rounded-full transition-all duration-200 bg-blue-500 shadow-lg'
+                          : 'w-3 h-3 rounded-full transition-all duration-200 bg-gray-300 dark:bg-gray-600 group-hover:bg-blue-300'
+                      }></div>
                     </div>
-                    
-                    {/* Selection indicator */}
-                    <div className={
-                      isSelected
-                        ? 'w-3 h-3 rounded-full transition-all duration-200 bg-blue-500 shadow-lg'
-                        : 'w-3 h-3 rounded-full transition-all duration-200 bg-gray-300 dark:bg-gray-600 group-hover:bg-blue-300'
-                    }></div>
+
+                    <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                      {example.description}
+                    </p>
+
+                    {/* Hover indicator */}
+                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
                   </div>
-                  
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-                    {example.description}
-                  </p>
-                  
-                  {/* Hover indicator */}
-                  <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
-                </div>
-              </Card>
+                </Card>
               )
             })}
           </div>
@@ -536,7 +535,7 @@ export default function LLMExamplesPage() {
         <section>
           <Card className="overflow-hidden border-0 shadow-xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900">
             <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-1"></div>
-            
+
             <div className="p-8">
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6">
                 <div className="flex-1 mb-4 lg:mb-0">
@@ -552,7 +551,7 @@ export default function LLMExamplesPage() {
                     {selectedExample.description}
                   </p>
                   <div className="flex flex-wrap items-center gap-3">
-                    <Badge 
+                    <Badge
                       variant={difficultyColors[selectedExample.difficulty as keyof typeof difficultyColors] as any}
                       className="px-4 py-2 font-medium"
                     >
@@ -564,10 +563,10 @@ export default function LLMExamplesPage() {
                     </Badge>
                   </div>
                 </div>
-                
+
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     onClick={() => {
                       navigator.clipboard.writeText(selectedExample.prompt)
@@ -577,8 +576,8 @@ export default function LLMExamplesPage() {
                     <ClipboardDocumentIcon className="w-4 h-4 mr-2" />
                     Copy Prompt
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     size="sm"
                     onClick={() => {
                       navigator.clipboard.writeText(selectedExample.expectedResult)
@@ -601,30 +600,30 @@ export default function LLMExamplesPage() {
                     <SparklesIcon className="w-4 h-4 mr-2" />
                     Expected Result
                   </Tab>
-              </div>
-
-              <div className="mt-4">
-                <div data-tab="prompt">
-                  <h3 className="text-lg font-semibold mb-3">AI Prompt</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    Copy this prompt and paste it into your AI tool (ChatGPT, Claude, Copilot, etc.)
-                  </p>
-                  <CodeBlock language="text">
-                    {selectedExample.prompt}
-                  </CodeBlock>
                 </div>
 
-                <div data-tab="result">
-                  <h3 className="text-lg font-semibold mb-3">Expected Result</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    This is the type of code you should expect from a well-configured AI tool
-                  </p>
-                  <CodeBlock language="tsx">
-                    {selectedExample.expectedResult}
-                  </CodeBlock>
+                <div className="mt-4">
+                  <div data-tab="prompt">
+                    <h3 className="text-lg font-semibold mb-3">AI Prompt</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      Copy this prompt and paste it into your AI tool (ChatGPT, Claude, Copilot, etc.)
+                    </p>
+                    <CodeBlock language="text">
+                      {selectedExample.prompt}
+                    </CodeBlock>
+                  </div>
+
+                  <div data-tab="result">
+                    <h3 className="text-lg font-semibold mb-3">Expected Result</h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      This is the type of code you should expect from a well-configured AI tool
+                    </p>
+                    <CodeBlock language="tsx">
+                      {selectedExample.expectedResult}
+                    </CodeBlock>
+                  </div>
                 </div>
-              </div>
-            </Tabs>
+              </Tabs>
             </div>
           </Card>
         </section>
@@ -639,12 +638,12 @@ export default function LLMExamplesPage() {
               Maximize your productivity with these proven strategies for AI-assisted UI development
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 gap-8">
             <Card className="group relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20"></div>
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 to-emerald-500"></div>
-              
+
               <div className="relative p-8">
                 <div className="flex items-start space-x-4">
                   <div className="p-3 bg-green-100 dark:bg-green-900/30 rounded-xl">
@@ -673,11 +672,11 @@ export default function LLMExamplesPage() {
                 </div>
               </div>
             </Card>
-            
+
             <Card className="group relative overflow-hidden border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20"></div>
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
-              
+
               <div className="relative p-8">
                 <div className="flex items-start space-x-4">
                   <div className="p-3 bg-blue-100 dark:bg-blue-900/30 rounded-xl">
@@ -719,7 +718,7 @@ export default function LLMExamplesPage() {
               Copy these proven prompt templates and customize them for your specific needs
             </p>
           </div>
-          
+
           <div className="space-y-6">
             <Card className="overflow-hidden border-0 shadow-xl">
               <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-1"></div>
@@ -765,7 +764,7 @@ export default function LLMExamplesPage() {
               <div className="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
               <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
             </div>
-            
+
             <div className="relative z-10 p-12 text-center text-white">
               <div className="mb-8">
                 <div className="inline-flex p-4 bg-white/20 rounded-2xl backdrop-blur-sm mb-6">
@@ -781,21 +780,21 @@ export default function LLMExamplesPage() {
                   Set up your AI tool with Aki UI context and start building amazing UIs faster than ever.
                 </p>
               </div>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   asChild
-                  className="bg-white text-blue-600 hover:bg-gray-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 px-8 py-4"
+                  className="bg-blue-50 text-blue-700 font-medium hover:bg-blue-100 shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 px-8 py-4"
                 >
                   <a href="/docs/llm/setup">
                     <CommandLineIcon className="w-5 h-5 mr-2" />
                     Setup AI Tools
                   </a>
                 </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
+                <Button
+                  variant="outline"
+                  size="lg"
                   asChild
                   className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm hover:shadow-lg transition-all duration-200 px-8 py-4"
                 >
@@ -805,7 +804,7 @@ export default function LLMExamplesPage() {
                   </a>
                 </Button>
               </div>
-              
+
               <div className="flex flex-wrap justify-center gap-6 text-sm opacity-75">
                 <div className="flex items-center space-x-2">
                   <CheckCircleIcon className="w-4 h-4" />
