@@ -7,7 +7,7 @@
 <<<<<<< HEAD
 
 **Name:** @akitectio/aki-ui
-**Version:** 0.1.25
+**Version:** 0.1.26
 **License:** MIT
 =======
 >>>>>>> 8739c2c (feat: add Breadcrumb component documentation and examples)
@@ -16,10 +16,10 @@
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
 <<<<<<< HEAD
-**Version:** 0.1.25
+**Version:** 0.1.26
 **Updated:** June 30, 2025
 =======
-**Version:** 0.1.24
+**Version:** 0.1.26
 **Updated:** July 1, 2025
 >>>>>>> 8739c2c (feat: add Breadcrumb component documentation and examples)
 
