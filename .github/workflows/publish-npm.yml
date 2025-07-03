@@ -93,7 +93,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.check_commit.outputs.skip != 'true'
-        run: npm ci
+        run: npm ci --legacy-peer-deps
 
       - name: Build package
         if: steps.check_commit.outputs.skip != 'true'
@@ -148,7 +148,7 @@ jobs:
 
           # Install dependencies if needed
           if [ ! -d "node_modules" ]; then
-            npm ci
+            npm ci --legacy-peer-deps
           fi
 
           # Build MCP server
@@ -161,7 +161,7 @@ jobs:
           cat package.json | grep -E '"name"|"version"' | head -2
 
           # Publish MCP server to npm
-          npm publish --provenance --access public
+          npm publish --provenance --access public --legacy-peer-deps
           echo "✅ Published MCP server to npm"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -206,7 +206,7 @@ jobs:
 
       - name: Publish to npm
         if: steps.check_commit.outputs.skip != 'true'
-        run: npm publish --provenance --access public
+        run: npm publish --provenance --access public --legacy-peer-deps
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
