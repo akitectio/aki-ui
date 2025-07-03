@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-// @ts-ignore - Required for component usage
+// @ts-ignore - Importing directly from package
 import { AsyncSelect } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'

@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Button, Card } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
+import { Button, Card } from '@akitectio/aki-ui'
 
 export default function ButtonPage() {
   const [loading, setLoading] = useState(false)
@@ -37,7 +37,7 @@ export default function ButtonPage() {
                 <Button variant="outline">Outline Button</Button>
               </div>
               <CodeBlock language="typescript">
-{`<Button>Default Button</Button>
+                {`<Button>Default Button</Button>
 <Button variant="primary">Primary Button</Button>
 <Button variant="secondary">Secondary Button</Button>
 <Button variant="outline">Outline Button</Button>`}
@@ -56,7 +56,7 @@ export default function ButtonPage() {
                 <Button size="lg">Large</Button>
               </div>
               <CodeBlock language="typescript">
-{`<Button size="sm">Small</Button>
+                {`<Button size="sm">Small</Button>
 <Button size="md">Medium</Button>
 <Button size="lg">Large</Button>`}
               </CodeBlock>
@@ -75,7 +75,7 @@ export default function ButtonPage() {
                 </Button>
               </div>
               <CodeBlock language="typescript">
-{`<Button disabled>Disabled</Button>
+                {`<Button disabled>Disabled</Button>
 <Button loading={isLoading} onClick={handleClick}>
   {isLoading ? 'Loading...' : 'Click for Loading'}
 </Button>`}
@@ -103,7 +103,7 @@ export default function ButtonPage() {
                 </Button>
               </div>
               <CodeBlock language="typescript">
-{`<Button>
+                {`<Button>
   <PlusIcon className="w-4 h-4 mr-2" />
   Add Item
 </Button>

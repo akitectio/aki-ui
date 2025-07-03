@@ -1,8 +1,8 @@
 'use client'
 
-import { Button, Card, Badge } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
+import { Button, Card, Badge } from '@akitectio/aki-ui'
 
 export default function CardPage() {
   return (
@@ -29,7 +29,7 @@ export default function CardPage() {
                 </p>
               </Card>
               <CodeBlock language="typescript">
-{`<Card className="p-6">
+                {`<Card className="p-6">
   <h3 className="text-lg font-semibold mb-2">Simple Card</h3>
   <p className="text-gray-600 dark:text-gray-300">
     This is a basic card with some content inside.
@@ -67,7 +67,7 @@ export default function CardPage() {
                 </div>
               </Card>
               <CodeBlock language="typescript">
-{`<Card className="overflow-hidden">
+                {`<Card className="overflow-hidden">
   <div className="px-6 py-4 bg-gray-50 dark:bg-gray-800 border-b">
     <div className="flex items-center justify-between">
       <h3 className="text-lg font-semibold">Card Title</h3>
@@ -111,7 +111,7 @@ export default function CardPage() {
                     </div>
                   </div>
                 </Card>
-                
+
                 <Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer border-2 border-transparent hover:border-green-200 dark:hover:border-green-800">
                   <div className="flex items-start space-x-3">
                     <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
@@ -129,7 +129,7 @@ export default function CardPage() {
                 </Card>
               </div>
               <CodeBlock language="typescript">
-{`<Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer 
+                {`<Card className="p-6 hover:shadow-lg transition-shadow cursor-pointer 
                border-2 border-transparent hover:border-blue-200">
   <div className="flex items-start space-x-3">
     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -168,7 +168,7 @@ export default function CardPage() {
                   </div>
                 </Card>
               </div>
-              
+
               <div>
                 <h3 className="font-semibold mb-3">Grid Layout</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -239,7 +239,7 @@ export default function CardPage() {
                 <li>• Consider hover states for interactive cards</li>
                 <li>• Use semantic HTML structure within cards</li>
               </ul>
-              
+
               <h3 className="font-semibold mt-6">Don'ts</h3>
               <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                 <li>• Don't nest cards too deeply</li>

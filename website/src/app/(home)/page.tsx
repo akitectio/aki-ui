@@ -1,9 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import { Button, Card, Badge } from '@akitectio/aki-ui'
+// Remove problematic components import
 import { Navigation } from '@/components/Navigation'
 import { ComponentShowcase } from '@/components/ComponentShowcase'
+import { ToastDemo } from '@/components/ToastDemo'
 
 export default function Home() {
   return (
@@ -26,7 +27,7 @@ export default function Home() {
             </span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-            A modern, accessible, and customizable React component library built with TypeScript and Tailwind CSS. 
+            A modern, accessible, and customizable React component library built with TypeScript and Tailwind CSS.
             Create stunning user interfaces with AI-powered development tools, LLM integration, and Model Context Protocol (MCP) support.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -36,10 +37,10 @@ export default function Home() {
             <Button variant="secondary" size="lg" className="shadow-md hover:shadow-lg transition-shadow" asChild>
               <Link href="/docs/components">Browse Components</Link>
             </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="shadow-md hover:shadow-lg transition-shadow border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20" 
+            <Button
+              variant="outline"
+              size="lg"
+              className="shadow-md hover:shadow-lg transition-shadow border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
               asChild
             >
               <a href="https://aki-ui.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
@@ -53,7 +54,7 @@ export default function Home() {
               <Link href="/docs/llm">🤖 AI & LLM</Link>
             </Button>
           </div>
-          
+
           {/* Quick Start */}
           <div className="max-w-2xl mx-auto">
             <div className="bg-slate-900 dark:bg-slate-800 rounded-xl p-6 text-left shadow-2xl border border-slate-700">
@@ -84,7 +85,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-              Aki UI is the first component library designed for the AI era. Build faster with LLM-powered code generation, 
+              Aki UI is the first component library designed for the AI era. Build faster with LLM-powered code generation,
               Model Context Protocol (MCP) support, and AI-friendly component APIs.
             </p>
           </div>
@@ -100,7 +101,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-xl font-semibold mb-2">LLM-Optimized Components</h3>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Every component is designed with clear, descriptive APIs that LLMs understand perfectly. 
+                    Every component is designed with clear, descriptive APIs that LLMs understand perfectly.
                     Generate complex UIs with simple natural language prompts.
                   </p>
                 </div>
@@ -115,7 +116,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-xl font-semibold mb-2">Model Context Protocol (MCP)</h3>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Built-in MCP server support enables AI assistants to directly interact with Aki UI, 
+                    Built-in MCP server support enables AI assistants to directly interact with Aki UI,
                     providing real-time component generation and customization.
                   </p>
                 </div>
@@ -130,7 +131,7 @@ export default function Home() {
                 <div>
                   <h3 className="text-xl font-semibold mb-2">AI Code Generation</h3>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Integrated AI tools and prompts help you generate forms, layouts, and complex components 
+                    Integrated AI tools and prompts help you generate forms, layouts, and complex components
                     with intelligent defaults and best practices.
                   </p>
                 </div>
@@ -190,7 +191,7 @@ export function UserProfile({ user }) {
               Built with modern technologies and best practices for exceptional developer experience.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mx-auto mb-4">
@@ -203,7 +204,7 @@ export function UserProfile({ user }) {
                 Built with TypeScript for excellent developer experience and type safety.
               </p>
             </Card>
-            
+
             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,7 +216,7 @@ export function UserProfile({ user }) {
                 WCAG 2.1 compliant components with proper ARIA attributes and keyboard navigation.
               </p>
             </Card>
-            
+
             <Card className="p-6 text-center hover:shadow-lg transition-shadow">
               <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -374,9 +375,9 @@ export function UserProfile({ user }) {
                 <li><Link href="/docs/components/card" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Card</Link></li>
                 <li><Link href="/docs/components/input" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Input</Link></li>
                 <li>
-                  <a 
-                    href="https://aki-ui.vercel.app/" 
-                    target="_blank" 
+                  <a
+                    href="https://aki-ui.vercel.app/"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white flex items-center gap-1"
                   >
