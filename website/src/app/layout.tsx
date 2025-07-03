@@ -146,6 +146,17 @@ export default function RootLayout({
           </>
         )}
 
+        {/* Gurubase Widget */}
+        <script
+          async
+          src="https://widget.gurubase.io/widget.latest.min.js"
+          data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"
+          data-text="Ask AI"
+          data-margins='{"bottom": "1rem", "right": "1rem"}'
+          data-light-mode="auto"
+          id="guru-widget-id"
+        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
