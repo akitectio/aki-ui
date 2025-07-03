@@ -39,13 +39,24 @@
   "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/aki-ui.es.js",
       "require": "./dist/aki-ui.umd.js"
     },
     "./types": "./dist/types/index.d.ts",
     "./css": "./dist/index.css",
     "./dist/index.css": "./dist/index.css",
-    "./style.css": "./dist/index.css"
+    "./style.css": "./dist/index.css",
+    "./adapters/nextjs": {
+      "types": "./dist/types/adapters/nextjs/index.d.ts",
+      "import": "./dist/adapters/nextjs/index.js",
+      "require": "./dist/adapters/nextjs/index.js"
+    },
+    "./adapters": {
+      "types": "./dist/types/adapters/index.d.ts",
+      "import": "./dist/adapters/index.js",
+      "require": "./dist/adapters/index.js"
+    }
   },
   "sideEffects": [
     "**/*.css"

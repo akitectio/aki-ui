@@ -62,7 +62,7 @@ export interface BadgeProps {
      * Position of the badge when used as an indicator
      * @default undefined
      */
-    position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left';
+    position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | undefined;
 
     /**
      * Whether the badge is outlined
@@ -119,7 +119,7 @@ const variantStyles: Record<BadgeVariant, { bg: string; text: string; outlined: 
     }
 };
 
-const Badge: React.FC<BadgeProps> = ({
+const Badge = ({
     children,
     className = '',
     variant = 'primary',
@@ -130,7 +130,7 @@ const Badge: React.FC<BadgeProps> = ({
     dot = false,
     position,
     outlined = false
-}) => {
+}: BadgeProps) => {
     if (!visible) {
         return null;
     }
@@ -157,7 +157,7 @@ const Badge: React.FC<BadgeProps> = ({
     }
 
     // For positioned badges (like notifications)
-    if (position) {
+    if (typeof position !== 'undefined') {
         const positionClasses = {
             'top-right': 'absolute -top-1 -right-1',
             'top-left': 'absolute -top-1 -left-1',

@@ -7,3 +7,9 @@ export * from "./components";
 
 // Export theme system
 export * from "./theme";
+
+// Export framework adapters
+export * as Adapters from "./adapters";
+
+// Export utility functions
+export * from "./utils";

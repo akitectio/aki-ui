@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
+import { ClientDrawer, ClientButton } from '@/components/ClientDrawer'
 
 export default function DrawerPage() {
   const [basicOpen, setBasicOpen] = useState(false)
@@ -40,13 +41,21 @@ export default function DrawerPage() {
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                <ClientButton
+                  variant="primary"
                   onClick={() => setBasicOpen(true)}
                 >
                   Open Basic Drawer
-                </button>
+                </ClientButton>
               </div>
+              <ClientDrawer
+                isOpen={basicOpen}
+                onClose={() => setBasicOpen(false)}
+                title="Basic Drawer"
+              >
+                <p>This is the drawer content.</p>
+                <p className="mt-4">You can put any content here.</p>
+              </ClientDrawer>
               <CodeBlock language="typescript">
                 {`const [isOpen, setIsOpen] = useState(false)
 
@@ -75,31 +84,36 @@ return (
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                <ClientButton
                   onClick={() => handlePlacementOpen('left')}
                 >
                   Left Drawer
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                </ClientButton>
+                <ClientButton
                   onClick={() => handlePlacementOpen('right')}
                 >
                   Right Drawer
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                </ClientButton>
+                <ClientButton
                   onClick={() => handlePlacementOpen('top')}
                 >
                   Top Drawer
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                </ClientButton>
+                <ClientButton
                   onClick={() => handlePlacementOpen('bottom')}
                 >
                   Bottom Drawer
-                </button>
+                </ClientButton>
               </div>
+              <ClientDrawer
+                isOpen={placementOpen}
+                onClose={() => setPlacementOpen(false)}
+                title={`${placement.charAt(0).toUpperCase() + placement.slice(1)} Drawer`}
+                placement={placement}
+              >
+                <p>This drawer opens from the {placement}.</p>
+                <p className="mt-4">You can choose different placements based on your design needs.</p>
+              </ClientDrawer>
               <CodeBlock language="typescript">
                 {`<Drawer
   isOpen={isOpen}
@@ -119,43 +133,46 @@ return (
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                <ClientButton
                   onClick={() => handleSizeOpen('xs')}
                 >
                   Extra Small
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                </ClientButton>
+                <ClientButton
                   onClick={() => handleSizeOpen('sm')}
                 >
                   Small
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                </ClientButton>
+                <ClientButton
                   onClick={() => handleSizeOpen('md')}
                 >
                   Medium
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                </ClientButton>
+                <ClientButton
                   onClick={() => handleSizeOpen('lg')}
                 >
                   Large
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                </ClientButton>
+                <ClientButton
                   onClick={() => handleSizeOpen('xl')}
                 >
                   Extra Large
-                </button>
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                </ClientButton>
+                <ClientButton
                   onClick={() => handleSizeOpen('full')}
                 >
                   Full Size
-                </button>
+                </ClientButton>
               </div>
+              <ClientDrawer
+                isOpen={sizeOpen}
+                onClose={() => setSizeOpen(false)}
+                title={`${size.toUpperCase()} Size Drawer`}
+                size={size}
+              >
+                <p>This is a drawer with size <strong>{size}</strong>.</p>
+                <p className="mt-4">Different sizes can be used for different content needs.</p>
+              </ClientDrawer>
               <CodeBlock language="typescript">
                 {`<Drawer
   isOpen={isOpen}
@@ -175,13 +192,30 @@ return (
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
-                <button
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                <ClientButton
                   onClick={() => setCustomOpen(true)}
                 >
                   Open Drawer with Footer
-                </button>
+                </ClientButton>
               </div>
+              <ClientDrawer
+                isOpen={customOpen}
+                onClose={() => setCustomOpen(false)}
+                title="Drawer with Footer"
+                footer={
+                  <div className="flex justify-end gap-2">
+                    <ClientButton variant="outline" onClick={() => setCustomOpen(false)}>
+                      Cancel
+                    </ClientButton>
+                    <ClientButton onClick={() => setCustomOpen(false)}>
+                      Save
+                    </ClientButton>
+                  </div>
+                }
+              >
+                <p>This drawer has a footer with action buttons.</p>
+                <p className="mt-4">The footer is perfect for placing action buttons or other controls.</p>
+              </ClientDrawer>
               <CodeBlock language="typescript">
                 {`<Drawer
   isOpen={isOpen}
