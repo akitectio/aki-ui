@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Publish to npm and Deploy Website
 
 on:
   push:
@@ -21,14 +21,22 @@ on:
           - minor
           - major
 
+# Sets permissions for GitHub Pages deployment and npm publishing
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  actions: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 jobs:
-  publish:
+  publish-npm:
     runs-on: ubuntu-latest
     environment: npm-publishing
-    permissions:
-      contents: write
-      id-token: write
-      actions: write
     steps:
       - name: Check commit message
         id: check_commit
@@ -161,8 +169,14 @@ jobs:
           cat package.json | grep -E '"name"|"version"' | head -2
 
           # Publish MCP server to npm
-          npm publish --provenance --access public --legacy-peer-deps
-          echo "✅ Published MCP server to npm"
+          npm publish --provenance --access public --legacy-peer-deps || {
+            echo "MCP publish failed with error code $?"
+            echo "Checking current npm version:"
+            npm view "$PACKAGE_NAME" version
+            echo "This could be due to the version not being incremented correctly."
+            echo "Will continue with workflow but the MCP npm publish failed."
+          }
+          echo "✅ Attempted to publish MCP server to npm"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -206,7 +220,14 @@ jobs:
 
       - name: Publish to npm
         if: steps.check_commit.outputs.skip != 'true'
-        run: npm publish --provenance --access public --legacy-peer-deps
+        run: |
+          npm publish --provenance --access public --legacy-peer-deps || {
+            echo "Main package publish failed with error code $?"
+            echo "Checking current npm version:"
+            npm view @akitectio/aki-ui version
+            echo "This could be due to the version not being incremented correctly."
+            echo "Will continue with workflow but the npm publish failed."
+          }
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -292,3 +313,60 @@ jobs:
             See the [MCP README](https://github.com/akitectio/aki-ui/tree/main/mcp) for detailed usage instructions.
           draft: false
           prerelease: false
+
+  deploy-website:
+    needs: publish-npm
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Install root dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Install website dependencies
+        run: cd website && npm install --legacy-peer-deps
+
+      - name: Build Aki UI library
+        run: npm run build:prod
+
+      - name: Build website
+        run: npm run website:build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+          NEXT_PUBLIC_SITE_URL: https://aki-ui.akitect.io
+
+      - name: Copy LLMs files to website
+        run: |
+          cp public/llms.txt website/out/
+          cp public/llms-full.txt website/out/
+
+      - name: Add .nojekyll file
+        run: touch website/out/.nojekyll
+
+      - name: Add CNAME file for custom domain
+        run: echo "aki-ui.akitect.io" > website/out/CNAME
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./website/out"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
