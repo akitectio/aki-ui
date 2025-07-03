@@ -7,7 +7,6 @@ import { CodeBlock } from '@/components/CodeBlock'
 
 export default function AlertPage() {
   const [showDismissible, setShowDismissible] = useState(true)
-  const [showCustom, setShowCustom] = useState(true)
 
   return (
     <div className="space-y-8">
@@ -310,7 +309,7 @@ function DismissibleAlert() {
                 </div>
               </div>
             </Alert>
-            
+
             <Alert variant="warning" showIcon>
               <div>
                 <h4 className="font-semibold mb-2">Update Required</h4>
@@ -428,7 +427,7 @@ function DismissibleAlert() {
             <li>✅ Focus management for dismissible alerts</li>
             <li>✅ Semantic HTML structure</li>
           </ul>
-          
+
           <h3 className="text-lg font-semibold mt-6 mb-3">ARIA Attributes</h3>
           <ul className="space-y-1">
             <li><code>role="alert"</code> - For important messages that need immediate attention</li>
@@ -454,7 +453,7 @@ function DismissibleAlert() {
               <li>Position alerts where users expect to see feedback</li>
             </ul>
           </div>
-          
+
           <div className="border-l-4 border-red-500 bg-red-50 p-4">
             <h4 className="font-semibold text-red-800 mb-2">❌ Don't</h4>
             <ul className="text-red-700 space-y-1">

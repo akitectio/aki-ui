@@ -377,7 +377,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>(({
     // Drawer class names
     const drawerClasses = `
         fixed
-        ${sizeClasses[size][placement]}
+        ${sizeClasses[size] && placement ? sizeClasses[size][placement] : ''}
         bg-white
         shadow-xl
         flex
@@ -386,7 +386,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>(({
         transition-transform
         duration-300
         ease-in-out
-        ${placementClasses[placement]}
+        ${placement && placementClasses[placement] ? placementClasses[placement] : ''}
         ${className}
     `;
 
@@ -430,7 +430,7 @@ const Drawer = forwardRef<DrawerRef, DrawerProps>(({
                 ref={drawerRef}
                 id={drawerId}
                 className={drawerClasses}
-                style={placementStyles[placement]}
+                style={placementStyles[placement || 'right']}
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={title ? `${drawerId}-title` : undefined}

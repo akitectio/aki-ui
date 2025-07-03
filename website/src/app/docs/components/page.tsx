@@ -93,6 +93,12 @@ const componentCategories = [
         href: '/docs/components/modal',
         status: 'beta' as const,
       },
+      {
+        name: 'Drawer',
+        description: 'Slide-in panel for additional content or actions',
+        href: '/docs/components/drawer',
+        status: 'beta' as const,
+      },
     ],
   },
   {

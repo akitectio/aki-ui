@@ -28,7 +28,7 @@ export default function AvatarPage() {
                 <Avatar />
               </div>
               <CodeBlock language="typescript">
-{`<Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150" alt="User avatar" />
+                {`<Avatar src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150" alt="User avatar" />
 <Avatar>JD</Avatar>
 <Avatar />`}
               </CodeBlock>
@@ -53,7 +53,7 @@ export default function AvatarPage() {
                 <Avatar size="xl">XL</Avatar>
               </div>
               <CodeBlock language="typescript">
-{`<Avatar size="sm" src="..." alt="Small" />
+                {`<Avatar size="sm" src="..." alt="Small" />
 <Avatar size="md" src="..." alt="Medium" />
 <Avatar size="lg" src="..." alt="Large" />
 <Avatar size="xl" src="..." alt="Extra Large" />`}
@@ -75,7 +75,7 @@ export default function AvatarPage() {
                   <Avatar>GH</Avatar>
                 </div>
               </div>
-              
+
               <div>
                 <h4 className="font-medium mb-3">Default Icon</h4>
                 <div className="flex items-center gap-4">
@@ -84,7 +84,7 @@ export default function AvatarPage() {
                   <Avatar />
                 </div>
               </div>
-              
+
               <div>
                 <h4 className="font-medium mb-3">Custom Fallback</h4>
                 <div className="flex items-center gap-4">
@@ -93,9 +93,9 @@ export default function AvatarPage() {
                   <Avatar fallback="🤖" />
                 </div>
               </div>
-              
+
               <CodeBlock language="typescript">
-{`// With initials
+                {`// With initials
 <Avatar>AB</Avatar>
 
 // Default icon
@@ -132,7 +132,7 @@ export default function AvatarPage() {
                 </div>
               </div>
               <CodeBlock language="typescript">
-{`// Online status
+                {`// Online status
 <div className="relative">
   <Avatar src="..." alt="Online user" />
   <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
@@ -164,7 +164,7 @@ export default function AvatarPage() {
                   </div>
                 </div>
               </div>
-              
+
               <div>
                 <h4 className="font-medium mb-3">With Names</h4>
                 <div className="space-y-3">
@@ -184,9 +184,9 @@ export default function AvatarPage() {
                   </div>
                 </div>
               </div>
-              
+
               <CodeBlock language="typescript">
-{`// Stacked avatars
+                {`// Stacked avatars
 <div className="flex -space-x-2">
   <Avatar src="..." alt="User 1" className="border-2 border-white" />
   <Avatar src="..." alt="User 2" className="border-2 border-white" />
@@ -223,7 +223,7 @@ export default function AvatarPage() {
                 </button>
               </div>
               <CodeBlock language="typescript">
-{`<button className="relative group">
+                {`<button className="relative group">
   <Avatar 
     src="..." 
     alt="Clickable avatar" 
