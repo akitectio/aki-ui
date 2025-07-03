@@ -18,7 +18,7 @@ export const useSEO = ({
   keywords = "react, component library, ui library, typescript, tailwind css, accessibility, responsive design",
   ogTitle,
   ogDescription,
-  ogImage = "/aki-ui-logo.svg",
+  ogImage = "/aki-ui-banner.png",
   ogType = "website",
   canonicalUrl,
   structuredData,

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button, Card, Badge, Alert } from '@akitectio/aki-ui'
 
@@ -18,9 +18,9 @@ const CopyButton = ({ text, label }: { text: string; label: string }) => {
   }
 
   return (
-    <Button 
-      size="sm" 
-      variant="outline" 
+    <Button
+      size="sm"
+      variant="outline"
       onClick={handleCopy}
       className="ml-2"
     >
@@ -30,13 +30,14 @@ const CopyButton = ({ text, label }: { text: string; label: string }) => {
 }
 
 export default function LLMOverviewPage() {
-  // Get current URL for dynamic links
-  const getBaseUrl = () => {
-    if (typeof window === 'undefined') return 'https://aki-ui.akitect.io'
-    return window.location.origin
-  }
+  const [mounted, setMounted] = useState(false)
+  const [baseUrl, setBaseUrl] = useState('https://aki-ui.akitect.io')
 
-  const baseUrl = getBaseUrl()
+  useEffect(() => {
+    setMounted(true)
+    setBaseUrl(window.location.origin)
+  }, [])
+
   const llmsUrl = `${baseUrl}/llms.txt`
   const llmsFullUrl = `${baseUrl}/llms-full.txt`
 
@@ -54,11 +55,11 @@ export default function LLMOverviewPage() {
         <h2 className="text-2xl font-bold mb-4">What is LLM Integration?</h2>
         <div className="bg-white p-6 border rounded-lg">
           <p className="mb-4">
-            LLM Integration enables AI-powered development tools to understand and work with Aki UI components 
-            through structured documentation and code examples. This allows developers to get intelligent 
+            LLM Integration enables AI-powered development tools to understand and work with Aki UI components
+            through structured documentation and code examples. This allows developers to get intelligent
             code suggestions, automatic component generation, and contextual help.
           </p>
-          
+
           <div className="bg-green-50 border border-green-200 p-4 rounded mb-4">
             <h4 className="font-semibold mb-2 text-green-800">🚀 Benefits:</h4>
             <ul className="text-green-700 text-sm space-y-1">
@@ -77,31 +78,35 @@ export default function LLMOverviewPage() {
         <h2 className="text-2xl font-bold mb-4">LLMs.txt Integration</h2>
         <div className="bg-white p-6 border rounded-lg">
           <p className="mb-4">
-            Aki UI follows the <a href="https://llms.txt" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">llms.txt</a> standard 
+            Aki UI follows the <a href="https://llmstxt.org" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">llms.txt</a> standard
             to provide AI tools with structured access to our documentation and component library.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <Card className="p-4">
               <h4 className="font-semibold mb-2 flex items-center">
                 📄 Standard Documentation
-                <CopyButton text={llmsUrl} label="URL" />
+                {mounted && <CopyButton text={llmsUrl} label="URL" />}
               </h4>
               <p className="text-sm text-gray-600 mb-2">
                 Concise overview and component information
               </p>
-              <code className="text-xs bg-gray-100 p-1 rounded">{llmsUrl}</code>
+              <code className="text-xs bg-gray-100 p-1 rounded">
+                {mounted ? llmsUrl : 'https://aki-ui.akitect.io/llms.txt'}
+              </code>
             </Card>
-            
+
             <Card className="p-4">
               <h4 className="font-semibold mb-2 flex items-center">
                 📚 Full Documentation
-                <CopyButton text={llmsFullUrl} label="URL" />
+                {mounted && <CopyButton text={llmsFullUrl} label="URL" />}
               </h4>
               <p className="text-sm text-gray-600 mb-2">
                 Complete API reference and examples
               </p>
-              <code className="text-xs bg-gray-100 p-1 rounded">{llmsFullUrl}</code>
+              <code className="text-xs bg-gray-100 p-1 rounded">
+                {mounted ? llmsFullUrl : 'https://aki-ui.akitect.io/llms-full.txt'}
+              </code>
             </Card>
           </div>
 
@@ -123,7 +128,7 @@ export default function LLMOverviewPage() {
           <Card className="p-6">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-sm">GH</span>
+                <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="font-semibold">GitHub Copilot</h3>
@@ -141,7 +146,7 @@ export default function LLMOverviewPage() {
           <Card className="p-6">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-sm">CR</span>
+                <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="font-semibold">Cursor IDE</h3>
@@ -159,7 +164,7 @@ export default function LLMOverviewPage() {
           <Card className="p-6">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 bg-teal-600 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-sm">WS</span>
+                <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="font-semibold">Windsurf</h3>
@@ -177,7 +182,7 @@ export default function LLMOverviewPage() {
           <Card className="p-6">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-sm">AN</span>
+                <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="font-semibold">Claude (Anthropic)</h3>
@@ -195,7 +200,7 @@ export default function LLMOverviewPage() {
           <Card className="p-6">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-sm">CD</span>
+                <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="font-semibold">Codeium</h3>
@@ -213,7 +218,7 @@ export default function LLMOverviewPage() {
           <Card className="p-6">
             <div className="flex items-center mb-3">
               <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center mr-3">
-                <span className="text-white font-bold text-sm">TB</span>
+                <img src="/aki-ui-icon.png" alt="Aki UI" className="w-6 h-6" />
               </div>
               <div>
                 <h3 className="font-semibold">Tabnine</h3>
@@ -244,7 +249,7 @@ export default function LLMOverviewPage() {
               Model Context Protocol (MCP)
             </h3>
             <p className="text-gray-600 mb-3">
-              The most advanced integration method, providing real-time access to components, 
+              The most advanced integration method, providing real-time access to components,
               documentation, and code generation capabilities.
             </p>
             <div className="flex items-center space-x-4">
@@ -319,7 +324,7 @@ export default function LLMOverviewPage() {
                 </div>
               </div>
             </div>
-            
+
             <div>
               <h3 className="font-semibold mb-3">For Quick Setup (LLMs.txt)</h3>
               <div className="space-y-2 text-sm">
@@ -338,7 +343,7 @@ export default function LLMOverviewPage() {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-6 flex flex-wrap gap-4">
             <Button asChild>
               <Link href="/docs/mcp/installation">MCP Setup</Link>
@@ -358,7 +363,7 @@ export default function LLMOverviewPage() {
         <h2 className="text-2xl font-bold mb-4">Example AI Prompts</h2>
         <div className="bg-white p-6 border rounded-lg">
           <p className="mb-4">Try these prompts with your AI assistant after setting up integration:</p>
-          
+
           <div className="space-y-4">
             <div className="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
               <h4 className="font-semibold text-blue-800 mb-1">Component Generation</h4>
@@ -366,21 +371,21 @@ export default function LLMOverviewPage() {
                 "Create a user profile card using Aki UI components with avatar, name, email, and action buttons"
               </p>
             </div>
-            
+
             <div className="bg-green-50 p-4 rounded border-l-4 border-green-500">
               <h4 className="font-semibold text-green-800 mb-1">Form Creation</h4>
               <p className="text-sm text-green-700">
                 "Build a contact form with Aki UI that includes validation, proper styling, and accessibility features"
               </p>
             </div>
-            
+
             <div className="bg-purple-50 p-4 rounded border-l-4 border-purple-500">
               <h4 className="font-semibold text-purple-800 mb-1">Layout Design</h4>
               <p className="text-sm text-purple-700">
                 "Design a responsive dashboard layout using Aki UI's Grid and Stack components"
               </p>
             </div>
-            
+
             <div className="bg-yellow-50 p-4 rounded border-l-4 border-yellow-500">
               <h4 className="font-semibold text-yellow-800 mb-1">Theming Help</h4>
               <p className="text-sm text-yellow-700">

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Card, Badge, Alert, Tabs, Tab } from '@akitectio/aki-ui'
 
 const CodeBlock = ({ children, language = 'bash' }: { children: string; language?: string }) => {
@@ -47,9 +47,9 @@ const CopyUrlButton = ({ url, label }: { url: string; label: string }) => {
   }
 
   return (
-    <Button 
-      size="sm" 
-      variant="outline" 
+    <Button
+      size="sm"
+      variant="outline"
       onClick={handleCopy}
       className="ml-2"
     >
@@ -59,13 +59,14 @@ const CopyUrlButton = ({ url, label }: { url: string; label: string }) => {
 }
 
 export default function LLMSetupPage() {
-  // Get current URL for dynamic links
-  const getBaseUrl = () => {
-    if (typeof window === 'undefined') return 'https://aki-ui.akitect.io'
-    return window.location.origin
-  }
+  const [mounted, setMounted] = useState(false)
+  const [baseUrl, setBaseUrl] = useState('https://aki-ui.akitect.io')
 
-  const baseUrl = getBaseUrl()
+  useEffect(() => {
+    setMounted(true)
+    setBaseUrl(window.location.origin)
+  }, [])
+
   const llmsUrl = `${baseUrl}/llms.txt`
   const llmsFullUrl = `${baseUrl}/llms-full.txt`
 
@@ -85,13 +86,13 @@ export default function LLMSetupPage() {
           <Card className="p-6">
             <h3 className="text-lg font-semibold mb-3 flex items-center">
               📄 Standard Documentation
-              <CopyUrlButton url={llmsUrl} label="URL" />
+              {mounted && <CopyUrlButton url={llmsUrl} label="URL" />}
             </h3>
             <p className="text-gray-600 mb-3">
               Concise overview and component information for quick AI context.
             </p>
             <div className="bg-gray-50 p-3 rounded text-sm font-mono break-all">
-              {llmsUrl}
+              {mounted ? llmsUrl : 'https://aki-ui.akitect.io/llms.txt'}
             </div>
             <Badge variant="outline" className="mt-2">Recommended for most use cases</Badge>
           </Card>
@@ -99,13 +100,13 @@ export default function LLMSetupPage() {
           <Card className="p-6">
             <h3 className="text-lg font-semibold mb-3 flex items-center">
               📚 Full Documentation
-              <CopyUrlButton url={llmsFullUrl} label="URL" />
+              {mounted && <CopyUrlButton url={llmsFullUrl} label="URL" />}
             </h3>
             <p className="text-gray-600 mb-3">
               Complete API reference with detailed examples and best practices.
             </p>
             <div className="bg-gray-50 p-3 rounded text-sm font-mono break-all">
-              {llmsFullUrl}
+              {mounted ? llmsFullUrl : 'https://aki-ui.akitect.io/llms-full.txt'}
             </div>
             <Badge variant="outline" className="mt-2">For comprehensive projects</Badge>
           </Card>
@@ -115,38 +116,38 @@ export default function LLMSetupPage() {
       {/* Setup by AI Tool */}
       <section>
         <h2 className="text-2xl font-bold mb-4">Setup by AI Tool</h2>
-        
+
         <Tabs defaultIndex={0}>
           <Tab label="GitHub Copilot">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-3">GitHub Copilot Setup</h3>
-              
+
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium mb-2">Method 1: Chat Context</h4>
                   <p className="text-sm text-gray-600 mb-3">
                     Share the llms.txt URL in your Copilot chat for immediate context:
                   </p>
-                  <CodeBlock language="text">{`Please use this documentation for Aki UI components: ${llmsUrl}
+                  <CodeBlock language="text">{`Please use this documentation for Aki UI components: ${mounted ? llmsUrl : 'https://aki-ui.akitect.io/llms.txt'}
 
 Help me create a contact form using Aki UI components.`}</CodeBlock>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2">Method 2: Workspace Context</h4>
                   <p className="text-sm text-gray-600 mb-3">
                     Add a reference file to your project:
                   </p>
                   <CodeBlock language="bash">{`# Create a docs reference file
-echo "Aki UI Documentation: ${llmsUrl}" > .github/copilot-instructions.md`}</CodeBlock>
+echo "Aki UI Documentation: ${mounted ? llmsUrl : 'https://aki-ui.akitect.io/llms.txt'}" > .github/copilot-instructions.md`}</CodeBlock>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2">Method 3: Comment Instructions</h4>
                   <p className="text-sm text-gray-600 mb-3">
                     Add comments in your code files:
                   </p>
-                  <CodeBlock language="typescript">{`// Aki UI Documentation: ${llmsUrl}
+                  <CodeBlock language="typescript">{`// Aki UI Documentation: ${mounted ? llmsUrl : 'https://aki-ui.akitect.io/llms.txt'}
 // Use Aki UI components for this React component
 
 import { Button, Card } from '@akitectio/aki-ui'
@@ -167,11 +168,11 @@ export default function MyComponent() {
               </Alert>
             </Card>
           </Tab>
-          
+
           <Tab label="Cursor IDE">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-3">Cursor IDE Setup</h3>
-              
+
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium mb-2">1. Add to Cursor Rules</h4>
@@ -180,7 +181,7 @@ export default function MyComponent() {
                   </p>
                   <CodeBlock>{`# Aki UI Component Library
 Use Aki UI components from @akitectio/aki-ui for React development.
-Documentation: ${llmsUrl}
+Documentation: ${mounted ? llmsUrl : 'https://aki-ui.akitect.io/llms.txt'}
 
 When creating UI components:
 - Import from '@akitectio/aki-ui'
@@ -188,19 +189,19 @@ When creating UI components:
 - Use TypeScript for better type safety
 - Implement responsive design using breakpoint props`}</CodeBlock>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2">2. Use AI Chat</h4>
                   <p className="text-sm text-gray-600 mb-3">
                     Reference the documentation in your AI conversations:
                   </p>
-                  <CodeBlock language="text">{`Using the Aki UI documentation at ${llmsUrl}, create a responsive navigation component with the following features:
+                  <CodeBlock language="text">{`Using the Aki UI documentation at ${mounted ? llmsUrl : 'https://aki-ui.akitect.io/llms.txt'}, create a responsive navigation component with the following features:
 - Logo on the left
 - Menu items in the center
 - User avatar on the right
 - Mobile-friendly hamburger menu`}</CodeBlock>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2">3. Codebase Context</h4>
                   <p className="text-sm text-gray-600 mb-3">
@@ -212,22 +213,22 @@ import { Button, Card, Grid, Stack } from '@akitectio/aki-ui'`}</CodeBlock>
               </div>
             </Card>
           </Tab>
-          
+
           <Tab label="Claude">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-3">Claude (Anthropic) Setup</h3>
-              
+
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium mb-2">Direct Documentation Sharing</h4>
                   <p className="text-sm text-gray-600 mb-3">
                     Share the llms.txt content directly in your conversation:
                   </p>
-                  <CodeBlock language="text">{`I'm working with the Aki UI component library. Here's the documentation: ${llmsUrl}
+                  <CodeBlock language="text">{`I'm working with the Aki UI component library. Here's the documentation: ${mounted ? llmsUrl : 'https://aki-ui.akitect.io/llms.txt'}
 
 Please help me build a dashboard layout using Aki UI components.`}</CodeBlock>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2">MCP Integration (Advanced)</h4>
                   <p className="text-sm text-gray-600 mb-3">
@@ -242,7 +243,7 @@ Please help me build a dashboard layout using Aki UI components.`}</CodeBlock>
                     </p>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2">Project Context</h4>
                   <p className="text-sm text-gray-600 mb-3">
@@ -259,11 +260,11 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
               </div>
             </Card>
           </Tab>
-          
+
           <Tab label="Other Tools">
             <Card className="p-6">
               <h3 className="text-lg font-semibold mb-3">Other AI Tools</h3>
-              
+
               <div className="space-y-6">
                 <div>
                   <h4 className="font-medium mb-2 flex items-center">
@@ -276,7 +277,7 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
                     <p>3. Reference Aki UI in your chat conversations</p>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2 flex items-center">
                     <Badge variant="outline" className="mr-2">Tabnine</Badge>
@@ -288,7 +289,7 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
                     <p>3. Use consistent import patterns for better suggestions</p>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2 flex items-center">
                     <Badge variant="outline" className="mr-2">Continue.dev</Badge>
@@ -300,7 +301,7 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
                     <p>3. Use MCP integration for advanced features</p>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="font-medium mb-2 flex items-center">
                     <Badge variant="outline" className="mr-2">ChatGPT</Badge>
@@ -313,12 +314,12 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
                   </div>
                 </div>
               </div>
-              
+
               <Alert variant="info" showIcon className="mt-4">
                 <div>
                   <strong>Universal Approach</strong>
                   <p className="mt-1">
-                    Most AI tools can benefit from sharing the llms.txt URL and establishing Aki UI context 
+                    Most AI tools can benefit from sharing the llms.txt URL and establishing Aki UI context
                     in your conversations or configuration files.
                   </p>
                 </div>
@@ -342,7 +343,7 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
               <li>• Ask for best practices and examples</li>
             </ul>
           </Card>
-          
+
           <Card className="p-6">
             <h3 className="font-semibold mb-3">📝 Project Setup</h3>
             <ul className="space-y-2 text-sm">
@@ -353,7 +354,7 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
               <li>• Maintain consistent import patterns</li>
             </ul>
           </Card>
-          
+
           <Card className="p-6">
             <h3 className="font-semibold mb-3">🔄 Iterative Development</h3>
             <ul className="space-y-2 text-sm">
@@ -364,7 +365,7 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
               <li>• Optimize for performance when needed</li>
             </ul>
           </Card>
-          
+
           <Card className="p-6">
             <h3 className="font-semibold mb-3">🛠 Troubleshooting</h3>
             <ul className="space-y-2 text-sm">
@@ -399,7 +400,7 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
               </div>
             </div>
           </Card>
-          
+
           <Card className="p-6">
             <h3 className="font-semibold mb-3">Debugging Issues</h3>
             <div className="space-y-3">
@@ -423,7 +424,7 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
           <p className="text-gray-600 mb-4">
             Verify your AI tool setup with these test prompts:
           </p>
-          
+
           <div className="space-y-4">
             <div className="bg-blue-50 p-4 rounded">
               <h4 className="font-medium text-blue-800 mb-2">Basic Test</h4>
@@ -431,14 +432,14 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
                 "Using Aki UI documentation, show me how to create a simple button with different variants"
               </p>
             </div>
-            
+
             <div className="bg-green-50 p-4 rounded">
               <h4 className="font-medium text-green-800 mb-2">Advanced Test</h4>
               <p className="text-sm text-green-700">
                 "Create a responsive card grid using Aki UI components with proper TypeScript types"
               </p>
             </div>
-            
+
             <div className="bg-purple-50 p-4 rounded">
               <h4 className="font-medium text-purple-800 mb-2">Integration Test</h4>
               <p className="text-sm text-purple-700">
@@ -446,12 +447,12 @@ Please help me maintain consistency with these technologies.`}</CodeBlock>
               </p>
             </div>
           </div>
-          
+
           <Alert variant="success" showIcon className="mt-4">
             <div>
               <strong>Expected Results</strong>
               <p className="mt-1">
-                Your AI tool should provide code that imports from '@akitectio/aki-ui' and follows 
+                Your AI tool should provide code that imports from '@akitectio/aki-ui' and follows
                 the component patterns shown in our documentation.
               </p>
             </div>

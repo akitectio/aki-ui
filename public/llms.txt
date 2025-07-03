@@ -8,8 +8,15 @@
 **Components:** 39+ pre-built UI components 
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
+<<<<<<< HEAD
 **Version:** 0.1.25
 **Last Updated:** July 1, 2025
+=======
+**Version:** 0.1.24
+**Updated:** July 1, 2025
+
+## Documentation & Resources
+>>>>>>> 8739c2c (feat: add Breadcrumb component documentation and examples)
 
 ## Documentation
 
@@ -51,6 +58,7 @@ import "@akitectio/aki-ui/css";
 - **Component Examples:** Real-world usage patterns for AI code generation
 - **MCP Server (Available Now):** Model Context Protocol server for dynamic AI interactions
 
+<<<<<<< HEAD
 ### MCP Server Features (Available)
 - **Project Initialization:** Complete project setup with Vite, Next.js, or Create React App
 - Real-time component discovery and search
@@ -62,6 +70,13 @@ import "@akitectio/aki-ui/css";
 **Installation:** `npm install -g @akitectio/aki-ui-mcp-server`  
 **NPM Package:** [@akitectio/aki-ui-mcp-server](https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server)  
 **Version:** 0.1.25
+=======
+- llms.txt standard compliance for AI tool integration
+- Detailed component documentation with TypeScript definitions
+- Usage examples and best practices for each component
+- Theme system with CSS custom properties
+- Storybook integration for interactive component exploration
+>>>>>>> 8739c2c (feat: add Breadcrumb component documentation and examples)
 
 ## Development
 
@@ -71,6 +86,7 @@ import "@akitectio/aki-ui/css";
 
 ## Community
 
+<<<<<<< HEAD
 - [GitHub Discussions](https://github.com/akitectio/aki-ui/discussions) - Ask questions and share ideas
 - [GitHub Issues](https://github.com/akitectio/aki-ui/issues) - Report bugs and request features
 - [Support Email](mailto:support@akitect.io) - Direct support from the team
@@ -81,3 +97,7 @@ import "@akitectio/aki-ui/css";
 **License:** MIT
 **Version:** 0.1.25
 **Homepage:** https://akitect.io
+=======
+---
+*Generated automatically from Aki UI v0.1.24 on July 1, 2025*
+>>>>>>> 8739c2c (feat: add Breadcrumb component documentation and examples)

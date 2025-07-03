@@ -49,7 +49,7 @@ export const generateStorybookSEO = ({
     keywords: allKeywords,
     ogTitle: `${componentName} Component | Aki UI`,
     ogDescription: componentDescription,
-    ogImage: "/aki-ui-logo.svg",
+    ogImage: "/aki-ui-banner.png",
     structuredData: {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
@@ -68,7 +68,7 @@ export const generateStorybookSEO = ({
         price: "0",
         priceCurrency: "USD",
       },
-      screenshot: "https://aki-ui.akitect.io/aki-ui-logo.svg",
+      screenshot: "https://aki-ui.akitect.io/aki-ui-banner.png",
       url: `https://aki-ui.akitect.io/?path=/docs/components-${componentName.toLowerCase()}--docs`,
     },
   };

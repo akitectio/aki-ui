@@ -16,9 +16,9 @@ interface NavigationProps {
   isMobileMenuOpen?: boolean
 }
 
-export function Navigation({ 
-  showGetStarted = true, 
-  className = '', 
+export function Navigation({
+  showGetStarted = true,
+  className = '',
   onMenuClick,
   showMobileMenu = false,
   isMobileMenuOpen: externalMobileMenuOpen
@@ -37,21 +37,21 @@ export function Navigation({
     <nav className={`relative border-b border-gray-200/30 dark:border-gray-700/30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50 ${className}`}>
       {/* Gradient background overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-primary-50/50 via-white/50 to-secondary-50/50 dark:from-primary-950/30 dark:via-slate-900/50 dark:to-secondary-950/30"></div>
-      
+
       {/* Subtle top border gradient */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary-300/40 to-transparent dark:via-primary-600/40"></div>
-      
+
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo Section */}
           <div className="flex items-center space-x-4">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="flex items-center space-x-3 group"
             >
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 via-primary-600 to-secondary-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-105">
-                  <span className="text-white font-bold text-lg">A</span>
+                <div className="w-10 h-10 rounded-xl overflow-hidden shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-105 bg-white dark:bg-gray-800 flex items-center justify-center">
+                  <img src="/aki-ui-icon.png" alt="Aki UI" className="w-8 h-8 object-contain" />
                 </div>
                 {/* Glow effect */}
                 <div className="absolute inset-0 w-10 h-10 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-xl blur-md opacity-0 group-hover:opacity-40 transition-opacity duration-300 -z-10"></div>
@@ -66,8 +66,8 @@ export function Navigation({
               </div>
             </Link>
             <div className="hidden sm:flex items-center space-x-2">
-              <Badge 
-                variant="secondary" 
+              <Badge
+                variant="secondary"
                 className="bg-gradient-to-r from-primary-100 to-secondary-100 dark:from-blue-900/50 dark:to-indigo-900/50 text-primary-800 dark:text-blue-200 border border-primary-200/50 dark:border-blue-700/50 px-2.5 py-1 text-xs font-medium shadow-sm hover:from-primary-200 hover:to-secondary-200 dark:hover:from-blue-800/50 dark:hover:to-indigo-800/50 transition-colors"
               >
                 {getVersionBadge()}
@@ -75,18 +75,17 @@ export function Navigation({
               <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shadow-sm"></div>
             </div>
           </div>
-          
+
           {/* Navigation Items */}
           <div className="hidden md:flex items-center space-x-1">
             {navigationItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group ${
-                  item.isActive
+                className={`relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group ${item.isActive
                     ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 shadow-sm border border-primary-200/50 dark:border-primary-700/50'
                     : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
-                }`}
+                  }`}
               >
                 {item.label}
                 {item.isActive && (
@@ -94,10 +93,10 @@ export function Navigation({
                 )}
               </Link>
             ))}
-            
-            <a 
-              href="https://aki-ui.vercel.app/" 
-              target="_blank" 
+
+            <a
+              href="https://aki-ui.vercel.app/"
+              target="_blank"
               rel="noopener noreferrer"
               className="px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm transition-all duration-300 flex items-center gap-2 group"
             >
@@ -113,7 +112,7 @@ export function Navigation({
             <div className="hidden md:block">
               <ThemeToggle />
             </div>
-            
+
             {showGetStarted && (
               <Link
                 href="/docs"
@@ -161,19 +160,18 @@ export function Navigation({
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${
-                  item.isActive
+                className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${item.isActive
                     ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-700/50'
                     : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30'
-                }`}
+                  }`}
               >
                 {item.label}
               </Link>
             ))}
-            
-            <a 
-              href="https://aki-ui.vercel.app/" 
-              target="_blank" 
+
+            <a
+              href="https://aki-ui.vercel.app/"
+              target="_blank"
               rel="noopener noreferrer"
               className="block px-4 py-3 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 transition-all duration-300 flex items-center justify-between"
               onClick={() => setMobileMenuOpen(false)}

@@ -17,7 +17,7 @@ export function generateSEO({
   title,
   description,
   keywords = [],
-  image = "/og-image.png",
+  image = "/aki-ui-banner.png",
   url,
   type = "website",
   publishedTime,

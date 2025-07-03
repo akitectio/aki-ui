@@ -42,6 +42,15 @@ export const metadata: Metadata = {
   verification: {
     google: 'your-google-verification-code', // Replace with actual verification code
   },
+  icons: {
+    icon: '/aki-ui-icon.png',
+    shortcut: '/aki-ui-icon.png',
+    apple: '/apple-touch-icon.png',
+    other: {
+      rel: 'apple-touch-icon-precomposed',
+      url: '/apple-touch-icon.png',
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -51,7 +60,7 @@ export const metadata: Metadata = {
     description: 'A comprehensive, accessible, and customizable React component library built for modern applications. Featuring AI-powered integration, TypeScript support, and Tailwind CSS styling.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/aki-ui-icon.png',
         width: 1200,
         height: 630,
         alt: 'Aki UI - Modern React Component Library',
@@ -67,7 +76,7 @@ export const metadata: Metadata = {
     description: 'A comprehensive, accessible, and customizable React component library built for modern applications.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/aki-ui-icon.png',
         alt: 'Aki UI - Modern React Component Library',
       },
     ],
