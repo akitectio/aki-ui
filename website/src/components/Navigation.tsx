@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { ThemeToggle } from './ThemeToggle'
 import { getVersionBadge } from '@/lib/version'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { Badge } from '@akitectio/aki-ui'
 
 interface NavigationProps {
   showGetStarted?: boolean
@@ -66,45 +65,44 @@ export function Navigation({
               </div>
             </Link>
             <div className="hidden sm:flex items-center space-x-2">
-              <Badge
-                variant="secondary"
-                className="bg-gradient-to-r from-primary-500/90 to-secondary-500/90 dark:from-blue-900/50 dark:to-indigo-900/50 text-white dark:text-blue-200 border border-primary-400/50 dark:border-blue-700/50 px-2.5 py-1 text-xs font-medium shadow-sm hover:from-primary-600 hover:to-secondary-600 dark:hover:from-blue-800/50 dark:hover:to-indigo-800/50 transition-colors"
-              >
+              <span className="inline-flex items-center rounded-md bg-gradient-to-r from-primary-500/90 to-secondary-500/90 dark:from-blue-900/50 dark:to-indigo-900/50 text-white dark:text-blue-200 border border-primary-400/50 dark:border-blue-700/50 px-2.5 py-1 text-xs font-medium shadow-sm hover:from-primary-600 hover:to-secondary-600 dark:hover:from-blue-800/50 dark:hover:to-indigo-800/50 transition-colors">
                 {getVersionBadge()}
-              </Badge>
+              </span>
               <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shadow-sm"></div>
             </div>
           </div>
 
           {/* Navigation Items */}
-          <div className="hidden md:flex items-center space-x-1">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group ${item.isActive
-                  ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 shadow-sm border border-primary-200/50 dark:border-primary-700/50'
-                  : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
-                  }`}
-              >
-                {item.label}
-                {item.isActive && (
-                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-primary-500 shadow-sm"></div>
-                )}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center space-x-3">
+            <div className="flex items-center space-x-1">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group ${item.isActive
+                    ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 shadow-sm border border-primary-200/50 dark:border-primary-700/50'
+                    : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
+                    }`}
+                >
+                  {item.label}
+                  {item.isActive && (
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 rounded-full bg-primary-500 shadow-sm"></div>
+                  )}
+                </Link>
+              ))}
 
-            <a
-              href="https://aki-ui.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm transition-all duration-300 flex items-center gap-2 group"
-            >
-              Storybook
-              <svg className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
+              <a
+                href="https://aki-ui.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2.5 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm transition-all duration-300 flex items-center gap-2 group"
+              >
+                Storybook
+                <svg className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            </div>
           </div>
 
           {/* Right Section */}

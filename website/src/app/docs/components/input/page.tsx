@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Input, Card, Button, Badge } from '@akitectio/aki-ui'
+import { Input, Card, Button, Badge } from '@/components/client-components'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
@@ -28,7 +28,7 @@ export default function InputPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Import</h2>
           <CodeBlock language="typescript">
-            {`import { Input } from '@akitectio/aki-ui'`}
+            {`import { Input } from '@/components/client-components'`}
           </CodeBlock>
         </section>
 

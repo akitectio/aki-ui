@@ -76,3 +76,5 @@ export function ToastDemo() {
         </div>
     )
 }
+
+export default ToastDemo

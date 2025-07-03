@@ -13,7 +13,7 @@ export default function ChatbotPage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Chatbot } from '@akitectio/aki-ui'`}
+                        {`import { Chatbot } from '@/components/client-components'`}
                     </CodeBlock>
                 </section>
 

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
-import { ClientDrawer, ClientButton } from '@/components/ClientDrawer'
+import { Drawer, Button } from '@/components/client-components'
 
 export default function DrawerPage() {
   const [basicOpen, setBasicOpen] = useState(false)
@@ -32,7 +32,7 @@ export default function DrawerPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Import</h2>
           <CodeBlock language="typescript">
-            {`import { Drawer } from '@akitectio/aki-ui'`}
+            {`import { Drawer } from '@/components/client-components'`}
           </CodeBlock>
         </section>
 
@@ -41,21 +41,21 @@ export default function DrawerPage() {
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
-                <ClientButton
+                <Button
                   variant="primary"
                   onClick={() => setBasicOpen(true)}
                 >
                   Open Basic Drawer
-                </ClientButton>
+                </Button>
               </div>
-              <ClientDrawer
+              <Drawer
                 isOpen={basicOpen}
                 onClose={() => setBasicOpen(false)}
                 title="Basic Drawer"
               >
                 <p>This is the drawer content.</p>
                 <p className="mt-4">You can put any content here.</p>
-              </ClientDrawer>
+              </Drawer>
               <CodeBlock language="typescript">
                 {`const [isOpen, setIsOpen] = useState(false)
 
@@ -84,28 +84,28 @@ return (
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
-                <ClientButton
+                <Button
                   onClick={() => handlePlacementOpen('left')}
                 >
                   Left Drawer
-                </ClientButton>
-                <ClientButton
+                </Button>
+                <Button
                   onClick={() => handlePlacementOpen('right')}
                 >
                   Right Drawer
-                </ClientButton>
-                <ClientButton
+                </Button>
+                <Button
                   onClick={() => handlePlacementOpen('top')}
                 >
                   Top Drawer
-                </ClientButton>
-                <ClientButton
+                </Button>
+                <Button
                   onClick={() => handlePlacementOpen('bottom')}
                 >
                   Bottom Drawer
-                </ClientButton>
+                </Button>
               </div>
-              <ClientDrawer
+              <Drawer
                 isOpen={placementOpen}
                 onClose={() => setPlacementOpen(false)}
                 title={`${placement.charAt(0).toUpperCase() + placement.slice(1)} Drawer`}
@@ -113,7 +113,7 @@ return (
               >
                 <p>This drawer opens from the {placement}.</p>
                 <p className="mt-4">You can choose different placements based on your design needs.</p>
-              </ClientDrawer>
+              </Drawer>
               <CodeBlock language="typescript">
                 {`<Drawer
   isOpen={isOpen}
@@ -133,38 +133,38 @@ return (
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
-                <ClientButton
+                <Button
                   onClick={() => handleSizeOpen('xs')}
                 >
                   Extra Small
-                </ClientButton>
-                <ClientButton
+                </Button>
+                <Button
                   onClick={() => handleSizeOpen('sm')}
                 >
                   Small
-                </ClientButton>
-                <ClientButton
+                </Button>
+                <Button
                   onClick={() => handleSizeOpen('md')}
                 >
                   Medium
-                </ClientButton>
-                <ClientButton
+                </Button>
+                <Button
                   onClick={() => handleSizeOpen('lg')}
                 >
                   Large
-                </ClientButton>
-                <ClientButton
+                </Button>
+                <Button
                   onClick={() => handleSizeOpen('xl')}
                 >
                   Extra Large
-                </ClientButton>
-                <ClientButton
+                </Button>
+                <Button
                   onClick={() => handleSizeOpen('full')}
                 >
                   Full Size
-                </ClientButton>
+                </Button>
               </div>
-              <ClientDrawer
+              <Drawer
                 isOpen={sizeOpen}
                 onClose={() => setSizeOpen(false)}
                 title={`${size.toUpperCase()} Size Drawer`}
@@ -172,7 +172,7 @@ return (
               >
                 <p>This is a drawer with size <strong>{size}</strong>.</p>
                 <p className="mt-4">Different sizes can be used for different content needs.</p>
-              </ClientDrawer>
+              </Drawer>
               <CodeBlock language="typescript">
                 {`<Drawer
   isOpen={isOpen}
@@ -192,30 +192,30 @@ return (
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="space-y-4">
               <div className="flex flex-wrap gap-3">
-                <ClientButton
+                <Button
                   onClick={() => setCustomOpen(true)}
                 >
                   Open Drawer with Footer
-                </ClientButton>
+                </Button>
               </div>
-              <ClientDrawer
+              <Drawer
                 isOpen={customOpen}
                 onClose={() => setCustomOpen(false)}
                 title="Drawer with Footer"
                 footer={
                   <div className="flex justify-end gap-2">
-                    <ClientButton variant="outline" onClick={() => setCustomOpen(false)}>
+                    <Button variant="outline" onClick={() => setCustomOpen(false)}>
                       Cancel
-                    </ClientButton>
-                    <ClientButton onClick={() => setCustomOpen(false)}>
+                    </Button>
+                    <Button onClick={() => setCustomOpen(false)}>
                       Save
-                    </ClientButton>
+                    </Button>
                   </div>
                 }
               >
                 <p>This drawer has a footer with action buttons.</p>
                 <p className="mt-4">The footer is perfect for placing action buttons or other controls.</p>
-              </ClientDrawer>
+              </Drawer>
               <CodeBlock language="typescript">
                 {`<Drawer
   isOpen={isOpen}

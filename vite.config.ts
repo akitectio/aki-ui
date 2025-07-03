@@ -28,10 +28,10 @@ const cssBanner = `/*!
 export default defineConfig({
   plugins: [react()],
   server: {
-    historyApiFallback: true,
+    open: true,
   },
   preview: {
-    historyApiFallback: true,
+    open: true,
   },
   resolve: {
     alias: [

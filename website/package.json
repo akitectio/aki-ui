@@ -15,6 +15,7 @@
     "dependencies": {
         "@akitectio/aki-ui": "file:../",
         "@heroicons/react": "^2.2.0",
+        "@tailwindcss/line-clamp": "^0.4.4",
         "@types/react-syntax-highlighter": "^15.5.13",
         "autoprefixer": "^10.4.16",
         "next": "^14.0.0",

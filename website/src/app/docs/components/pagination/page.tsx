@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Pagination, Card } from '@akitectio/aki-ui'
+import { Pagination, Card } from '@/components/client-components'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -58,7 +58,7 @@ export default function PaginationPage() {
                     </div>
                     <CodeBlock
                         language="tsx"
-                        code={`import { Pagination } from '@akitectio/aki-ui';
+                        code={`import { Pagination } from '@/components/client-components';
 
 function MyComponent() {
   const [currentPage, setCurrentPage] = useState(1);

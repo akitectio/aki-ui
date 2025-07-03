@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Slider } from '@akitectio/aki-ui'
+import { Slider } from '@/components/client-components'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -18,7 +18,7 @@ export default function SliderPage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Slider } from '@akitectio/aki-ui'`}
+                        {`import { Slider } from '@/components/client-components'`}
                     </CodeBlock>
                 </section>
 

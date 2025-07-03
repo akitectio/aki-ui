@@ -29,14 +29,14 @@ export default function InputGroupPage() {
   InputRightAddon,
   InputLeftElement,
   InputRightElement 
-} from '@akitectio/aki-ui'
+} from '@/components/client-components'
 
 // TypeScript types
 import type { 
   InputGroupProps,
   InputAddonProps,
   InputElementProps 
-} from '@akitectio/aki-ui'`}
+} from '@/components/client-components'`}
                 </CodeBlock>
             </section>
 
@@ -99,7 +99,7 @@ import type {
                         </div>
                     </div>
                     <CodeBlock language="tsx">
-                        {`import { InputGroup, InputLeftAddon, InputRightAddon } from '@akitectio/aki-ui'
+                        {`import { InputGroup, InputLeftAddon, InputRightAddon } from '@/components/client-components'
 
 // Left addon
 <InputGroup>
@@ -211,7 +211,7 @@ import type {
   InputGroup, 
   InputLeftElement, 
   InputRightElement 
-} from '@akitectio/aki-ui'
+} from '@/components/client-components'
 import { MagnifyingGlassIcon, UserIcon, EyeIcon } from '@heroicons/react/24/outline'
 
 // Left element

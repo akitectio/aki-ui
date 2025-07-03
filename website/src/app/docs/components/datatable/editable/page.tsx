@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { DataTable, Card, Badge, Button, Input, Select, Alert } from '@akitectio/aki-ui'
+import { DataTable, Card, Badge, Button, Input, Select, Alert } from '@/components/client-components'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
@@ -463,7 +463,7 @@ export default function DataTableEditablePage() {
           <div className="bg-gray-50 rounded-lg p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-3">Basic Setup</h3>
             <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto">
-              <code>{`import { DataTable, Input, Select, Button } from '@akitectio/aki-ui';
+              <code>{`import { DataTable, Input, Select, Button } from '@/components/client-components';
 
 interface EditableUser {
   id: number;

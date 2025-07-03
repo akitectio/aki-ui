@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Tabs, Tab } from '@akitectio/aki-ui'
+import { Tabs, Tab } from '@/components/client-components'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -56,7 +56,7 @@ export default function TabsPage() {
         </div>
         <CodeBlock
           language="tsx"
-          code={`import { Tabs, Tab } from '@akitectio/aki-ui'
+          code={`import { Tabs, Tab } from '@/components/client-components'
 
 function BasicTabs() {
   return (
@@ -145,7 +145,7 @@ function BasicTabs() {
         <CodeBlock
           language="tsx"
           code={`import { useState } from 'react'
-import { Tabs, Tab } from '@akitectio/aki-ui'
+import { Tabs, Tab } from '@/components/client-components'
 
 function ControlledTabs() {
   const [activeTab, setActiveTab] = useState(0)
