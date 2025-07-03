@@ -29,7 +29,6 @@
     "url": "https://github.com/akitectio/aki-ui/issues"
   },
   "type": "module",
-  "packageManager": "yarn@1.22.22",
   "files": [
     "dist",
     "README.md",
@@ -96,7 +95,7 @@
     "pm:setup": "node scripts/package-manager.js setup",
     "setup": "./scripts/setup.sh",
     "setup:npm": "./scripts/setup.sh npm",
-    "setup:yarn": "./scripts/setup.sh yarn", 
+    "setup:yarn": "./scripts/setup.sh yarn",
     "setup:pnpm": "./scripts/setup.sh pnpm"
   },
   "dependencies": {

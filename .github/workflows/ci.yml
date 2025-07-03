@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ main, dev ]
+    branches: [main, dev]
   pull_request:
-    branches: [ main, dev ]
+    branches: [main, dev]
 
 jobs:
   detect-package-manager:
@@ -14,12 +14,12 @@ jobs:
       pm-version: ${{ steps.detect.outputs.pm-version }}
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Detect Package Manager
         id: detect
         run: |
@@ -41,15 +41,15 @@ jobs:
       matrix:
         node-version: [18, 20]
         package-manager: [npm, yarn, pnpm]
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          
+
       - name: Setup Package Manager
         run: |
           case "${{ matrix.package-manager }}" in
@@ -68,7 +68,7 @@ jobs:
               fi
               ;;
           esac
-          
+
       - name: Get cache directory
         id: cache-dir
         run: |
@@ -83,7 +83,7 @@ jobs:
               echo "dir=$(pnpm store path)" >> $GITHUB_OUTPUT
               ;;
           esac
-          
+
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
@@ -91,10 +91,10 @@ jobs:
           key: ${{ runner.os }}-${{ matrix.package-manager }}-${{ matrix.node-version }}-${{ hashFiles('**/package*.json', '**/yarn.lock', '**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.package-manager }}-${{ matrix.node-version }}-
-            
+
       - name: Install dependencies
         run: ./scripts/setup.sh ${{ matrix.package-manager }}
-        
+
       - name: Generate LLM documentation
         run: |
           case "${{ matrix.package-manager }}" in
@@ -102,7 +102,7 @@ jobs:
             "yarn") yarn update-llm-docs ;;
             "pnpm") pnpm update-llm-docs ;;
           esac
-          
+
       - name: Type check
         run: |
           case "${{ matrix.package-manager }}" in
@@ -110,7 +110,7 @@ jobs:
             "yarn") yarn build:types ;;
             "pnpm") pnpm build:types ;;
           esac
-          
+
       - name: Lint
         run: |
           case "${{ matrix.package-manager }}" in
@@ -118,7 +118,7 @@ jobs:
             "yarn") yarn lint ;;
             "pnpm") pnpm lint ;;
           esac
-          
+
       - name: Build
         run: |
           case "${{ matrix.package-manager }}" in
@@ -126,7 +126,7 @@ jobs:
             "yarn") yarn build ;;
             "pnpm") pnpm build ;;
           esac
-          
+
       - name: Build Storybook
         run: |
           case "${{ matrix.package-manager }}" in
@@ -139,16 +139,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: [detect-package-manager, test]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          registry-url: 'https://registry.npmjs.org'
-          
+          node-version: "18"
+          registry-url: "https://registry.npmjs.org"
+
       - name: Setup Package Manager
         run: |
           case "${{ needs.detect-package-manager.outputs.pm }}" in
@@ -167,10 +167,10 @@ jobs:
               fi
               ;;
           esac
-          
+
       - name: Install dependencies
         run: ./scripts/setup.sh ${{ needs.detect-package-manager.outputs.pm }}
-        
+
       - name: Build for production
         run: |
           case "${{ needs.detect-package-manager.outputs.pm }}" in
@@ -178,7 +178,7 @@ jobs:
             "yarn") yarn build:prod ;;
             "pnpm") pnpm build:prod ;;
           esac
-          
+
       - name: Publish to NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
