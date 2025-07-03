@@ -127,17 +127,6 @@ jobs:
 
           echo "✅ Installed dependencies for root and MCP projects"
 
-      - name: Cache node_modules
-        if: steps.check_commit.outputs.skip != 'true'
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            mcp/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json', 'mcp/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
       - name: Build package
         if: steps.check_commit.outputs.skip != 'true'
         run: npm run build
@@ -401,9 +390,6 @@ jobs:
             npm install --legacy-peer-deps
           }
           echo "✅ Installed website dependencies"
-          key: ${{ runner.os }}-website-${{ hashFiles('package-lock.json', 'website/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-website-
 
       - name: Build Aki UI library
         run: npm run build:prod
