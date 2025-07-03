@@ -9,7 +9,15 @@
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
 **Version:** 0.1.24
+<<<<<<< HEAD
 **Updated:** July 3, 2025
+=======
+<<<<<<< HEAD
+**Updated:** July 1, 2025
+=======
+**Updated:** July 3, 2025
+>>>>>>> 8b5d196 (fix: standardize formatting in CI/CD configuration and scripts)
+>>>>>>> main
 
 ## Documentation & Resources
 
@@ -374,4 +382,12 @@ function MyComponent({ buttonProps, cardProps }: MyComponentProps) {
 **Storybook:** https://aki-ui.akitect.io/storybook
 
 ---
+<<<<<<< HEAD
 *Generated automatically from Aki UI v0.1.24 on July 3, 2025*
+=======
+<<<<<<< HEAD
+*Generated automatically from Aki UI v0.1.24 on July 1, 2025*
+=======
+*Generated automatically from Aki UI v0.1.24 on July 3, 2025*
+>>>>>>> 8b5d196 (fix: standardize formatting in CI/CD configuration and scripts)
+>>>>>>> main
