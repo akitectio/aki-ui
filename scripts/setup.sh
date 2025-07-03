@@ -31,15 +31,26 @@ setup_with_pm() {
             
             # Enable corepack for yarn
             if command -v corepack >/dev/null 2>&1; then
+                echo "🔧 Enabling corepack..."
                 corepack enable
-                corepack prepare yarn@stable --activate
+            else
+                echo "⚠️  Corepack not available, using global yarn"
+            fi
+            
+            # Check if yarn is available
+            if ! command -v yarn >/dev/null 2>&1; then
+                echo "📦 Installing yarn globally..."
+                npm install -g yarn
             fi
             
             yarn install
             
-            # Yarn workspaces should handle subdirectories
-            echo "🌐 Setting up workspaces..."
-            yarn workspaces focus --production=false
+            # Setup website and mcp manually for yarn v4 compatibility
+            echo "🌐 Setting up website..."
+            cd website && yarn install && cd ..
+            
+            echo "🔗 Setting up MCP..."
+            cd mcp && yarn install && cd ..
             ;;
         "pnpm")
             echo "📥 Installing dependencies with pnpm..."

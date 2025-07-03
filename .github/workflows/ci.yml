@@ -54,12 +54,18 @@ jobs:
         run: |
           case "${{ matrix.package-manager }}" in
             "yarn")
-              corepack enable
-              corepack prepare yarn@4 --activate
+              if command -v corepack >/dev/null 2>&1; then
+                corepack enable
+              else
+                npm install -g yarn
+              fi
               ;;
             "pnpm")
-              corepack enable
-              corepack prepare pnpm@8 --activate
+              if command -v corepack >/dev/null 2>&1; then
+                corepack enable
+              else
+                npm install -g pnpm
+              fi
               ;;
           esac
           
@@ -147,12 +153,18 @@ jobs:
         run: |
           case "${{ needs.detect-package-manager.outputs.pm }}" in
             "yarn")
-              corepack enable
-              corepack prepare yarn@${{ needs.detect-package-manager.outputs.pm-version }} --activate
+              if command -v corepack >/dev/null 2>&1; then
+                corepack enable
+              else
+                npm install -g yarn
+              fi
               ;;
             "pnpm")
-              corepack enable  
-              corepack prepare pnpm@${{ needs.detect-package-manager.outputs.pm-version }} --activate
+              if command -v corepack >/dev/null 2>&1; then
+                corepack enable
+              else
+                npm install -g pnpm
+              fi
               ;;
           esac
           
