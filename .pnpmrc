@@ -1,0 +1,42 @@
+# PNPM Configuration
+auto-install-peers: true
+strict-peer-dependencies: false
+resolution-mode: highest
+prefer-workspace-packages: true
+link-workspace-packages: true
+
+# Registry and authentication
+registry: https://registry.npmjs.org/
+
+# Hoisting and node-linker
+hoist: true
+shamefully-hoist: true
+public-hoist-pattern:
+  - "*"
+
+# Store and cache
+store-dir: ~/.pnpm-store
+cache-dir: ~/.pnpm-cache
+
+# Install behavior
+frozen-lockfile: false
+prefer-frozen-lockfile: true
+
+# Workspace configuration
+prefer-workspace-packages: true
+link-workspace-packages: deep
+
+# Peer dependency handling
+auto-install-peers: true
+strict-peer-dependencies: false
+
+# Progress and logging
+progress: true
+reporter: default
+
+# Package extensions for React 19 compatibility
+package-extensions:
+  "@storybook/react@*":
+    peerDependencies:
+      react: ">=16.8.0"
+      react-dom: ">=16.8.0"
