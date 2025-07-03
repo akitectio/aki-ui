@@ -6,6 +6,7 @@ import { Analytics } from '@/components/Analytics'
 import { GA_TRACKING_ID, isAnalyticsEnabled } from '@/lib/analytics'
 import { Suspense } from 'react'
 import { ToastProvider } from '@/components/ToastProvider'
+import { GurubaseWidget } from '@/components/GurubaseWidget'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -150,17 +151,6 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-
-        {/* Gurubase Widget */}
-        <script
-          async
-          src="https://widget.gurubase.io/widget.latest.min.js"
-          data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"
-          data-text="Ask AI"
-          data-margins='{"bottom": "1rem", "right": "1rem"}'
-          data-light-mode="auto"
-          id="guru-widget-id"
-        />
       </head>
       <body className={inter.className}>
         <ThemeProvider>
@@ -169,6 +159,7 @@ export default function RootLayout({
             <Suspense fallback={null}>
               <Analytics />
             </Suspense>
+            <GurubaseWidget />
           </ToastProvider>
         </ThemeProvider>
       </body>
