@@ -10,7 +10,7 @@ npm run setup
 
 # Or specify package manager
 npm run setup:npm
-npm run setup:yarn  
+npm run setup:yarn
 npm run setup:pnpm
 ```
 
@@ -26,6 +26,7 @@ The project automatically detects your preferred package manager:
 ## Available Commands
 
 ### NPM
+
 ```bash
 npm install          # Install dependencies
 npm run build        # Build library
@@ -34,14 +35,16 @@ npm run dev          # Development mode
 ```
 
 ### Yarn
+
 ```bash
-yarn install         # Install dependencies  
+yarn install         # Install dependencies
 yarn build           # Build library
 yarn storybook       # Start Storybook
 yarn dev             # Development mode
 ```
 
 ### PNPM
+
 ```bash
 pnpm install         # Install dependencies
 pnpm build           # Build library
@@ -58,6 +61,7 @@ pnpm dev             # Development mode
 ## CI/CD Support
 
 The GitHub Actions workflow automatically:
+
 - Detects package manager from lock files
 - Tests with npm, yarn, and pnpm
 - Uses appropriate commands for each PM
@@ -66,14 +70,16 @@ The GitHub Actions workflow automatically:
 ## Troubleshooting
 
 ### React 19 Compatibility
+
 All configurations include peer dependency overrides for React 19 compatibility with Storybook.
 
 ### Package Manager Installation
+
 ```bash
 # Install yarn globally
 npm install -g yarn
 
-# Install pnpm globally  
+# Install pnpm globally
 npm install -g pnpm
 
 # Enable corepack (Node.js 16+)

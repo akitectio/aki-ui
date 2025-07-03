@@ -2,6 +2,32 @@
 
 set -e
 
+# Function to show help
+show_help() {
+    echo "🚀 Aki UI Setup Script"
+    echo ""
+    echo "Usage: $0 [PACKAGE_MANAGER]"
+    echo ""
+    echo "PACKAGE_MANAGER:"
+    echo "  npm     Use npm as package manager"
+    echo "  yarn    Use yarn as package manager"
+    echo "  pnpm    Use pnpm as package manager"
+    echo "  auto    Auto-detect package manager (default)"
+    echo ""
+    echo "Examples:"
+    echo "  $0          # Auto-detect and use detected package manager"
+    echo "  $0 npm      # Force use npm"
+    echo "  $0 yarn     # Force use yarn"
+    echo "  $0 pnpm     # Force use pnpm"
+    echo ""
+    exit 0
+}
+
+# Check for help flag
+if [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]] || [[ "$1" == "help" ]]; then
+    show_help
+fi
+
 echo "🚀 Setting up Aki UI development environment..."
 
 # Detect package manager
