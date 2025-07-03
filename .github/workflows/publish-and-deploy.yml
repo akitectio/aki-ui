@@ -101,7 +101,16 @@ jobs:
 
       - name: Install dependencies
         if: steps.check_commit.outputs.skip != 'true'
-        run: npm ci --legacy-peer-deps
+        run: |
+          # Install root dependencies
+          npm ci --legacy-peer-deps
+
+          # Install MCP dependencies
+          cd mcp
+          npm ci --legacy-peer-deps
+          cd ../
+
+          echo "✅ Installed dependencies for root and MCP projects"
 
       - name: Build package
         if: steps.check_commit.outputs.skip != 'true'
@@ -154,8 +163,9 @@ jobs:
           npm --no-git-tag-version version $VERSION_NUMBER
           echo "Synced MCP version to $VERSION_NUMBER"
 
-          # Install dependencies if needed
+          # Ensure dependencies are installed (should already be done in install step)
           if [ ! -d "node_modules" ]; then
+            echo "Installing MCP dependencies..."
             npm ci --legacy-peer-deps
           fi
 
@@ -342,7 +352,10 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Install website dependencies
-        run: cd website && npm install --legacy-peer-deps
+        run: |
+          cd website
+          npm ci --legacy-peer-deps
+          echo "✅ Installed website dependencies"
 
       - name: Build Aki UI library
         run: npm run build:prod
