@@ -3,10 +3,10 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { 
-  BookOpenIcon, 
-  CubeIcon, 
-  RectangleStackIcon, 
+import {
+  BookOpenIcon,
+  CubeIcon,
+  RectangleStackIcon,
   DocumentTextIcon,
   CommandLineIcon,
   SparklesIcon,
@@ -50,8 +50,8 @@ const docCategories: DocCategory[] = [
     title: 'AI INTEGRATION',
     icon: CommandLineIcon,
     sections: [
-      { 
-        id: 'llm', 
+      {
+        id: 'llm',
         title: 'LLM Integration',
         href: '/docs/llm',
         subsections: [
@@ -60,8 +60,8 @@ const docCategories: DocCategory[] = [
           { id: 'examples', title: 'Examples', href: '/docs/llm/examples' },
         ]
       },
-      { 
-        id: 'mcp', 
+      {
+        id: 'mcp',
         title: 'MCP Integration',
         href: '/docs/mcp',
         subsections: [
@@ -78,20 +78,26 @@ const docCategories: DocCategory[] = [
     icon: CubeIcon,
     sections: [
       { id: 'overview', title: 'Overview', href: '/docs/components' },
-      { 
-        id: 'form-components', 
+      {
+        id: 'form-components',
         title: 'Form Components',
         href: '/docs/components#form',
         subsections: [
           { id: 'button', title: 'Button', href: '/docs/components/button' },
+          { id: 'buttongroup', title: 'ButtonGroup', href: '/docs/components/buttongroup' },
           { id: 'input', title: 'Input', href: '/docs/components/input' },
+          { id: 'inputgroup', title: 'InputGroup', href: '/docs/components/inputgroup' },
+          { id: 'floatinglabel', title: 'FloatingLabel', href: '/docs/components/floatinglabel' },
+          { id: 'select', title: 'Select', href: '/docs/components/select' },
+          { id: 'asyncselect', title: 'AsyncSelect', href: '/docs/components/asyncselect' },
           { id: 'checkbox', title: 'Checkbox', href: '/docs/components/checkbox' },
           { id: 'radio', title: 'Radio', href: '/docs/components/radio' },
           { id: 'switch', title: 'Switch', href: '/docs/components/switch' },
+          { id: 'slider', title: 'Slider', href: '/docs/components/slider' },
         ]
       },
-      { 
-        id: 'display-components', 
+      {
+        id: 'display-components',
         title: 'Display Components',
         href: '/docs/components#display',
         subsections: [
@@ -99,10 +105,15 @@ const docCategories: DocCategory[] = [
           { id: 'badge', title: 'Badge', href: '/docs/components/badge' },
           { id: 'avatar', title: 'Avatar', href: '/docs/components/avatar' },
           { id: 'alert', title: 'Alert', href: '/docs/components/alert' },
+          { id: 'chip', title: 'Chip', href: '/docs/components/chip' },
+          { id: 'divider', title: 'Divider', href: '/docs/components/divider' },
+          { id: 'skeleton', title: 'Skeleton', href: '/docs/components/skeleton' },
+          { id: 'spinner', title: 'Spinner', href: '/docs/components/spinner' },
+          { id: 'typography', title: 'Typography', href: '/docs/components/typography' },
         ]
       },
-      { 
-        id: 'data-components', 
+      {
+        id: 'data-components',
         title: 'Data Components',
         href: '/docs/components#data',
         subsections: [
@@ -116,20 +127,37 @@ const docCategories: DocCategory[] = [
           { id: 'datatable-responsive', title: 'DataTable - Responsive', href: '/docs/components/datatable/responsive' },
         ]
       },
-      { 
-        id: 'navigation-components', 
+      {
+        id: 'navigation-components',
         title: 'Navigation Components',
         href: '/docs/components#navigation',
         subsections: [
+          { id: 'navbar', title: 'Navbar', href: '/docs/components/navbar' },
+          { id: 'breadcrumb', title: 'Breadcrumb', href: '/docs/components/breadcrumb' },
           { id: 'tabs', title: 'Tabs', href: '/docs/components/tabs' },
+          { id: 'pagination', title: 'Pagination', href: '/docs/components/pagination' },
         ]
       },
-      { 
-        id: 'overlay-components', 
+      {
+        id: 'interactive-components',
+        title: 'Interactive Components',
+        href: '/docs/components#interactive',
+        subsections: [
+          { id: 'accordion', title: 'Accordion', href: '/docs/components/accordion' },
+          { id: 'dropdown', title: 'Dropdown', href: '/docs/components/dropdown' },
+          { id: 'tooltip', title: 'Tooltip', href: '/docs/components/tooltip' },
+          { id: 'popover', title: 'Popover', href: '/docs/components/popover' },
+          { id: 'chatbot', title: 'Chatbot', href: '/docs/components/chatbot' },
+        ]
+      },
+      {
+        id: 'overlay-components',
         title: 'Overlay Components',
         href: '/docs/components#overlay',
         subsections: [
           { id: 'modal', title: 'Modal', href: '/docs/components/modal' },
+          { id: 'drawer', title: 'Drawer', href: '/docs/components/drawer' },
+          { id: 'toast', title: 'Toast', href: '/docs/components/toast' },
         ]
       },
     ]
@@ -183,15 +211,15 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
   useEffect(() => {
     const currentSectionIds: string[] = []
     const currentCategoryIds: string[] = []
-    
+
     docCategories.forEach((category) => {
       let categoryHasActive = false
-      
+
       category.sections.forEach((section) => {
         if (pathname === section.href) {
           categoryHasActive = true
         }
-        
+
         if (section.subsections) {
           const hasActiveSubsection = section.subsections.some(
             (subsection) => pathname === subsection.href
@@ -202,27 +230,27 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
           }
         }
       })
-      
+
       if (categoryHasActive) {
         currentCategoryIds.push(category.id)
       }
     })
-    
+
     setExpandedSections(currentSectionIds)
     setExpandedCategories(prev => [...new Set([...prev, ...currentCategoryIds])])
   }, [pathname])
 
   const toggleSection = (sectionId: string) => {
-    setExpandedSections(prev => 
-      prev.includes(sectionId) 
+    setExpandedSections(prev =>
+      prev.includes(sectionId)
         ? prev.filter(id => id !== sectionId)
         : [...prev, sectionId]
     )
   }
 
   const toggleCategory = (categoryId: string) => {
-    setExpandedCategories(prev => 
-      prev.includes(categoryId) 
+    setExpandedCategories(prev =>
+      prev.includes(categoryId)
         ? prev.filter(id => id !== categoryId)
         : [...prev, categoryId]
     )
@@ -273,7 +301,7 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
     <>
       {/* Mobile backdrop */}
       {isOpen && (
-        <div 
+        <div
           className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
           onClick={onClose}
         />
@@ -290,7 +318,7 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
           {docCategories.map((category) => {
             const Icon = category.icon
             const isCategoryExpanded = expandedCategories.includes(category.id)
-            
+
             return (
               <div key={category.id}>
                 <button
@@ -303,19 +331,18 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
                     <Icon className="w-4 h-4 mr-2 text-gray-700 dark:text-gray-300" />
                     {category.title}
                   </div>
-                  <ChevronRightIcon 
-                    className={`w-4 h-4 transition-transform duration-200 ${
-                      isCategoryExpanded ? 'rotate-90' : ''
-                    }`} 
+                  <ChevronRightIcon
+                    className={`w-4 h-4 transition-transform duration-200 ${isCategoryExpanded ? 'rotate-90' : ''
+                      }`}
                   />
                 </button>
-                
+
                 {isCategoryExpanded && (
                   <ul className="mt-2 space-y-1">
                     {category.sections.map((section) => {
                       const hasSubsections = section.subsections && section.subsections.length > 0
                       const isExpanded = expandedSections.includes(section.id)
-                      
+
                       return (
                         <li key={section.id}>
                           <div className="flex items-center">
@@ -332,7 +359,7 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
                             >
                               {section.title}
                             </Link>
-                            
+
                             {/* Toggle button for sections with subsections */}
                             {hasSubsections && (
                               <button
@@ -340,15 +367,14 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
                                 className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                                 aria-label={isExpanded ? 'Collapse section' : 'Expand section'}
                               >
-                                <ChevronRightIcon 
-                                  className={`w-4 h-4 transition-transform duration-200 ${
-                                    isExpanded ? 'rotate-90' : ''
-                                  }`} 
+                                <ChevronRightIcon
+                                  className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''
+                                    }`}
                                 />
                               </button>
                             )}
                           </div>
-                          
+
                           {/* Subsections (menu cấp 2) - Only show when expanded */}
                           {hasSubsections && isExpanded && (
                             <ul className="mt-1 ml-4 space-y-1 border-l border-gray-200 dark:border-gray-700">
