@@ -4,8 +4,9 @@
     "private": true,
     "scripts": {
         "dev": "next dev",
+        "prebuild": "node scripts/generate-llm-docs.js",
         "build": "next build",
-        "build:gh-pages": "NODE_ENV=production next build",
+        "build:gh-pages": "NODE_ENV=production node scripts/generate-llm-docs.js && next build",
         "start": "next start",
         "lint": "next lint",
         "type-check": "tsc --noEmit",
