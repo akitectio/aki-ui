@@ -291,12 +291,10 @@ dist
 # GENERATED FILES (CI/CD)
 # ===========================================
 # Auto-generated LLM documentation files
-public/llms.txt
-public/llms-full.txt
-storybook-static/llms.txt
-storybook-static/llms-full.txt
-public/llms-full.txt
-public/llms.txt
-public/llms-full.txt
-website/public/llms-full.txt
-website/public/llms.txt
+**/llms.txt
+**/llms-full.txt
+public/llms*.txt
+website/public/llms*.txt
+storybook-static/llms*.txt
+dist/llms*.txt
+website/out/llms*.txt
