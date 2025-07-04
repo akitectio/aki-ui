@@ -8,7 +8,7 @@
 **Components:** 39+ pre-built UI components 
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
-**Version:** 0.1.36
+**Version:** 0.1.37
 **Updated:** July 4, 2025
 
 ## Documentation & Resources
@@ -63,4 +63,4 @@ function App() {
 **Website:** https://aki-ui.akitect.io
 
 ---
-*Generated automatically from Aki UI v0.1.36 on July 4, 2025*
+*Generated automatically from Aki UI v0.1.37 on July 4, 2025*
