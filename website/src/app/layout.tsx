@@ -171,6 +171,14 @@ export default function RootLayout({
             </Suspense>
           </ToastProvider>
         </ThemeProvider>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            // Cleanup function for navigation
+            window.addEventListener('beforeunload', function() {
+              document.body.style.overflow = '';
+            });
+          `
+        }} />
       </body>
     </html>
   )

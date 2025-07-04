@@ -237,7 +237,7 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
     })
 
     setExpandedSections(currentSectionIds)
-    setExpandedCategories(prev => [...new Set([...prev, ...currentCategoryIds])])
+    setExpandedCategories(prev => Array.from(new Set([...prev, ...currentCategoryIds])))
   }, [pathname])
 
   const toggleSection = (sectionId: string) => {
@@ -264,7 +264,10 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
       }
     }
 
-    document.addEventListener('keydown', handleEscapeKey)
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscapeKey)
+    }
+
     return () => {
       document.removeEventListener('keydown', handleEscapeKey)
     }
@@ -278,7 +281,10 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
       }
     }
 
-    window.addEventListener('resize', handleResize)
+    if (isOpen) {
+      window.addEventListener('resize', handleResize)
+    }
+
     return () => {
       window.removeEventListener('resize', handleResize)
     }
@@ -286,14 +292,13 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
 
   // Prevent body scroll when sidebar is open on mobile
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && typeof window !== 'undefined') {
+      const originalOverflow = document.body.style.overflow
       document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
 
-    return () => {
-      document.body.style.overflow = ''
+      return () => {
+        document.body.style.overflow = originalOverflow
+      }
     }
   }, [isOpen])
 
@@ -376,7 +381,7 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
                           </div>
 
                           {/* Subsections (menu cấp 2) - Only show when expanded */}
-                          {hasSubsections && isExpanded && (
+                          {hasSubsections && isExpanded && section.subsections && (
                             <ul className="mt-1 ml-4 space-y-1 border-l border-gray-200 dark:border-gray-700">
                               {section.subsections.map((subsection) => (
                                 <li key={subsection.id}>

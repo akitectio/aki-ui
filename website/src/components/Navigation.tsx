@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ThemeToggle } from './ThemeToggle'
@@ -27,6 +27,23 @@ export function Navigation({
 
   // Use external state for mobile menu if provided (e.g., in docs mode)
   const effectiveMobileMenuOpen = showMobileMenu ? externalMobileMenuOpen : isMobileMenuOpen
+
+  // Clean up mobile menu state on route change
+  useEffect(() => {
+    if (!showMobileMenu) {
+      setMobileMenuOpen(false)
+    }
+  }, [pathname, showMobileMenu])
+
+  // Cleanup function to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      // Cleanup any timeouts or intervals if needed
+      if (!showMobileMenu) {
+        setMobileMenuOpen(false)
+      }
+    }
+  }, [])
 
   const navigationItems = [
     { href: '/docs', label: 'Documentation', isActive: pathname?.startsWith('/docs') },

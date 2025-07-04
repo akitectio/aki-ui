@@ -7,9 +7,13 @@ import { ComponentShowcase } from '@/components/ComponentShowcase'
 import { ToastDemo } from '@/components/ToastDemo'
 import { FloatingSearch } from '@/components/FloatingSearch'
 import { Badge, Button, Card } from '@/components/client-components'
+import { useCleanupNavigation } from '@/hooks/useCleanupNavigation'
 
 export default function Home() {
   const [copyText, setCopyText] = useState('Copy')
+
+  // Clean up navigation state when arriving at home
+  useCleanupNavigation()
 
   const handleCopy = async () => {
     try {
