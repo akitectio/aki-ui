@@ -177,6 +177,28 @@ export default function RootLayout({
             window.addEventListener('beforeunload', function() {
               document.body.style.overflow = '';
             });
+            
+            // Global error handler for DOM operations
+            const originalRemoveChild = Node.prototype.removeChild;
+            Node.prototype.removeChild = function(child) {
+              try {
+                // Check if the node is actually a child before removing
+                if (this.contains(child)) {
+                  return originalRemoveChild.call(this, child);
+                } else {
+                  console.warn('Prevented removeChild on non-child node');
+                  return child; // Return the child to prevent errors
+                }
+              } catch (e) {
+                console.warn('Error in removeChild:', e);
+                return child; // Return the child to prevent errors
+              }
+            };
+            
+            // Listen for our custom cleanup event
+            window.addEventListener('navigationCleanup', function() {
+              // Additional cleanup can be done here
+            });
           `
         }} />
       </body>

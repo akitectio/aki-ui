@@ -59,10 +59,15 @@ export default function Home() {
             <Button
               variant="outline"
               size="lg"
-              className="shadow-md hover:shadow-lg transition-shadow border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+              className="shadow-md hover:shadow-xl transition-shadow border-3 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 ring-2 ring-blue-300 dark:ring-blue-700 ring-offset-2 dark:ring-offset-slate-900 relative"
               asChild
             >
               <a href="https://aki-ui.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                {/* Decorative lines */}
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
+                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
+                <div className="absolute left-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
+                <div className="absolute right-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
                 🚀 Live Storybook
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />

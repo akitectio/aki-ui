@@ -43,7 +43,7 @@ export function Navigation({
         setMobileMenuOpen(false)
       }
     }
-  }, [])
+  }, [showMobileMenu])
 
   const navigationItems = [
     { href: '/docs', label: 'Documentation', isActive: pathname?.startsWith('/docs') },
