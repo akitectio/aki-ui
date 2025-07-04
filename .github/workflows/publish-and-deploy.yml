@@ -252,7 +252,7 @@ jobs:
             ## Changes
             - Version bump to ${{ steps.version.outputs.new_version }}
             - Published to npm: https://www.npmjs.com/package/@akitectio/aki-ui
-            - MCP Server also published: https://www.npmjs.com/package/@akitectio/aki-ui-mcp
+            - MCP Server also published: https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server
 
             ## Installation
             ### Main Package
@@ -262,7 +262,7 @@ jobs:
 
             ### MCP Server
             ```bash
-            npm install -g @akitectio/aki-ui-mcp@${{ steps.version.outputs.new_version }}
+            npm install -g @akitectio/aki-ui-mcp-server@${{ steps.version.outputs.new_version }}
             ```
           draft: false
           prerelease: false
@@ -281,7 +281,7 @@ jobs:
 
             ### Installation
             ```bash
-            npm install -g @akitectio/aki-ui-mcp@${{ steps.version.outputs.new_version }}
+            npm install -g @akitectio/aki-ui-mcp-server@${{ steps.version.outputs.new_version }}
             ```
 
             ### Configuration

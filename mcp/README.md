@@ -2,7 +2,7 @@
 
 Model Context Protocol server for Aki UI component library, providing AI assistants with real-time access to components, documentation, and code generation capabilities.
 
-[![npm version](https://badge.fury.io/js/@akitectio%2Faki-ui-mcp.svg)](https://badge.fury.io/js/@akitectio%2Faki-ui-mcp)
+[![npm version](https://badge.fury.io/js/@akitectio%2Faki-ui-mcp-server.svg)](https://badge.fury.io/js/@akitectio%2Faki-ui-mcp-server)
 [![Publish MCP Server to npm](https://github.com/akitectio/aki-ui/actions/workflows/publish-mcp.yml/badge.svg)](https://github.com/akitectio/aki-ui/actions/workflows/publish-mcp.yml)
 
 ## Features
