@@ -100,10 +100,10 @@ export function ComponentShowcase() {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Sample Input
                 </label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder="Enter some text..."
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                 />
               </div>
               <Button variant="primary" size="sm" className="w-full">
@@ -119,7 +119,7 @@ export function ComponentShowcase() {
               🎨 Fully Customizable Theming
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md">
-              Aki UI comes with a complete theming system. Customize colors, spacing, shadows, 
+              Aki UI comes with a complete theming system. Customize colors, spacing, shadows,
               and more to match your brand perfectly.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

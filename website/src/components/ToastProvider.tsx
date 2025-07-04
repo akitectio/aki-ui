@@ -55,14 +55,16 @@ export function ToastProvider({
         }
 
         return () => {
-            // Safer cleanup - check if container exists and has no children before removing
+            // Safer cleanup - check if container exists and is child of body before removing
             const containerToRemove = document.getElementById('aki-toast-container');
-            if (containerToRemove && containerToRemove.parentNode && !containerToRemove.hasChildNodes()) {
-                try {
-                    document.body.removeChild(containerToRemove);
-                } catch (error) {
-                    // Silently handle case where container was already removed
-                    console.debug('Toast container already removed');
+            if (containerToRemove && containerToRemove.childElementCount === 0) {
+                if (document.body.contains(containerToRemove)) {
+                    try {
+                        document.body.removeChild(containerToRemove);
+                    } catch (error) {
+                        // Silently handle case where container was already removed
+                        console.debug('Toast container already removed:', error);
+                    }
                 }
             }
         };

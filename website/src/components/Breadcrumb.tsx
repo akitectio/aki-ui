@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid'
 import { generateBreadcrumbStructuredData } from '@/lib/seo'
 
-interface BreadcrumbItem {
+export interface BreadcrumbItem {
   name: string
   href: string
   current?: boolean
@@ -34,7 +34,7 @@ export function Breadcrumb({ items = [], className = '' }: BreadcrumbProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      
+
       <nav className={`flex ${className}`} aria-label="Breadcrumb">
         <ol role="list" className="flex items-center space-x-2">
           <li>
@@ -49,7 +49,7 @@ export function Breadcrumb({ items = [], className = '' }: BreadcrumbProps) {
               </Link>
             </div>
           </li>
-          
+
           {items.map((item, index) => (
             <li key={item.href}>
               <div className="flex items-center">
@@ -57,7 +57,7 @@ export function Breadcrumb({ items = [], className = '' }: BreadcrumbProps) {
                   className="h-5 w-5 flex-shrink-0 text-gray-500 dark:text-gray-400"
                   aria-hidden="true"
                 />
-                
+
                 {item.current ? (
                   <span
                     className="ml-2 text-sm font-medium text-gray-800 dark:text-gray-200"
@@ -85,29 +85,29 @@ export function Breadcrumb({ items = [], className = '' }: BreadcrumbProps) {
 // Helper hook to generate breadcrumbs from pathname
 export function useBreadcrumbs(pathname: string): BreadcrumbItem[] {
   const segments = pathname.split('/').filter(Boolean)
-  
+
   const breadcrumbs: BreadcrumbItem[] = []
-  
+
   segments.forEach((segment, index) => {
     const href = '/' + segments.slice(0, index + 1).join('/')
     const isLast = index === segments.length - 1
-    
+
     // Convert segment to readable name
     let name = segment
       .split('-')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ')
-    
+
     // Special cases for better naming
     if (segment === 'docs') name = 'Documentation'
     if (segment === 'components') name = 'Components'
-    
+
     breadcrumbs.push({
       name,
       href,
       current: isLast,
     })
   })
-  
+
   return breadcrumbs
 }

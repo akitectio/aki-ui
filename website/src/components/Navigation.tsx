@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ThemeToggle } from './ThemeToggle'
 import { getVersionBadge } from '@/lib/version'
+import { useSidebar } from '@/contexts/SidebarContext'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 interface NavigationProps {
@@ -16,34 +17,39 @@ interface NavigationProps {
 }
 
 export function Navigation({
-  showGetStarted = true,
+  showGetStarted,
   className = '',
   onMenuClick,
-  showMobileMenu = false,
+  showMobileMenu,
   isMobileMenuOpen: externalMobileMenuOpen
 }: NavigationProps) {
   const pathname = usePathname()
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { isSidebarOpen, toggleSidebar } = useSidebar()
 
-  // Use external state for mobile menu if provided (e.g., in docs mode)
-  const effectiveMobileMenuOpen = showMobileMenu ? externalMobileMenuOpen : isMobileMenuOpen
+  // Auto-detect if we're on docs pages
+  const isDocsPage = pathname?.startsWith('/docs')
+  const effectiveShowGetStarted = showGetStarted !== undefined ? showGetStarted : !isDocsPage
+
+  // For mobile menu - use sidebar state on docs pages, local state on other pages
+  const effectiveMobileMenuOpen = isDocsPage ? isSidebarOpen : isMobileMenuOpen
 
   // Clean up mobile menu state on route change
   useEffect(() => {
-    if (!showMobileMenu) {
+    if (!isDocsPage) {
       setMobileMenuOpen(false)
     }
-  }, [pathname, showMobileMenu])
+  }, [pathname, isDocsPage])
 
   // Cleanup function to prevent memory leaks
   useEffect(() => {
     return () => {
       // Cleanup any timeouts or intervals if needed
-      if (!showMobileMenu) {
+      if (!isDocsPage) {
         setMobileMenuOpen(false)
       }
     }
-  }, [showMobileMenu])
+  }, [isDocsPage])
 
   const navigationItems = [
     { href: '/docs', label: 'Documentation', isActive: pathname?.startsWith('/docs') },
@@ -128,7 +134,7 @@ export function Navigation({
               <ThemeToggle />
             </div>
 
-            {showGetStarted && (
+            {effectiveShowGetStarted && (
               <Link
                 href="/docs"
                 className="hidden md:inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800 hover:from-primary-700 hover:via-primary-800 hover:to-primary-900 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-sm relative overflow-hidden group"
@@ -145,9 +151,11 @@ export function Navigation({
             {/* Mobile menu button */}
             <button
               onClick={() => {
-                if (showMobileMenu && onMenuClick) {
-                  onMenuClick()
+                if (isDocsPage) {
+                  // On docs pages, toggle the sidebar
+                  toggleSidebar()
                 } else {
+                  // On other pages, toggle the mobile menu
                   setMobileMenuOpen(!isMobileMenuOpen)
                 }
               }}
@@ -166,51 +174,50 @@ export function Navigation({
         </div>
       </div>
 
-      {/* Mobile Menu - Only show if not in docs mode */}
-      {effectiveMobileMenuOpen && !showMobileMenu && (
-        <div className="md:hidden border-t border-gray-200/30 dark:border-gray-700/30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl">
-          <div className="px-4 py-6 space-y-4">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${item.isActive
-                  ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-700/50'
-                  : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30'
-                  }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-
-            <a
-              href="https://aki-ui.vercel.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block px-4 py-3 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 transition-all duration-300 flex items-center justify-between"
+      {/* Mobile Menu - Only show if not on docs pages */}
+      {effectiveMobileMenuOpen && !isDocsPage && (<div className="md:hidden border-t border-gray-200/30 dark:border-gray-700/30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl">
+        <div className="px-4 py-6 space-y-4">
+          {navigationItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
               onClick={() => setMobileMenuOpen(false)}
+              className={`block px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 ${item.isActive
+                ? 'bg-gradient-to-r from-primary-50 to-primary-100/80 dark:from-primary-900/30 dark:to-primary-800/20 text-primary-700 dark:text-primary-300 border border-primary-200/50 dark:border-primary-700/50'
+                : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30'
+                }`}
             >
-              <span>Storybook</span>
-              <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
+              {item.label}
+            </Link>
+          ))}
 
-            <div className="pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
-              <ThemeToggle />
-              {showGetStarted && (
-                <Link
-                  href="/docs"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-semibold text-sm shadow-lg"
-                >
-                  Get Started
-                </Link>
-              )}
-            </div>
+          <a
+            href="https://aki-ui.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block px-4 py-3 rounded-xl text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100/80 dark:hover:from-gray-800/50 dark:hover:to-gray-700/30 transition-all duration-300 flex items-center justify-between"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span>Storybook</span>
+            <svg className="w-4 h-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+
+          <div className="pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
+            <ThemeToggle />
+            {effectiveShowGetStarted && (
+              <Link
+                href="/docs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-semibold text-sm shadow-lg"
+              >
+                Get Started
+              </Link>
+            )}
           </div>
         </div>
+      </div>
       )}
     </nav>
   )

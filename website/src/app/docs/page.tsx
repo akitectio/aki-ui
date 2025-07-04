@@ -3,10 +3,10 @@
 import Link from 'next/link'
 import { Button, Card } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
-import { 
-  BookOpenIcon, 
-  CubeIcon, 
-  RectangleStackIcon, 
+import {
+  BookOpenIcon,
+  CubeIcon,
+  RectangleStackIcon,
   DocumentTextIcon,
   CommandLineIcon,
   SparklesIcon
@@ -94,18 +94,18 @@ export default function DocsHomePage() {
       <div className="space-y-8">
         {/* Hero Section - LLM & MCP Support */}
         <section className="mb-12">
-          <Card className="p-8 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/20 dark:via-indigo-900/20 dark:to-purple-900/20 border-blue-200 dark:border-blue-800">
+          <Card className="p-8 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-blue-200">
             <div className="text-center">
               <div className="flex justify-center items-center space-x-3 mb-4">
-                <SparklesIcon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <SparklesIcon className="w-8 h-8 text-blue-600" />
                 <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   AI-Powered Development
                 </h2>
-                <CommandLineIcon className="w-8 h-8 text-purple-600 dark:text-purple-400" />
+                <CommandLineIcon className="w-8 h-8 text-purple-600" />
               </div>
-              <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 max-w-3xl mx-auto">
-                Aki UI is the first React component library with <strong>built-in LLM and MCP integration</strong>. 
-                Build faster with AI assistance, generate components automatically, and leverage 
+              <p className="text-lg text-gray-700 mb-6 max-w-3xl mx-auto">
+                Aki UI is the first React component library with <strong>built-in LLM and MCP integration</strong>.
+                Build faster with AI assistance, generate components automatically, and leverage
                 the Model Context Protocol for seamless development workflows.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -129,18 +129,18 @@ export default function DocsHomePage() {
         <section>
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-3">🚀 Getting Started</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
+              <h3 className="text-lg font-semibold mb-3 text-gray-900">🚀 Getting Started</h3>
+              <p className="text-gray-600 mb-4">
                 New to Aki UI? Start here to learn the basics and get your first component running.
               </p>
               <Button asChild>
                 <Link href="/docs/installation">Start Building</Link>
               </Button>
             </Card>
-            
+
             <Card className="p-6">
-              <h3 className="text-lg font-semibold mb-3">🎨 Design System</h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
+              <h3 className="text-lg font-semibold mb-3 text-gray-900">🎨 Design System</h3>
+              <p className="text-gray-600 mb-4">
                 Learn about our design principles, theming system, and customization options.
               </p>
               <Button variant="outline" asChild>
@@ -153,47 +153,43 @@ export default function DocsHomePage() {
         {docCategories.map((category) => {
           const Icon = category.icon
           const isAISection = category.id === 'mcp' || category.id === 'llm'
-          
+
           return (
             <section key={category.id}>
               <div className="flex items-center mb-4">
-                <Icon className={`w-6 h-6 mr-3 ${isAISection ? 'text-purple-600 dark:text-purple-400' : 'text-blue-600 dark:text-blue-400'}`} />
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                <Icon className={`w-6 h-6 mr-3 ${isAISection ? 'text-purple-600' : 'text-blue-600'}`} />
+                <h2 className="text-2xl font-bold text-gray-900">
                   {category.title}
                 </h2>
                 {isAISection && (
-                  <span className="ml-3 px-2 py-1 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300 rounded-full">
+                  <span className="ml-3 px-2 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">
                     AI-Powered
                   </span>
                 )}
               </div>
-              
+
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {category.sections.map((section) => (
-                  <Link key={section.id} href={section.href}>
-                    <Card className={`p-4 hover:shadow-md transition-shadow cursor-pointer group border-2 border-transparent ${
-                      isAISection 
-                        ? 'hover:border-purple-200 dark:hover:border-purple-800 bg-gradient-to-br from-purple-50/50 to-indigo-50/50 dark:from-purple-900/10 dark:to-indigo-900/10' 
-                        : 'hover:border-blue-200 dark:hover:border-blue-800'
+                  <Link key={section.id} href={section.href}>                    <Card className={`p-4 hover:shadow-md transition-shadow cursor-pointer group border-2 border-transparent ${isAISection
+                    ? 'hover:border-purple-200 bg-gradient-to-br from-purple-50/50 to-indigo-50/50'
+                    : 'hover:border-blue-200'
                     }`}>
-                      <h3 className={`font-medium mb-2 ${
-                        isAISection 
-                          ? 'group-hover:text-purple-600 dark:group-hover:text-purple-400' 
-                          : 'group-hover:text-blue-600 dark:group-hover:text-blue-400'
+                    <h3 className={`font-medium mb-2 text-gray-900 ${isAISection
+                      ? 'group-hover:text-purple-600'
+                      : 'group-hover:text-blue-600'
                       }`}>
-                        {section.title}
-                      </h3>
-                      <div className={`flex items-center text-sm ${
-                        isAISection 
-                          ? 'text-purple-600 dark:text-purple-400' 
-                          : 'text-blue-600 dark:text-blue-400'
+                      {section.title}
+                    </h3>
+                    <div className={`flex items-center text-sm ${isAISection
+                      ? 'text-purple-600'
+                      : 'text-blue-600'
                       }`}>
-                        View docs
-                        <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
-                    </Card>
+                      View docs
+                      <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </Card>
                   </Link>
                 ))}
               </div>
@@ -202,9 +198,9 @@ export default function DocsHomePage() {
         })}
 
         <section className="mt-12">
-          <Card className="p-8 text-center bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border-blue-200 dark:border-blue-800">
+          <Card className="p-8 text-center bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
             <h2 className="text-2xl font-bold mb-4">Need Help?</h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
               Can't find what you're looking for? Check out our community resources or open an issue on GitHub.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

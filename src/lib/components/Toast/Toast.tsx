@@ -376,7 +376,15 @@ export const ToastContainer: React.FC<ToastContainerProps> = ({
         return () => {
             const containerToRemove = document.getElementById('aki-toast-container');
             if (containerToRemove && containerToRemove.childElementCount === 0) {
-                document.body.removeChild(containerToRemove);
+                // Check if the container is actually a child of document.body before removing
+                if (document.body.contains(containerToRemove)) {
+                    try {
+                        document.body.removeChild(containerToRemove);
+                    } catch (error) {
+                        // Silently ignore if the element was already removed
+                        console.debug('Toast container already removed:', error);
+                    }
+                }
             }
         };
     }, [isMounted]);
@@ -511,7 +519,15 @@ export const ToastProvider: React.FC<ToastContainerProps & { children: React.Rea
         return () => {
             const containerToRemove = document.getElementById('aki-toast-container');
             if (containerToRemove && containerToRemove.childElementCount === 0) {
-                document.body.removeChild(containerToRemove);
+                // Check if the container is actually a child of document.body before removing
+                if (document.body.contains(containerToRemove)) {
+                    try {
+                        document.body.removeChild(containerToRemove);
+                    } catch (error) {
+                        // Silently ignore if the element was already removed
+                        console.debug('Toast container already removed:', error);
+                    }
+                }
             }
         };
     }, [isMounted]);

@@ -3,6 +3,9 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
 import { Analytics } from '@/components/Analytics'
+import { Navigation } from '@/components/Navigation'
+import { FloatingSearch } from '@/components/FloatingSearch'
+import { SidebarProvider } from '@/contexts/SidebarContext'
 import { GA_TRACKING_ID, isAnalyticsEnabled } from '@/lib/analytics'
 import { Suspense } from 'react'
 import { ToastProvider } from '@/components/ToastProvider'
@@ -146,16 +149,49 @@ export default function RootLayout({
           </>
         )}
 
-        {/* Gurubase Widget */}
-        <script
-          async
-          src="https://widget.gurubase.io/widget.latest.min.js"
-          data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"
-          data-text="Ask AI"
-          data-margins='{"bottom": "1rem", "right": "1rem"}'
-          data-light-mode="auto"
-          id="guru-widget-id"
-        />
+        {/* Gurubase Widget - Wrapped with error handling */}
+        {isAnalyticsEnabled() && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                // Safe Guru widget loader with error handling
+                (function() {
+                  try {
+                    // Only load if not already loaded
+                    if (window.gurubaseWidget || document.getElementById('guru-widget-id')) {
+                      return;
+                    }
+                    
+                    const script = document.createElement('script');
+                    script.async = true;
+                    script.src = 'https://widget.gurubase.io/widget.latest.min.js';
+                    script.setAttribute('data-widget-id', 'SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw');
+                    script.setAttribute('data-text', 'Ask AI');
+                    script.setAttribute('data-margins', '{"bottom": "1rem", "right": "1rem"}');
+                    script.setAttribute('data-light-mode', 'auto');
+                    script.id = 'guru-widget-id';
+                    
+                    script.onload = function() {
+                      console.log('Guru widget loaded successfully');
+                    };
+                    
+                    script.onerror = function(error) {
+                      console.warn('Guru widget failed to load:', error);
+                      // Remove failed script to prevent further issues
+                      if (script.parentNode) {
+                        script.parentNode.removeChild(script);
+                      }
+                    };
+                    
+                    document.head.appendChild(script);
+                  } catch (error) {
+                    console.warn('Guru widget initialization failed:', error);
+                  }
+                })();
+              `,
+            }}
+          />
+        )}
 
         <script
           type="application/ld+json"
@@ -165,42 +201,16 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider>
           <ToastProvider position="top-right">
-            {children}
+            <SidebarProvider>
+              <Navigation />
+              {children}
+            </SidebarProvider>
+            <FloatingSearch />
             <Suspense fallback={null}>
               <Analytics />
             </Suspense>
           </ToastProvider>
         </ThemeProvider>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            // Cleanup function for navigation
-            window.addEventListener('beforeunload', function() {
-              document.body.style.overflow = '';
-            });
-            
-            // Global error handler for DOM operations
-            const originalRemoveChild = Node.prototype.removeChild;
-            Node.prototype.removeChild = function(child) {
-              try {
-                // Check if the node is actually a child before removing
-                if (this.contains(child)) {
-                  return originalRemoveChild.call(this, child);
-                } else {
-                  console.warn('Prevented removeChild on non-child node');
-                  return child; // Return the child to prevent errors
-                }
-              } catch (e) {
-                console.warn('Error in removeChild:', e);
-                return child; // Return the child to prevent errors
-              }
-            };
-            
-            // Listen for our custom cleanup event
-            window.addEventListener('navigationCleanup', function() {
-              // Additional cleanup can be done here
-            });
-          `
-        }} />
       </body>
     </html>
   )
