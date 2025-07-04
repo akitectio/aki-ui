@@ -527,11 +527,8 @@ Join our growing community of developers building beautiful applications with Ak
 - **💭 [GitHub Discussions](https://github.com/akitectio/aki-ui/discussions)** - Ask questions and share ideas
 - **🐛 [GitHub Issues](https://github.com/akitectio/aki-ui/issues)** - Report bugs and request features
 - **📧 [Support Email](mailto:duy@akitect.io)** - Direct support from our team
-
-### 🚀 Stay Updated
-
 - **💼 [LinkedIn](https://www.linkedin.com/in/duydev)** - Professional updates and articles
-- **📺 [YouTube](https://youtube.com/@akitectio)** - Tutorials and design workshops
+- **� [Facebook](https://www.facebook.com/duydev)** - Social updates and community
 
 ### 🏆 Showcase
 

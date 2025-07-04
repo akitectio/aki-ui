@@ -44,8 +44,8 @@ const CodeBlock = ({ children, language = 'tsx' }: { children: string; language?
             variant="ghost"
             onClick={handleCopy}
             className={`text-xs transition-all duration-200 ${copied
-                ? 'text-green-400 bg-green-500/10'
-                : 'text-gray-400 hover:text-white hover:bg-gray-700'
+              ? 'text-green-400 bg-green-500/10'
+              : 'text-gray-400 hover:text-white hover:bg-gray-700'
               }`}
           >
             {copied ? (
@@ -285,8 +285,7 @@ function Navigation() {
   const menuItems = [
     { label: 'Home', href: '/' },
     { label: 'Products', href: '/products' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' }
+    { label: 'About', href: '/about' }
   ]
 
   return (

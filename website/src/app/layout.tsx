@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { Analytics } from '@/components/Analytics'
 import { Navigation } from '@/components/Navigation'
 import { FloatingSearch } from '@/components/FloatingSearch'
+import { Footer } from '@/components/Footer'
 import { SidebarProvider } from '@/contexts/SidebarContext'
 import { GA_TRACKING_ID, isAnalyticsEnabled } from '@/lib/analytics'
 import { Suspense } from 'react'
@@ -25,8 +26,8 @@ export const metadata: Metadata = {
     'MCP Support', 'Design System', 'Frontend Framework', 'React Components',
     'Customizable UI', 'Developer Tools', 'Web Development'
   ],
-  authors: [{ name: 'Akitect.io Team', url: 'https://akitect.io' }],
-  creator: 'Akitect.io',
+  authors: [{ name: 'Duy (DuyDev)', url: 'https://www.linkedin.com/in/duydev/' }],
+  creator: 'Duy (DuyDev)',
   publisher: 'Akitect.io',
   robots: {
     index: true,
@@ -106,9 +107,15 @@ export default function RootLayout({
       priceCurrency: 'USD',
     },
     author: {
-      '@type': 'Organization',
-      name: 'Akitect.io',
-      url: 'https://akitect.io',
+      '@type': 'Person',
+      name: 'Duy (DuyDev)',
+      url: 'https://www.linkedin.com/in/duydev/',
+      email: 'duy@akitect.io',
+      sameAs: [
+        'https://www.facebook.com/duydev',
+        'https://www.linkedin.com/in/duydev/',
+        'https://github.com/duydev'
+      ]
     },
     programmingLanguage: ['TypeScript', 'JavaScript', 'React'],
     license: 'https://opensource.org/licenses/MIT',
@@ -149,17 +156,72 @@ export default function RootLayout({
           </>
         )}
 
-        {/* Gurubase Widget - Wrapped with error handling */}
+        {/* Gurubase Widget - Safe loader with improved error handling */}
         {isAnalyticsEnabled() && (
           <script
             dangerouslySetInnerHTML={{
               __html: `
-                // Safe Guru widget loader with error handling
+                // Enhanced Guru widget loader with comprehensive error handling
                 (function() {
                   try {
-                    // Only load if not already loaded
-                    if (window.gurubaseWidget || document.getElementById('guru-widget-id')) {
+                    // Prevent multiple loads - check multiple conditions
+                    if (window.gurubaseWidget || 
+                        document.getElementById('guru-widget-id') || 
+                        document.querySelector('[data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"]')) {
                       return;
+                    }
+                    
+                    // Add custom CSS for better styling
+                    const style = document.createElement('style');
+                    style.textContent = \`
+                      /* Gurubase Widget Enhanced Styling */
+                      .gurubase-widget, 
+                      .gurubase-widget *,
+                      [data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"] *,
+                      div[id*="guru"], 
+                      div[class*="guru"] {
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+                        z-index: 9999 !important;
+                      }
+                      
+                      .gurubase-widget button,
+                      [data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"] button {
+                        background-color: #ffffff !important;
+                        color: #1f2937 !important;
+                        border: 2px solid #3b82f6 !important;
+                        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+                        transition: all 0.2s ease !important;
+                        font-weight: 500 !important;
+                        padding: 8px 16px !important;
+                        border-radius: 8px !important;
+                      }
+                      
+                      .gurubase-widget button:hover,
+                      [data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"] button:hover {
+                        background-color: #3b82f6 !important;
+                        color: #ffffff !important;
+                        transform: translateY(-1px) !important;
+                      }
+                      
+                      @media (prefers-color-scheme: dark) {
+                        .gurubase-widget button,
+                        [data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"] button {
+                          background-color: #1f2937 !important;
+                          color: #ffffff !important;
+                          border-color: #6366f1 !important;
+                        }
+                        
+                        .gurubase-widget button:hover,
+                        [data-widget-id="SVS8JvZPz1_JssKP_nVszZcxnn7xDjWEjMwfOXA-lBw"] button:hover {
+                          background-color: #6366f1 !important;
+                        }
+                      }
+                    \`;
+                    style.id = 'guru-widget-styles';
+                    
+                    // Safely append style - check if not already exists
+                    if (!document.getElementById('guru-widget-styles')) {
+                      document.head.appendChild(style);
                     }
                     
                     const script = document.createElement('script');
@@ -173,22 +235,20 @@ export default function RootLayout({
                     
                     script.onload = function() {
                       console.log('Guru widget loaded successfully');
+                      // Mark as loaded to prevent cleanup issues
+                      window.guruWidgetLoaded = true;
                     };
                     
                     script.onerror = function(error) {
                       console.warn('Guru widget failed to load:', error);
-                      // Remove failed script to prevent further issues
-                      if (script.parentNode) {
-                        try {
-                          script.parentNode.removeChild(script);
-                        } catch (removeError) {
-                          // Silently ignore if the element was already removed
-                          console.debug('Script element already removed:', removeError);
-                        }
+                      // Safe removal using modern approach
+                      if (script && document.contains(script)) {
+                        script.remove();
                       }
                     };
                     
-                    document.head.appendChild(script);
+                    // Use modern append instead of appendChild
+                    document.head.append(script);
                   } catch (error) {
                     console.warn('Guru widget initialization failed:', error);
                   }
@@ -207,8 +267,13 @@ export default function RootLayout({
         <ThemeProvider>
           <ToastProvider position="top-right">
             <SidebarProvider>
-              <Navigation />
-              {children}
+              <div className="min-h-screen flex flex-col">
+                <Navigation />
+                <main className="flex-1">
+                  {children}
+                </main>
+                <Footer />
+              </div>
             </SidebarProvider>
             <FloatingSearch />
             <Suspense fallback={null}>

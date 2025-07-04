@@ -115,7 +115,9 @@ npm run storybook
 
 - 🐛 **Bug Reports**: [GitHub Issues](https://github.com/akitectio/aki-ui/issues)
 - 💬 **Discussions**: [GitHub Discussions](https://github.com/akitectio/aki-ui/discussions)
-- 📧 **Email**: [support@akitect.io](mailto:support@akitect.io)
+- 📧 **Email**: [duy@akitect.io](mailto:duy@akitect.io)
+- 💼 **LinkedIn**: [linkedin.com/in/duydev](https://www.linkedin.com/in/duydev)
+- 📘 **Facebook**: [facebook.com/duydev](https://www.facebook.com/duydev)
 
 ## Changelog
 

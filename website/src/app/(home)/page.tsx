@@ -3,8 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ComponentShowcase } from '@/components/ComponentShowcase'
-import { ToastDemo } from '@/components/ToastDemo'
-import { Badge, Button, Card } from '@/components/client-components'
+import { Badge, Card } from '@/components/client-components'
 
 export default function Home() {
   const [copyText, setCopyText] = useState('Copy')
@@ -26,63 +25,65 @@ export default function Home() {
       <section className="relative py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex justify-center mb-6">
-            <Badge variant="primary" className="mb-4 shadow-lg">
+            <Badge variant="primary" position="center" className="mb-4 shadow-lg mx-auto">
               🤖 AI-Powered UI • LLM Integration • MCP Support
             </Badge>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
             Build Beautiful UIs with{' '}
             <span className="bg-gradient-to-r from-primary-600 via-secondary-500 to-primary-700 bg-clip-text text-transparent">
               Aki UI
             </span>
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
             A modern, accessible, and customizable React component library built with TypeScript and Tailwind CSS.
             Create stunning user interfaces with AI-powered development tools, LLM integration, and Model Context Protocol (MCP) support.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button size="lg" className="shadow-lg hover:shadow-xl transition-shadow" asChild>
-              <Link href="/docs/installation">Get Started</Link>
-            </Button>
-            <Button variant="secondary" size="lg" className="shadow-md hover:shadow-lg transition-shadow" asChild>
-              <Link href="/docs/components">Browse Components</Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="shadow-md hover:shadow-xl transition-shadow border-3 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 ring-2 ring-blue-300 dark:ring-blue-700 ring-offset-2 dark:ring-offset-slate-900 relative"
-              asChild
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8">
+            <Link href="/docs/installation" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500 rounded-md shadow-lg hover:shadow-xl w-full sm:w-auto">
+              Get Started
+            </Link>
+            <Link href="/docs/components" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-secondary-600 hover:bg-secondary-700 text-white focus:ring-secondary-500 rounded-md shadow-md hover:shadow-lg w-full sm:w-auto">
+              Browse Components
+            </Link>
+            <a
+              href="https://aki-ui.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md shadow-md hover:shadow-xl ring-2 ring-blue-300 dark:ring-blue-700 ring-offset-2 dark:ring-offset-slate-900 relative w-full sm:w-auto"
             >
-              <a href="https://aki-ui.vercel.app/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                {/* Decorative lines */}
-                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
-                <div className="absolute left-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
-                <div className="absolute right-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
-                🚀 Live Storybook
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-            </Button>
-            <Button variant="outline" size="lg" className="shadow-md hover:shadow-lg transition-shadow border-2 border-purple-500 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20" asChild>
-              <Link href="/docs/llm">🤖 AI & LLM</Link>
-            </Button>
+              {/* Decorative lines */}
+              <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
+              <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
+              <div className="absolute left-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
+              <div className="absolute right-0 top-0 h-full w-[1px] bg-gradient-to-b from-transparent via-blue-400 dark:via-blue-600 to-transparent"></div>
+              🚀 Live Storybook
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+            <Link href="/docs/llm" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-6 py-3 text-base border-2 border-purple-500 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-md shadow-md hover:shadow-lg">
+              🤖 AI & LLM
+            </Link>
           </div>
 
           {/* Quick Start */}
-          <div className="max-w-2xl mx-auto">
-            <div className="bg-slate-900 dark:bg-slate-800 rounded-xl p-6 text-left shadow-2xl border border-slate-700">
+          <div className="max-w-2xl mx-auto px-4">
+            <div className="bg-slate-900 dark:bg-slate-800 rounded-xl p-3 sm:p-4 md:p-6 text-left shadow-2xl border border-slate-700 overflow-hidden">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-slate-400 text-sm font-medium">Quick Install</span>
+                <span className="text-slate-400 text-xs sm:text-sm font-medium">Quick Install</span>
                 <button
                   onClick={handleCopy}
-                  className="text-slate-400 hover:text-white text-sm transition-colors px-2 py-1 rounded hover:bg-slate-700"
+                  className="text-slate-400 hover:text-white text-xs sm:text-sm transition-colors px-2 py-1 rounded hover:bg-slate-700 flex-shrink-0"
                 >
                   {copyText}
                 </button>
               </div>
-              <code className="text-emerald-400 font-mono text-lg">npm install @akitectio/aki-ui</code>
+              <div className="overflow-x-auto -mx-1 sm:mx-0">
+                <code className="text-emerald-400 font-mono text-sm sm:text-base md:text-lg whitespace-nowrap block px-1 sm:px-0 min-w-max">
+                  npm install @akitectio/aki-ui
+                </code>
+              </div>
             </div>
           </div>
         </div>
@@ -95,16 +96,16 @@ export default function Home() {
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <Badge variant="primary" className="mb-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+            <Badge variant="primary" position="top-right" className="mb-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
               🚀 AI-Powered Development
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               Supercharge Your Development with{' '}
               <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
                 AI & LLM Integration
               </span>
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8 leading-relaxed">
               Aki UI is the first component library designed for the AI era. Build faster with LLM-powered code generation,
               Model Context Protocol (MCP) support, and AI-friendly component APIs.
             </p>
@@ -158,13 +159,14 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="bg-slate-900 dark:bg-slate-800 rounded-2xl p-6 shadow-2xl border border-slate-700">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-slate-400 text-sm font-medium">AI-Generated Component</span>
-                <Badge variant="secondary" className="bg-purple-600 text-white">✨ AI</Badge>
+            <div className="bg-slate-900 dark:bg-slate-800 rounded-2xl p-3 sm:p-4 md:p-6 shadow-2xl border border-slate-700 overflow-hidden">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <span className="text-slate-400 text-xs sm:text-sm font-medium">AI-Generated Component</span>
+                <Badge variant="secondary" position="top-right" className="bg-purple-600 text-white flex-shrink-0 text-xs">✨ AI</Badge>
               </div>
-              <pre className="text-sm text-slate-300 overflow-x-auto">
-                <code>{`// Generated with: "Create a user profile card"
+              <div className="overflow-x-auto -mx-1 sm:mx-0">
+                <pre className="text-xs sm:text-sm md:text-base text-slate-300 px-1 sm:px-0">
+                  <code className="block min-w-max">{`// Generated with: "Create a user profile card"
 import { Card, Avatar, Button } from '@akitectio/aki-ui'
 
 export function UserProfile({ user }) {
@@ -183,18 +185,19 @@ export function UserProfile({ user }) {
     </Card>
   )
 }`}</code>
-              </pre>
+                </pre>
+              </div>
             </div>
           </div>
 
           <div className="mt-12 text-center">
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg" asChild>
-                <Link href="/docs/llm">Explore LLM Integration</Link>
-              </Button>
-              <Button variant="outline" size="lg" className="border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20" asChild>
-                <Link href="/docs/mcp">Learn about MCP</Link>
-              </Button>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Link href="/docs/llm" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg rounded-md w-full sm:w-auto">
+                Explore LLM Integration
+              </Link>
+              <Link href="/docs/mcp" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md w-full sm:w-auto">
+                Learn about MCP
+              </Link>
             </div>
           </div>
         </div>
@@ -343,88 +346,27 @@ export function UserProfile({ user }) {
       {/* CTA */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Ready to get started?
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-8">
             Install Aki UI and start building beautiful interfaces today.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" asChild>
-              <Link href="/docs/installation">Get Started Now</Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <a href="https://github.com/akitectio/aki-ui" target="_blank" rel="noopener noreferrer">
-                View on GitHub
-              </a>
-            </Button>
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+            <Link href="/docs/installation" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-primary-600 hover:bg-primary-700 text-white focus:ring-primary-500 rounded-md w-full sm:w-auto">
+              Get Started Now
+            </Link>
+            <a
+              href="https://github.com/akitectio/aki-ui"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 rounded-md w-full sm:w-auto"
+            >
+              View on GitHub
+            </a>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-700 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Aki UI</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Modern React component library for building beautiful user interfaces.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 dark:text-white mb-4">Documentation</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/docs/introduction" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Introduction</Link></li>
-                <li><Link href="/docs/installation" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Installation</Link></li>
-                <li><Link href="/docs/theming" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Theming</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 dark:text-white mb-4">AI Integration</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/docs/llm" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">🤖 LLM Support</Link></li>
-                <li><Link href="/docs/mcp" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">⚡ MCP Protocol</Link></li>
-                <li><Link href="/docs/llm/ai-tools" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">🛠️ AI Tools</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 dark:text-white mb-4">Resources</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="/docs/components/button" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Button</Link></li>
-                <li><Link href="/docs/components/card" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Card</Link></li>
-                <li><Link href="/docs/components/input" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Input</Link></li>
-                <li>
-                  <a
-                    href="https://aki-ui.vercel.app/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white flex items-center gap-1"
-                  >
-                    🚀 Storybook
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 dark:text-white mb-4">Community</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="https://github.com/akitectio/aki-ui" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">GitHub</a></li>
-                <li><a href="https://github.com/akitectio/aki-ui/issues" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Issues</a></li>
-                <li><a href="https://github.com/akitectio/aki-ui/discussions" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Discussions</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 text-center">
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
-              © 2024 Aki UI. Released under the MIT License.
-            </p>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
