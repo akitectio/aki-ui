@@ -138,6 +138,25 @@ export function GurubaseWidget() {
 
         return () => {
             clearTimeout(timer)
+
+            // Cleanup: Remove the script and style elements on unmount
+            try {
+                const script = document.getElementById('guru-widget-id')
+                if (script && script.parentNode) {
+                    try {
+                        script.parentNode.removeChild(script)
+                    } catch (error) {
+                        console.debug('Guru script element already removed:', error)
+                    }
+                }
+
+                // Also cleanup any widget-related DOM elements
+                if (window.gurubaseWidget) {
+                    window.gurubaseWidget = undefined
+                }
+            } catch (error) {
+                console.debug('Error during Guru widget cleanup:', error)
+            }
         }
     }, [])
 

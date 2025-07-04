@@ -179,7 +179,12 @@ export default function RootLayout({
                       console.warn('Guru widget failed to load:', error);
                       // Remove failed script to prevent further issues
                       if (script.parentNode) {
-                        script.parentNode.removeChild(script);
+                        try {
+                          script.parentNode.removeChild(script);
+                        } catch (removeError) {
+                          // Silently ignore if the element was already removed
+                          console.debug('Script element already removed:', removeError);
+                        }
                       }
                     };
                     
