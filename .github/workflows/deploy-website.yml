@@ -1,0 +1,128 @@
+name: Deploy Website
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "website/**"
+      - "public/**"
+      - "package.json"
+      - "README.md"
+      - ".github/workflows/deploy-website.yml"
+
+# Sets permissions for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy-website:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+          cache-dependency-path: |
+            package-lock.json
+            website/package.json
+
+      - name: Install root dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Cache website node_modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            node_modules
+            website/node_modules
+          key: ${{ runner.os }}-website-${{ hashFiles('package-lock.json', 'website/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-website-
+
+      - name: Install website dependencies
+        run: |
+          cd website
+          # Try npm ci first, fallback to npm install if package-lock.json issues
+          npm ci --legacy-peer-deps 2>/dev/null || {
+            echo "⚠️ npm ci failed, falling back to npm install..."
+            rm -f package-lock.json
+            npm install --legacy-peer-deps
+          }
+          echo "✅ Installed website dependencies"
+
+      - name: Build Aki UI library (for website only)
+        run: |
+          # Build only the UI library without MCP dependencies
+          npm run update-llm-docs
+          npm run generate-sitemap
+          npm run build:types
+          npx vite build
+          node scripts/add-css-banner.js
+          node scripts/build-adapters.js
+          echo "✅ Built Aki UI library for website (skipped MCP sync)"
+
+      - name: Cache Next.js build
+        uses: actions/cache@v3
+        with:
+          path: |
+            website/.next/cache
+            website/out
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('website/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-
+
+      - name: Build website
+        run: npm run website:build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+          NEXT_PUBLIC_SITE_URL: https://aki-ui.akitect.io
+
+      - name: Copy files to website output
+        run: |
+          # Copy LLMs files to website
+          cp public/llms.txt website/out/
+          cp public/llms-full.txt website/out/
+
+          # Copy sitemap and robots.txt to website (already generated in build step)
+          cp public/sitemap.xml website/out/
+          cp public/robots.txt website/out/
+
+          echo "✅ Copied all files to website/out/"
+
+      - name: Add .nojekyll file
+        run: touch website/out/.nojekyll
+
+      - name: Add CNAME file for custom domain
+        run: echo "aki-ui.akitect.io" > website/out/CNAME
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "./website/out"
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

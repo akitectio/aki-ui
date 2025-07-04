@@ -1,4 +1,4 @@
-name: Publish to npm and Deploy Website
+name: Publish and Deploy (Combined)
 
 on:
   workflow_dispatch:
@@ -12,400 +12,41 @@ on:
           - patch
           - minor
           - major
+      deploy_website:
+        description: "Deploy website after publishing"
+        required: false
+        default: true
+        type: boolean
 
-# Sets permissions for GitHub Pages deployment and npm publishing
 permissions:
   contents: write
-  pages: write
-  id-token: write
   actions: write
 
-# Allow only one concurrent deployment
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
-
 jobs:
-  publish-npm:
+  trigger-workflows:
     runs-on: ubuntu-latest
-    environment: npm-publishing
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # Setup .npmrc file to publish to npm
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
-          registry-url: "https://registry.npmjs.org"
-          cache: "npm"
-          cache-dependency-path: |
-            package-lock.json
-            mcp/package-lock.json
-
-      - name: Setup .npmrc manually
+      - name: Trigger NPM Publish
         run: |
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
-          cat ~/.npmrc
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/publish-npm.yml/dispatches \
+            -d '{"ref":"main","inputs":{"version_increment":"${{ github.event.inputs.version_increment }}"}}'
 
-      - name: Verify npm authentication
+      - name: Wait for NPM publish to complete
         run: |
-          echo "Checking npm authentication..."
-          echo "Node auth token length: ${#NODE_AUTH_TOKEN}"
-          echo "Registry: $(npm config get registry)"
-          echo "Auth token exists: $([[ -n "$NODE_AUTH_TOKEN" ]] && echo "yes" || echo "no")"
-          echo "Token prefix: ${NODE_AUTH_TOKEN:0:8}..."
-          echo "Testing npm authentication..."
-          if npm whoami; then
-            echo "✅ NPM authentication successful"
-            echo "Logged in as: $(npm whoami)"
-          else
-            echo "❌ NPM authentication failed"
-            echo "Please check:"
-            echo "1. NPM_TOKEN secret is valid and not expired"
-            echo "2. Token has 'Automation' type for CI/CD"
-            echo "3. Account has publish rights to @akitectio organization"
-            echo "4. Organization exists and account is member"
-            exit 1
-          fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          echo "Waiting for NPM publish workflow to complete..."
+          sleep 30
 
-      - name: Cache node_modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            mcp/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json', 'mcp/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
+      - name: Trigger Website Deployment
+        if: ${{ github.event.inputs.deploy_website == 'true' }}
         run: |
-          # Install root dependencies
-          npm ci --legacy-peer-deps
-
-          # Install MCP dependencies
-          cd mcp
-          npm ci --legacy-peer-deps
-          cd ../
-
-          echo "✅ Installed dependencies for root and MCP projects"
-
-      - name: Build package
-        run: npm run build
-
-      - name: Configure git
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-
-      - name: Increment version
-        id: version
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            VERSION_TYPE="${{ github.event.inputs.version_increment }}"
-          else
-            # Auto increment patch version for push events
-            VERSION_TYPE="patch"
-          fi
-          NEW_VERSION=$(npm --no-git-tag-version version $VERSION_TYPE)
-          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
-          echo "Incremented version to $NEW_VERSION"
-
-      - name: Update LLM documentation
-        run: |
-          npm run sync-all-docs
-          echo "Updated LLM documentation files with new version and component count"
-
-      - name: Sync and publish MCP server
-        run: |
-          cd mcp
-          # Extract version number without 'v' prefix
-          MAIN_VERSION="${{ steps.version.outputs.new_version }}"
-          VERSION_NUMBER="${MAIN_VERSION#v}"
-
-          # Get package name from package.json
-          PACKAGE_NAME=$(node -p "require('./package.json').name")
-          echo "MCP Package name: $PACKAGE_NAME"
-
-          # Get the latest published version from npm registry
-          echo "Fetching latest MCP version from npm registry..."
-          LATEST_NPM_VERSION=$(npm view "$PACKAGE_NAME" version 2>/dev/null || echo "0.0.0")
-          echo "Latest MCP version on npm: $LATEST_NPM_VERSION"
-
-          # Set the MCP version to match main version
-          npm --no-git-tag-version version $VERSION_NUMBER
-          echo "Synced MCP version to $VERSION_NUMBER"
-
-          # Ensure dependencies are installed (should already be done in install step)
-          if [ ! -d "node_modules" ]; then
-            echo "Installing MCP dependencies..."
-            npm ci --legacy-peer-deps
-          fi
-
-          # Sync component metadata before building MCP
-          echo "🔄 Syncing component metadata from Aki UI..."
-          cd ../
-          npm run mcp:sync-metadata
-          cd mcp
-
-          # Build MCP server with updated metadata
-          npm run build
-
-          # Verify package before publishing
-          echo "MCP package contents:"
-          npm pack --dry-run
-          echo "About to publish MCP package:"
-          cat package.json | grep -E '"name"|"version"' | head -2
-
-          # Publish MCP server to npm
-          npm publish --provenance --access public --legacy-peer-deps || {
-            echo "MCP publish failed with error code $?"
-            echo "Checking current npm version:"
-            npm view "$PACKAGE_NAME" version
-            echo "This could be due to the version not being incremented correctly."
-            echo "Will continue with workflow but the MCP npm publish failed."
-          }
-          echo "✅ Attempted to publish MCP server to npm"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Prepare package for publishing
-        run: |
-          # Backup original files
-          cp README.md README.md.backup
-
-          # Use NPM README for publishing
-          cp NPM_README.md README.md
-
-      - name: Verify package before publishing
-        run: |
-          echo "Package contents:"
-          npm pack --dry-run
-          echo ""
-          echo "Checking npm authentication and package access..."
-          if npm whoami; then
-            NPM_USER=$(npm whoami)
-            echo "✅ Authenticated as: $NPM_USER"
-            
-            # Check if we can access the package
-            echo "Checking access to @akitectio/aki-ui..."
-            if npm access list packages @akitectio 2>/dev/null; then
-              echo "✅ Has access to @akitectio organization packages"
-            else
-              echo "⚠️  Cannot list @akitectio packages - checking individual package access..."
-            fi
-            
-            # Check package info
-            echo "Checking package info..."
-            npm view @akitectio/aki-ui --json || echo "Package may not exist yet (first publish)"
-          else
-            echo "❌ NPM authentication failed"
-            exit 1
-          fi
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Publish to npm
-        run: |
-          npm publish --provenance --access public --legacy-peer-deps || {
-            echo "Main package publish failed with error code $?"
-            echo "Checking current npm version:"
-            npm view @akitectio/aki-ui version
-            echo "This could be due to the version not being incremented correctly."
-            echo "Will continue with workflow but the npm publish failed."
-          }
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Restore original README
-        run: |
-          mv README.md.backup README.md
-
-      - name: Commit version bump and push
-        run: |
-          git add package.json package-lock.json mcp/package.json mcp/package-lock.json public/llms.txt public/llms-full.txt public/sitemap.xml public/robots.txt
-          git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP + auto-discovery + sitemap)"
-          git tag "${{ steps.version.outputs.new_version }}"
-          git tag "mcp-${{ steps.version.outputs.new_version }}"
-          git push origin main
-          git push origin "${{ steps.version.outputs.new_version }}"
-          git push origin "mcp-${{ steps.version.outputs.new_version }}"
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ steps.version.outputs.new_version }}
-          release_name: Release ${{ steps.version.outputs.new_version }}
-          body: |
-            ## Changes
-            - Version bump to ${{ steps.version.outputs.new_version }}
-            - Published to npm: https://www.npmjs.com/package/@akitectio/aki-ui
-            - MCP Server also published: https://www.npmjs.com/package/@akitectio/aki-ui-mcp-server
-
-            ## Installation
-            ### Main Package
-            ```bash
-            npm install @akitectio/aki-ui@${{ steps.version.outputs.new_version }}
-            ```
-
-            ### MCP Server
-            ```bash
-            npm install -g @akitectio/aki-ui-mcp-server@${{ steps.version.outputs.new_version }}
-            ```
-          draft: false
-          prerelease: false
-
-      - name: Create GitHub Release for MCP
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: mcp-${{ steps.version.outputs.new_version }}
-          release_name: MCP Server Release ${{ steps.version.outputs.new_version }}
-          body: |
-            ## Aki UI MCP Server ${{ steps.version.outputs.new_version }}
-
-            Model Context Protocol server for Aki UI component library integration with AI tools.
-
-            ### Installation
-            ```bash
-            npm install -g @akitectio/aki-ui-mcp-server@${{ steps.version.outputs.new_version }}
-            ```
-
-            ### Configuration
-            Add to your MCP client configuration:
-            ```json
-            {
-              "mcpServers": {
-                "aki-ui": {
-                  "command": "aki-ui-mcp"
-                }
-              }
-            }
-            ```
-
-            ### Features
-            - Component discovery and documentation
-            - Code generation with Aki UI components
-            - Theme management and customization
-            - Real-time integration with AI development tools
-
-            See the [MCP README](https://github.com/akitectio/aki-ui/tree/main/mcp) for detailed usage instructions.
-          draft: false
-          prerelease: false
-
-  deploy-website:
-    needs: publish-npm
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
-          cache: "npm"
-          cache-dependency-path: |
-            package-lock.json
-            website/package.json
-
-      - name: Install root dependencies
-        run: npm ci --legacy-peer-deps
-
-      - name: Cache website node_modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            node_modules
-            website/node_modules
-          key: ${{ runner.os }}-website-${{ hashFiles('package-lock.json', 'website/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-website-
-
-      - name: Install website dependencies
-        run: |
-          cd website
-          # Try npm ci first, fallback to npm install if package-lock.json issues
-          npm ci --legacy-peer-deps 2>/dev/null || {
-            echo "⚠️ npm ci failed, falling back to npm install..."
-            rm -f package-lock.json
-            npm install --legacy-peer-deps
-          }
-          echo "✅ Installed website dependencies"
-
-      - name: Build Aki UI library (for website only)
-        run: |
-          # Build only the UI library without MCP dependencies
-          npm run update-llm-docs
-          npm run generate-sitemap
-          npm run build:types
-          npx vite build
-          node scripts/add-css-banner.js
-          node scripts/build-adapters.js
-          echo "✅ Built Aki UI library for website (skipped MCP sync)"
-
-      - name: Cache Next.js build
-        uses: actions/cache@v3
-        with:
-          path: |
-            website/.next/cache
-            website/out
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('website/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-
-
-      - name: Build website
-        run: npm run website:build
-        env:
-          NODE_ENV: production
-          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
-          NEXT_PUBLIC_SITE_URL: https://aki-ui.akitect.io
-
-      - name: Copy files to website output
-        run: |
-          # Copy LLMs files to website
-          cp public/llms.txt website/out/
-          cp public/llms-full.txt website/out/
-
-          # Copy sitemap and robots.txt to website (already generated in build step)
-          cp public/sitemap.xml website/out/
-          cp public/robots.txt website/out/
-
-          echo "✅ Copied all files to website/out/"
-
-      - name: Add .nojekyll file
-        run: touch website/out/.nojekyll
-
-      - name: Add CNAME file for custom domain
-        run: echo "aki-ui.akitect.io" > website/out/CNAME
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "./website/out"
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/actions/workflows/deploy-website.yml/dispatches \
+            -d '{"ref":"main"}'
