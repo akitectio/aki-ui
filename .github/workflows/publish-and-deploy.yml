@@ -397,7 +397,7 @@ jobs:
           npm run update-llm-docs
           npm run generate-sitemap
           npm run build:types
-          vite build
+          npx vite build
           node scripts/add-css-banner.js
           node scripts/build-adapters.js
           echo "✅ Built Aki UI library for website (skipped MCP sync)"
