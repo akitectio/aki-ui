@@ -40,11 +40,13 @@ jobs:
     steps:
       - name: Check commit message
         id: check_commit
+        env:
+          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
-          if [[ "${{ github.event.head_commit.message }}" == *"chore: bump version"* ]]; then
+          if [[ "$COMMIT_MESSAGE" == *"chore: bump version"* ]]; then
             echo "Skip workflow for version bump commits"
             echo "skip=true" >> $GITHUB_OUTPUT
-          elif [[ "${{ github.event.head_commit.message }}" == *"chore: bump MCP server version"* ]]; then
+          elif [[ "$COMMIT_MESSAGE" == *"chore: bump MCP server version"* ]]; then
             echo "Skip workflow for standalone MCP version bump commits"
             echo "skip=true" >> $GITHUB_OUTPUT
           else
