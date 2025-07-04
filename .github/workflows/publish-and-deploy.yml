@@ -1,14 +1,6 @@
 name: Publish to npm and Deploy Website
 
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - "package.json"
-      - "package-lock.json"
-      - "mcp/**" # MCP has its own workflow
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       version_increment:
@@ -38,23 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: npm-publishing
     steps:
-      - name: Check commit message
-        id: check_commit
-        env:
-          COMMIT_MESSAGE: ${{ github.event.head_commit.message }}
-        run: |
-          if [[ "$COMMIT_MESSAGE" == *"chore: bump version"* ]]; then
-            echo "Skip workflow for version bump commits"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          elif [[ "$COMMIT_MESSAGE" == *"chore: bump MCP server version"* ]]; then
-            echo "Skip workflow for standalone MCP version bump commits"
-            echo "skip=true" >> $GITHUB_OUTPUT
-          else
-            echo "skip=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Checkout
-        if: steps.check_commit.outputs.skip != 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -62,7 +38,6 @@ jobs:
 
       # Setup .npmrc file to publish to npm
       - name: Setup Node.js
-        if: steps.check_commit.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
@@ -73,7 +48,6 @@ jobs:
             mcp/package-lock.json
 
       - name: Setup .npmrc manually
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
           echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
@@ -82,7 +56,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Verify npm authentication
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           echo "Checking npm authentication..."
           echo "Node auth token length: ${#NODE_AUTH_TOKEN}"
@@ -106,7 +79,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Cache node_modules
-        if: steps.check_commit.outputs.skip != 'true'
         uses: actions/cache@v3
         with:
           path: |
@@ -117,7 +89,6 @@ jobs:
             ${{ runner.os }}-node-
 
       - name: Install dependencies
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           # Install root dependencies
           npm ci --legacy-peer-deps
@@ -130,17 +101,14 @@ jobs:
           echo "✅ Installed dependencies for root and MCP projects"
 
       - name: Build package
-        if: steps.check_commit.outputs.skip != 'true'
         run: npm run build
 
       - name: Configure git
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
       - name: Increment version
-        if: steps.check_commit.outputs.skip != 'true'
         id: version
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -154,13 +122,11 @@ jobs:
           echo "Incremented version to $NEW_VERSION"
 
       - name: Update LLM documentation
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           npm run sync-all-docs
           echo "Updated LLM documentation files with new version and component count"
 
       - name: Sync and publish MCP server
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           cd mcp
           # Extract version number without 'v' prefix
@@ -214,7 +180,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Prepare package for publishing
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           # Backup original files
           cp README.md README.md.backup
@@ -223,7 +188,6 @@ jobs:
           cp NPM_README.md README.md
 
       - name: Verify package before publishing
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           echo "Package contents:"
           npm pack --dry-run
@@ -252,7 +216,6 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish to npm
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           npm publish --provenance --access public --legacy-peer-deps || {
             echo "Main package publish failed with error code $?"
@@ -265,12 +228,10 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Restore original README
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           mv README.md.backup README.md
 
       - name: Commit version bump and push
-        if: steps.check_commit.outputs.skip != 'true'
         run: |
           git add package.json package-lock.json mcp/package.json mcp/package-lock.json public/llms.txt public/llms-full.txt public/sitemap.xml public/robots.txt
           git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP + auto-discovery + sitemap)"
@@ -281,7 +242,6 @@ jobs:
           git push origin "mcp-${{ steps.version.outputs.new_version }}"
 
       - name: Create GitHub Release
-        if: steps.check_commit.outputs.skip != 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -308,7 +268,6 @@ jobs:
           prerelease: false
 
       - name: Create GitHub Release for MCP
-        if: steps.check_commit.outputs.skip != 'true'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
