@@ -53,6 +53,7 @@ export function Navigation({
 
   const navigationItems = [
     { href: '/docs', label: 'Documentation', isActive: pathname?.startsWith('/docs') },
+    { href: '/blocks', label: 'Blocks', isActive: pathname?.startsWith('/blocks') },
   ]
 
   return (
@@ -134,19 +135,7 @@ export function Navigation({
               <ThemeToggle />
             </div>
 
-            {effectiveShowGetStarted && (
-              <Link
-                href="/docs"
-                className="hidden md:inline-flex items-center px-6 py-2.5 bg-gradient-to-r from-primary-600 via-primary-700 to-primary-800 hover:from-primary-700 hover:via-primary-800 hover:to-primary-900 text-white rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 text-sm relative overflow-hidden group"
-              >
-                <span className="relative z-10">Get Started</span>
-                <svg className="ml-2 w-4 h-4 relative z-10 group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-                {/* Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></div>
-              </Link>
-            )}
+
 
             {/* Mobile menu button */}
             <button
@@ -206,15 +195,7 @@ export function Navigation({
 
           <div className="pt-4 border-t border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
             <ThemeToggle />
-            {effectiveShowGetStarted && (
-              <Link
-                href="/docs"
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-6 py-2.5 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-xl font-semibold text-sm shadow-lg"
-              >
-                Get Started
-              </Link>
-            )}
+
           </div>
         </div>
       </div>

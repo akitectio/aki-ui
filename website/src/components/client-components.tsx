@@ -18,6 +18,16 @@ export {
     Tabs,
     Tab,
     Divider,
+    Separator,
+
+    // New Components
+    Progress,
+    Textarea,
+    Toggle,
+    Dialog,
+    Calendar,
+    Command,
+    Table,
 
     // Navigation
     Breadcrumb,

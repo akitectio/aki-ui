@@ -1,15 +1,15 @@
 # Aki UI - Complete Documentation
 
-> A modern React component library built with TypeScript and Tailwind CSS, featuring 39+ beautiful components with complete theming system, dark mode support, and AI-friendly documentation.
+> A modern React component library built with TypeScript and Tailwind CSS, featuring 48+ beautiful components with complete theming system, dark mode support, and AI-friendly documentation.
 
 ## Key Information
 
 **Technology Stack:** React 18, TypeScript, Tailwind CSS, Storybook
-**Components:** 39+ pre-built UI components 
+**Components:** 48+ pre-built UI components 
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
 **Version:** 0.2.1
-**Updated:** July 4, 2025
+**Updated:** July 6, 2025
 
 ## Documentation & Resources
 
@@ -374,4 +374,4 @@ function MyComponent({ buttonProps, cardProps }: MyComponentProps) {
 **Storybook:** https://aki-ui.akitect.io/storybook
 
 ---
-*Generated automatically from Aki UI v0.2.1 on July 4, 2025*
+*Generated automatically from Aki UI v0.2.1 on July 6, 2025*

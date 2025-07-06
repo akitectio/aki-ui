@@ -358,3 +358,84 @@ export {
   responsiveTypography,
 } from "./Typography";
 export type { TypographyProps, HeadingProps, LinkProps } from "./Typography";
+
+/**
+ * Separator - A visual divider component for content sections
+ */
+export { Separator } from "./Separator";
+export type { SeparatorProps } from "./Separator";
+
+/**
+ * Progress - A component for displaying progress indicators
+ */
+export { Progress } from "./Progress";
+export type { ProgressProps } from "./Progress";
+
+/**
+ * Textarea - A multi-line text input component
+ */
+export { Textarea } from "./Textarea";
+export type { TextareaProps } from "./Textarea";
+
+/**
+ * Toggle - A two-state button component
+ */
+export { Toggle } from "./Toggle";
+export type { ToggleProps } from "./Toggle";
+
+/**
+ * Dialog - A modal dialog component for overlays and confirmations
+ */
+export { Dialog } from "./Dialog";
+export type {
+  DialogProps,
+  DialogContentProps,
+  DialogHeaderProps,
+  DialogTitleProps,
+  DialogDescriptionProps,
+  DialogFooterProps,
+  DialogTriggerProps,
+} from "./Dialog";
+
+/**
+ * Calendar - A date picker calendar component
+ */
+export { Calendar } from "./Calendar";
+export type { CalendarProps } from "./Calendar";
+
+/**
+ * Command - A command palette component for quick actions
+ */
+export { Command } from "./Command";
+export type {
+  CommandProps,
+  CommandInputProps,
+  CommandListProps,
+  CommandGroupProps,
+  CommandItemProps,
+  CommandEmptyProps,
+} from "./Command";
+
+/**
+ * Table - A component for displaying tabular data
+ */
+export {
+  default as Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption,
+} from "./Table";
+export type {
+  TableProps,
+  TableHeaderProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableRowProps,
+  TableHeadProps,
+  TableCellProps,
+  TableCaptionProps,
+} from "./Table";
