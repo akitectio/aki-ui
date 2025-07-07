@@ -532,7 +532,7 @@ Make sure to follow best practices for the chosen project type and include all t
   async run() {
     const transport = new StdioServerTransport();
     await this.server.connect(transport);
-    console.error("Aki UI MCP Server running on stdio");
+    console.error(`Aki UI MCP Server v${version} running on stdio`);
   }
 }
 
