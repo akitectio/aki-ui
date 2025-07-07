@@ -108,41 +108,41 @@ export default function PromptsLibraryPage() {
                             <p className="text-gray-500">Try selecting a different category</p>
                         </div>
                     ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {filteredPrompts.map((prompt) => (
-                            <Card key={prompt.id} className="p-6 flex flex-col h-full">
-                                <div className="flex flex-col flex-grow">
-                                    <div className="mb-4">
-                                        <div className="flex items-center gap-2 mb-2">
-                                            <h3 className="text-lg font-semibold" id={`prompt-${prompt.id}-title`}>{prompt.title}</h3>
-                                            {prompt.mcpOptimized && (
-                                                <Badge className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">
-                                                    MCP Optimized
-                                                </Badge>
-                                            )}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {filteredPrompts.map((prompt) => (
+                                <Card key={prompt.id} className="p-6 flex flex-col h-full">
+                                    <div className="flex flex-col flex-grow">
+                                        <div className="mb-4">
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <h3 className="text-lg font-semibold" id={`prompt-${prompt.id}-title`}>{prompt.title}</h3>
+                                                {prompt.mcpOptimized && (
+                                                    <Badge className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">
+                                                        MCP Optimized
+                                                    </Badge>
+                                                )}
+                                            </div>
+                                            <p className="text-gray-600 text-sm mb-3">{prompt.description}</p>
+                                            <div className="flex flex-wrap gap-2">
+                                                {prompt.tags.map((tag, index) => (
+                                                    <Badge key={index} className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">
+                                                        {tag}
+                                                    </Badge>
+                                                ))}
+                                            </div>
                                         </div>
-                                        <p className="text-gray-600 text-sm mb-3">{prompt.description}</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {prompt.tags.map((tag, index) => (
-                                                <Badge key={index} className="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">
-                                                    {tag}
-                                                </Badge>
-                                            ))}
-                                        </div>
-                                    </div>
 
-                                    <div className="bg-gray-50 p-4 rounded-lg mt-auto">
-                                        <h4 className="font-semibold mb-2" id={`prompt-${prompt.id}-content`}>Prompt:</h4>
-                                        <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono max-h-[150px] overflow-y-auto" aria-labelledby={`prompt-${prompt.id}-content`}>
-                                            {prompt.prompt}
-                                        </pre>
-                                        <CopyButton text={prompt.prompt} label="Prompt" />
+                                        <div className="bg-gray-50 p-4 rounded-lg mt-auto">
+                                            <h4 className="font-semibold mb-2" id={`prompt-${prompt.id}-content`}>Prompt:</h4>
+                                            <pre className="text-sm text-gray-700 whitespace-pre-wrap font-mono max-h-[150px] overflow-y-auto" aria-labelledby={`prompt-${prompt.id}-content`}>
+                                                {prompt.prompt}
+                                            </pre>
+                                            <CopyButton text={prompt.prompt} label="Prompt" />
+                                        </div>
                                     </div>
-                                </div>
-                            </Card>
-                        ))}
-                    </div>
-                )}
+                                </Card>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </section>
 
@@ -213,39 +213,39 @@ export default function PromptsLibraryPage() {
                     <Card className="p-4">
                         <h3 className="font-semibold mb-2">What is the Aki UI Prompt Library?</h3>
                         <p className="text-sm text-gray-600">
-                            The Aki UI Prompt Library is a collection of optimized prompts for AI-assisted development with Aki UI components. 
+                            The Aki UI Prompt Library is a collection of optimized prompts for AI-assisted development with Aki UI components.
                             These prompts help developers create, customize, and optimize UI components using AI tools.
                         </p>
                     </Card>
-                    
+
                     <Card className="p-4">
                         <h3 className="font-semibold mb-2">How do I use the prompts in this library?</h3>
                         <p className="text-sm text-gray-600">
-                            Copy the prompt you need, replace any placeholder variables (like [COMPONENT_TYPE]) with specific values, 
+                            Copy the prompt you need, replace any placeholder variables (like [COMPONENT_TYPE]) with specific values,
                             and then paste it into your AI assistant or LLM tool. These prompts are designed to work with both general LLMs and MCP-optimized AI assistants.
                         </p>
                     </Card>
-                    
+
                     <Card className="p-4">
                         <h3 className="font-semibold mb-2">What are MCP-optimized prompts?</h3>
                         <p className="text-sm text-gray-600">
-                            MCP (Model Context Protocol) optimized prompts are specially designed to work with AI assistants that support the Model Context Protocol. 
+                            MCP (Model Context Protocol) optimized prompts are specially designed to work with AI assistants that support the Model Context Protocol.
                             These prompts can directly invoke MCP tools to generate components, validate code, create themes, and more.
                         </p>
                     </Card>
-                    
+
                     <Card className="p-4">
                         <h3 className="font-semibold mb-2">Can I customize these prompts for my own projects?</h3>
                         <p className="text-sm text-gray-600">
-                            Yes! We encourage you to customize these prompts by combining elements from different prompts 
+                            Yes! We encourage you to customize these prompts by combining elements from different prompts
                             and adding your own project-specific details to get the most accurate and helpful responses from AI assistants.
                         </p>
                     </Card>
-                    
+
                     <Card className="p-4">
                         <h3 className="font-semibold mb-2">How often is the Prompt Library updated?</h3>
                         <p className="text-sm text-gray-600">
-                            The Prompt Library is regularly updated with new prompts as we add features to Aki UI and discover more effective ways to use AI for component development. 
+                            The Prompt Library is regularly updated with new prompts as we add features to Aki UI and discover more effective ways to use AI for component development.
                             Check back frequently for new additions.
                         </p>
                     </Card>
