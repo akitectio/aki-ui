@@ -1,4 +1,4 @@
-name: Publish to npm
+name: Publish to npm and Docker
 
 on:
   workflow_dispatch:
@@ -13,11 +13,16 @@ on:
           - minor
           - major
 
-# Sets permissions for npm publishing
+env:
+  DOCKER_REGISTRY: docker.io
+  DOCKER_IMAGE_NAME: tdduydev/aki-ui-mcp-server
+
+# Sets permissions for npm publishing and Docker
 permissions:
   contents: write
   actions: write
   id-token: write
+  packages: write
 
 jobs:
   publish-npm:
@@ -297,8 +302,40 @@ jobs:
             - Real-time integration with AI development tools
 
             See the [MCP README](https://github.com/akitectio/aki-ui/tree/main/mcp) for detailed usage instructions.
+
+            ### Docker Image
+
+            The MCP server is also available as a Docker image:
+            ```bash
+            docker pull ghcr.io/${{ github.repository_owner }}/aki-ui-mcp-server:${{ steps.version.outputs.new_version }}
+            ```
           draft: false
           prerelease: false
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push MCP Docker image
+        id: docker_build
+        uses: docker/build-push-action@v4
+        with:
+          context: ./mcp
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/aki-ui-mcp-server:latest
+            ghcr.io/${{ github.repository_owner }}/aki-ui-mcp-server:${{ steps.version.outputs.new_version }}
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/aki-ui-mcp-server:buildcache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/aki-ui-mcp-server:buildcache,mode=max
+
+      - name: Echo Docker Image Digest
+        run: echo "Docker Image Digest = ${{ steps.docker_build.outputs.digest }}"
 
       - name: Trigger website deployment
         run: |
