@@ -307,73 +307,99 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
       {/* Mobile backdrop */}
       {isOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-40"
+          className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40 transition-all duration-300"
           onClick={onClose}
         />
       )}
 
       {/* Sidebar */}
       <aside className={`
-        fixed top-16 left-0 z-50 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700
-        transform transition-transform duration-200 ease-in-out
+        fixed lg:sticky top-16 left-0 z-50 w-72 
+        h-[calc(100vh-4rem)] 
+        bg-gradient-to-b from-white via-gray-50/80 to-gray-100/50 dark:from-gray-900 dark:via-gray-800/90 dark:to-gray-700/30 
+        border-r border-gray-200 dark:border-gray-700 shadow-xl
+        backdrop-blur-sm
+        transform transition-all duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0
+        overflow-hidden
       `}>
-        <nav className="px-4 pb-6 space-y-6 overflow-y-auto h-full">
+        {/* Header */}
+        <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+              <BookOpenIcon className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white">Documentation</h2>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Aki UI Components</p>
+            </div>
+          </div>
+        </div>
+
+        <nav className="px-5 py-6 space-y-6 overflow-y-auto h-full scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-700">
           {docCategories.map((category) => {
             const Icon = category.icon
             const isCategoryExpanded = expandedCategories.includes(category.id)
 
             return (
-              <div key={category.id}>
+              <div key={category.id} className="relative">
                 <button
                   onClick={() => toggleCategory(category.id)}
-                  className="w-full flex items-center justify-between px-2 py-2 text-xs font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-md transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-3 text-xs font-bold text-gray-800 dark:text-gray-200 uppercase tracking-wider hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-gray-700 dark:hover:to-gray-600 rounded-lg transition-all duration-200 group relative overflow-hidden"
                   aria-expanded={isCategoryExpanded}
                   aria-label={`${isCategoryExpanded ? 'Collapse' : 'Expand'} ${category.title} section`}
                 >
-                  <div className="flex items-center">
-                    <Icon className="w-4 h-4 mr-2 text-gray-700 dark:text-gray-300" />
-                    {category.title}
+                  {/* Subtle glow effect on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+
+                  <div className="flex items-center relative z-10">
+                    <div className="w-6 h-6 mr-3 flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-200" />
+                    </div>
+                    <span className="font-semibold">{category.title}</span>
                   </div>
                   <ChevronRightIcon
-                    className={`w-4 h-4 transition-transform duration-200 ${isCategoryExpanded ? 'rotate-90' : ''
+                    className={`w-4 h-4 transition-all duration-300 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 relative z-10 ${isCategoryExpanded ? 'rotate-90' : ''
                       }`}
                   />
                 </button>
 
                 {isCategoryExpanded && (
-                  <ul className="mt-2 space-y-1">
+                  <ul className="mt-3 space-y-1.5 transform transition-all duration-300 ease-out">
                     {category.sections.map((section) => {
                       const hasSubsections = section.subsections && section.subsections.length > 0
                       const isExpanded = expandedSections.includes(section.id)
 
                       return (
                         <li key={section.id}>
-                          <div className="flex items-center">
+                          <div className="flex items-center group">
                             <Link
                               href={section.href}
                               className={`
-                                flex-1 block px-2 py-2 text-sm rounded-md transition-colors
+                                flex-1 block px-3 py-2.5 text-sm rounded-lg transition-all duration-200 relative overflow-hidden
                                 ${pathname === section.href
-                                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
-                                  : 'text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                  ? 'bg-gradient-to-r from-blue-50 via-blue-100 to-purple-50 dark:from-blue-900/30 dark:via-blue-800/20 dark:to-purple-900/10 text-blue-700 dark:text-blue-300 font-semibold shadow-sm border border-blue-200 dark:border-blue-800'
+                                  : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:via-gray-100 hover:to-gray-50 dark:hover:from-gray-700 dark:hover:via-gray-600 dark:hover:to-gray-700 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
                                 }
                               `}
                               onClick={() => onClose?.()}
                             >
-                              {section.title}
+                              {pathname === section.href && (
+                                <span className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 rounded-r-full"></span>
+                              )}
+                              <span className="ml-1 relative z-10">{section.title}</span>
                             </Link>
 
                             {/* Toggle button for sections with subsections */}
                             {hasSubsections && (
                               <button
                                 onClick={() => toggleSection(section.id)}
-                                className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                className="p-2 rounded-lg text-gray-400 hover:text-blue-600 dark:text-gray-500 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
                                 aria-label={isExpanded ? 'Collapse section' : 'Expand section'}
                               >
                                 <ChevronRightIcon
-                                  className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''
+                                  className={`w-4 h-4 transition-all duration-300 ${isExpanded ? 'rotate-90' : ''
                                     }`}
                                 />
                               </button>
@@ -382,24 +408,30 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
 
                           {/* Subsections (menu cấp 2) - Only show when expanded */}
                           {hasSubsections && isExpanded && section.subsections && (
-                            <ul className="mt-1 ml-4 space-y-1 border-l border-gray-200 dark:border-gray-700">
+                            <ul className="mt-2 ml-4 space-y-1.5 border-l-2 border-blue-200 dark:border-blue-800 pl-4 transform transition-all duration-300 ease-out">
                               {section.subsections.map((subsection) => (
                                 <li key={subsection.id}>
                                   <Link
                                     href={subsection.href}
                                     className={`
-                                      block px-3 py-1.5 text-sm rounded-md transition-colors
+                                      block px-3 py-2 text-sm rounded-lg transition-all duration-200 relative group overflow-hidden
                                       ${pathname === subsection.href
-                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
-                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-800 dark:hover:text-gray-200'
+                                        ? 'bg-gradient-to-r from-blue-50 via-blue-100 to-purple-50 dark:from-blue-900/30 dark:via-blue-800/20 dark:to-purple-900/10 text-blue-700 dark:text-blue-300 font-semibold shadow-sm border border-blue-200 dark:border-blue-800'
+                                        : 'text-gray-600 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-50 hover:via-gray-100 hover:to-gray-50 dark:hover:from-gray-700 dark:hover:via-gray-600 dark:hover:to-gray-700 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
                                       }
                                     `}
                                     onClick={() => onClose?.()}
                                   >
-                                    <span className="flex items-center">
-                                      <span className="w-2 h-2 bg-gray-400 dark:bg-gray-600 rounded-full mr-3 flex-shrink-0"></span>
+                                    <span className="flex items-center relative z-10">
+                                      <span className={`w-2 h-2 rounded-full mr-3 flex-shrink-0 transition-all duration-200 ${pathname === subsection.href
+                                        ? 'bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400'
+                                        : 'bg-gray-400 dark:bg-gray-600 group-hover:bg-gradient-to-r group-hover:from-blue-500 group-hover:to-purple-500 dark:group-hover:from-blue-400 dark:group-hover:to-purple-400'
+                                        }`}></span>
                                       {subsection.title}
                                     </span>
+                                    {pathname === subsection.href && (
+                                      <span className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 rounded-r-full"></span>
+                                    )}
                                   </Link>
                                 </li>
                               ))}

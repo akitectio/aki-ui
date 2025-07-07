@@ -536,6 +536,7 @@ function NavbarWithSearch({ selectedDevice = 'desktop' }) {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="navbar-with-search"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

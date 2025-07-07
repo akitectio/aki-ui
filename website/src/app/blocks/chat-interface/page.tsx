@@ -484,6 +484,7 @@ function ChatInterface() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="chat-interface"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

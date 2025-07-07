@@ -537,6 +537,7 @@ function HeroSection() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="hero-section"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

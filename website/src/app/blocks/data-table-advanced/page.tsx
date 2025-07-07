@@ -685,6 +685,7 @@ export default function AdvancedDataTable() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="data-table-advanced"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

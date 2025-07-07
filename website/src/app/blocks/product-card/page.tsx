@@ -348,7 +348,7 @@ export default function ProductCardPage() {
                         </p>
                     </div>
 
-                    <Tabs tabs={tabs} persistKey="product-card" defaultTab="preview" className="w-full" />
+                    <Tabs tabs={tabs} persistKey="product-card" useUrlHash={true} defaultTab="preview" className="w-full" />
                 </div>
             </div>
         </div>

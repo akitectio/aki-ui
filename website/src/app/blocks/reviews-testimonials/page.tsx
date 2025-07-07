@@ -216,6 +216,7 @@ export function ReviewsSection() {
         {/* Tabs for Preview and Code */}
         <Tabs
           persistKey="reviews-testimonials"
+          useUrlHash={true}
           tabs={[
             {
               id: 'preview',

@@ -510,6 +510,7 @@ function AnalyticsDashboard() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="dashboard-analytics"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

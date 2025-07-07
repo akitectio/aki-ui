@@ -699,6 +699,7 @@ function SignupForm() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="signup-form"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

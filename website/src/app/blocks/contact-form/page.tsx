@@ -549,6 +549,7 @@ function ContactForm() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="contact-form"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

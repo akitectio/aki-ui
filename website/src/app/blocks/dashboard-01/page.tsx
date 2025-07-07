@@ -508,6 +508,7 @@ function Dashboard() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="dashboard-01"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

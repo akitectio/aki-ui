@@ -433,6 +433,7 @@ function CalendarWidget() {
         {/* Tabs for Preview and Code */}
         <Tabs
           persistKey="calendar-widget"
+          useUrlHash={true}
           tabs={[
             {
               id: 'preview',

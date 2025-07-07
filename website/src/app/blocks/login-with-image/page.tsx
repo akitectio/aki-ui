@@ -666,6 +666,7 @@ function LoginWithImage() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="login-with-image"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

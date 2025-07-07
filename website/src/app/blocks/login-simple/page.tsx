@@ -443,6 +443,7 @@ function SimpleLogin() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="login-simple"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',

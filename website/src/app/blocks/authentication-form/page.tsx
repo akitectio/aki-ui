@@ -407,6 +407,7 @@ function LoginForm() {
         {/* Tabs for Preview and Code */}
         <Tabs
           persistKey="authentication-form"
+          useUrlHash={true}
           tabs={[
             {
               id: 'preview',

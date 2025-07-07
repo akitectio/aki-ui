@@ -303,6 +303,7 @@ function CollapsibleSidebarExample() {
         {/* Tabs for Preview and Code */}
         <Tabs
           persistKey="sidebar-collapsible"
+          useUrlHash={true}
           tabs={[
             {
               id: 'preview',

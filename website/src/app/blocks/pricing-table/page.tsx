@@ -405,6 +405,7 @@ function PricingTable() {
                 {/* Tabs for Preview and Code */}
                 <Tabs
                     persistKey="pricing-table"
+                    useUrlHash={true}
                     tabs={[
                         {
                             id: 'preview',
