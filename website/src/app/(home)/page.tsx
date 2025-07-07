@@ -20,7 +20,7 @@ export default function Home() {
     }
   }
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-900 pt-16">
+    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-900 pt-16">
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
@@ -79,8 +79,8 @@ export default function Home() {
                   {copyText}
                 </button>
               </div>
-              <div className="overflow-x-auto -mx-1 sm:mx-0">
-                <code className="text-emerald-400 font-mono text-sm sm:text-base md:text-lg whitespace-nowrap block px-1 sm:px-0 min-w-max">
+              <div className="overflow-x-auto w-full">
+                <code className="text-emerald-400 font-mono text-sm sm:text-base md:text-lg whitespace-nowrap block">
                   npm install @akitectio/aki-ui
                 </code>
               </div>
@@ -93,10 +93,10 @@ export default function Home() {
       <ComponentShowcase />
 
       {/* LLM & MCP Integration Highlight */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden w-full">
+        <div className="max-w-7xl mx-auto w-full overflow-hidden">
           <div className="text-center mb-12">
-            <Badge variant="primary" position="top-right" className="mb-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+            <Badge variant="primary" className="mb-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
               🚀 AI-Powered Development
             </Badge>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
@@ -111,12 +111,12 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-6 items-start overflow-hidden max-w-full">
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m9 8h-1M4 12H3m12 6.5a2 2 0 11-4 0 2 2 0 014 0zM10 17h4" />
                   </svg>
                 </div>
                 <div>
@@ -131,7 +131,7 @@ export default function Home() {
               <div className="flex items-start space-x-4">
                 <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l3 3-3 3m5 0h3M5 5h14v14H5z" />
                   </svg>
                 </div>
                 <div>
@@ -146,7 +146,7 @@ export default function Home() {
               <div className="flex items-start space-x-4">
                 <div className="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center flex-shrink-0">
                   <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V5L6 12h6v7l6-7h-5z" />
                   </svg>
                 </div>
                 <div>
@@ -162,11 +162,12 @@ export default function Home() {
             <div className="bg-slate-900 dark:bg-slate-800 rounded-2xl p-3 sm:p-4 md:p-6 shadow-2xl border border-slate-700 overflow-hidden">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-slate-400 text-xs sm:text-sm font-medium">AI-Generated Component</span>
-                <Badge variant="secondary" position="top-right" className="bg-purple-600 text-white flex-shrink-0 text-xs">✨ AI</Badge>
+                <Badge variant="secondary" className="bg-purple-600 text-white flex-shrink-0 text-xs">✨ AI</Badge>
               </div>
-              <div className="overflow-x-auto -mx-1 sm:mx-0">
-                <pre className="text-xs sm:text-sm md:text-base text-slate-300 px-1 sm:px-0">
-                  <code className="block min-w-max">{`// Generated with: "Create a user profile card"
+              <div className="overflow-hidden max-w-full">
+                <div className="overflow-x-auto max-w-full">
+                  <pre className="text-xs sm:text-sm md:text-base text-slate-300 p-2 max-w-full">
+                    <code className="break-normal">{`// Generated with: "Create a user profile card"
 import { Card, Avatar, Button } from '@akitectio/aki-ui'
 
 export function UserProfile({ user }) {
@@ -185,17 +186,18 @@ export function UserProfile({ user }) {
     </Card>
   )
 }`}</code>
-                </pre>
+                  </pre>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="mt-12 text-center">
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Link href="/ai/llm" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg rounded-md w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-xl mx-auto">
+              <Link href="/ai/llm" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 py-2 text-sm bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg rounded-md w-full sm:w-auto">
                 Explore LLM Integration
               </Link>
-              <Link href="/ai/mcp" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md w-full sm:w-auto">
+              <Link href="/ai/mcp" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 py-2 text-sm border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md w-full sm:w-auto">
                 Learn about MCP
               </Link>
             </div>

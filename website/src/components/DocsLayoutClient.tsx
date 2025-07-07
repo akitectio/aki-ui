@@ -12,13 +12,13 @@ export function DocsLayoutClient({
   const { isSidebarOpen, closeSidebar } = useSidebar()
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 relative pt-16">
-      <div className="flex min-h-[calc(100vh-4rem)]">
+    <div className="bg-gray-50 dark:bg-gray-900 relative pt-16 overflow-x-hidden">
+      <div className="flex flex-col lg:flex-row min-h-screen w-full">
         <DocsSidebar
           isOpen={isSidebarOpen}
           onClose={closeSidebar}
         />
-        <main className="flex-1 lg:ml-0 bg-gray-50 dark:bg-gray-900">
+        <main className="flex-1 lg:ml-0 bg-gray-50 dark:bg-gray-900 pb-8 overflow-x-hidden">
           <div className="px-6 py-4 max-w-4xl mx-auto">
             <DocsPageWrapper>
               <div className="py-4">

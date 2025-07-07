@@ -288,14 +288,16 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
       {/* Sidebar */}
       <aside className={`
         fixed lg:sticky top-16 left-0 z-50 w-72 
-        h-[calc(100vh-4rem)] 
+        h-[calc(100vh-4rem)] lg:h-[calc(100vh-4rem)]
         bg-gradient-to-b from-white via-gray-50/80 to-gray-100/50 dark:from-gray-900 dark:via-gray-800/90 dark:to-gray-700/30 
         border-r border-gray-200 dark:border-gray-700 shadow-xl
         backdrop-blur-sm
         transform transition-all duration-300 ease-in-out
         ${isOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0
-        overflow-hidden
+        overflow-hidden overflow-x-hidden
+        lg:self-start
+        flex flex-col
       `}>
         {/* Header */}
         <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
@@ -310,7 +312,7 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
           </div>
         </div>
 
-        <nav className="px-5 py-6 space-y-6 overflow-y-auto h-full scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-700">
+        <nav className="px-5 py-6 space-y-6 overflow-y-auto overflow-x-hidden w-full h-[calc(100%-6rem)] lg:max-h-[calc(100vh-12rem)] scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-700 pb-24 lg:pb-12">
           {docCategories.map((category) => {
             const Icon = category.icon
             const isCategoryExpanded = expandedCategories.includes(category.id)
@@ -350,7 +352,7 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
                             <Link
                               href={section.href}
                               className={`
-                                flex-1 block px-3 py-2.5 text-sm rounded-lg transition-all duration-200 relative overflow-hidden
+                                flex-1 block px-3 py-2.5 text-sm rounded-lg transition-all duration-200 relative overflow-hidden whitespace-normal break-words
                                 ${pathname === section.href
                                   ? 'bg-gradient-to-r from-blue-50 via-blue-100 to-purple-50 dark:from-blue-900/30 dark:via-blue-800/20 dark:to-purple-900/10 text-blue-700 dark:text-blue-300 font-semibold shadow-sm border border-blue-200 dark:border-blue-800'
                                   : 'text-gray-700 dark:text-gray-200 hover:bg-gradient-to-r hover:from-gray-50 hover:via-gray-100 hover:to-gray-50 dark:hover:from-gray-700 dark:hover:via-gray-600 dark:hover:to-gray-700 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
@@ -381,13 +383,13 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
 
                           {/* Subsections (menu cấp 2) - Only show when expanded */}
                           {hasSubsections && isExpanded && section.subsections && (
-                            <ul className="mt-2 ml-4 space-y-1.5 border-l-2 border-blue-200 dark:border-blue-800 pl-4 transform transition-all duration-300 ease-out">
+                            <ul className="mt-2 ml-4 space-y-1.5 border-l-2 border-blue-200 dark:border-blue-800 pl-4 transform transition-all duration-300 ease-out max-w-[calc(100%-1rem)] overflow-hidden">
                               {section.subsections.map((subsection) => (
                                 <li key={subsection.id}>
                                   <Link
                                     href={subsection.href}
                                     className={`
-                                      block px-3 py-2 text-sm rounded-lg transition-all duration-200 relative group overflow-hidden
+                                      block px-3 py-2 text-sm rounded-lg transition-all duration-200 relative group overflow-hidden whitespace-normal break-words
                                       ${pathname === subsection.href
                                         ? 'bg-gradient-to-r from-blue-50 via-blue-100 to-purple-50 dark:from-blue-900/30 dark:via-blue-800/20 dark:to-purple-900/10 text-blue-700 dark:text-blue-300 font-semibold shadow-sm border border-blue-200 dark:border-blue-800'
                                         : 'text-gray-600 dark:text-gray-300 hover:bg-gradient-to-r hover:from-gray-50 hover:via-gray-100 hover:to-gray-50 dark:hover:from-gray-700 dark:hover:via-gray-600 dark:hover:to-gray-700 hover:text-gray-900 dark:hover:text-gray-100 hover:shadow-sm'
