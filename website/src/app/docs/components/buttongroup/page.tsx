@@ -2,7 +2,7 @@
 
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
-import { Button, ButtonGroup, Card } from '@/components/client-components'
+import { Button, ButtonGroup, Card } from '@akitectio/aki-ui'
 
 export default function ButtonGroupPage() {
     return (
@@ -15,7 +15,7 @@ export default function ButtonGroupPage() {
                 <section>
                     <h2 className="text-2xl font-semibold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { ButtonGroup, Button } from '@/components/client-components'`}
+                        {`import { ButtonGroup, Button } from '@akitectio/aki-ui'`}
                     </CodeBlock>
                 </section>
 

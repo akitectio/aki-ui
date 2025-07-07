@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, Avatar, Badge } from '@/components/client-components'
+import { Card, Avatar, Badge } from '@akitectio/aki-ui'
 import { StarIcon } from '@heroicons/react/24/solid'
 import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline'
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Checkbox } from '@/components/client-components'
+import { Checkbox } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -29,7 +29,7 @@ export default function CheckboxPage() {
         </div>
         <CodeBlock
           language="tsx"
-          code={`import { Checkbox } from '@/components/client-components'
+          code={`import { Checkbox } from '@akitectio/aki-ui'
 
 function BasicCheckbox() {
   return (
@@ -62,7 +62,7 @@ function BasicCheckbox() {
         <CodeBlock
           language="tsx"
           code={`import { useState } from 'react'
-import { Checkbox } from '@/components/client-components'
+import { Checkbox } from '@akitectio/aki-ui'
 
 function ControlledCheckbox() {
   const [checked, setChecked] = useState(false)
@@ -156,7 +156,7 @@ function ControlledCheckbox() {
         <CodeBlock
           language="tsx"
           code={`import { useState } from 'react'
-import { Checkbox } from '@/components/client-components'
+import { Checkbox } from '@akitectio/aki-ui'
 
 function IndeterminateCheckbox() {
   const [parentChecked, setParentChecked] = useState(false)

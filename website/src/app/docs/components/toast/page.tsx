@@ -62,7 +62,7 @@ export default function ToastPage() {
             <h3 className="text-lg font-semibold">Setup Toast Provider</h3>
             <CodeBlock
               language="tsx"
-              code={`import { ToastProvider } from '@/components/client-components'
+              code={`import { ToastProvider } from '@akitectio/aki-ui'
 
 function App() {
   return (
@@ -76,7 +76,7 @@ function App() {
             <h3 className="text-lg font-semibold">Using the useToast Hook</h3>
             <CodeBlock
               language="tsx"
-              code={`import { useToast, Button } from '@/components/client-components'
+              code={`import { useToast, Button } from '@akitectio/aki-ui'
 
 function MyComponent() {
   const toast = useToast()

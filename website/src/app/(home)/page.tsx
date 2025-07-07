@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ComponentShowcase } from '@/components/ComponentShowcase'
-import { Badge, Card } from '@/components/client-components'
+import { Badge, Card } from '@akitectio/aki-ui'
 
 export default function Home() {
   const [copyText, setCopyText] = useState('Copy')

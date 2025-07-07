@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Radio, RadioGroup } from '@/components/client-components'
+import { Radio, RadioGroup } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -38,7 +38,7 @@ export default function RadioPage() {
         <CodeBlock
           language="tsx"
           code={`import { useState } from 'react'
-import { Radio, RadioGroup } from '@/components/client-components'
+import { Radio, RadioGroup } from '@akitectio/aki-ui'
 
 function BasicRadio() {
   const [selectedPlan, setSelectedPlan] = useState('basic')
@@ -96,7 +96,7 @@ function BasicRadio() {
         <CodeBlock
           language="tsx"
           code={`import { useState } from 'react'
-import { Radio } from '@/components/client-components'
+import { Radio } from '@akitectio/aki-ui'
 
 function IndividualRadio() {
   const [selectedSize, setSelectedSize] = useState('')

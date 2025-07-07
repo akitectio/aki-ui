@@ -2,7 +2,7 @@
 
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
-import { Button, Card, Badge } from '@/components/client-components'
+import { Button, Card, Badge } from '@akitectio/aki-ui'
 
 export default function CardPage() {
   return (
@@ -14,7 +14,7 @@ export default function CardPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Import</h2>
           <CodeBlock language="typescript">
-            {`import { Card } from '@/components/client-components'`}
+            {`import { Card } from '@akitectio/aki-ui'`}
           </CodeBlock>
         </section>
 

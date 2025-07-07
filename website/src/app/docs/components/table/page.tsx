@@ -1,6 +1,6 @@
 'use client'
 
-import { Table } from '@/components/client-components';
+import { Table } from '@akitectio/aki-ui';
 import { CodeBlock } from '@/components/CodeBlock';
 import { PageHeader } from '@/components/PageHeader';
 
@@ -47,7 +47,7 @@ export default function TablePage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Table } from '@/components/client-components'`}
+                        {`import { Table } from '@akitectio/aki-ui'`}
                     </CodeBlock>
                 </section>
 

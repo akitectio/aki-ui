@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { CheckIcon, XMarkIcon, StarIcon } from '@heroicons/react/24/outline'
-import { Card, Button } from '@/components/client-components'
+import { Card } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { Tabs } from '@/components/Tabs'
 import BlockHeader from '@/components/BlockHeader'
@@ -148,12 +148,16 @@ function PricingTable({ selectedDevice = 'desktop' }: { selectedDevice?: 'mobile
                                     )}
                                 </div>
 
-                                <Button
-                                    variant={plan.buttonVariant}
-                                    className={`w-full ${plan.popular ? 'bg-blue-600 text-white hover:bg-blue-700' : ''}`}
+                                <button
+                                    className={`w-full px-4 py-2 rounded-lg font-medium transition-colors ${plan.popular
+                                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                        : plan.buttonVariant === 'outline'
+                                            ? 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                                            : 'bg-blue-600 text-white hover:bg-blue-700'
+                                        }`}
                                 >
                                     {plan.buttonText}
-                                </Button>
+                                </button>
                             </div>
 
                             <div className="space-y-4">

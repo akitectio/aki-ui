@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 // @ts-ignore - Required for component usage
-import { Chip } from '@/components/client-components'
+import { Chip } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 

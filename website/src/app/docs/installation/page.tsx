@@ -1,6 +1,6 @@
 'use client'
 
-import { Card } from '@/components/client-components'
+import { Card } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import { Dialog } from '@/components/client-components';
+import { Dialog } from '@akitectio/aki-ui';
 import { CodeBlock } from '@/components/CodeBlock';
 import { PageHeader } from '@/components/PageHeader';
 
@@ -17,7 +17,7 @@ export default function DialogPage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Dialog } from '@/components/client-components'`}
+                        {`import { Dialog } from '@akitectio/aki-ui'`}
                     </CodeBlock>
                 </section>
 

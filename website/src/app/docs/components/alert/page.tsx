@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Alert } from '@/components/client-components'
+import { Alert } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -36,7 +36,7 @@ export default function AlertPage() {
         </div>
         <CodeBlock
           language="tsx"
-          code={`import { Alert } from '@/components/client-components'
+          code={`import { Alert } from '@akitectio/aki-ui'
 
 function BasicAlert() {
   return (
@@ -178,7 +178,7 @@ function BasicAlert() {
         <CodeBlock
           language="tsx"
           code={`import { useState } from 'react'
-import { Alert } from '@/components/client-components'
+import { Alert } from '@akitectio/aki-ui'
 
 function DismissibleAlert() {
   const [showAlert, setShowAlert] = useState(true)

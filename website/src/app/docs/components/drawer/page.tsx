@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
-import { Drawer, Button } from '@/components/client-components'
+import { Drawer, Button } from '@akitectio/aki-ui'
 
 export default function DrawerPage() {
   const [basicOpen, setBasicOpen] = useState(false)
@@ -32,7 +32,7 @@ export default function DrawerPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Import</h2>
           <CodeBlock language="typescript">
-            {`import { Drawer } from '@/components/client-components'`}
+            {`import { Drawer } from '@akitectio/aki-ui'`}
           </CodeBlock>
         </section>
 

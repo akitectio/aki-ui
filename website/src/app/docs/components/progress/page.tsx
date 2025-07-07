@@ -1,6 +1,6 @@
 'use client'
 
-import { Progress } from '@/components/client-components';
+import { Progress } from '@akitectio/aki-ui';
 import { CodeBlock } from '@/components/CodeBlock';
 import { PageHeader } from '@/components/PageHeader';
 
@@ -14,7 +14,7 @@ export default function ProgressPage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Progress } from '@/components/client-components'`}
+                        {`import { Progress } from '@akitectio/aki-ui'`}
                     </CodeBlock>
                 </section>
 

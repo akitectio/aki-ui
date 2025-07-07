@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import { Toggle } from '@/components/client-components';
+import { Toggle } from '@akitectio/aki-ui';
 import { CodeBlock } from '@/components/CodeBlock';
 import { PageHeader } from '@/components/PageHeader';
 
@@ -17,7 +17,7 @@ export default function TogglePage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Toggle } from '@/components/client-components'`}
+                        {`import { Toggle } from '@akitectio/aki-ui'`}
                     </CodeBlock>
                 </section>
 

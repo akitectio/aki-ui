@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { DataTable, Card, Badge, Button } from '@/components/client-components'
+import { DataTable, Card, Badge, Button } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
@@ -161,7 +161,7 @@ export default function DataTablePage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Import</h2>
           <CodeBlock language="typescript">
-            {`import { DataTable } from '@/components/client-components'`}
+            {`import { DataTable } from '@akitectio/aki-ui'`}
           </CodeBlock>
         </section>
 
@@ -445,7 +445,7 @@ const columns = [
             <div className="space-y-4">
               <CodeBlock language="typescript">
 {`import { useState, useEffect } from 'react'
-import { DataTable, Badge, Button } from '@/components/client-components'
+import { DataTable, Badge, Button } from '@akitectio/aki-ui'
 
 function UserTable() {
   const [users, setUsers] = useState([])

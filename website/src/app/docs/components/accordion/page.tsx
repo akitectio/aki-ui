@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Accordion } from '@/components/client-components'
+import { Accordion } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -25,7 +25,7 @@ export default function AccordionPage() {
                 <section>
                     <h2 className="text-2xl font-semibold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Accordion } from '@/components/client-components'`}
+                        {`import { Accordion } from '@akitectio/aki-ui'`}
                     </CodeBlock>
                 </section>
 

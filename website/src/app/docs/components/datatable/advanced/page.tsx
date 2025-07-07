@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { DataTable, Card, Badge, Button } from '@/components/client-components'
+import { DataTable, Card, Badge, Button } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 

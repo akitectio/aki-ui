@@ -13,7 +13,7 @@ export default function LabelPage() {
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { Label } from '@/components/client-components'`}
+                        {`import { Label } from '@akitectio/aki-ui'`}
                     </CodeBlock>
                 </section>
 

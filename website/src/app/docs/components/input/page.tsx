@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Input, Card, Button, Badge } from '@/components/client-components'
+import { Input, Card, Button, Badge } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
@@ -28,7 +28,7 @@ export default function InputPage() {
         <section>
           <h2 className="text-2xl font-bold mb-4">Import</h2>
           <CodeBlock language="typescript">
-            {`import { Input } from '@/components/client-components'`}
+            {`import { Input } from '@akitectio/aki-ui'`}
           </CodeBlock>
         </section>
 
@@ -43,7 +43,7 @@ export default function InputPage() {
                 <Input placeholder="Search input" type="search" />
               </div>
               <CodeBlock language="typescript">
-{`<Input placeholder="Default input" />
+                {`<Input placeholder="Default input" />
 <Input placeholder="Email input" type="email" />
 <Input placeholder="Password input" type="password" />
 <Input placeholder="Search input" type="search" />`}
@@ -62,7 +62,7 @@ export default function InputPage() {
                 <Input placeholder="Large input" size="lg" />
               </div>
               <CodeBlock language="typescript">
-{`<Input placeholder="Small input" size="sm" />
+                {`<Input placeholder="Small input" size="sm" />
 <Input placeholder="Medium input" size="md" />
 <Input placeholder="Large input" size="lg" />`}
               </CodeBlock>
@@ -81,7 +81,7 @@ export default function InputPage() {
                 <Input placeholder="Read only" readOnly value="Read only value" />
               </div>
               <CodeBlock language="typescript">
-{`<Input placeholder="Normal state" />
+                {`<Input placeholder="Normal state" />
 <Input placeholder="Disabled state" disabled />
 <Input placeholder="Required field" required />
 <Input placeholder="Read only" readOnly value="Read only value" />`}
@@ -109,7 +109,7 @@ export default function InputPage() {
                 </div>
               </div>
               <CodeBlock language="typescript">
-{`// With left icon
+                {`// With left icon
 <div className="relative">
   <Input placeholder="Search..." className="pl-10" />
   <SearchIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -131,7 +131,7 @@ export default function InputPage() {
             <div className="space-y-4">
               <div className="space-y-3">
                 <div>
-                  <Input 
+                  <Input
                     placeholder="Enter username (min 3 characters)"
                     value={inputValue}
                     onChange={(e) => {
@@ -144,13 +144,13 @@ export default function InputPage() {
                     <p className="text-red-500 text-sm mt-1">{error}</p>
                   )}
                 </div>
-                <Input 
-                  placeholder="Success state" 
-                  className="border-green-500 focus:border-green-500 focus:ring-green-500" 
+                <Input
+                  placeholder="Success state"
+                  className="border-green-500 focus:border-green-500 focus:ring-green-500"
                 />
               </div>
               <CodeBlock language="typescript">
-{`const [value, setValue] = useState('')
+                {`const [value, setValue] = useState('')
 const [error, setError] = useState('')
 
 const handleChange = (e) => {
@@ -196,7 +196,7 @@ return (
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Bio</label>
-                  <textarea 
+                  <textarea
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     rows={3}
                     placeholder="Tell us about yourself"
@@ -205,7 +205,7 @@ return (
                 <Button type="submit">Submit</Button>
               </form>
               <CodeBlock language="typescript">
-{`<form className="space-y-4">
+                {`<form className="space-y-4">
   <div>
     <label className="block text-sm font-medium mb-2">Full Name</label>
     <Input placeholder="Enter your full name" required />

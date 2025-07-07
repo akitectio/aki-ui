@@ -21,10 +21,10 @@ export default function SelectPage() {
             <section>
                 <h2 className="text-2xl font-semibold mb-4">Import</h2>
                 <CodeBlock language="tsx">
-                    {`import { Select } from '@/components/client-components'
+                    {`import { Select } from '@akitectio/aki-ui'
 
 // TypeScript types
-import type { SelectProps, SelectRef, SelectOption } from '@/components/client-components'`}
+import type { SelectProps, SelectRef, SelectOption } from '@akitectio/aki-ui'`}
                 </CodeBlock>
             </section>
 
@@ -49,7 +49,7 @@ import type { SelectProps, SelectRef, SelectOption } from '@/components/client-c
                         </div>
                     </div>
                     <CodeBlock language="tsx">
-                        {`import { Select } from '@/components/client-components'
+                        {`import { Select } from '@akitectio/aki-ui'
 
 const options = [
   { value: 'option1', label: 'Option 1' },
@@ -101,7 +101,7 @@ function BasicSelect() {
                         </div>
                     </div>
                     <CodeBlock language="tsx">
-                        {`import { Select } from '@/components/client-components'
+                        {`import { Select } from '@akitectio/aki-ui'
 
 const fruits = [
   { value: 'apple', label: 'Apple' },

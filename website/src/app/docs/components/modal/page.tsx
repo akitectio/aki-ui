@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from '@/components/client-components'
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -49,7 +49,7 @@ export default function ModalPage() {
         <CodeBlock
           language="tsx"
           code={`import { useState } from 'react'
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from '@/components/client-components'
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from '@akitectio/aki-ui'
 
 function BasicModal() {
   const [isOpen, setIsOpen] = useState(false)

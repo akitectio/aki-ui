@@ -43,7 +43,7 @@ export default function PopoverPage() {
             <section>
                 <h2 className="text-2xl font-semibold mb-4">Import</h2>
                 <CodeBlock language="tsx">
-                    {`import { Popover } from '@/components/client-components'
+                    {`import { Popover } from '@akitectio/aki-ui'
 
 // TypeScript types
 import type { 
@@ -51,7 +51,7 @@ import type {
   PopoverRef,
   PopoverPlacement,
   PopoverTrigger 
-} from '@/components/client-components'`}
+} from '@akitectio/aki-ui'`}
                 </CodeBlock>
             </section>
 
@@ -90,7 +90,7 @@ import type {
                         </div>
                     </div>
                     <CodeBlock language="tsx">
-                        {`import { Popover } from '@/components/client-components'
+                        {`import { Popover } from '@akitectio/aki-ui'
 
 function BasicPopover() {
   return (

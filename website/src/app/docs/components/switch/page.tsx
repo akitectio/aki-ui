@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Switch } from '@/components/client-components'
+import { Switch } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
 import { CodeBlock } from '@/components/CodeBlock'
 
@@ -31,7 +31,7 @@ export default function SwitchPage() {
         </div>
         <CodeBlock
           language="tsx"
-          code={`import { Switch } from '@/components/client-components'
+          code={`import { Switch } from '@akitectio/aki-ui'
 
 function BasicSwitch() {
   return (
@@ -77,7 +77,7 @@ function BasicSwitch() {
         <CodeBlock
           language="tsx"
           code={`import { useState } from 'react'
-import { Switch } from '@/components/client-components'
+import { Switch } from '@akitectio/aki-ui'
 
 function ControlledSwitch() {
   const [isEnabled, setIsEnabled] = useState(false)

@@ -1,351 +1,335 @@
 'use client'
 
+import { useState } from 'react'
+import { FloatingLabel, Card } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
 export default function FloatingLabelPage() {
+    const [email, setEmail] = useState('')
+    const [name, setName] = useState('')
+
     return (
         <PageHeader
             title="FloatingLabel"
-            description="An input component with an animated floating label that moves up and shrinks when focused or has content, providing a clean and modern user experience."
+            description="An input component with an animated floating label that moves up and shrinks when focused or has content."
         >
             <div className="space-y-8">
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Import</h2>
                     <CodeBlock language="typescript">
-                        {`import { FloatingLabel } from '@/components/client-components'`}
+                        {`import { FloatingLabel } from '@akitectio/aki-ui'`}
                     </CodeBlock>
                 </section>
 
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Basic Usage</h2>
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-                        <div className="space-y-4">
-                            <div className="relative">
-                                <div className="relative">
-                                    <input
-                                        type="text"
-                                        id="floating-example"
-                                        className="peer h-10 w-full border-b border-blue-500 bg-transparent pt-4 pb-1.5 px-0 text-sm text-gray-900 placeholder-transparent focus:border-blue-500 focus:outline-none focus:ring-0 dark:text-white dark:border-blue-400 dark:focus:border-blue-400"
-                                        placeholder="Email Address"
-                                        defaultValue="john.doe@example.com"
-                                    />
-                                    <label
-                                        htmlFor="floating-example"
-                                        className="absolute left-0 top-2 text-xs text-blue-600 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-blue-600 dark:text-blue-400 dark:peer-placeholder-shown:text-gray-400 dark:peer-focus:text-blue-400"
-                                    >
-                                        Email Address
-                                    </label>
-                                </div>
+                    <Card className="p-6">
+                        <div className="space-y-6">
+                            <div className="max-w-md">
+                                <FloatingLabel
+                                    label="Email Address"
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Enter your email"
+                                />
                             </div>
                             <CodeBlock language="tsx">
-                                {`import { FloatingLabel } from '@/components/client-components'
+                                {`import { FloatingLabel } from '@akitectio/aki-ui'
 
 export default function MyForm() {
+  const [email, setEmail] = useState('')
+
   return (
     <FloatingLabel 
       label="Email Address"
-      placeholder=""
-      variant="outline"
-      size="md"
-      colorScheme="blue"
+      type="email"
+      value={email}
+      onChange={(e) => setEmail(e.target.value)}
+      placeholder="Enter your email"
     />
   )
 }`}
                             </CodeBlock>
                         </div>
-                    </div>
+                    </Card>
                 </section>
 
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Variants</h2>
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <Card className="p-6">
                         <div className="space-y-6">
-                            <p className="mb-4">
-                                FloatingLabel offers three visual style variants to match your application's design.
+                            <p className="text-gray-600 dark:text-gray-300">
+                                FloatingLabel supports multiple visual style variants.
                             </p>
                             <div className="grid gap-6 md:grid-cols-3">
-                                {/* Outline */}
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-semibold">Outline</h3>
-                                    <div className="relative pt-2">
-                                        <input
-                                            type="text"
-                                            id="outline-example"
-                                            className="peer h-10 w-full rounded-md border border-gray-300 bg-transparent pt-4 pb-1.5 px-3 text-sm text-gray-900 placeholder-transparent focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:text-white dark:border-gray-600 dark:focus:border-blue-400 dark:focus:ring-blue-400"
-                                            placeholder="First Name"
-                                        />
-                                        <label
-                                            htmlFor="outline-example"
-                                            className="absolute left-3 top-1 text-xs text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3.5 peer-focus:top-1 peer-focus:text-xs peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-400"
-                                        >
-                                            First Name
-                                        </label>
-                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Outline</h3>
+                                    <FloatingLabel
+                                        label="First Name"
+                                        variant="outline"
+                                        placeholder="Enter your first name"
+                                    />
                                 </div>
-                                {/* Filled */}
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-semibold">Filled</h3>
-                                    <div className="relative pt-2">
-                                        <input
-                                            type="text"
-                                            id="filled-example"
-                                            className="peer h-10 w-full rounded-md border-0 bg-gray-100 pt-4 pb-1.5 px-3 text-sm text-gray-900 placeholder-transparent focus:bg-gray-50 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:focus:bg-gray-800 dark:focus:ring-blue-400"
-                                            placeholder="Last Name"
-                                        />
-                                        <label
-                                            htmlFor="filled-example"
-                                            className="absolute left-3 top-1 text-xs text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3.5 peer-focus:top-1 peer-focus:text-xs peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-400"
-                                        >
-                                            Last Name
-                                        </label>
-                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Filled</h3>
+                                    <FloatingLabel
+                                        label="Last Name"
+                                        variant="filled"
+                                        placeholder="Enter your last name"
+                                    />
                                 </div>
-                                {/* Standard */}
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-semibold">Standard</h3>
-                                    <div className="relative">
-                                        <input
-                                            type="text"
-                                            id="standard-example"
-                                            className="peer h-10 w-full border-b border-gray-300 bg-transparent pt-4 pb-1.5 px-0 text-sm text-gray-900 placeholder-transparent focus:border-blue-500 focus:outline-none focus:ring-0 dark:text-white dark:border-gray-600 dark:focus:border-blue-400"
-                                            placeholder="Phone Number"
-                                        />
-                                        <label
-                                            htmlFor="standard-example"
-                                            className="absolute left-0 top-2 text-xs text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-2 peer-focus:text-xs peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-400"
-                                        >
-                                            Phone Number
-                                        </label>
-                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Standard</h3>
+                                    <FloatingLabel
+                                        label="Phone Number"
+                                        variant="standard"
+                                        placeholder="Enter your phone"
+                                    />
                                 </div>
                             </div>
                             <CodeBlock language="tsx">
-                                {`// Outline variant
+                                {`// Different variants
 <FloatingLabel label="First Name" variant="outline" />
-
-// Filled variant
 <FloatingLabel label="Last Name" variant="filled" />
-
-// Standard variant (underline)
 <FloatingLabel label="Phone Number" variant="standard" />`}
                             </CodeBlock>
                         </div>
-                    </div>
+                    </Card>
                 </section>
 
                 <section>
                     <h2 className="text-2xl font-bold mb-4">Sizes</h2>
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <Card className="p-6">
                         <div className="space-y-6">
-                            <p className="mb-4">
+                            <p className="text-gray-600 dark:text-gray-300">
                                 FloatingLabel supports three sizes to accommodate different design needs.
                             </p>
                             <div className="grid gap-6 md:grid-cols-3">
-                                {/* Small */}
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-semibold">Small</h3>
-                                    <div className="relative pt-2">
-                                        <input
-                                            type="text"
-                                            id="small-example"
-                                            className="peer h-8 w-full rounded-md border border-gray-300 bg-transparent pt-3 pb-1 px-2 text-xs text-gray-900 placeholder-transparent focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:text-white dark:border-gray-600 dark:focus:border-blue-400 dark:focus:ring-blue-400"
-                                            placeholder="Small Input"
-                                        />
-                                        <label
-                                            htmlFor="small-example"
-                                            className="absolute left-2 top-0 text-[10px] text-gray-500 transition-all peer-placeholder-shown:text-xs peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2.5 peer-focus:top-0 peer-focus:text-[10px] peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-400"
-                                        >
-                                            Small Input
-                                        </label>
-                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Small</h3>
+                                    <FloatingLabel
+                                        label="Small Input"
+                                        size="sm"
+                                        placeholder="Small size"
+                                    />
                                 </div>
-                                {/* Medium */}
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-semibold">Medium</h3>
-                                    <div className="relative pt-2">
-                                        <input
-                                            type="text"
-                                            id="medium-example"
-                                            className="peer h-10 w-full rounded-md border border-gray-300 bg-transparent pt-4 pb-1.5 px-3 text-sm text-gray-900 placeholder-transparent focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:text-white dark:border-gray-600 dark:focus:border-blue-400 dark:focus:ring-blue-400"
-                                            placeholder="Medium Input"
-                                        />
-                                        <label
-                                            htmlFor="medium-example"
-                                            className="absolute left-3 top-1 text-xs text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-3.5 peer-focus:top-1 peer-focus:text-xs peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-400"
-                                        >
-                                            Medium Input
-                                        </label>
-                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Medium</h3>
+                                    <FloatingLabel
+                                        label="Medium Input"
+                                        size="md"
+                                        placeholder="Medium size"
+                                    />
                                 </div>
-                                {/* Large */}
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-semibold">Large</h3>
-                                    <div className="relative pt-2">
-                                        <input
-                                            type="text"
-                                            id="large-example"
-                                            className="peer h-12 w-full rounded-md border border-gray-300 bg-transparent pt-5 pb-2 px-3 text-base text-gray-900 placeholder-transparent focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:text-white dark:border-gray-600 dark:focus:border-blue-400 dark:focus:ring-blue-400"
-                                            placeholder="Large Input"
-                                        />
-                                        <label
-                                            htmlFor="large-example"
-                                            className="absolute left-3 top-1 text-sm text-gray-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-4 peer-focus:top-1 peer-focus:text-sm peer-focus:text-blue-600 dark:text-gray-400 dark:peer-focus:text-blue-400"
-                                        >
-                                            Large Input
-                                        </label>
-                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Large</h3>
+                                    <FloatingLabel
+                                        label="Large Input"
+                                        size="lg"
+                                        placeholder="Large size"
+                                    />
                                 </div>
                             </div>
                             <CodeBlock language="tsx">
-                                {`// Small size
+                                {`// Different sizes
 <FloatingLabel label="Small Input" size="sm" />
-
-// Medium size (default)
 <FloatingLabel label="Medium Input" size="md" />
-
-// Large size
 <FloatingLabel label="Large Input" size="lg" />`}
                             </CodeBlock>
                         </div>
-                    </div>
+                    </Card>
                 </section>
 
                 <section>
-                    <h2 className="text-2xl font-bold mb-4">Input States</h2>
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                    <h2 className="text-2xl font-bold mb-4">States</h2>
+                    <Card className="p-6">
                         <div className="space-y-6">
-                            <p className="mb-4">
-                                FloatingLabel supports different states including normal, disabled, read-only, and validation states.
+                            <p className="text-gray-600 dark:text-gray-300">
+                                FloatingLabel supports various states including disabled and error states.
                             </p>
                             <div className="grid gap-6 md:grid-cols-2">
-                                {/* Disabled */}
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-semibold">Disabled</h3>
-                                    <div className="relative pt-2">
-                                        <input
-                                            type="text"
-                                            id="disabled-example"
-                                            className="peer h-10 w-full rounded-md border border-gray-200 bg-gray-100 pt-4 pb-1.5 px-3 text-sm text-gray-400 placeholder-transparent focus:outline-none dark:bg-gray-700 dark:border-gray-700 dark:text-gray-500"
-                                            placeholder="Disabled Input"
-                                            defaultValue="Cannot edit this"
-                                            disabled
-                                        />
-                                        <label
-                                            htmlFor="disabled-example"
-                                            className="absolute left-3 top-1 text-xs text-gray-400 dark:text-gray-500"
-                                        >
-                                            Disabled Input
-                                        </label>
-                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Disabled</h3>
+                                    <FloatingLabel
+                                        label="Disabled Input"
+                                        value="Cannot edit this"
+                                        isDisabled
+                                        placeholder="This input is disabled"
+                                    />
                                 </div>
-                                {/* With Error */}
                                 <div className="space-y-3">
-                                    <h3 className="text-lg font-semibold">With Error</h3>
-                                    <div className="relative pt-2">
-                                        <input
-                                            type="text"
-                                            id="error-example"
-                                            className="peer h-10 w-full rounded-md border border-red-500 bg-transparent pt-4 pb-1.5 px-3 text-sm text-gray-900 placeholder-transparent focus:border-red-500 focus:outline-none focus:ring-1 focus:ring-red-500 dark:text-white dark:border-red-500 dark:focus:border-red-500 dark:focus:ring-red-500"
-                                            placeholder="Invalid Input"
-                                            defaultValue="invalid@"
-                                        />
-                                        <label
-                                            htmlFor="error-example"
-                                            className="absolute left-3 top-1 text-xs text-red-500 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-red-500 peer-placeholder-shown:top-3.5 peer-focus:top-1 peer-focus:text-xs peer-focus:text-red-500 dark:text-red-400 dark:peer-focus:text-red-400"
-                                        >
-                                            Invalid Input
-                                        </label>
-                                        <p className="mt-1 text-xs text-red-500 dark:text-red-400">This field is required</p>
-                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Error</h3>
+                                    <FloatingLabel
+                                        label="Invalid Input"
+                                        value="invalid@"
+                                        isInvalid
+                                        errorMessage="Please enter a valid email address"
+                                        placeholder="Enter valid email"
+                                    />
                                 </div>
                             </div>
                             <CodeBlock language="tsx">
-                                {`// Disabled state
-<FloatingLabel label="Disabled Input" disabled />
+                                {`// Different states
+<FloatingLabel 
+  label="Disabled Input" 
+  value="Cannot edit this"
+  isDisabled
+  placeholder="This input is disabled"
+/>
 
-// Error state
 <FloatingLabel 
   label="Invalid Input" 
-  error="This field is required"
-  variant="outline"
+  value="invalid@"
+  isInvalid
+  errorMessage="Please enter a valid email address"
+  placeholder="Enter valid email"
 />`}
                             </CodeBlock>
                         </div>
-                    </div>
+                    </Card>
+                </section>
+
+                <section>
+                    <h2 className="text-2xl font-bold mb-4">Color Schemes</h2>
+                    <Card className="p-6">
+                        <div className="space-y-6">
+                            <p className="text-gray-600 dark:text-gray-300">
+                                Customize the color scheme of the floating label and focus states.
+                            </p>
+                            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+                                <div className="space-y-3">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Blue</h3>
+                                    <FloatingLabel
+                                        label="Blue Theme"
+                                        colorScheme="blue"
+                                        placeholder="Blue focus color"
+                                    />
+                                </div>
+                                <div className="space-y-3">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Green</h3>
+                                    <FloatingLabel
+                                        label="Green Theme"
+                                        colorScheme="green"
+                                        placeholder="Green focus color"
+                                    />
+                                </div>
+                                <div className="space-y-3">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Red</h3>
+                                    <FloatingLabel
+                                        label="Red Theme"
+                                        colorScheme="red"
+                                        placeholder="Red focus color"
+                                    />
+                                </div>
+                                <div className="space-y-3">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Purple</h3>
+                                    <FloatingLabel
+                                        label="Purple Theme"
+                                        colorScheme="purple"
+                                        placeholder="Purple focus color"
+                                    />
+                                </div>
+                                <div className="space-y-3">
+                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Gray</h3>
+                                    <FloatingLabel
+                                        label="Gray Theme"
+                                        colorScheme="gray"
+                                        placeholder="Gray focus color"
+                                    />
+                                </div>
+                            </div>
+                            <CodeBlock language="tsx">
+                                {`// Different color schemes
+<FloatingLabel label="Blue Theme" colorScheme="blue" />
+<FloatingLabel label="Green Theme" colorScheme="green" />
+<FloatingLabel label="Red Theme" colorScheme="red" />
+<FloatingLabel label="Purple Theme" colorScheme="purple" />
+<FloatingLabel label="Gray Theme" colorScheme="gray" />`}
+                            </CodeBlock>
+                        </div>
+                    </Card>
                 </section>
 
                 <section>
                     <h2 className="text-2xl font-bold mb-4">API Reference</h2>
-                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-                        <div className="space-y-6">
-                            <div>
-                                <h3 className="text-lg font-semibold mb-3">Props</h3>
-                                <div className="overflow-x-auto">
-                                    <table className="w-full border-collapse border border-gray-200 dark:border-gray-700">
-                                        <thead>
-                                            <tr className="bg-gray-50 dark:bg-gray-800">
-                                                <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left">Prop</th>
-                                                <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left">Type</th>
-                                                <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left">Default</th>
-                                                <th className="border border-gray-200 dark:border-gray-700 px-4 py-2 text-left">Description</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">label</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">string</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">-</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">The floating label text</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">variant</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">{'\'outline\' | \'filled\' | \'standard\''}</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">{'\'outline\''}</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">Visual style variant</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">size</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">{'\'sm\' | \'md\' | \'lg\''}</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">{'\'md\''}</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">Size of the input</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">placeholder</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">string</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">-</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">Placeholder text</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">disabled</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">boolean</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">false</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">Whether the input is disabled</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">error</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">string</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">-</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">Error message to display</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">colorScheme</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">string</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">{'\'blue\''}</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">Color scheme for the input</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">className</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">string</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2 font-mono text-sm">-</td>
-                                                <td className="border border-gray-200 dark:border-gray-700 px-4 py-2">Additional CSS class for the input</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                    <Card className="p-6">
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-sm text-left">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3">Name</th>
+                                        <th scope="col" className="px-6 py-3">Type</th>
+                                        <th scope="col" className="px-6 py-3">Default</th>
+                                        <th scope="col" className="px-6 py-3">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td className="px-6 py-4 font-medium text-blue-600">label</td>
+                                        <td className="px-6 py-4 font-mono text-sm">string</td>
+                                        <td className="px-6 py-4">-</td>
+                                        <td className="px-6 py-4">The floating label text</td>
+                                    </tr>
+                                    <tr className="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                                        <td className="px-6 py-4 font-medium text-blue-600">variant</td>
+                                        <td className="px-6 py-4 font-mono text-sm">'outline' | 'filled' | 'standard'</td>
+                                        <td className="px-6 py-4">'outline'</td>
+                                        <td className="px-6 py-4">Input variant style</td>
+                                    </tr>
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td className="px-6 py-4 font-medium text-blue-600">size</td>
+                                        <td className="px-6 py-4 font-mono text-sm">'sm' | 'md' | 'lg'</td>
+                                        <td className="px-6 py-4">'md'</td>
+                                        <td className="px-6 py-4">Size of the input</td>
+                                    </tr>
+                                    <tr className="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                                        <td className="px-6 py-4 font-medium text-blue-600">colorScheme</td>
+                                        <td className="px-6 py-4 font-mono text-sm">'blue' | 'green' | 'red' | 'purple' | 'gray'</td>
+                                        <td className="px-6 py-4">'blue'</td>
+                                        <td className="px-6 py-4">Color scheme for focus states</td>
+                                    </tr>
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td className="px-6 py-4 font-medium text-blue-600">isInvalid</td>
+                                        <td className="px-6 py-4 font-mono text-sm">boolean</td>
+                                        <td className="px-6 py-4">false</td>
+                                        <td className="px-6 py-4">Whether the input is invalid</td>
+                                    </tr>
+                                    <tr className="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                                        <td className="px-6 py-4 font-medium text-blue-600">isDisabled</td>
+                                        <td className="px-6 py-4 font-mono text-sm">boolean</td>
+                                        <td className="px-6 py-4">false</td>
+                                        <td className="px-6 py-4">Whether the input is disabled</td>
+                                    </tr>
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td className="px-6 py-4 font-medium text-blue-600">isReadOnly</td>
+                                        <td className="px-6 py-4 font-mono text-sm">boolean</td>
+                                        <td className="px-6 py-4">false</td>
+                                        <td className="px-6 py-4">Whether the input is read-only</td>
+                                    </tr>
+                                    <tr className="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                                        <td className="px-6 py-4 font-medium text-blue-600">errorMessage</td>
+                                        <td className="px-6 py-4 font-mono text-sm">string</td>
+                                        <td className="px-6 py-4">-</td>
+                                        <td className="px-6 py-4">Error message to display</td>
+                                    </tr>
+                                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <td className="px-6 py-4 font-medium text-blue-600">helperText</td>
+                                        <td className="px-6 py-4 font-mono text-sm">string</td>
+                                        <td className="px-6 py-4">-</td>
+                                        <td className="px-6 py-4">Helper text to display below input</td>
+                                    </tr>
+                                    <tr className="bg-gray-50 border-b dark:bg-gray-700 dark:border-gray-600">
+                                        <td className="px-6 py-4 font-medium text-blue-600">fullWidth</td>
+                                        <td className="px-6 py-4 font-mono text-sm">boolean</td>
+                                        <td className="px-6 py-4">false</td>
+                                        <td className="px-6 py-4">Expand to fill container width</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
+                    </Card>
                 </section>
             </div>
         </PageHeader>
