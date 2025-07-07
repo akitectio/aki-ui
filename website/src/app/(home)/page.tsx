@@ -25,7 +25,7 @@ export default function Home() {
       <section className="relative py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex justify-center mb-6">
-            <Badge variant="primary" position="center" className="mb-4 shadow-lg mx-auto">
+            <Badge variant="primary" className="mb-4 shadow-lg mx-auto">
               🤖 AI-Powered UI • LLM Integration • MCP Support
             </Badge>
           </div>
@@ -62,7 +62,7 @@ export default function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
             </a>
-            <Link href="/docs/llm" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-6 py-3 text-base border-2 border-purple-500 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-md shadow-md hover:shadow-lg">
+            <Link href="/ai" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-6 py-3 text-base border-2 border-purple-500 text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-md shadow-md hover:shadow-lg">
               🤖 AI & LLM
             </Link>
           </div>
@@ -192,10 +192,10 @@ export function UserProfile({ user }) {
 
           <div className="mt-12 text-center">
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <Link href="/docs/llm" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg rounded-md w-full sm:w-auto">
+              <Link href="/ai/llm" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg rounded-md w-full sm:w-auto">
                 Explore LLM Integration
               </Link>
-              <Link href="/docs/mcp" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md w-full sm:w-auto">
+              <Link href="/ai/mcp" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md w-full sm:w-auto">
                 Learn about MCP
               </Link>
             </div>
