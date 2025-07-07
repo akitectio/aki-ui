@@ -2,15 +2,6 @@ name: Deploy Website
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - "src/**"
-      - "website/**"
-      - "public/**"
-      - "package.json"
-      - "README.md"
-      - ".github/workflows/deploy-website.yml"
 
 # Sets permissions for GitHub Pages deployment
 permissions:

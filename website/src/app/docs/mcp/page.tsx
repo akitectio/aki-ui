@@ -19,11 +19,11 @@ export default function MCPOverviewPage() {
         <h2 className="text-2xl font-bold mb-4">What is MCP?</h2>
         <div className="bg-white p-6 border rounded-lg">
           <p className="mb-4">
-            The <strong>Model Context Protocol (MCP)</strong> is an open standard that enables AI assistants 
-            to securely access external tools and data sources. Aki UI's MCP server provides real-time access 
+            The <strong>Model Context Protocol (MCP)</strong> is an open standard that enables AI assistants
+            to securely access external tools and data sources. Aki UI's MCP server provides real-time access
             to component documentation, code generation, and project initialization capabilities.
           </p>
-          
+
           <div className="bg-blue-50 border border-blue-200 p-4 rounded mb-4">
             <h4 className="font-semibold mb-2 text-blue-800">🎯 Key Benefits:</h4>
             <ul className="text-blue-700 text-sm space-y-1">
@@ -53,7 +53,7 @@ export default function MCPOverviewPage() {
             <p className="text-gray-600 text-sm mb-3">
               Search and discover Aki UI components by name, category, or description with intelligent filtering.
             </p>
-            <Badge variant="outline" size="sm">Search Tools</Badge>
+            <Badge variant="secondary">Search Tools</Badge>
           </Card>
 
           <Card className="p-6">
@@ -68,7 +68,7 @@ export default function MCPOverviewPage() {
             <p className="text-gray-600 text-sm mb-3">
               Generate React components, forms, dashboards, and complete project templates with best practices.
             </p>
-            <Badge variant="outline" size="sm">AI Powered</Badge>
+            <Badge variant="secondary">AI Powered</Badge>
           </Card>
 
           <Card className="p-6">
@@ -83,7 +83,7 @@ export default function MCPOverviewPage() {
             <p className="text-gray-600 text-sm mb-3">
               Real-time access to component docs, API references, examples, and best practices.
             </p>
-            <Badge variant="outline" size="sm">Live Docs</Badge>
+            <Badge variant="secondary">Live Docs</Badge>
           </Card>
 
           <Card className="p-6">
@@ -98,7 +98,7 @@ export default function MCPOverviewPage() {
             <p className="text-gray-600 text-sm mb-3">
               Generate and customize themes, convert to CSS variables, and manage design tokens.
             </p>
-            <Badge variant="outline" size="sm">Theming</Badge>
+            <Badge variant="secondary">Theming</Badge>
           </Card>
 
           <Card className="p-6">
@@ -113,7 +113,7 @@ export default function MCPOverviewPage() {
             <p className="text-gray-600 text-sm mb-3">
               Validate React components for best practices, accessibility, and performance optimization.
             </p>
-            <Badge variant="outline" size="sm">Quality</Badge>
+            <Badge variant="secondary">Quality</Badge>
           </Card>
 
           <Card className="p-6">
@@ -128,7 +128,7 @@ export default function MCPOverviewPage() {
             <p className="text-gray-600 text-sm mb-3">
               Initialize complete React projects with Vite, Next.js, TypeScript, and Aki UI pre-configured.
             </p>
-            <Badge variant="outline" size="sm">Scaffolding</Badge>
+            <Badge variant="secondary">Scaffolding</Badge>
           </Card>
         </div>
       </section>
@@ -140,38 +140,38 @@ export default function MCPOverviewPage() {
           <p className="mb-4">
             Aki UI MCP server works with any MCP-compatible AI assistant:
           </p>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="flex items-center space-x-2">
-              <Badge variant="success" size="sm">✓</Badge>
+              <Badge variant="success">✓</Badge>
               <span className="text-sm">Claude (Anthropic)</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="success" size="sm">✓</Badge>
+              <Badge variant="success">✓</Badge>
               <span className="text-sm">GitHub Copilot</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="success" size="sm">✓</Badge>
+              <Badge variant="success">✓</Badge>
               <span className="text-sm">Cursor IDE</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="success" size="sm">✓</Badge>
+              <Badge variant="success">✓</Badge>
               <span className="text-sm">Windsurf</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="success" size="sm">✓</Badge>
+              <Badge variant="success">✓</Badge>
               <span className="text-sm">Continue.dev</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="success" size="sm">✓</Badge>
+              <Badge variant="success">✓</Badge>
               <span className="text-sm">Codeium</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="warning" size="sm">Soon</Badge>
+              <Badge variant="warning">Soon</Badge>
               <span className="text-sm">ChatGPT</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="warning" size="sm">Soon</Badge>
+              <Badge variant="warning">Soon</Badge>
               <span className="text-sm">Copilot Chat</span>
             </div>
           </div>
@@ -190,7 +190,7 @@ export default function MCPOverviewPage() {
                 <pre className="bg-gray-100 p-2 rounded text-sm">npm install -g @akitectio/aki-ui-mcp-server</pre>
               </div>
             </div>
-            
+
             <div className="flex items-start space-x-3">
               <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">2</div>
               <div>
@@ -198,7 +198,7 @@ export default function MCPOverviewPage() {
                 <p className="text-sm text-gray-600">Add the MCP server to your AI assistant configuration</p>
               </div>
             </div>
-            
+
             <div className="flex items-start space-x-3">
               <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">3</div>
               <div>
@@ -207,7 +207,7 @@ export default function MCPOverviewPage() {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-6 flex space-x-4">
             <Button asChild>
               <Link href="/docs/mcp/installation">Installation Guide</Link>
@@ -221,21 +221,125 @@ export default function MCPOverviewPage() {
 
       {/* Example Usage */}
       <section>
-        <h2 className="text-2xl font-bold mb-4">Example Usage</h2>
+        <h2 className="text-2xl font-bold mb-4">Example Prompts</h2>
         <div className="bg-white p-6 border rounded-lg">
-          <h3 className="text-lg font-semibold mb-3">Ask your AI assistant:</h3>
-          <div className="space-y-3">
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
-              <p className="text-sm">"Create a contact form using Aki UI components with validation"</p>
+          <h3 className="text-lg font-semibold mb-4">Ask your AI assistant:</h3>
+
+          {/* Component Discovery */}
+          <div className="mb-6">
+            <h4 className="font-medium mb-3 text-blue-600">🔍 Component Discovery</h4>
+            <div className="space-y-2">
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+                <p className="text-sm">"Show me all Aki UI form components with their props and examples"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+                <p className="text-sm">"Find components for data display and tables in Aki UI"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-blue-500">
+                <p className="text-sm">"List all navigation components with usage examples"</p>
+              </div>
             </div>
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-green-500">
-              <p className="text-sm">"Initialize a new Next.js project with Aki UI and dark mode support"</p>
+          </div>
+
+          {/* Code Generation */}
+          <div className="mb-6">
+            <h4 className="font-medium mb-3 text-green-600">⚡ Code Generation</h4>
+            <div className="space-y-2">
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-green-500">
+                <p className="text-sm">"Create a contact form using Aki UI components with validation and error handling"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-green-500">
+                <p className="text-sm">"Generate a dashboard layout with sidebar navigation and data cards"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-green-500">
+                <p className="text-sm">"Build a responsive pricing table with 3 tiers using Aki UI components"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-green-500">
+                <p className="text-sm">"Create an e-commerce product grid with search and filtering"</p>
+              </div>
             </div>
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-purple-500">
-              <p className="text-sm">"Show me all Aki UI layout components and their documentation"</p>
+          </div>
+
+          {/* Project Setup */}
+          <div className="mb-6">
+            <h4 className="font-medium mb-3 text-purple-600">🚀 Project Setup</h4>
+            <div className="space-y-2">
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-purple-500">
+                <p className="text-sm">"Initialize a new Next.js project with Aki UI, TypeScript, and dark mode support"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-purple-500">
+                <p className="text-sm">"Set up a Vite React project with Aki UI and Tailwind CSS"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-purple-500">
+                <p className="text-sm">"Create a portfolio website template using Aki UI components"</p>
+              </div>
             </div>
-            <div className="bg-gray-50 p-3 rounded border-l-4 border-yellow-500">
-              <p className="text-sm">"Generate a custom theme with blue primary color and modern style"</p>
+          </div>
+
+          {/* Theme & Styling */}
+          <div className="mb-6">
+            <h4 className="font-medium mb-3 text-yellow-600">🎨 Theme & Styling</h4>
+            <div className="space-y-2">
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-yellow-500">
+                <p className="text-sm">"Generate a custom theme with blue primary color and modern style"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-yellow-500">
+                <p className="text-sm">"Create CSS variables for a dark theme with purple accents"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-yellow-500">
+                <p className="text-sm">"Convert my design tokens to Aki UI theme configuration"</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Forms & Validation */}
+          <div className="mb-6">
+            <h4 className="font-medium mb-3 text-red-600">📝 Forms & Validation</h4>
+            <div className="space-y-2">
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-red-500">
+                <p className="text-sm">"Create a registration form with email validation and password confirmation"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-red-500">
+                <p className="text-sm">"Build a multi-step form with progress indicator using Aki UI"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-red-500">
+                <p className="text-sm">"Generate form validation schema for user profile update"</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Data Display */}
+          <div className="mb-6">
+            <h4 className="font-medium mb-3 text-indigo-600">📊 Data Display</h4>
+            <div className="space-y-2">
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-indigo-500">
+                <p className="text-sm">"Create a data table with sorting, filtering, and pagination"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-indigo-500">
+                <p className="text-sm">"Build a dashboard with analytics cards and charts"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-indigo-500">
+                <p className="text-sm">"Generate a user list with avatars, badges, and action buttons"</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Advanced Features */}
+          <div className="mb-6">
+            <h4 className="font-medium mb-3 text-teal-600">🔧 Advanced Features</h4>
+            <div className="space-y-2">
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-teal-500">
+                <p className="text-sm">"Optimize my Aki UI components for better performance and accessibility"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-teal-500">
+                <p className="text-sm">"Generate TypeScript interfaces for my component props"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-teal-500">
+                <p className="text-sm">"Create responsive design breakpoints for mobile and desktop"</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded border-l-4 border-teal-500">
+                <p className="text-sm">"Add keyboard navigation and ARIA attributes to my components"</p>
+              </div>
             </div>
           </div>
         </div>
@@ -255,7 +359,7 @@ export default function MCPOverviewPage() {
               <h4 className="font-semibold mb-2">AI Assistant</h4>
               <p className="text-sm text-gray-600">Your preferred AI tool (Claude, Copilot, etc.)</p>
             </div>
-            
+
             <div>
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
                 <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -265,7 +369,7 @@ export default function MCPOverviewPage() {
               <h4 className="font-semibold mb-2">MCP Server</h4>
               <p className="text-sm text-gray-600">Aki UI MCP server providing tools and data</p>
             </div>
-            
+
             <div>
               <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
                 <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">

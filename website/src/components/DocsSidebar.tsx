@@ -46,33 +46,6 @@ const docCategories: DocCategory[] = [
     ]
   },
   {
-    id: 'ai-integration',
-    title: 'AI INTEGRATION',
-    icon: CommandLineIcon,
-    sections: [
-      {
-        id: 'llm',
-        title: 'LLM Integration',
-        href: '/docs/llm',
-        subsections: [
-          { id: 'setup', title: 'Setup', href: '/docs/llm/setup' },
-          { id: 'ai-tools', title: 'Supported AI Tools', href: '/docs/llm/ai-tools' },
-          { id: 'examples', title: 'Examples', href: '/docs/llm/examples' },
-        ]
-      },
-      {
-        id: 'mcp',
-        title: 'MCP Integration',
-        href: '/docs/mcp',
-        subsections: [
-          { id: 'installation', title: 'Installation', href: '/docs/mcp/installation' },
-          { id: 'usage', title: 'Usage', href: '/docs/mcp/usage' },
-          { id: 'api', title: 'API Reference', href: '/docs/mcp/api' },
-        ]
-      },
-    ]
-  },
-  {
     id: 'components',
     title: 'COMPONENTS',
     icon: CubeIcon,
