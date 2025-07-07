@@ -8,7 +8,7 @@
 **Components:** 48+ pre-built UI components 
 **Features:** Dark mode, RTL support, responsive design, accessibility focus
 **Package:** @akitectio/aki-ui on NPM
-**Version:** 1.0.0
+**Version:** 1.0.1
 **Updated:** July 7, 2025
 
 ## Documentation & Resources
@@ -386,4 +386,4 @@ function MyComponent({ buttonProps, cardProps }: MyComponentProps) {
 **Storybook:** https://aki-ui.akitect.io/storybook
 
 ---
-*Generated automatically from Aki UI v1.0.0 on July 7, 2025*
+*Generated automatically from Aki UI v1.0.1 on July 7, 2025*
