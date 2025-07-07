@@ -229,6 +229,31 @@ class AkiUIServer {
               },
             ],
           },
+          {
+            name: "init_project",
+            description:
+              "Initialize a complete React project with Aki UI setup",
+            arguments: [
+              {
+                name: "projectType",
+                description:
+                  "Type of project (vite-react, next-js, react-app, dashboard, website)",
+                required: true,
+              },
+              {
+                name: "features",
+                description:
+                  "Features to include (typescript, tailwind, router, auth, forms, etc.)",
+                required: false,
+              },
+              {
+                name: "theme",
+                description:
+                  "Theme style to use (default, dark, modern, minimal, colorful)",
+                required: false,
+              },
+            ],
+          },
         ],
       };
     });
@@ -259,6 +284,19 @@ class AkiUIServer {
                 content: {
                   type: "text",
                   text: this.generateFormPrompt(args),
+                },
+              },
+            ],
+          };
+
+        case "init_project":
+          return {
+            messages: [
+              {
+                role: "user",
+                content: {
+                  type: "text",
+                  text: this.generateInitProjectPrompt(args),
                 },
               },
             ],
@@ -434,6 +472,62 @@ function MyForm() {
   );
 }
 \`\`\``;
+  }
+
+  private generateInitProjectPrompt(args: any): string {
+    const projectType = args?.projectType || "vite-react";
+    const features = args?.features || "typescript, tailwind, router";
+    const theme = args?.theme || "default";
+
+    return `Initialize a new project with Aki UI for ${projectType} with these features: ${features}.
+
+Use this theme style: ${theme}
+
+Include the following:
+- Complete project structure with proper folder organization
+- TypeScript configuration
+- Tailwind CSS setup with Aki UI theming
+- Basic component examples
+- Well-structured routing (if router is included)
+- Theme provider setup with dark mode support
+- Responsive layout configurations
+- Proper README with setup instructions
+
+Project setup steps:
+1. Initialize the project with correct package manager
+2. Install required dependencies 
+3. Set up TypeScript configuration
+4. Configure Tailwind CSS
+5. Create folder structure (components, pages, hooks, utils, etc.)
+6. Set up theme provider
+7. Create example components using Aki UI
+8. Add proper routing (if applicable)
+9. Set up build configuration
+
+Example structure for a standard project:
+\`\`\`
+src/
+  components/
+    layout/
+      Header.tsx
+      Footer.tsx
+      Sidebar.tsx
+    ui/
+      Button.tsx (extending Aki UI Button)
+      Card.tsx (extending Aki UI Card)
+  pages/
+    Home.tsx
+    About.tsx
+  hooks/
+    useTheme.ts
+  utils/
+    api.ts
+  App.tsx
+  main.tsx
+  theme.ts (Aki UI theme configuration)
+\`\`\`
+
+Make sure to follow best practices for the chosen project type and include all the requested features.`;
   }
 
   async run() {
