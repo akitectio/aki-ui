@@ -14,7 +14,6 @@ import {
   ListResourcesRequestSchema,
   Resource,
 } from "@modelcontextprotocol/sdk/types.js";
-import { z } from "zod";
 import { readFileSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";

@@ -15,19 +15,19 @@ const packageJson = JSON.parse(fs.readFileSync(path.join(__dirname, '../package.
 const componentsDir = path.join(__dirname, '../src/lib/components');
 let componentCount = 0;
 try {
-    const componentFiles = fs.readdirSync(componentsDir, { withFileTypes: true });
-    componentCount = componentFiles.filter(dirent => 
-        dirent.isDirectory() || (dirent.isFile() && dirent.name.endsWith('.tsx') && !dirent.name.includes('.stories.'))
-    ).length;
+  const componentFiles = fs.readdirSync(componentsDir, { withFileTypes: true });
+  componentCount = componentFiles.filter(dirent =>
+    dirent.isDirectory() || (dirent.isFile() && dirent.name.endsWith('.tsx') && !dirent.name.includes('.stories.'))
+  ).length;
 } catch (error) {
-    componentCount = 37; // fallback
+  componentCount = 37; // fallback
 }
 
 // Get current date for updates
 const updateDate = new Date().toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long', 
-    day: 'numeric'
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
 });
 
 console.log(`📦 Package version: ${packageJson.version}`);
@@ -365,8 +365,20 @@ Aki UI includes a Model Context Protocol (MCP) server for AI assistants:
 {
   "mcpServers": {
     "aki-ui": {
+      "command": "aki-ui-mcp"
+    }
+  }
+}
+\`\`\`
+
+Alternative with npx:
+
+\`\`\`json
+{
+  "mcpServers": {
+    "aki-ui": {
       "command": "npx",
-      "args": ["@akitectio/aki-ui-mcp"]
+      "args": ["@akitectio/aki-ui-mcp-server"]
     }
   }
 }
@@ -491,11 +503,11 @@ fs.writeFileSync(path.join(__dirname, '../public/llms-full.txt'), llmsFullTempla
 // Also copy to website/public if it exists
 const websitePublicDir = path.join(__dirname, '../website/public');
 if (fs.existsSync(websitePublicDir)) {
-    fs.writeFileSync(path.join(websitePublicDir, 'llms.txt'), llmsTemplate);
-    fs.writeFileSync(path.join(websitePublicDir, 'llms-full.txt'), llmsFullTemplate);
-    console.log('✅ Updated website LLM files:');
-    console.log('   - website/public/llms.txt');
-    console.log('   - website/public/llms-full.txt');
+  fs.writeFileSync(path.join(websitePublicDir, 'llms.txt'), llmsTemplate);
+  fs.writeFileSync(path.join(websitePublicDir, 'llms-full.txt'), llmsFullTemplate);
+  console.log('✅ Updated website LLM files:');
+  console.log('   - website/public/llms.txt');
+  console.log('   - website/public/llms-full.txt');
 }
 
 console.log('✅ Updated LLM documentation files:');

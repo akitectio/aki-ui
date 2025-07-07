@@ -259,8 +259,20 @@ Aki UI includes a Model Context Protocol (MCP) server for AI assistants:
 {
   "mcpServers": {
     "aki-ui": {
+      "command": "aki-ui-mcp"
+    }
+  }
+}
+```
+
+Alternative with npx:
+
+```json
+{
+  "mcpServers": {
+    "aki-ui": {
       "command": "npx",
-      "args": ["@akitectio/aki-ui-mcp"]
+      "args": ["@akitectio/aki-ui-mcp-server"]
     }
   }
 }

@@ -278,7 +278,7 @@ const LLMIntegrationDemo = () => {
                                 <div className="mt-3 p-3 bg-green-50 rounded border-l-4 border-green-500">
                                     <p className="text-sm text-green-800 font-medium">📦 Installation:</p>
                                     <div className="mt-2 text-xs text-green-700">
-                                        <code>npm install -g @akitectio/aki-ui-mcp</code>
+                                        <code>npm install -g @akitectio/aki-ui-mcp-server</code>
                                     </div>
                                 </div>
 
@@ -359,7 +359,7 @@ const LLMIntegrationDemo = () => {
                         <Alert variant="success" className="mt-4">
                             <div>
                                 <h4 className="font-semibold text-sm">✅ MCP Server Available Now</h4>
-                                <p className="text-xs">The Aki UI MCP Server is now available! AI assistants can directly interact with our component library, providing dynamic code generation and real-time documentation access. Install with: <code>npm install -g @akitectio/aki-ui-mcp</code></p>
+                                <p className="text-xs">The Aki UI MCP Server is now available! AI assistants can directly interact with our component library, providing dynamic code generation and real-time documentation access. Install with: <code>npm install -g @akitectio/aki-ui-mcp-server</code></p>
                             </div>
                         </Alert>
                     </div>

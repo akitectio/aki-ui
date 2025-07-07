@@ -173,7 +173,13 @@ export default function MCPIntegrationPage() {
                 <div className="bg-gray-50 p-6 rounded-lg">
                     <h3 className="text-lg font-semibold mb-3">NPM Installation</h3>
                     <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm mb-4">
-                        npm install @akitectio/aki-ui-mcp
+                        npm install -g @akitectio/aki-ui-mcp-server
+                    </div>
+                    <p className="text-gray-600 mb-3">
+                        After installation, you can verify it works by running:
+                    </p>
+                    <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm mb-4">
+                        aki-ui-mcp --version
                     </div>
 
                     <h3 className="text-lg font-semibold mb-3">Claude Desktop Configuration</h3>
@@ -184,8 +190,22 @@ export default function MCPIntegrationPage() {
                         <pre>{`{
   "mcpServers": {
     "aki-ui": {
+      "command": "aki-ui-mcp"
+    }
+  }
+}`}</pre>
+                    </div>
+
+                    <h3 className="text-lg font-semibold mb-3 mt-4">Alternative: Use with npx</h3>
+                    <p className="text-gray-600 mb-3">
+                        If you prefer not to install globally, you can use npx:
+                    </p>
+                    <div className="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm">
+                        <pre>{`{
+  "mcpServers": {
+    "aki-ui": {
       "command": "npx",
-      "args": ["@akitectio/aki-ui-mcp"]
+      "args": ["@akitectio/aki-ui-mcp-server"]
     }
   }
 }`}</pre>

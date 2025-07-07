@@ -301,3 +301,5 @@ website/out/llms*.txt
 public/llms-full.txt
 public/llms-full.txt
 public/llms.txt
+mcp/src/index.ts
+public/llms-full.txt
