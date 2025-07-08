@@ -1,6 +1,6 @@
 {
   "name": "@akitectio/aki-ui",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A modern React UI component library built with TypeScript and Tailwind CSS",
   "keywords": [
     "react",
