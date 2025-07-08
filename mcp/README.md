@@ -5,6 +5,79 @@ Model Context Protocol server for Aki UI component library, providing AI assista
 [![npm version](https://badge.fury.io/js/@akitectio%2Faki-ui-mcp-server.svg)](https://badge.fury.io/js/@akitectio%2Faki-ui-mcp-server)
 [![Publish MCP Server to npm](https://github.com/akitectio/aki-ui/actions/workflows/publish-mcp.yml/badge.svg)](https://github.com/akitectio/aki-ui/actions/workflows/publish-mcp.yml)
 
+## Table of Contents
+
+- [🚨 MANDATORY @akitectio/aki-ui USAGE](#-mandatory-akitectioaki-ui-usage)
+- [Quick Start](#quick-start)
+- [Features](#features)
+- [Project Structure & AI Rules](#project-structure--ai-rules)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Available Tools](#available-tools)
+- [Example Interactions](#example-interactions)
+- [Resources](#resources)
+- [Integration with Aki UI](#integration-with-aki-ui)
+- [Contributing](#contributing)
+
+## 🚨 MANDATORY @akitectio/aki-ui USAGE
+
+**ALL UI COMPONENTS MUST USE @akitectio/aki-ui**
+
+This MCP server enforces the exclusive use of @akitectio/aki-ui as the ONLY UI component library for all generated code and projects.
+
+### ✅ REQUIRED
+
+- Use `@akitectio/aki-ui` as the primary and ONLY UI component library
+- Import components individually: `import { Button, Card, Input } from '@akitectio/aki-ui'`
+- Follow Aki UI's component patterns and props
+- Use Aki UI's built-in theme system, validation, and form components
+
+### ❌ PROHIBITED
+
+- Material-UI (MUI), Ant Design, Chakra UI, Bootstrap, or any other UI library
+- Custom UI components (unless absolutely necessary and following Aki UI patterns)
+- Mixing different UI libraries
+
+### 📋 Enforcement
+
+- **Project Generation**: All templates use only @akitectio/aki-ui
+- **Code Generation**: All generated components use Aki UI
+- **GitHub Instructions**: AI assistants receive mandatory usage rules
+- **Dependencies**: Only @akitectio/aki-ui is included in generated package.json
+
+**See [MANDATORY_AKI_UI_USAGE.md](./MANDATORY_AKI_UI_USAGE.md) for detailed rules and examples.**
+
+## Quick Start
+
+1. **Install the MCP server:**
+
+   ```bash
+   npm install -g @akitectio/aki-ui-mcp-server
+   ```
+
+2. **Configure with Claude Desktop:**
+
+   ```json
+   {
+     "mcpServers": {
+       "aki-ui": {
+         "command": "aki-ui-mcp",
+         "args": [],
+         "env": {}
+       }
+     }
+   }
+   ```
+
+3. **Start generating projects with mandatory @akitectio/aki-ui:**
+
+   ```text
+   Human: Create a new React project with Aki UI, TypeScript, and forms
+   AI: ✅ Generated project with exclusive @akitectio/aki-ui usage
+   ```
+
+4. **All generated code will use ONLY @akitectio/aki-ui - no other UI libraries allowed!**
+
 ## Features
 
 ### 🔍 Component Discovery
@@ -15,12 +88,14 @@ Model Context Protocol server for Aki UI component library, providing AI assista
 
 ### 🛠 Code Generation
 
-- Generate React components using Aki UI
+- **Generate React components using ONLY @akitectio/aki-ui**
+- **Mandatory enforcement** of Aki UI component usage in all generated code
 - Support for forms, dashboards, cards, tables, layouts, and custom components
 - **Initialize complete projects** with Vite, Next.js, or Create React App
 - Project templates with TypeScript, routing, authentication, and more
+- **Generate .github/instructions/.instructions.md** with mandatory Aki UI usage rules for AI assistants
 - Code validation and optimization suggestions
-- Performance and accessibility improvements
+- Performance and accessibility improvements using Aki UI's built-in features
 
 ### 📚 Documentation Access
 
@@ -248,10 +323,10 @@ npm start
 
 ### Code Generation
 
-- `init_project` - Initialize complete React projects with Aki UI setup
-- `generate_component` - Generate React component code using Aki UI
-- `validate_code` - Validate component code for best practices
-- `optimize_component` - Optimize code for performance and accessibility
+- `init_project` - Initialize complete React projects with **mandatory @akitectio/aki-ui setup**
+- `generate_component` - Generate React component code using **ONLY @akitectio/aki-ui**
+- `validate_code` - Validate component code for best practices and **Aki UI compliance**
+- `optimize_component` - Optimize code for performance and accessibility **using Aki UI features**
 
 ### Documentation
 
@@ -293,6 +368,11 @@ npm start
 ```text
 Human: Create a new Next.js admin dashboard project with Aki UI, TypeScript, authentication, and forms
 AI: Using init_project tool with projectType "next-js", features ["typescript", "auth", "forms", "router"]...
+
+   ✅ Generated project with mandatory @akitectio/aki-ui setup
+   ✅ Created .github/instructions/.instructions.md with AI usage rules
+   ✅ All dependencies configured for Aki UI only
+   ✅ All templates use Aki UI components exclusively
 ```
 
 ### Search for Components
@@ -300,6 +380,9 @@ AI: Using init_project tool with projectType "next-js", features ["typescript", 
 ```text
 Human: Search for form-related components in Aki UI
 AI: Using search_components tool with query "form"...
+
+   ✅ Found: FormControl, Input, Select, Checkbox, Radio (from @akitectio/aki-ui)
+   ❌ Note: Only Aki UI components are available - no other UI libraries
 ```
 
 ### Generate a Dashboard
@@ -307,6 +390,10 @@ AI: Using search_components tool with query "form"...
 ```text
 Human: Generate a dashboard component with stats cards and a data table
 AI: Using generate_component tool with type "dashboard"...
+
+   ✅ Generated dashboard using Card, Grid, DataTable, Badge from @akitectio/aki-ui
+   ✅ All components imported from @akitectio/aki-ui exclusively
+   ✅ No other UI libraries used
 ```
 
 ### Get Best Practices
@@ -337,6 +424,35 @@ Human: Generate accessibility tests for my button component
 AI: Using generate_tests tool with accessibility focus and audit_accessibility...
 ```
 
+## Project Structure & AI Rules
+
+When using `init_project`, the MCP server creates a complete project structure with **mandatory @akitectio/aki-ui usage enforcement**:
+
+```
+your-project/
+├── .github/
+│   └── instructions/
+│       └── .instructions.md    # 🚨 AI Code Generation Rules
+├── src/
+│   ├── components/             # Only Aki UI components allowed
+│   ├── pages/                  # Pages using Aki UI
+│   └── App.tsx                 # AkiUIProvider setup
+├── package.json                # Only @akitectio/aki-ui dependencies
+└── README.md                   # Project documentation
+```
+
+### 📋 GitHub Instructions File
+
+The `.github/instructions/.instructions.md` file contains **strict rules** for AI assistants:
+
+- **MANDATORY**: All UI components must use @akitectio/aki-ui
+- **PROHIBITED**: Material-UI, Ant Design, Chakra UI, Bootstrap, etc.
+- **REQUIRED**: Individual component imports for tree-shaking
+- **REQUIRED**: TypeScript usage with Aki UI patterns
+- **REQUIRED**: Accessibility features using Aki UI's built-in support
+
+This ensures that any AI assistant working on the project **must follow Aki UI exclusive usage**.
+
 ## Resources
 
 The server provides access to these resources:
@@ -363,13 +479,33 @@ npm run type-check
 
 ## Integration with Aki UI
 
-This MCP server is designed to work seamlessly with the Aki UI component library, providing AI assistants with deep knowledge of:
+This MCP server is designed to work **exclusively** with the Aki UI component library, providing AI assistants with deep knowledge of:
 
-- Component APIs and props
-- Usage patterns and examples
-- Best practices and accessibility guidelines
-- Theme customization options
-- Code generation templates
+- Component APIs and props **from @akitectio/aki-ui only**
+- Usage patterns and examples **using Aki UI exclusively**
+- Best practices and accessibility guidelines **for Aki UI components**
+- Theme customization options **within Aki UI's system**
+- Code generation templates **that enforce Aki UI usage**
+
+### 🔒 Exclusive Integration Benefits
+
+- **Consistency**: All projects use the same design system
+- **Maintainability**: Single dependency reduces conflicts
+- **Performance**: Optimized bundle sizes with Aki UI's tree-shaking
+- **Support**: Centralized support for all UI components
+- **Quality**: Guaranteed accessibility and performance standards
+
+### 🚫 No Other UI Libraries
+
+This MCP server **intentionally excludes** other UI libraries:
+
+- No Material-UI (MUI) support
+- No Ant Design integration
+- No Chakra UI compatibility
+- No Bootstrap components
+- No custom UI library mixing
+
+**This is by design** to ensure consistency and maintainability across all projects.
 
 ## Contributing
 

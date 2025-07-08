@@ -9,6 +9,7 @@ This is not optional - it is mandatory for all projects created through this MCP
 ## What This Means
 
 ### ✅ REQUIRED
+
 - Use `@akitectio/aki-ui` as the primary and ONLY UI component library
 - Import components individually: `import { Button, Card, Input } from '@akitectio/aki-ui'`
 - Follow Aki UI's component patterns and props
@@ -17,6 +18,7 @@ This is not optional - it is mandatory for all projects created through this MCP
 - Use Aki UI's layout and grid components
 
 ### ❌ PROHIBITED
+
 - Material-UI (MUI)
 - Ant Design
 - Chakra UI
@@ -46,7 +48,7 @@ When using the MCP server's code generation features:
 
 ```tsx
 // ✅ CORRECT - Using @akitectio/aki-ui
-import { Button, Card, Input, FormControl, Grid } from '@akitectio/aki-ui';
+import { Button, Card, Input, FormControl, Grid } from "@akitectio/aki-ui";
 
 export function MyComponent() {
   return (
@@ -69,8 +71,8 @@ export function MyComponent() {
 
 ```tsx
 // ❌ INCORRECT - Using other UI libraries
-import { Button } from '@mui/material';
-import { Card } from 'antd';
+import { Button } from "@mui/material";
+import { Card } from "antd";
 
 export function MyComponent() {
   return (
