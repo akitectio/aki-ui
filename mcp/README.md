@@ -100,7 +100,7 @@ This MCP server enforces the exclusive use of @akitectio/aki-ui as the ONLY UI c
 - Support for forms, dashboards, cards, tables, layouts, and custom components
 - **Initialize complete projects** with Vite, Next.js, or Create React App
 - Project templates with TypeScript, routing, authentication, and more
-- **Generate .github/instructions/.instructions.md** with mandatory Aki UI usage rules for AI assistants
+- **Generate .github/instructions/rules.instructions.md** with mandatory Aki UI usage rules for AI assistants
 - Code validation and optimization suggestions
 - Performance and accessibility improvements using Aki UI's built-in features
 
@@ -383,7 +383,7 @@ Human: Create a new Next.js admin dashboard project with Aki UI, TypeScript, aut
 AI: Using init_project tool with projectType "next-js", features ["typescript", "auth", "forms", "router"]...
 
    ✅ Generated project with mandatory @akitectio/aki-ui setup
-   ✅ Created .github/instructions/.instructions.md with AI usage rules
+   ✅ Created .github/instructions/rules.instructions.md with AI usage rules
    ✅ All dependencies configured for Aki UI only
    ✅ All templates use Aki UI components exclusively
 ```
@@ -456,7 +456,7 @@ your-project/
 
 ### 📋 GitHub Instructions File
 
-The `.github/instructions/.instructions.md` file contains **strict rules** for AI assistants:
+The `.github/instructions/rules.instructions.md` file contains **strict rules** for AI assistants:
 
 - **MANDATORY**: All UI components must use @akitectio/aki-ui
 - **PROHIBITED**: Material-UI, Ant Design, Chakra UI, Bootstrap, etc.

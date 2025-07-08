@@ -210,7 +210,7 @@ ${projectStructure.exampleComponents}
 3. Configure path aliases by copying the configuration above to your vite.config.ts/next.config.js/tsconfig.json
 4. Create the GitHub instructions file:
    - Create the directory: \`mkdir -p .github/instructions\`
-   - Create the file: \`.github/instructions/.instructions.md\`
+   - Create the file: \`.github/instructions/rules.instructions.md\`
    - Copy the GitHub Instructions Template content above into this file
 5. **IMPORTANT**: Always import UI components from @akitectio/aki-ui:
    - \`import { Button, Card, Input, FormControl } from '@akitectio/aki-ui'\`
@@ -235,7 +235,7 @@ ${projectStructure.exampleComponents}
 - \`@/types/*\` → \`./src/types/*\`
 
 ## AI Code Generation Rules
-The GitHub instructions file (\`.github/instructions/.instructions.md\`) contains specific rules for AI-powered code generation:
+The GitHub instructions file (\`.github/instructions/rules.instructions.md\`) contains specific rules for AI-powered code generation:
 - **MANDATORY**: Always use @akitectio/aki-ui as the primary and ONLY UI component library
 - **PROHIBITED**: No other UI libraries are allowed (Material-UI, Ant Design, Chakra UI, etc.)
 - **REQUIRED**: Follow TypeScript and React best practices with Aki UI components
@@ -852,7 +852,7 @@ export default memo(YourComponent);`;
     const structure = `${projectName}/
 ├── .github/
 │   └── instructions/
-│       └── .instructions.md    # AI code generation rules
+│       └── rules.instructions.md    # AI code generation rules
 ├── public/
 │   ├── index.html
 │   └── favicon.ico

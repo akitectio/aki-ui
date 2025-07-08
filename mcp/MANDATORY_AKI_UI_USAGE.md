@@ -85,7 +85,7 @@ export function MyComponent() {
 
 ## AI Code Generation
 
-The `.github/instructions/.instructions.md` file created by the MCP server contains specific rules that AI assistants must follow:
+The `.github/instructions/rules.instructions.md` file created by the MCP server contains specific rules that AI assistants must follow:
 
 - All UI components must come from @akitectio/aki-ui
 - No other UI libraries are permitted

@@ -1,89 +1,52 @@
+---
+applyTo: "**/*.ts,**/*.tsx"
+---
+
 # Code Generation Instructions
 
 ## Overview
 
-This file contains specific instructions for AI-powered code generation using @akitectio/aki-ui component library.
+This file contains instructions for AI-powered code generation using the @akitectio/aki-ui component library.
 
-**CRITICAL REQUIREMENT: ALL UI COMPONENTS MUST USE @akitectio/aki-ui**
+### Tech Stack
 
-- This is not optional - it is mandatory for all projects
-- No other UI libraries are permitted (Material-UI, Ant Design, Chakra UI, etc.)
-- Custom UI components should only be created when absolutely necessary and must follow Aki UI patterns
-- All forms, layouts, buttons, cards, and other UI elements must come from @akitectio/aki-ui
+- React + TypeScript
+- Tailwind CSS
+- @akitectio/aki-ui (mandatory UI component library)
+
+### Core Requirements
+
+- All UI components MUST use @akitectio/aki-ui exclusively
+- NO other UI libraries permitted (Material-UI, Ant Design, Chakra UI, etc.)
+- Custom UI components only when absolutely necessary
 
 ## General Guidelines
 
-### 1. Component Library Usage - MANDATORY
+### 1. Component Import Requirements
 
-- **REQUIRED: Must use @akitectio/aki-ui** as the primary and ONLY UI component library
-- **PROHIBITED: Do not use any other UI libraries** (Material-UI, Ant Design, Chakra UI, etc.)
-- **REQUIRED: Import components individually** for better tree-shaking: `import { Button, Card } from '@akitectio/aki-ui'`
-- **REQUIRED: Follow the component naming conventions** and prop patterns from the library
-- **REQUIRED: All UI components must come from @akitectio/aki-ui** - no custom UI components unless absolutely necessary
+- Import components individually for better tree-shaking:
 
-### 2. Code Quality Standards
+  ```tsx
+  // ✅ CORRECT - Import individually
+  import { Button, Card, FormControl } from "@akitectio/aki-ui";
 
-- Use TypeScript for all new components and pages
-- Follow React best practices (functional components, hooks, proper state management)
-- Implement proper error handling and loading states
-- Ensure components are accessible (ARIA attributes, keyboard navigation)
-- Use semantic HTML elements where appropriate
+  // ❌ WRONG - Never use default imports
+  import AkiUI from "@akitectio/aki-ui"; // PROHIBITED
+  ```
 
-### 3. Styling Guidelines
+### 2. Form Components
 
-- Use Tailwind CSS classes for custom styling
-- Leverage Aki UI's built-in theme system for consistency
-- Follow responsive design principles (mobile-first approach)
-- Use CSS custom properties for dynamic theming when needed
-
-### 4. File Structure
-
-```
-src/
-├── components/
-│   ├── common/          # Reusable components
-│   ├── layout/          # Layout-specific components
-│   └── [feature]/       # Feature-specific components
-├── pages/               # Page components
-├── hooks/               # Custom React hooks
-├── utils/               # Utility functions
-├── types/               # TypeScript type definitions
-├── styles/              # Global styles
-└── lib/                 # Third-party library configurations
-```
-
-### 5. Path Aliases
-
-Always use path aliases for cleaner imports:
-
-- `@/` → `./src/`
-- `@/components/` → `./src/components/`
-- `@/pages/` → `./src/pages/`
-- `@/hooks/` → `./src/hooks/`
-- `@/utils/` → `./src/utils/`
-- `@/types/` → `./src/types/`
-- `@/styles/` → `./src/styles/`
-
-## Component Generation Rules
-
-### 1. Form Components
-
-- **MANDATORY: Use Aki UI's `FormControl`, `Input`, `Select`, `Checkbox`, `Radio` components**
-- **PROHIBITED: No custom form components or other form libraries**
-- **REQUIRED: Implement proper validation using `react-hook-form` and `zod`**
-- **REQUIRED: Include error states and loading states from Aki UI**
-- **REQUIRED: Add proper accessibility attributes using Aki UI's built-in support**
-
-**Example:**
+- Use Aki UI form components with proper validation
+- Implement with react-hook-form and zod for type safety
 
 ```tsx
-import { FormControl, Input, Button, Alert } from "@akitectio/aki-ui";
+import { FormControl, Input, Button } from "@akitectio/aki-ui";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 const schema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: z.string().email("Invalid email"),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
@@ -101,8 +64,7 @@ export function LoginForm() {
       <FormControl label="Email" required error={errors.email?.message}>
         <Input type="email" {...register("email")} error={!!errors.email} />
       </FormControl>
-
-      <Button type="submit" loading={isSubmitting} className="w-full">
+      <Button type="submit" loading={isSubmitting}>
         Sign In
       </Button>
     </form>
@@ -110,13 +72,121 @@ export function LoginForm() {
 }
 ```
 
-### 2. Dashboard Components
+### 3. Dashboard Components
 
-- **MANDATORY: Use `Card`, `Grid`, `DataTable`, `Badge` components from Aki UI**
-- **PROHIBITED: No custom dashboard components or third-party dashboard libraries**
-- **REQUIRED: Implement proper data visualization with Aki UI charts when needed**
-- **REQUIRED: Include responsive design for mobile devices using Aki UI's responsive utilities**
-- **REQUIRED: Add proper loading and error states using Aki UI components**
+- Use Card, Grid, DataTable, and Badge components for dashboard UIs
+- Include proper loading and error states
+
+```tsx
+import { Card, Grid, Badge, DataTable } from "@akitectio/aki-ui";
+
+export function Dashboard() {
+  // Example data structure
+  const stats = [
+    { label: "Users", value: "2,547", change: "+12%", trend: "up" },
+    { label: "Revenue", value: "$43,210", change: "+8%", trend: "up" },
+  ];
+
+  return (
+    <div className="p-6 space-y-6">
+      <Grid cols={{ base: 1, sm: 2, lg: 4 }} gap={4}>
+        {stats.map((stat, index) => (
+          <Card key={index}>
+            <Card.Body className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-600">{stat.label}</p>
+                <p className="text-2xl font-bold">{stat.value}</p>
+              </div>
+              <Badge variant={stat.trend === "up" ? "success" : "error"}>
+                {stat.change}
+              </Badge>
+            </Card.Body>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  );
+}
+```
+
+### 4. Styling Guidelines
+
+- Use Tailwind CSS for custom styling
+- Leverage Aki UI's theme system for consistency
+- Follow mobile-first responsive design principles
+
+### 5. Performance Optimization
+
+- Import components individually to enable tree-shaking
+- Use React.memo for components that don't change frequently
+- Implement useCallback and useMemo for expensive operations
+- Use lazy loading with React.lazy for large components
+
+### 6. Accessibility Requirements
+
+- Add proper ARIA labels and descriptions
+- Use semantic HTML elements
+- Implement keyboard navigation
+- Test with screen readers
+
+## Application Theme
+
+```tsx
+import { AkiUIProvider } from "@akitectio/aki-ui";
+
+const customTheme = {
+  colors: {
+    primary: "#3b82f6",
+    secondary: "#6b7280",
+    success: "#10b981",
+    warning: "#f59e0b",
+    error: "#ef4444",
+  },
+};
+
+export function App() {
+  return (
+    <AkiUIProvider theme={customTheme} initialColorMode="light">
+      {/* Your app content */}
+    </AkiUIProvider>
+  );
+}
+```
+
+## Error Handling Best Practices
+
+```tsx
+import { ErrorBoundary } from "react-error-boundary";
+import { Alert, Button } from "@akitectio/aki-ui";
+
+function ErrorFallback({ error, resetErrorBoundary }) {
+  return (
+    <Alert variant="error">
+      <Alert.Title>Something went wrong</Alert.Title>
+      <Alert.Description>{error.message}</Alert.Description>
+      <Button onClick={resetErrorBoundary} variant="outline" size="sm">
+        Try again
+      </Button>
+    </Alert>
+  );
+}
+
+export function App() {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      {/* Your app content */}
+    </ErrorBoundary>
+  );
+}
+```
+
+## Documentation
+
+For more information, refer to these resources:
+
+- [Aki UI Documentation](https://akitectio.github.io/aki-ui/)
+- [React Documentation](https://react.dev/learn)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 
 **Example:**
 
