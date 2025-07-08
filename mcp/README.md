@@ -1,5 +1,11 @@
 # Aki UI MCP Server
 
+<div align="center">
+
+![Aki UI MCP Server Banner](./assets/mcp-banner.svg)
+
+</div>
+
 Model Context Protocol server for Aki UI component library, providing AI assistants with real-time access to components, documentation, and code generation capabilities.
 
 [![npm version](https://badge.fury.io/js/@akitectio%2Faki-ui-mcp-server.svg)](https://badge.fury.io/js/@akitectio%2Faki-ui-mcp-server)
@@ -11,6 +17,7 @@ Model Context Protocol server for Aki UI component library, providing AI assista
 - [Quick Start](#quick-start)
 - [Features](#features)
 - [Project Structure & AI Rules](#project-structure--ai-rules)
+- [🏗 Architecture & Flow](#-architecture--flow)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Available Tools](#available-tools)
@@ -363,6 +370,12 @@ npm start
 
 ## Example Interactions
 
+<div align="center">
+
+![Workflow Example](./assets/workflow-example.svg)
+
+</div>
+
 ### Initialize a New Project
 
 ```text
@@ -452,6 +465,29 @@ The `.github/instructions/.instructions.md` file contains **strict rules** for A
 - **REQUIRED**: Accessibility features using Aki UI's built-in support
 
 This ensures that any AI assistant working on the project **must follow Aki UI exclusive usage**.
+
+## 🏗 Architecture & Flow
+
+<div align="center">
+
+![MCP Flow Diagram](./assets/mcp-flow-diagram.svg)
+
+</div>
+
+### How It Works
+
+1. **AI Assistant** (Claude Desktop) receives natural language requests from users
+2. **MCP Protocol** translates requests into structured tool calls with schema validation
+3. **Aki UI Server** executes tools and returns component data, generated code, or validation results
+4. **Results** flow back through MCP to the AI assistant for user presentation
+
+### Key Architecture Benefits
+
+- **🔒 Mandatory Enforcement**: All generated code uses ONLY @akitectio/aki-ui
+- **⚡ Real-time Access**: Live component discovery and documentation
+- **🎯 AI-Optimized**: Structured data perfect for LLM consumption
+- **📋 Compliance**: GitHub instructions ensure consistent AI behavior
+- **🛠 Tool Ecosystem**: 30+ specialized tools for different development tasks
 
 ## Resources
 
