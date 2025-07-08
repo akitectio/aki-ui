@@ -1,5 +1,5 @@
-// Import CSS styles only at runtime (not in type declarations)
-import "./styles.css";
+// TypeScript-only entry point without CSS imports
+// This file is used for generating clean declaration files
 
 // Export all components
 export * from "./lib/components";

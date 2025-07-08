@@ -62,7 +62,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run update-llm-docs && npm run generate-sitemap && npm run build:types && vite build && node scripts/add-css-banner.js && node scripts/build-adapters.js && npm run mcp:sync-metadata",
-    "build:types": "tsc -p tsconfig.build.json",
+    "build:types": "tsc -p tsconfig.build.json && node scripts/clean-types.js",
     "build:clean": "rm -rf dist",
     "build:prod": "npm run build:clean && npm run build",
     "build:all": "npm run build:prod && npm run mcp:build",

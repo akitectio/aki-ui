@@ -35,6 +35,10 @@
 npm install @akitectio/aki-ui
 ```
 
+### TypeScript Support
+
+Aki UI includes comprehensive TypeScript declarations. For detailed information about using TypeScript with Aki UI, see [TYPESCRIPT_USAGE.md](./TYPESCRIPT_USAGE.md).
+
 ### Basic Usage
 
 ```jsx
