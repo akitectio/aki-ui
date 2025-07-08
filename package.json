@@ -101,6 +101,7 @@
     "setup:pnpm": "./scripts/setup.sh pnpm"
   },
   "dependencies": {
+    "@akitectio/aki-ui-mcp-server": "^1.1.0",
     "@heroicons/react": "^2.2.0",
     "chart.js": "^4.5.0",
     "clsx": "^2.1.1",

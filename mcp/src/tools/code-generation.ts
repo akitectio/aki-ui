@@ -1,4 +1,9 @@
 import { Tool, CallToolResult } from "@modelcontextprotocol/sdk/types.js";
+import { readFileSync } from "fs";
+import { join, dirname } from "path";
+import { fileURLToPath } from "url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export class CodeGenerationTool {
   getTools(): Tool[] {
@@ -1035,7 +1040,7 @@ export default memo(YourComponent);`;
         // Form handling dependencies for Aki UI
         "react-hook-form": "^7.48.0",
         "@hookform/resolvers": "^3.3.0",
-        "zod": "^3.22.0",
+        zod: "^3.22.0",
         // Error boundary support
         "react-error-boundary": "^4.0.11",
       },
@@ -1175,7 +1180,11 @@ export default defineConfig({
     } else if (projectType === "next-js") {
       // Next.js config with aliases
       return `/** @type {import('next').NextConfig} */
-const path = require('path')
+import path from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 const nextConfig = {
   experimental: {
@@ -1484,12 +1493,9 @@ ${dashboardComponent}`;
 
   private generateGitHubInstructions(): string {
     // Read the GitHub instructions template from file
-    const fs = require('fs');
-    const path = require('path');
-    
     try {
-      const templatePath = path.join(__dirname, 'github-instructions-template.md');
-      return fs.readFileSync(templatePath, 'utf8');
+      const templatePath = join(__dirname, "github-instructions-template.md");
+      return readFileSync(templatePath, "utf8");
     } catch (error) {
       // Fallback to hardcoded template if file not found
       return `# Code Generation Instructions
