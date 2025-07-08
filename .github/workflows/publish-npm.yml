@@ -232,7 +232,8 @@ jobs:
 
       - name: Commit version bump and push
         run: |
-          git add package.json package-lock.json mcp/package.json mcp/package-lock.json public/llms.txt public/llms-full.txt public/sitemap.xml public/robots.txt
+          git add package.json package-lock.json mcp/package.json mcp/package-lock.json public/sitemap.xml public/robots.txt
+          # Exclude llms.txt and llms-full.txt which are in .gitignore and change with each build
           git commit -m "chore: bump version to ${{ steps.version.outputs.new_version }} (sync MCP + auto-discovery + sitemap)"
           git tag "${{ steps.version.outputs.new_version }}"
           git tag "mcp-${{ steps.version.outputs.new_version }}"
