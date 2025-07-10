@@ -17,7 +17,7 @@
 
 ## ✨ Features
 
-- 🎨 **37+ Beautiful Components** - Pre-built and customizable React components
+- 🎨 **48+ Beautiful Components** - Pre-built and customizable React components
 - 🎭 **Complete Theming System** - Full theme customization with CSS variables and providers
 - 🌙 **Dark Mode Support** - Built-in color mode switching with ColorModeProvider
 - 🔧 **Full TypeScript Support** - Complete type definitions and IntelliSense
@@ -26,6 +26,7 @@
 - 🌍 **RTL Support** - Right-to-left language support with DirectionProvider
 - 📱 **Responsive Design** - Mobile-first approach with Tailwind utilities
 - ♿ **Accessibility Focus** - ARIA attributes and keyboard navigation support
+- 🌐 **Multi-Framework Support** - Works with React, Next.js, Remix, Gatsby, and Angular
 
 ## 🚀 Quick Start
 
@@ -226,6 +227,79 @@ Aki UI comes with a powerful theming system that allows you to customize the app
 <div className="dark">
   <Button variant="primary">Dark Mode Button</Button>
 </div>
+```
+
+## 🌐 Framework Support
+
+Aki UI components work universally across all React-based frameworks **without any adapters**!
+
+| Framework | Status       | Version | Import Path                        |
+| --------- | ------------ | ------- | ---------------------------------- |
+| React     | ✅ Supported | 16.8.0+ | `@akitectio/aki-ui`                |
+| Next.js   | ✅ Supported | 13.0.0+ | `@akitectio/aki-ui`                |
+| Remix     | ✅ Supported | 1.0.0+  | `@akitectio/aki-ui`                |
+| Gatsby    | ✅ Supported | 4.0.0+  | `@akitectio/aki-ui`                |
+| Vite      | ✅ Supported | 4.0.0+  | `@akitectio/aki-ui`                |
+| Angular   | 🔄 Planned   | 14.0.0+ | React wrapper via Angular Elements |
+
+### Framework-Specific Examples
+
+**Next.js (App Router):**
+
+```tsx
+import { Button, Card } from "@akitectio/aki-ui";
+
+export default function Page() {
+  return (
+    <Card>
+      <Button>Next.js optimized component</Button>
+    </Card>
+  );
+}
+```
+
+**Remix:**
+
+```tsx
+import { Button, Card } from "@akitectio/aki-ui";
+
+export default function RemixRoute() {
+  return (
+    <Card>
+      <Button>Universal component</Button>
+    </Card>
+  );
+}
+```
+
+**Gatsby:**
+
+```tsx
+import { Button, Card } from "@akitectio/aki-ui";
+
+export default function GatsbyPage() {
+  return (
+    <Card>
+      <Button>Universal component</Button>
+    </Card>
+  );
+}
+```
+
+**Angular (via React Wrapper):**
+
+```typescript
+// For Angular projects, you can use React components via Angular Elements
+// See FRAMEWORK_SUPPORT.md for detailed integration guide
+})
+export class AppModule {}
+```
+
+```html
+<!-- Angular template -->
+<aki-card>
+  <aki-button variant="primary">Angular integration</aki-button>
+</aki-card>
 ```
 
 ## 🛠 Development

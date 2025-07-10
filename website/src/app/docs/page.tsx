@@ -20,6 +20,7 @@ const docCategories = [
     sections: [
       { id: 'introduction', title: 'Introduction', href: '/docs/introduction' },
       { id: 'installation', title: 'Installation', href: '/docs/installation' },
+      { id: 'framework-support', title: 'Framework Support', href: '/docs/framework-support' },
       { id: 'theming', title: 'Theming', href: '/docs/theming' },
       { id: 'color-modes', title: 'Color Modes', href: '/docs/color-modes' },
     ]

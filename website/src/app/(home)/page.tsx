@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { ComponentShowcase } from '@/components/ComponentShowcase'
 import { Badge, Card } from '@akitectio/aki-ui'
+import FrameworkHero from '@/components/FrameworkHero'
 
 export default function Home() {
   const [copyText, setCopyText] = useState('Copy')
@@ -91,6 +92,9 @@ export default function Home() {
 
       {/* Component Showcase with Theming */}
       <ComponentShowcase />
+
+      {/* Universal Framework Support */}
+      <FrameworkHero />
 
       {/* LLM & MCP Integration Highlight */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden w-full">

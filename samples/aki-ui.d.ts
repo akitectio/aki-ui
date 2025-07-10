@@ -9,6 +9,19 @@ declare module "@akitectio/aki-ui/style.css";
 
 declare module "@akitectio/aki-ui/dist/index.css";
 
-declare module "@akitectio/aki-ui/adapters";
+// Universal framework support - no adapters needed!
+// All components work directly from main import
 
-declare module "@akitectio/aki-ui/adapters/nextjs";
+// Optional: Angular Elements support (if using React wrapper in Angular)
+declare namespace JSX {
+  interface IntrinsicElements {
+    "aki-badge": any;
+    "aki-button": any;
+    "aki-card": any;
+    "aki-input": any;
+    "aki-select": any;
+    "aki-checkbox": any;
+    "aki-modal": any;
+    "aki-toast": any;
+  }
+}

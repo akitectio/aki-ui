@@ -97,54 +97,83 @@ module.exports = {
         </section>
 
         <section>
-          <h2 className="text-2xl font-bold mb-4">Using with Next.js</h2>
+          <h2 className="text-2xl font-bold mb-4">Framework Support</h2>
           <Card className="p-6">
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Aki UI works seamlessly with Next.js (both App Router and Pages Router). You can use components directly in client components:
+              Aki UI works universally across all React-based frameworks with the same simple import. No adapters needed!
             </p>
 
-            <h3 className="font-semibold mb-3">Option 1: Direct Import (Recommended)</h3>
+            <h3 className="font-semibold mb-3">Universal Usage (All Frameworks)</h3>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Simply import components directly from the package and use them in client components:
+              Use the same import across React, Next.js, Remix, Gatsby, Vite, and more:
             </p>
             <CodeBlock language="typescript">
-              {`'use client'
-
-import { Button, Card, Badge } from '@akitectio/aki-ui'
+              {`import { Button, Card, Badge } from '@akitectio/aki-ui'
+import '@akitectio/aki-ui/css'
 
 export default function MyComponent() {
   return (
     <div>
-      <Badge variant="primary">New</Badge>
-      <Button onClick={() => alert('Hello!')}>Click me</Button>
+      <Badge variant="primary">Universal</Badge>
+      <Button onClick={() => alert('Works everywhere!')}>Click me</Button>
       <Card>
-        <p>This is a card</p>
+        <p>Same code works in all React frameworks!</p>
       </Card>
     </div>
   )
 }`}
             </CodeBlock>
 
-            <h3 className="font-semibold mb-3 mt-6">Option 2: Using the Next.js Adapter</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              For specific Next.js optimizations, you can use the adapter that ensures proper client/server boundaries:
-            </p>
+            <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+              <p className="text-green-700 dark:text-green-300 text-sm">
+                <strong>✨ Universal Support:</strong> No more framework-specific imports or adapters. One simple import works everywhere!
+              </p>
+            </div>
+          </Card>
+        </section>
+
+        <section>
+          <h2 className="text-2xl font-bold mb-4">Framework-Specific Examples</h2>
+          <Card className="p-6">
+            <h3 className="font-semibold mb-3">Next.js (App Router)</h3>
             <CodeBlock language="typescript">
-              {`'use client'
+              {`'use client' // Only for interactive components
 
-import { Button, Card, Badge } from '@akitectio/aki-ui/adapters/nextjs'
+import { Button, Card } from '@akitectio/aki-ui'
 
-export default function MyComponent() {
+export default function Page() {
   return (
-    <div>
-      <Badge variant="primary">New</Badge>
-      <Button onClick={() => alert('Hello!')}>Click me</Button>
-      <Card>
-        <p>This is a card</p>
-      </Card>
-    </div>
+    <Card>
+      <Button>Next.js Component</Button>
+    </Card>
   )
 }`}
+            </CodeBlock>
+
+            <h3 className="font-semibold mb-3 mt-6">Remix</h3>
+            <CodeBlock language="typescript">
+              {`import { Button, Card } from '@akitectio/aki-ui'
+
+export default function RemixRoute() {
+  return (
+    <Card>
+      <Button>Remix Component</Button>
+    </Card>
+  )
+}`}
+            </CodeBlock>
+
+            <h3 className="font-semibold mb-3 mt-6">Gatsby</h3>
+            <CodeBlock language="typescript">
+              {`import { Button, Card } from '@akitectio/aki-ui'
+
+const GatsbyPage = () => (
+  <Card>
+    <Button>Gatsby Component</Button>
+  </Card>
+)
+
+export default GatsbyPage`}
             </CodeBlock>
 
             <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">

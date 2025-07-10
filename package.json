@@ -46,15 +46,7 @@
     "./types": "./dist/types/index.d.ts",
     "./css": "./dist/index.css",
     "./dist/index.css": "./dist/index.css",
-    "./style.css": "./dist/index.css",
-    "./adapters/nextjs": {
-      "import": "./dist/adapters/nextjs/index.js",
-      "require": "./dist/adapters/nextjs/index.js"
-    },
-    "./adapters": {
-      "import": "./dist/adapters/index.js",
-      "require": "./dist/adapters/index.js"
-    }
+    "./style.css": "./dist/index.css"
   },
   "sideEffects": [
     "**/*.css"

@@ -42,6 +42,7 @@ const docCategories: DocCategory[] = [
     sections: [
       { id: 'introduction', title: 'Introduction', href: '/docs/introduction' },
       { id: 'installation', title: 'Installation', href: '/docs/installation' },
+      { id: 'framework-support', title: 'Framework Support', href: '/docs/framework-support' },
       { id: 'overview', title: 'Overview', href: '/docs' },
     ]
   },
