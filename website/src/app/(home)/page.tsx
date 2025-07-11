@@ -3,11 +3,13 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { ComponentShowcase } from '@/components/ComponentShowcase'
-import { Badge, Card } from '@akitectio/aki-ui'
+import { LayoutShowcase } from '@/components/LayoutShowcase'
+import { Badge, Card, useBreakpoint } from '@akitectio/aki-ui'
 import FrameworkHero from '@/components/FrameworkHero'
 
 export default function Home() {
   const [copyText, setCopyText] = useState('Copy')
+  const breakpoint = useBreakpoint()
 
   const handleCopy = async () => {
     try {
@@ -21,12 +23,12 @@ export default function Home() {
     }
   }
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-900 pt-16">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-blue-900 pt-16">
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex justify-center mb-6">
-            <Badge variant="primary" className="mb-4 shadow-lg mx-auto">
+            <Badge variant="primary" position="inline" className="shadow-lg">
               🤖 AI-Powered UI • LLM Integration • MCP Support
             </Badge>
           </div>
@@ -70,7 +72,7 @@ export default function Home() {
 
           {/* Quick Start */}
           <div className="max-w-2xl mx-auto px-4">
-            <div className="bg-slate-900 dark:bg-slate-800 rounded-xl p-3 sm:p-4 md:p-6 text-left shadow-2xl border border-slate-700 overflow-hidden">
+            <div className="bg-slate-900 dark:bg-slate-800 rounded-xl p-3 sm:p-4 md:p-6 text-left shadow-2xl border border-slate-700">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-slate-400 text-xs sm:text-sm font-medium">Quick Install</span>
                 <button
@@ -93,14 +95,17 @@ export default function Home() {
       {/* Component Showcase with Theming */}
       <ComponentShowcase />
 
+      {/* Layout System Showcase */}
+      <LayoutShowcase />
+
       {/* Universal Framework Support */}
       <FrameworkHero />
 
       {/* LLM & MCP Integration Highlight */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20 overflow-hidden w-full">
-        <div className="max-w-7xl mx-auto w-full overflow-hidden">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 dark:from-purple-900/20 dark:via-blue-900/20 dark:to-indigo-900/20">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <Badge variant="primary" className="mb-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+            <Badge variant="primary" position="inline" className="mb-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
               🚀 AI-Powered Development
             </Badge>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
@@ -115,7 +120,14 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-6 items-start overflow-hidden max-w-full">
+          <div className="grid lg:grid-cols-2 gap-6 items-start">
+            {breakpoint !== 'sm' && (
+              <div className="col-span-full mb-4 text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                <span>Current breakpoint: <strong>{breakpoint}</strong></span>
+                <Badge variant="info" position="inline">Aki UI Breakpoints</Badge>
+              </div>
+            )}
+
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -166,12 +178,11 @@ export default function Home() {
             <div className="bg-slate-900 dark:bg-slate-800 rounded-2xl p-3 sm:p-4 md:p-6 shadow-2xl border border-slate-700 overflow-hidden">
               <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-slate-400 text-xs sm:text-sm font-medium">AI-Generated Component</span>
-                <Badge variant="secondary" className="bg-purple-600 text-white flex-shrink-0 text-xs">✨ AI</Badge>
+                <Badge variant="secondary" position="inline" className="bg-purple-600 text-white text-xs">✨ AI</Badge>
               </div>
-              <div className="overflow-hidden max-w-full">
-                <div className="overflow-x-auto max-w-full">
-                  <pre className="text-xs sm:text-sm md:text-base text-slate-300 p-2 max-w-full">
-                    <code className="break-normal">{`// Generated with: "Create a user profile card"
+              <div className="overflow-x-auto overflow-y-auto max-h-[300px]">
+                <pre className="text-xs sm:text-sm text-slate-300 p-2 whitespace-pre-wrap break-words">
+                  <code>{`// Generated with: "Create a user profile card"
 import { Card, Avatar, Button } from '@akitectio/aki-ui'
 
 export function UserProfile({ user }) {
@@ -190,8 +201,7 @@ export function UserProfile({ user }) {
     </Card>
   )
 }`}</code>
-                  </pre>
-                </div>
+                </pre>
               </div>
             </div>
           </div>
@@ -204,6 +214,11 @@ export function UserProfile({ user }) {
               <Link href="/ai/mcp" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 py-2 text-sm border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md w-full sm:w-auto">
                 Learn about MCP
               </Link>
+              {['md', 'lg', 'xl', '2xl'].includes(breakpoint) && (
+                <Link href="/layout-system" className="inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors px-4 py-2 text-sm border-2 border-green-500 text-green-600 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-md w-full sm:w-auto">
+                  🧱 Layout System
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { Button, Card, Badge, Alert } from '@akitectio/aki-ui'
+import { Button, Card, Badge, Alert, Grid, Stack, SimpleGrid } from '@akitectio/aki-ui'
 import { useColorMode } from '@akitectio/aki-ui'
 
 export function ComponentShowcase() {

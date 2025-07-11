@@ -52,6 +52,7 @@ export function Navigation({
 
   const navigationItems = [
     { href: '/docs', label: 'Documentation', isActive: pathname?.startsWith('/docs') },
+    { href: '/layout-system', label: 'Layout', isActive: pathname?.startsWith('/layout-system') },
     { href: '/blocks', label: 'Blocks', isActive: pathname?.startsWith('/blocks') },
     { href: '/ai', label: 'AI', isActive: pathname?.startsWith('/ai') },
   ]
