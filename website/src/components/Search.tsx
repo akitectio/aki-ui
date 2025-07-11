@@ -21,6 +21,7 @@ const searchData: SearchResult[] = [
     { title: 'Alert', href: '/docs/components/alert', description: 'Contextual feedback messages', category: 'Components' },
     { title: 'Modal', href: '/docs/components/modal', description: 'Overlay dialog component', category: 'Components' },
     { title: 'Toast', href: '/docs/components/toast', description: 'Temporary notification messages', category: 'Components' },
+    { title: 'PermissionPanel', href: '/docs/components/permissionpanel', description: 'Permission management panel with hierarchical checkboxes', category: 'Components' },
 
     // Documentation
     { title: 'Introduction', href: '/docs/introduction', description: 'Getting started with Aki UI', category: 'Documentation' },

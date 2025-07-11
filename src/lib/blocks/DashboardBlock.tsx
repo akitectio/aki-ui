@@ -3,17 +3,6 @@ import {
     Badge,
     Avatar
 } from '../components'
-import {
-    ChartBarIcon,
-    UsersIcon,
-    ShoppingCartIcon,
-    CurrencyDollarIcon,
-    HomeIcon,
-    DocumentTextIcon,
-    CogIcon,
-    ArrowUpIcon,
-    ArrowDownIcon
-} from '@heroicons/react/24/outline'
 
 const stats = [
     {
@@ -21,7 +10,6 @@ const stats = [
         value: '$45,231',
         change: '+20.1%',
         trend: 'up',
-        icon: CurrencyDollarIcon,
         color: 'green'
     },
     {
@@ -29,7 +17,6 @@ const stats = [
         value: '2,380',
         change: '+15.3%',
         trend: 'up',
-        icon: UsersIcon,
         color: 'blue'
     },
     {
@@ -37,7 +24,6 @@ const stats = [
         value: '1,456',
         change: '+8.2%',
         trend: 'up',
-        icon: ShoppingCartIcon,
         color: 'purple'
     },
     {
@@ -45,7 +31,6 @@ const stats = [
         value: '3.24%',
         change: '-2.1%',
         trend: 'down',
-        icon: ChartBarIcon,
         color: 'red'
     }
 ]
@@ -101,24 +86,19 @@ export function DashboardBlock() {
 
                 <div className="px-4 py-6 space-y-1">
                     <div className="flex items-center space-x-3 px-3 py-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                        <HomeIcon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">Dashboard</span>
+                        <span className="text-sm font-medium text-blue-600 dark:text-blue-400">📊 Dashboard</span>
                     </div>
                     <div className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <UsersIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Users</span>
+                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">👥 Users</span>
                     </div>
                     <div className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <ShoppingCartIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Orders</span>
+                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">🛒 Orders</span>
                     </div>
                     <div className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <DocumentTextIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Reports</span>
+                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">📄 Reports</span>
                     </div>
                     <div className="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
-                        <CogIcon className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">Settings</span>
+                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">⚙️ Settings</span>
                     </div>
                 </div>
             </div>
@@ -139,7 +119,6 @@ export function DashboardBlock() {
                     {/* Stats Grid */}
                     <div className="grid grid-cols-2 gap-4 mb-6">
                         {stats.map((stat, index) => {
-                            const IconComponent = stat.icon
                             return (
                                 <Card key={index} className="p-4">
                                     <div className="flex items-center justify-between">
@@ -152,9 +131,13 @@ export function DashboardBlock() {
                                             </p>
                                             <div className="flex items-center mt-1">
                                                 {stat.trend === 'up' ? (
-                                                    <ArrowUpIcon className="w-3 h-3 text-green-500" />
+                                                    <svg className="w-3 h-3 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11l5-5m0 0l5 5m-5-5v12" />
+                                                    </svg>
                                                 ) : (
-                                                    <ArrowDownIcon className="w-3 h-3 text-red-500" />
+                                                    <svg className="w-3 h-3 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 13l-5 5m0 0l-5-5m5 5V7" />
+                                                    </svg>
                                                 )}
                                                 <span className={`text-xs ml-1 ${stat.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
                                                     {stat.change}
@@ -162,7 +145,9 @@ export function DashboardBlock() {
                                             </div>
                                         </div>
                                         <div className={`p-2 rounded-lg bg-${stat.color}-100 dark:bg-${stat.color}-900/20`}>
-                                            <IconComponent className={`w-4 h-4 text-${stat.color}-600 dark:text-${stat.color}-400`} />
+                                            <span className={`text-xs font-semibold text-${stat.color}-600 dark:text-${stat.color}-400`}>
+                                                {stat.title.charAt(0)}
+                                            </span>
                                         </div>
                                     </div>
                                 </Card>

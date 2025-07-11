@@ -149,6 +149,48 @@ const componentCategories = [
       },
     ],
   },
+  {
+    title: 'Interactive',
+    description: 'Advanced interactive components for complex user interactions',
+    components: [
+      {
+        name: 'Accordion',
+        description: 'Collapsible content sections with expand/collapse functionality',
+        href: '/docs/components/accordion',
+        status: 'stable' as const,
+      },
+      {
+        name: 'Dropdown',
+        description: 'Contextual menu with selectable options',
+        href: '/docs/components/dropdown',
+        status: 'stable' as const,
+      },
+      {
+        name: 'Tooltip',
+        description: 'Contextual information overlay on hover',
+        href: '/docs/components/tooltip',
+        status: 'stable' as const,
+      },
+      {
+        name: 'Popover',
+        description: 'Floating content container triggered by user interaction',
+        href: '/docs/components/popover',
+        status: 'stable' as const,
+      },
+      {
+        name: 'Chatbot',
+        description: 'Interactive chatbot interface with rule-based responses',
+        href: '/docs/components/chatbot',
+        status: 'beta' as const,
+      },
+      {
+        name: 'PermissionPanel',
+        description: 'Multi-level permission management with nested categories',
+        href: '/docs/components/permissionpanel',
+        status: 'stable' as const,
+      },
+    ],
+  },
 ]
 
 const getStatusBadge = (status: 'stable' | 'beta' | 'alpha') => {

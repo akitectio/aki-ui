@@ -1,5 +1,4 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
-import { ChevronDownIcon, ChevronRightIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 type VerticalNavbarVariant = 'primary' | 'secondary' | 'light' | 'dark';
 type VerticalNavbarSize = 'sm' | 'md' | 'lg';
@@ -133,7 +132,9 @@ const VerticalNavbarHeader: React.FC<VerticalNavbarHeaderProps> = ({
                 {children}
                 {collapsible && (
                     <button className="p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 lg:hidden">
-                        <Bars3Icon className="w-5 h-5" />
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
                     </button>
                 )}
             </div>
@@ -151,7 +152,7 @@ const VerticalNavbarItem: React.FC<VerticalNavbarItemProps> = ({
     onClick
 }) => {
     const { collapsed, closeMobile } = useContext(VerticalNavbarContext);
-    
+
     const handleClick = (event: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
         if (onClick) {
             onClick(event);
@@ -161,12 +162,12 @@ const VerticalNavbarItem: React.FC<VerticalNavbarItemProps> = ({
             closeMobile();
         }
     };
-    
+
     const baseClasses = `
         flex items-center justify-between px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 mx-2
-        ${disabled 
-            ? 'text-gray-400 cursor-not-allowed dark:text-gray-600' 
-            : active 
+        ${disabled
+            ? 'text-gray-400 cursor-not-allowed dark:text-gray-600'
+            : active
                 ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700 dark:bg-blue-900/20 dark:text-blue-300 dark:border-blue-300'
                 : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white'
         }
@@ -265,9 +266,13 @@ const VerticalNavbarGroup: React.FC<VerticalNavbarGroupProps> = ({
                     {collapsible && (
                         <span className="w-4 h-4">
                             {collapsed ? (
-                                <ChevronRightIcon className="w-4 h-4" />
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
                             ) : (
-                                <ChevronDownIcon className="w-4 h-4" />
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                </svg>
                             )}
                         </span>
                     )}
@@ -308,128 +313,136 @@ const VerticalNavbar: React.FC<VerticalNavbarProps> & {
     overlay = false,
     className = ''
 }) => {
-    const [collapsed, setCollapsed] = useState(defaultCollapsed);
-    const [mobileOpen, setMobileOpen] = useState(false);
+        const [collapsed, setCollapsed] = useState(defaultCollapsed);
+        const [mobileOpen, setMobileOpen] = useState(false);
 
-    const toggleCollapse = () => {
-        if (collapsible) {
-            setCollapsed(!collapsed);
-        }
-    };
-
-    const toggleMobile = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
-    // Close mobile menu on Escape key
-    useEffect(() => {
-        const handleEscapeKey = (event: KeyboardEvent) => {
-            if (event.key === 'Escape' && mobileOpen) {
-                setMobileOpen(false);
+        const toggleCollapse = () => {
+            if (collapsible) {
+                setCollapsed(!collapsed);
             }
         };
 
-        document.addEventListener('keydown', handleEscapeKey);
-        return () => {
-            document.removeEventListener('keydown', handleEscapeKey);
-        };
-    }, [mobileOpen]);
-
-    // Close mobile menu on window resize to desktop size
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 1024) {
-                setMobileOpen(false);
-            }
+        const toggleMobile = () => {
+            setMobileOpen(!mobileOpen);
         };
 
-        window.addEventListener('resize', handleResize);
-        return () => {
-            window.removeEventListener('resize', handleResize);
+        // Close mobile menu on Escape key
+        useEffect(() => {
+            const handleEscapeKey = (event: KeyboardEvent) => {
+                if (event.key === 'Escape' && mobileOpen) {
+                    setMobileOpen(false);
+                }
+            };
+
+            document.addEventListener('keydown', handleEscapeKey);
+            return () => {
+                document.removeEventListener('keydown', handleEscapeKey);
+            };
+        }, [mobileOpen]);
+
+        // Close mobile menu on window resize to desktop size
+        useEffect(() => {
+            const handleResize = () => {
+                if (window.innerWidth >= 1024) {
+                    setMobileOpen(false);
+                }
+            };
+
+            window.addEventListener('resize', handleResize);
+            return () => {
+                window.removeEventListener('resize', handleResize);
+            };
+        }, []);
+
+        const variantClasses = {
+            primary: 'bg-blue-900 text-white border-blue-800',
+            secondary: 'bg-gray-800 text-white border-gray-700',
+            light: 'bg-white text-gray-900 border-gray-200 shadow-sm',
+            dark: 'bg-gray-900 text-white border-gray-800'
         };
-    }, []);
 
-    const variantClasses = {
-        primary: 'bg-blue-900 text-white border-blue-800',
-        secondary: 'bg-gray-800 text-white border-gray-700',
-        light: 'bg-white text-gray-900 border-gray-200 shadow-sm',
-        dark: 'bg-gray-900 text-white border-gray-800'
-    };
+        const sizeClasses = {
+            sm: 'text-sm',
+            md: 'text-base',
+            lg: 'text-lg'
+        };
 
-    const sizeClasses = {
-        sm: 'text-sm',
-        md: 'text-base',
-        lg: 'text-lg'
-    };
+        const currentWidth = collapsed ? collapsedWidth : width;
 
-    const currentWidth = collapsed ? collapsedWidth : width;
-
-    return (
-        <VerticalNavbarContext.Provider value={{ collapsed, mobileOpen, closeMobile: () => setMobileOpen(false) }}>
-            {/* Mobile overlay */}
-            {overlay && mobileOpen && (
-                <div 
-                    className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-                    onClick={toggleMobile}
-                />
-            )}
-
-            {/* Mobile toggle button */}
-            <button
-                type="button"
-                className="fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-md border border-gray-200 lg:hidden"
-                onClick={toggleMobile}
-            >
-                {mobileOpen ? (
-                    <XMarkIcon className="w-5 h-5" />
-                ) : (
-                    <Bars3Icon className="w-5 h-5" />
+        return (
+            <VerticalNavbarContext.Provider value={{ collapsed, mobileOpen, closeMobile: () => setMobileOpen(false) }}>
+                {/* Mobile overlay */}
+                {overlay && mobileOpen && (
+                    <div
+                        className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+                        onClick={toggleMobile}
+                    />
                 )}
-            </button>
 
-            {/* Sidebar */}
-            <div
-                className={`
+                {/* Mobile toggle button */}
+                <button
+                    type="button"
+                    className="fixed top-4 left-4 z-50 p-2 rounded-md bg-white shadow-md border border-gray-200 lg:hidden"
+                    onClick={toggleMobile}
+                >
+                    {mobileOpen ? (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    ) : (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    )}
+                </button>
+
+                {/* Sidebar */}
+                <div
+                    className={`
                     fixed top-0 left-0 h-full z-50 border-r transition-all duration-300 ease-in-out
                     ${variantClasses[variant]}
                     ${sizeClasses[size]}
                     ${mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
                     ${className}
                 `}
-                style={{ width: currentWidth }}
-            >
-                <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden">
-                    {/* Collapse button for desktop */}
-                    {collapsible && (
-                        <button
-                            type="button"
-                            className="hidden lg:flex absolute top-4 right-4 p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors z-10 items-center justify-center"
-                            onClick={toggleCollapse}
-                            title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-                        >
-                            {collapsed ? (
-                                <ChevronRightIcon className="w-4 h-4" />
-                            ) : (
-                                <ChevronRightIcon className="w-4 h-4 rotate-180" />
-                            )}
-                        </button>
-                    )}
+                    style={{ width: currentWidth }}
+                >
+                    <div className="flex flex-col h-full overflow-y-auto overflow-x-hidden">
+                        {/* Collapse button for desktop */}
+                        {collapsible && (
+                            <button
+                                type="button"
+                                className="hidden lg:flex absolute top-4 right-4 p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors z-10 items-center justify-center"
+                                onClick={toggleCollapse}
+                                title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+                            >
+                                {collapsed ? (
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                ) : (
+                                    <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
+                                )}
+                            </button>
+                        )}
 
-                    {/* Content */}
-                    <div className="flex-1 py-4">
-                        {children}
+                        {/* Content */}
+                        <div className="flex-1 py-4">
+                            {children}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            {/* Spacer for main content */}
-            <div 
-                className="hidden lg:block transition-all duration-300 ease-in-out"
-                style={{ width: currentWidth }}
-            />
-        </VerticalNavbarContext.Provider>
-    );
-};
+                {/* Spacer for main content */}
+                <div
+                    className="hidden lg:block transition-all duration-300 ease-in-out"
+                    style={{ width: currentWidth }}
+                />
+            </VerticalNavbarContext.Provider>
+        );
+    };
 
 VerticalNavbar.Header = VerticalNavbarHeader;
 VerticalNavbar.Item = VerticalNavbarItem;

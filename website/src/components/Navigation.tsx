@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { ThemeToggle } from './ThemeToggle'
 import { getVersionBadge } from '@/lib/version'
 import { useSidebar } from '@/contexts/SidebarContext'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 interface NavigationProps {
   showGetStarted?: boolean
@@ -155,9 +154,13 @@ export function Navigation({
               aria-label={effectiveMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >
               {effectiveMobileMenuOpen ? (
-                <XMarkIcon className="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true" />
+                <svg className="h-6 w-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
               ) : (
-                <Bars3Icon className="h-6 w-6 text-gray-900 dark:text-white" aria-hidden="true" />
+                <svg className="h-6 w-6 text-gray-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
               )}
             </button>
           </div>

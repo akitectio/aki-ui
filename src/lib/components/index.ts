@@ -439,3 +439,13 @@ export type {
   TableCellProps,
   TableCaptionProps,
 } from "./Table";
+
+/**
+ * PermissionPanel - Advanced permission management panel with hierarchical categories, tree structure, master toggle controls, and comprehensive state management for security and authorization
+ */
+export { default as PermissionPanel } from "./PermissionPanel";
+export type {
+  PermissionPanelProps,
+  PermissionCategory,
+  Permission,
+} from "./PermissionPanel";

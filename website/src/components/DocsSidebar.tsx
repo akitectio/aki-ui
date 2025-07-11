@@ -3,16 +3,6 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import {
-  BookOpenIcon,
-  CubeIcon,
-  RectangleStackIcon,
-  DocumentTextIcon,
-  CommandLineIcon,
-  SparklesIcon,
-  QuestionMarkCircleIcon,
-  ChevronRightIcon
-} from '@heroicons/react/24/outline'
 
 interface Subsection {
   id: string
@@ -30,7 +20,6 @@ interface Section {
 interface DocCategory {
   id: string
   title: string
-  icon: React.ComponentType<{ className?: string }>
   sections: Section[]
 }
 
@@ -38,7 +27,6 @@ const docCategories: DocCategory[] = [
   {
     id: 'getting-started',
     title: 'GETTING STARTED',
-    icon: BookOpenIcon,
     sections: [
       { id: 'introduction', title: 'Introduction', href: '/docs/introduction' },
       { id: 'installation', title: 'Installation', href: '/docs/installation' },
@@ -49,7 +37,6 @@ const docCategories: DocCategory[] = [
   {
     id: 'components',
     title: 'COMPONENTS',
-    icon: CubeIcon,
     sections: [
       { id: 'overview', title: 'Overview', href: '/docs/components' },
       {
@@ -122,6 +109,7 @@ const docCategories: DocCategory[] = [
           { id: 'tooltip', title: 'Tooltip', href: '/docs/components/tooltip' },
           { id: 'popover', title: 'Popover', href: '/docs/components/popover' },
           { id: 'chatbot', title: 'Chatbot', href: '/docs/components/chatbot' },
+          { id: 'permissionpanel', title: 'PermissionPanel', href: '/docs/components/permissionpanel' },
         ]
       },
       {
@@ -139,7 +127,6 @@ const docCategories: DocCategory[] = [
   {
     id: 'layout',
     title: 'LAYOUT',
-    icon: RectangleStackIcon,
     sections: [
       { id: 'overview', title: 'Overview', href: '/docs/layout' },
       { id: 'grid', title: 'Grid', href: '/docs/layout/grid' },
@@ -150,7 +137,6 @@ const docCategories: DocCategory[] = [
   {
     id: 'forms',
     title: 'FORMS',
-    icon: DocumentTextIcon,
     sections: [
       { id: 'overview', title: 'Overview', href: '/docs/forms' },
       { id: 'form-control', title: 'Form Control', href: '/docs/forms/form-control' },
@@ -160,7 +146,6 @@ const docCategories: DocCategory[] = [
   {
     id: 'customization',
     title: 'CUSTOMIZATION',
-    icon: SparklesIcon,
     sections: [
       { id: 'theming', title: 'Theming', href: '/docs/theming' },
       { id: 'color-modes', title: 'Color Modes', href: '/docs/color-modes' },
@@ -169,7 +154,6 @@ const docCategories: DocCategory[] = [
   {
     id: 'support',
     title: 'SUPPORT',
-    icon: QuestionMarkCircleIcon,
     sections: [
       { id: '404', title: '404 Not Found', href: '/404' },
     ]
@@ -304,7 +288,7 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
         <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
           <div className="flex items-center space-x-3">
             <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <BookOpenIcon className="w-5 h-5 text-white" />
+              <span className="text-white font-bold text-sm">📚</span>
             </div>
             <div>
               <h2 className="text-lg font-bold text-gray-900 dark:text-white">Documentation</h2>
@@ -315,7 +299,6 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
 
         <nav className="px-5 py-6 space-y-6 overflow-y-auto overflow-x-hidden w-full h-[calc(100%-6rem)] lg:max-h-[calc(100vh-12rem)] scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-700 pb-24 lg:pb-12">
           {docCategories.map((category) => {
-            const Icon = category.icon
             const isCategoryExpanded = expandedCategories.includes(category.id)
 
             return (
@@ -330,15 +313,17 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
 
                   <div className="flex items-center relative z-10">
-                    <div className="w-6 h-6 mr-3 flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-200" />
-                    </div>
                     <span className="font-semibold">{category.title}</span>
                   </div>
-                  <ChevronRightIcon
+                  <svg
                     className={`w-4 h-4 transition-all duration-300 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 relative z-10 ${isCategoryExpanded ? 'rotate-90' : ''
                       }`}
-                  />
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
                 </button>
 
                 {isCategoryExpanded && (
@@ -374,10 +359,15 @@ export function DocsSidebar({ isOpen = false, onClose }: { isOpen?: boolean; onC
                                 className="p-2 rounded-lg text-gray-400 hover:text-blue-600 dark:text-gray-500 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200 opacity-0 group-hover:opacity-100"
                                 aria-label={isExpanded ? 'Collapse section' : 'Expand section'}
                               >
-                                <ChevronRightIcon
+                                <svg
                                   className={`w-4 h-4 transition-all duration-300 ${isExpanded ? 'rotate-90' : ''
                                     }`}
-                                />
+                                  fill="none"
+                                  stroke="currentColor"
+                                  viewBox="0 0 24 24"
+                                >
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
                               </button>
                             )}
                           </div>

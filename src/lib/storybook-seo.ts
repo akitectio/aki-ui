@@ -267,6 +267,35 @@ export const componentSEOData: Record<string, StorybookSEOProps> = {
       "Auto Layout",
     ],
   },
+  PermissionPanel: {
+    componentName: "PermissionPanel",
+    componentDescription:
+      "Advanced permission management panel with hierarchical categories, tree structure, and master toggle controls. Features nested permissions, custom variants, and comprehensive state management.",
+    category: "Data Display Components",
+    keywords: [
+      "permission",
+      "panel",
+      "tree",
+      "hierarchy",
+      "checkbox",
+      "categories",
+      "access",
+      "control",
+      "security",
+      "authorization",
+      "permissions",
+      "role",
+      "management",
+    ],
+    examples: [
+      "Basic Permission Panel",
+      "Hierarchical Categories",
+      "Master Toggle",
+      "Read-only Mode",
+      "Custom Variants",
+      "Nested Permissions",
+    ],
+  },
 };
 
 /**

@@ -196,7 +196,7 @@ const Input = forwardRef<InputRef, InputProps>(({
                 </label>
             )}
 
-            <div className="relative flex">
+            <div className="relative">
                 {leftAddon && (
                     <div className="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
                         {leftAddon}
