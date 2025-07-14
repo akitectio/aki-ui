@@ -5,6 +5,31 @@ export default {
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
     darkMode: 'class',
+    safelist: [
+        // Grid classes for responsive grid system
+        {
+            pattern: /^grid-cols-(1|2|3|4|5|6|7|8|9|10|11|12)$/,
+            variants: ['sm', 'md', 'lg', 'xl', '2xl'],
+        },
+        {
+            pattern: /^col-span-(1|2|3|4|5|6|7|8|9|10|11|12)$/,
+            variants: ['sm', 'md', 'lg', 'xl', '2xl'],
+        },
+        {
+            pattern: /^row-span-(1|2|3|4|5|6)$/,
+            variants: ['sm', 'md', 'lg', 'xl', '2xl'],
+        },
+        {
+            pattern: /^gap-(0|1|2|3|4|5|6|8|10|12|16|20|24)$/,
+            variants: ['sm', 'md', 'lg', 'xl', '2xl'],
+        },
+        // Basic grid classes
+        'grid',
+        'grid-flow-row',
+        'grid-flow-col',
+        'grid-flow-row-dense',
+        'grid-flow-col-dense',
+    ],
     theme: {
         extend: {
             colors: {

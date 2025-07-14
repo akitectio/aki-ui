@@ -285,3 +285,74 @@ export const Dashboard: Story = {
         </div>
     ),
 };
+
+export const LanguageManagerLayout: Story = {
+    name: 'Language Manager Layout',
+    render: () => (
+        <div className="space-y-4">
+            <h2 className="text-xl font-semibold">Language Management Layout</h2>
+            <p className="text-gray-600">Form (4 cols) + Table (8 cols) responsive layout</p>
+
+            <Grid cols={{ base: 1, lg: 12 }} gap={6}>
+                <GridItem colSpan={{ base: 1, lg: 4 }}>
+                    <div className="bg-blue-50 border border-blue-200 p-6 rounded-lg">
+                        <h3 className="font-semibold text-blue-900 mb-4">Add New Language</h3>
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-sm font-medium mb-1">Language Name</label>
+                                <input className="w-full px-3 py-2 border rounded-md" placeholder="English" />
+                            </div>
+                            <div>
+                                <label className="block text-sm font-medium mb-1">Language Code</label>
+                                <input className="w-full px-3 py-2 border rounded-md" placeholder="en" />
+                            </div>
+                            <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                                Add Language
+                            </button>
+                        </div>
+                    </div>
+                </GridItem>
+
+                <GridItem colSpan={{ base: 1, lg: 8 }}>
+                    <div className="bg-gray-50 border border-gray-200 p-6 rounded-lg">
+                        <h3 className="font-semibold text-gray-900 mb-4">Language List</h3>
+                        <div className="overflow-x-auto">
+                            <table className="w-full">
+                                <thead className="bg-gray-100">
+                                    <tr>
+                                        <th className="text-left p-3 text-sm font-medium">Name</th>
+                                        <th className="text-left p-3 text-sm font-medium">Code</th>
+                                        <th className="text-left p-3 text-sm font-medium">Status</th>
+                                        <th className="text-left p-3 text-sm font-medium">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y">
+                                    <tr>
+                                        <td className="p-3">English</td>
+                                        <td className="p-3">en</td>
+                                        <td className="p-3">
+                                            <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">Active</span>
+                                        </td>
+                                        <td className="p-3">
+                                            <button className="text-blue-600 hover:text-blue-800 text-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="p-3">Vietnamese</td>
+                                        <td className="p-3">vi</td>
+                                        <td className="p-3">
+                                            <span className="px-2 py-1 bg-green-100 text-green-700 rounded text-xs">Active</span>
+                                        </td>
+                                        <td className="p-3">
+                                            <button className="text-blue-600 hover:text-blue-800 text-sm">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </GridItem>
+            </Grid>
+        </div>
+    ),
+};
