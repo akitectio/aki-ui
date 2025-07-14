@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { getResponsiveClasses, type Breakpoint } from '../Breakpoints';
+import { type Breakpoint } from '../Breakpoints';
 
 export interface GridProps {
     /**
@@ -87,6 +87,7 @@ export interface GridItemProps {
 
 /**
  * Helper function to convert responsive values to CSS classes
+ * Fixed version that properly generates Tailwind CSS classes
  */
 const getResponsiveGridClasses = (
     prefix: string,
@@ -98,14 +99,21 @@ const getResponsiveGridClasses = (
         return `${prefix}-${value}`;
     }
 
-    const responsiveValues: Partial<Record<Breakpoint | 'base', string>> = {};
+    const classes: string[] = [];
+
+    // Add base class (no prefix)
+    if (value.base !== undefined) {
+        classes.push(`${prefix}-${value.base}`);
+    }
+
+    // Add responsive classes with breakpoint prefixes
     Object.entries(value).forEach(([breakpoint, val]) => {
-        if (val !== undefined) {
-            responsiveValues[breakpoint as Breakpoint | 'base'] = `${prefix}-${val}`;
+        if (breakpoint !== 'base' && val !== undefined) {
+            classes.push(`${breakpoint}:${prefix}-${val}`);
         }
     });
 
-    return getResponsiveClasses(responsiveValues);
+    return classes.join(' ');
 };
 
 /**

@@ -228,6 +228,12 @@ export { default as Checkbox } from "./Checkbox";
 export type { CheckboxProps, CheckboxRef } from "./Checkbox";
 
 /**
+ * ColorPicker - A component for selecting colors with preset and custom options
+ */
+export { ColorPicker } from "./ColorPicker";
+export type { ColorPickerProps } from "./ColorPicker";
+
+/**
  * Select - A component for selecting options from a dropdown list
  */
 export { default as Select } from "./Select";

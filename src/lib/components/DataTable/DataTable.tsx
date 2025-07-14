@@ -1019,9 +1019,9 @@ export function DataTable<T>({
                                     </th>
                                 )}
 
-                                {visibleColumns.map((column) => (
+                                {visibleColumns.map((column, index) => (
                                     <th
-                                        key={column.accessor as string}
+                                        key={`header-${column.accessor?.toString() || index}`}
                                         className={`
                                             px-3 
                                             py-2 
@@ -1082,10 +1082,12 @@ export function DataTable<T>({
                                     : localIndex;
 
                                 const rowId = rowKey(row, rowIndex);
+                                // Ensure unique key by combining rowId with localIndex as fallback
+                                const uniqueKey = `${rowId}-${localIndex}`;
 
                                 return (
                                     <tr
-                                        key={rowId.toString()}
+                                        key={uniqueKey}
                                         className={getRowClassName(row, rowIndex)}
                                         {...getRowProps(row, rowIndex)}
                                         style={virtualized ? { height: `${rowHeight}px` } : undefined}
@@ -1101,9 +1103,9 @@ export function DataTable<T>({
                                             </td>
                                         )}
 
-                                        {visibleColumns.map((column) => (
+                                        {visibleColumns.map((column, index) => (
                                             <td
-                                                key={column.accessor as string}
+                                                key={`cell-${column.accessor?.toString() || index}`}
                                                 className={`
                                                     px-3 
                                                     py-2 

@@ -48,6 +48,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
     isLoading?: boolean;
 
     /**
+     * Displays a loading spinner and disables the button (alias for isLoading)
+     * @default false
+     */
+    loading?: boolean;
+
+    /**
      * Text to display when button is in loading state
      */
     loadingText?: string;
@@ -91,6 +97,11 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
      * Icon to display after the button text
      */
     endIcon?: React.ReactNode;
+
+    /**
+     * Icon to display before the button text (alias for startIcon)
+     */
+    icon?: React.ReactNode;
 }
 
 /**
@@ -101,6 +112,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     size = 'md',
     fullWidth = false,
     isLoading = false,
+    loading,
     loadingText,
     as: Component = 'button',
     asChild = false,
@@ -109,10 +121,15 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     pill = false,
     startIcon,
     endIcon,
+    icon,
     disabled,
     children,
-    ...props
+    ...restProps
 }, ref) => {
+    // Use loading as alias for isLoading
+    const actualIsLoading = isLoading || loading || false;
+    // Use icon as alias for startIcon
+    const actualStartIcon = startIcon || icon;
     // Base classes
     const baseClasses = 'inline-flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors';
 
@@ -152,7 +169,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     const widthClasses = fullWidth ? 'w-full' : '';
 
     // Disabled and loading classes
-    const stateClasses = (disabled || isLoading)
+    const stateClasses = (disabled || actualIsLoading)
         ? 'opacity-60 cursor-not-allowed'
         : 'cursor-pointer';
 
@@ -175,9 +192,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
         const childProps = children.props as any;
         return React.cloneElement(children, {
             className: `${buttonClasses} ${childProps.className || ''}`.trim(),
-            disabled: disabled || isLoading,
+            disabled: disabled || actualIsLoading,
             ref: ref, // Pass the ref to the child component
-            ...props,
+            ...restProps,
             ...childProps, // Child props take precedence
         });
     }
@@ -185,11 +202,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
     return (
         <Component
             className={buttonClasses}
-            disabled={disabled || isLoading}
+            disabled={disabled || actualIsLoading}
             ref={ref} // Pass the ref to the Component
-            {...props}
+            {...restProps}
         >
-            {isLoading && (
+            {actualIsLoading && (
                 <svg
                     className="animate-spin -ml-1 mr-2 h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"
@@ -212,13 +229,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(({
                 </svg>
             )}
 
-            {startIcon && !isLoading && (
-                <span className="mr-2">{startIcon}</span>
+            {actualStartIcon && !actualIsLoading && (
+                <span className="mr-2">{actualStartIcon}</span>
             )}
 
-            {isLoading && loadingText ? loadingText : children}
+            {actualIsLoading && loadingText ? loadingText : children}
 
-            {endIcon && !isLoading && (
+            {endIcon && !actualIsLoading && (
                 <span className="ml-2">{endIcon}</span>
             )}
         </Component>
