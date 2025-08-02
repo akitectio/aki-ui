@@ -80,6 +80,12 @@ export { default as FormControl } from "./FormControl";
 export type { FormControlProps } from "./FormControl";
 
 /**
+ * ImageCropper - A powerful image cropping component with drag, scale, and rotation features
+ */
+export { default as ImageCropper } from "../ImageCropper";
+export type { ImageCropperProps } from "../ImageCropper";
+
+/**
  * Modal - A dialog box/popup window that displays content over the current page
  */
 export { default as Modal, ModalHeader, ModalBody, ModalFooter } from "./Modal";
