@@ -166,6 +166,12 @@ export { default as FloatingLabel } from "./FloatingLabel";
 export type { FloatingLabelProps, FloatingLabelRef } from "./FloatingLabel";
 
 /**
+ * ImageCrop - A component for cropping images with aspect ratio support
+ */
+export { default as ImageCrop } from "./ImageCrop";
+export type { ImageCropProps, AspectRatio, CropArea } from "./ImageCrop";
+
+/**
  * Breakpoints - Responsive breakpoint utilities and hooks
  */
 export {
