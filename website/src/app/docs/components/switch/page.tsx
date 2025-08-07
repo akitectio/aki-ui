@@ -196,7 +196,7 @@ function ControlledSwitch() {
             <div className="bg-white p-4 rounded-lg border">
               <h3 className="text-lg font-semibold mb-3">Feature Toggles</h3>
               <div className="space-y-3">
-                <Switch label="Beta features" color="warning" />
+                <Switch label="Preview features" color="warning" />
                 <Switch label="Advanced mode" color="info" />
                 <Switch label="Developer tools" color="secondary" />
               </div>
@@ -230,7 +230,7 @@ function ControlledSwitch() {
   <div className="bg-white p-4 rounded-lg border">
     <h3 className="text-lg font-semibold mb-3">Feature Toggles</h3>
     <div className="space-y-3">
-      <Switch label="Beta features" color="warning" />
+      <Switch label="Preview features" color="warning" />
       <Switch label="Advanced mode" color="info" />
       <Switch label="Developer tools" color="secondary" />
     </div>
@@ -323,7 +323,7 @@ function ControlledSwitch() {
             <li>✅ High contrast mode support</li>
             <li>✅ Clear on/off state indication</li>
           </ul>
-          
+
           <h3 className="text-lg font-semibold mt-6 mb-3">Keyboard Navigation</h3>
           <ul className="space-y-1">
             <li><kbd className="px-2 py-1 bg-gray-200 rounded text-sm">Space</kbd> - Toggle switch state</li>
@@ -349,7 +349,7 @@ function ControlledSwitch() {
               <li>Use appropriate colors to convey meaning (success, danger, etc.)</li>
             </ul>
           </div>
-          
+
           <div className="border-l-4 border-red-500 bg-red-50 p-4">
             <h4 className="font-semibold text-red-800 mb-2">❌ Don't</h4>
             <ul className="text-red-700 space-y-1">
@@ -380,7 +380,7 @@ function ControlledSwitch() {
               <Switch label="Enable notifications" color="success" defaultChecked />
             </div>
           </div>
-          
+
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
             <h3 className="text-lg font-semibold text-blue-800 mb-3">Use Checkbox When:</h3>
             <ul className="text-blue-700 space-y-2">

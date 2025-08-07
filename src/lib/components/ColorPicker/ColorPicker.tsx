@@ -10,6 +10,15 @@ export interface ColorPickerProps {
     presetColors?: string[];
     showPresets?: boolean;
     size?: 'sm' | 'md' | 'lg';
+    // Internationalization props
+    labels?: {
+        customColor?: string;
+        presetColors?: string;
+        invalidHexMessage?: string;
+        selectColor?: string;
+        cancel?: string;
+        select?: string;
+    };
 }
 
 const DEFAULT_PRESET_COLORS = [
@@ -24,11 +33,24 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
     onChange,
     disabled = false,
     className = '',
-    placeholder = 'Chọn màu',
+    placeholder = 'Select color',
     presetColors = DEFAULT_PRESET_COLORS,
     showPresets = true,
     size = 'md',
+    labels = {},
 }) => {
+    // Default labels with English text
+    const defaultLabels = {
+        customColor: 'Custom Color',
+        presetColors: 'Preset Colors',
+        invalidHexMessage: 'Please enter a valid hex color (e.g., #FF0000)',
+        selectColor: 'Select color',
+        cancel: 'Cancel',
+        select: 'Select',
+    };
+
+    // Merge default labels with provided labels
+    const currentLabels = { ...defaultLabels, ...labels };
     const [isOpen, setIsOpen] = useState(false);
     const [customColor, setCustomColor] = useState(value);
     const [dropdownPosition, setDropdownPosition] = useState<'bottom' | 'top'>('bottom');
@@ -153,7 +175,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                         {/* Custom Color Input */}
                         <div className="space-y-2">
                             <label className="block text-sm font-medium text-gray-700">
-                                Màu tùy chỉnh
+                                {currentLabels.customColor}
                             </label>
                             <div className="flex items-center space-x-2">
                                 <input
@@ -178,7 +200,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                             </div>
                             {!isValidHex(customColor) && customColor && (
                                 <p className="text-xs text-red-600">
-                                    Vui lòng nhập mã màu hex hợp lệ (ví dụ: #FF0000)
+                                    {currentLabels.invalidHexMessage}
                                 </p>
                             )}
                         </div>
@@ -187,7 +209,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                         {showPresets && (
                             <div className="space-y-2">
                                 <label className="block text-sm font-medium text-gray-700">
-                                    Màu có sẵn
+                                    {currentLabels.presetColors}
                                 </label>
                                 <div className="grid grid-cols-6 gap-2">
                                     {presetColors.map((color) => (
@@ -201,7 +223,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                                             )}
                                             style={{ backgroundColor: color }}
                                             onClick={() => handlePresetColorClick(color)}
-                                            aria-label={`Chọn màu ${color}`}
+                                            aria-label={`${currentLabels.selectColor} ${color}`}
                                         />
                                     ))}
                                 </div>
@@ -219,7 +241,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                                 )}
                                 onClick={() => setIsOpen(false)}
                             >
-                                Hủy
+                                {currentLabels.cancel}
                             </button>
                             <button
                                 type="button"
@@ -237,7 +259,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                                 }}
                                 disabled={!isValidHex(customColor)}
                             >
-                                Chọn
+                                {currentLabels.select}
                             </button>
                         </div>
                     </div>

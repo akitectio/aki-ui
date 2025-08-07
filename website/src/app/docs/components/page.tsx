@@ -65,9 +65,9 @@ const componentCategories = [
       },
       {
         name: 'DataTable',
-        description: 'Advanced table with sorting and filtering',
+        description: 'Advanced table with sorting, filtering, and virtualization',
         href: '/docs/components/datatable',
-        status: 'beta' as const,
+        status: 'stable' as const,
       },
     ],
   },
@@ -85,19 +85,19 @@ const componentCategories = [
         name: 'Toast',
         description: 'Temporary notification messages',
         href: '/docs/components/toast',
-        status: 'beta' as const,
+        status: 'stable' as const,
       },
       {
         name: 'Modal',
         description: 'Overlay dialogs for focused interactions',
         href: '/docs/components/modal',
-        status: 'beta' as const,
+        status: 'stable' as const,
       },
       {
         name: 'Drawer',
         description: 'Slide-in panel for additional content or actions',
         href: '/docs/components/drawer',
-        status: 'beta' as const,
+        status: 'stable' as const,
       },
     ],
   },
@@ -115,13 +115,13 @@ const componentCategories = [
         name: 'Tabs',
         description: 'Content organization with tabbed interface',
         href: '/docs/components/tabs',
-        status: 'beta' as const,
+        status: 'stable' as const,
       },
       {
         name: 'Pagination',
         description: 'Navigate through pages of content',
         href: '/docs/components/pagination',
-        status: 'beta' as const,
+        status: 'stable' as const,
       },
     ],
   },
@@ -181,7 +181,7 @@ const componentCategories = [
         name: 'Chatbot',
         description: 'Interactive chatbot interface with rule-based responses',
         href: '/docs/components/chatbot',
-        status: 'beta' as const,
+        status: 'stable' as const,
       },
       {
         name: 'PermissionPanel',
@@ -200,7 +200,7 @@ const getStatusBadge = (status: 'stable' | 'beta' | 'alpha') => {
     alpha: { variant: 'secondary' as const, text: 'Alpha' },
   }
   const { variant, text } = variants[status]
-  return <Badge variant={variant} size="sm">{text}</Badge>
+  return <Badge variant={variant} position={undefined}>{text}</Badge>
 }
 
 export default function ComponentsIndexPage() {

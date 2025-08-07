@@ -46,33 +46,9 @@ const breadcrumbConfig: BreadcrumbConfig = {
     name: "DataTable",
     href: "/docs/components/datatable",
   },
-  "/docs/components/datatable/basic": {
-    name: "Basic Usage",
-    href: "/docs/components/datatable/basic",
-  },
-  "/docs/components/datatable/advanced": {
-    name: "Advanced Features",
-    href: "/docs/components/datatable/advanced",
-  },
-  "/docs/components/datatable/export": {
-    name: "Export & Download",
-    href: "/docs/components/datatable/export",
-  },
-  "/docs/components/datatable/filtering": {
-    name: "Filtering",
-    href: "/docs/components/datatable/filtering",
-  },
-  "/docs/components/datatable/server-side": {
-    name: "Server-side",
-    href: "/docs/components/datatable/server-side",
-  },
-  "/docs/components/datatable/responsive": {
-    name: "Responsive",
-    href: "/docs/components/datatable/responsive",
-  },
-  "/docs/components/datatable/editable": {
-    name: "Editable",
-    href: "/docs/components/datatable/editable",
+  "/docs/components/imagecropper": {
+    name: "ImageCropper",
+    href: "/docs/components/imagecropper",
   },
   "/docs/components/divider": {
     name: "Divider",

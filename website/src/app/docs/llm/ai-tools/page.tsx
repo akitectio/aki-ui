@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { Button, Card, Badge, Alert } from '@akitectio/aki-ui'
 import { PageHeader } from '@/components/PageHeader'
-import { 
+import {
   SparklesIcon,
   CommandLineIcon,
   CpuChipIcon,
@@ -108,7 +108,7 @@ const aiTools = [
     name: 'Continue.dev',
     category: 'Open Source',
     logo: '🔄',
-    status: 'Beta Support',
+    status: 'Preview Support',
     description: 'Open-source AI code assistant with MCP support.',
     features: [
       'MCP integration',
@@ -123,7 +123,7 @@ const aiTools = [
     name: 'Windsurf Editor',
     category: 'AI-First Editor',
     logo: '🏄',
-    status: 'Beta Support',
+    status: 'Preview Support',
     description: 'AI-powered editor with collaborative features.',
     features: [
       'AI collaboration',
@@ -142,7 +142,7 @@ const getStatusColor = (status: string) => {
       return 'success'
     case 'Supported':
       return 'warning'
-    case 'Beta Support':
+    case 'Preview Support':
       return 'info'
     default:
       return 'secondary'
@@ -183,17 +183,17 @@ export default function LLMAIToolsPage() {
                   AI-Powered Development with Aki UI
                 </h2>
                 <p className="text-blue-800 dark:text-blue-200 mb-4">
-                  Aki UI is designed to work seamlessly with modern AI tools and code assistants. 
+                  Aki UI is designed to work seamlessly with modern AI tools and code assistants.
                   Our llms.txt standard and MCP integration provide optimal context for AI-powered development.
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline" className="border-blue-300 text-blue-700 dark:border-blue-600 dark:text-blue-300">
+                  <Badge variant="outline" className="border-blue-300 text-blue-700 dark:border-blue-600 dark:text-blue-300" position={undefined}>
                     {aiTools.length} AI Tools Supported
                   </Badge>
-                  <Badge variant="outline" className="border-purple-300 text-purple-700 dark:border-purple-600 dark:text-purple-300">
+                  <Badge variant="outline" className="border-purple-300 text-purple-700 dark:border-purple-600 dark:text-purple-300" position={undefined}>
                     LLMs.txt Standard
                   </Badge>
-                  <Badge variant="outline" className="border-green-300 text-green-700 dark:border-green-600 dark:text-green-300">
+                  <Badge variant="outline" className="border-green-300 text-green-700 dark:border-green-600 dark:text-green-300" position={undefined}>
                     MCP Integration
                   </Badge>
                 </div>
@@ -254,17 +254,17 @@ export default function LLMAIToolsPage() {
         {categories.map(category => {
           const categoryTools = aiTools.filter(tool => tool.category === category)
           const CategoryIcon = getCategoryIcon(category)
-          
+
           return (
             <section key={category}>
               <div className="flex items-center mb-6">
                 <CategoryIcon className="w-6 h-6 mr-3 text-blue-600 dark:text-blue-400" />
                 <h2 className="text-2xl font-bold">{category}</h2>
-                <Badge variant="outline" className="ml-3">
+                <Badge variant="outline" className="ml-3" position={undefined}>
                   {categoryTools.length} tools
                 </Badge>
               </div>
-              
+
               <div className="grid md:grid-cols-2 gap-6">
                 {categoryTools.map(tool => (
                   <Card key={tool.name} className="p-6 hover:shadow-lg transition-shadow">
@@ -278,15 +278,15 @@ export default function LLMAIToolsPage() {
                           </p>
                         </div>
                       </div>
-                      <Badge variant={getStatusColor(tool.status) as any}>
+                      <Badge variant={getStatusColor(tool.status) as any} position={undefined}>
                         {tool.status}
                       </Badge>
                     </div>
-                    
+
                     <p className="text-gray-600 dark:text-gray-300 mb-4">
                       {tool.description}
                     </p>
-                    
+
                     <div className="mb-4">
                       <h4 className="font-medium mb-2 text-sm text-gray-700 dark:text-gray-300">
                         Key Features:
@@ -300,7 +300,7 @@ export default function LLMAIToolsPage() {
                         ))}
                       </ul>
                     </div>
-                    
+
                     <div className="border-t pt-4">
                       <div className="flex items-center justify-between">
                         <div>
@@ -344,7 +344,7 @@ export default function LLMAIToolsPage() {
                 </div>
               </div>
             </Card>
-            
+
             <Card className="p-6">
               <div className="flex items-start space-x-3">
                 <ExclamationTriangleIcon className="w-6 h-6 text-orange-600 dark:text-orange-400 mt-1 flex-shrink-0" />
@@ -371,7 +371,7 @@ export default function LLMAIToolsPage() {
           <Card className="p-8 text-center bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20">
             <h2 className="text-2xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-              Choose your preferred AI tool and follow our setup guide to start building 
+              Choose your preferred AI tool and follow our setup guide to start building
               amazing UIs with AI assistance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

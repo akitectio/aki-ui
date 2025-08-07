@@ -13,21 +13,21 @@ export function DocsLayoutClient({
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 relative pt-16 overflow-x-hidden">
-      <div className="flex flex-col lg:flex-row min-h-screen w-full">
-        <DocsSidebar
-          isOpen={isSidebarOpen}
-          onClose={closeSidebar}
-        />
-        <main className="flex-1 lg:ml-0 bg-gray-50 dark:bg-gray-900 pb-8 overflow-x-hidden">
-          <div className="px-6 py-4 max-w-4xl mx-auto">
+      <main className="min-h-screen w-full bg-gray-50 dark:bg-gray-900 pb-8 overflow-x-hidden">
+        <div className="flex max-w-7xl mx-auto">
+          <DocsSidebar
+            isOpen={isSidebarOpen}
+            onClose={closeSidebar}
+          />
+          <div className="flex-1 px-8 py-6">
             <DocsPageWrapper>
-              <div className="py-4">
+              <div className="py-4 max-w-4xl">
                 {children}
               </div>
             </DocsPageWrapper>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
   )
 }

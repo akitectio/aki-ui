@@ -287,7 +287,7 @@ const Modal: React.FC<ModalProps> & {
                 ref={overlayRef}
                 className={`
         fixed inset-0 z-50 flex ${centered ? 'items-center' : 'items-start pt-16'} justify-center
-        ${backdrop ? 'bg-black bg-opacity-50 dark:bg-opacity-70' : ''}
+        ${backdrop ? 'bg-black bg-opacity-40 backdrop-blur-sm dark:bg-opacity-50' : ''}
       `}
                 onClick={handleOverlayClick}
                 aria-modal="true"

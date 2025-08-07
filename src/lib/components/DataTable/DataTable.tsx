@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 
-// Define a type for setTimeout return value
-// type TimeoutRef = ReturnType<typeof setTimeout>;
-
 export interface Column<T> {
     /**
      * The header label for the column
@@ -62,6 +59,36 @@ export interface Column<T> {
      * Whether the column should be hidden
      */
     hidden?: boolean;
+
+    /**
+     * Column alignment
+     * @default 'left'
+     */
+    align?: 'left' | 'center' | 'right';
+
+    /**
+     * Whether the column is pinned (sticky)
+     */
+    pinned?: 'left' | 'right';
+
+    /**
+     * Custom filter component
+     */
+    filterComponent?: React.ComponentType<{
+        value: string;
+        onChange: (value: string) => void;
+        placeholder?: string;
+    }>;
+
+    /**
+     * Tooltip for the column header
+     */
+    tooltip?: string;
+
+    /**
+     * Whether column is required (for form tables)
+     */
+    required?: boolean;
 }
 
 export type SortDirection = 'asc' | 'desc';
@@ -257,6 +284,170 @@ export interface DataTableProps<T> {
      * @default 10
      */
     overscanCount?: number;
+
+    /**
+     * Enable bulk actions for selected rows
+     */
+    bulkActions?: Array<{
+        label: string;
+        icon?: React.ReactNode;
+        action: (selectedRows: T[], selectedKeys: React.Key[]) => void | Promise<void>;
+        variant?: 'default' | 'destructive' | 'success' | 'warning';
+        disabled?: boolean;
+    }>;
+
+    /**
+     * Enable export functionality
+     */
+    enableExport?: boolean;
+
+    /**
+     * Export formats available
+     * @default ['csv', 'json']
+     */
+    exportFormats?: Array<'csv' | 'json' | 'xlsx'>;
+
+    /**
+     * Custom export function
+     */
+    onExport?: (format: string, data: T[]) => void;
+
+    /**
+     * Whether to show column visibility toggle
+     * @default false
+     */
+    showColumnToggle?: boolean;
+
+    /**
+     * Whether to enable row expansion
+     * @default false
+     */
+    expandable?: boolean;
+
+    /**
+     * Function to render expanded row content
+     */
+    renderExpandedRow?: (row: T, index: number) => React.ReactNode;
+
+    /**
+     * Expanded row keys
+     */
+    expandedRowKeys?: React.Key[];
+
+    /**
+     * Called when expanded rows change
+     */
+    onExpandedRowsChange?: (expandedKeys: React.Key[]) => void;
+
+    /**
+     * Table caption for accessibility
+     */
+    caption?: string;
+
+    /**
+     * Custom empty state component
+     */
+    emptyStateComponent?: React.ComponentType;
+
+    /**
+     * Custom loading component
+     */
+    loadingComponent?: React.ComponentType;
+
+    /**
+     * Error state
+     */
+    error?: string | Error;
+
+    /**
+     * Custom error component
+     */
+    errorComponent?: React.ComponentType<{ error: string | Error }>;
+
+    /**
+     * Whether to enable keyboard navigation
+     * @default true
+     */
+    keyboardNavigation?: boolean;
+
+    /**
+     * Custom row height function for dynamic row heights
+     */
+    getRowHeight?: (row: T, index: number) => number;
+
+    /**
+     * Whether to enable drag and drop for rows
+     * @default false
+     */
+    dragDropEnabled?: boolean;
+
+    /**
+     * Called when rows are reordered via drag and drop
+     */
+    onRowsReorder?: (newData: T[]) => void;
+
+    /**
+     * Maximum height of the table (enables scroll)
+     */
+    maxHeight?: string;
+
+    /**
+     * Whether to stick the header when scrolling
+     * @default false
+     */
+    stickyHeader?: boolean;
+
+    /**
+     * Total count for server-side pagination
+     */
+    totalCount?: number;
+
+    /**
+     * Called when sorting changes
+     */
+    onSortChange?: (sorts: Sort[]) => void;
+
+    /**
+     * Called when filters change
+     */
+    onFilterChange?: (filters: Filter[]) => void;
+
+    /**
+     * Called when pagination changes
+     */
+    onPaginationChange?: (pagination: PaginationState) => void;
+
+    /**
+     * Global search functionality
+     */
+    searchable?: boolean;
+
+    /**
+     * Search value
+     */
+    searchValue?: string;
+
+    /**
+     * Called when search value changes
+     */
+    onSearchChange?: (value: string) => void;
+
+    /**
+     * Search placeholder text
+     */
+    searchPlaceholder?: string;
+
+    /**
+     * Whether to show search clear button
+     * @default true
+     */
+    showSearchClear?: boolean;
+
+    /**
+     * Debounce delay for search (in ms)
+     * @default 300
+     */
+    searchDebounce?: number;
 }
 
 export function DataTable<T>({
@@ -290,6 +481,37 @@ export function DataTable<T>({
     virtualizedHeight = '400px',
     rowHeight = 48,
     overscanCount = 10,
+    totalCount: serverTotalCount,
+    // Advanced features - will be implemented gradually
+    // bulkActions = [],
+    // enableExport = false,
+    // exportFormats = ['csv', 'json'],
+    // onExport,
+    // showColumnToggle = false,
+    // expandable = false,
+    // renderExpandedRow,
+    // expandedRowKeys,
+    // onExpandedRowsChange,
+    // caption,
+    // emptyStateComponent: EmptyStateComponent,
+    // loadingComponent: LoadingComponent,
+    // error,
+    // errorComponent: ErrorComponent,
+    // keyboardNavigation = true,
+    // getRowHeight,
+    // dragDropEnabled = false,
+    // onRowsReorder,
+    // maxHeight,
+    // stickyHeader = false,
+    // showSearchClear = true,
+    // onSortChange,
+    // onFilterChange,
+    // onPaginationChange,
+    // searchable = false,
+    // searchValue,
+    // onSearchChange,
+    // searchPlaceholder = 'Search...',
+    // searchDebounce = 300,
 }: DataTableProps<T>) {
     // Memoize the column map for faster lookups
     const columnMap = useMemo(() =>
@@ -310,6 +532,11 @@ export function DataTable<T>({
         pageIndex: 0,
         pageSize: defaultPageSize,
     }));
+
+    // Search state - will be uncommented when implementing search
+    // const [internalSearchValue, setInternalSearchValue] = useState<string>('');
+    // const isSearchControlled = searchValue !== undefined;
+    // const currentSearchValue = isSearchControlled ? searchValue : internalSearchValue;
 
     // Use controlled or uncontrolled selection mode
     const isControlled = selectedRowKeys !== undefined;
@@ -450,11 +677,19 @@ export function DataTable<T>({
         return result;
     }, [sourceData, columnMap, filters, sorts, onFetch]);
 
-    // Calculate total count
-    const totalCount = useMemo(() =>
-        onFetch ? serverData.totalCount : processedData.length,
-        [onFetch, serverData.totalCount, processedData]
-    );
+    // Calculate total count with error handling
+    const totalCount = useMemo(() => {
+        try {
+            if (onFetch) {
+                const count = serverTotalCount || serverData.totalCount || 0;
+                return Math.max(0, count); // Ensure non-negative
+            }
+            return Math.max(0, processedData.length);
+        } catch (error) {
+            console.error('DataTable: Error calculating total count:', error);
+            return 0;
+        }
+    }, [onFetch, serverTotalCount, serverData.totalCount, processedData]);
 
     // Get visible columns
     const visibleColumns = useMemo(() =>
@@ -553,17 +788,30 @@ export function DataTable<T>({
         });
     }, []);
 
-    // Get paginated data - optimization for pagination
+    // Get paginated data - optimization for pagination with error handling
     const paginatedData = useMemo(() => {
-        if (!enablePagination || onFetch) {
+        try {
+            if (!enablePagination || onFetch) {
+                return processedData;
+            }
+
+            const { pageIndex, pageSize } = paginationState;
+
+            // Validate pagination parameters
+            if (pageIndex < 0 || pageSize <= 0) {
+                console.warn('DataTable: Invalid pagination parameters');
+                return processedData;
+            }
+
+            const start = pageIndex * pageSize;
+            const end = start + pageSize;
+
+            // Ensure we don't slice beyond array bounds
+            return processedData.slice(start, Math.min(end, processedData.length));
+        } catch (error) {
+            console.error('DataTable: Error in pagination calculation:', error);
             return processedData;
         }
-
-        const { pageIndex, pageSize } = paginationState;
-        const start = pageIndex * pageSize;
-        const end = start + pageSize;
-
-        return processedData.slice(start, end);
     }, [processedData, paginationState, onFetch, enablePagination]);
 
     // Handle selection with optimized updates
@@ -995,79 +1243,121 @@ export function DataTable<T>({
     }, [handleResizeMove, handleResizeEnd]);
 
     return (
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden" role="region" aria-label="Data table">
             <div
                 ref={tableRef}
                 className={`overflow-x-auto ${virtualized ? 'overflow-y-scroll' : 'overflow-y-auto'}`}
                 style={{ height: virtualized ? virtualizedHeight : 'auto' }}
                 onScroll={handleScroll}
+                role="table"
+                aria-live="polite"
+                aria-busy={loading}
             >
                 {LoadingOverlay}
 
-                <table className={tableClassName} style={{ height: virtualized ? `${visibleRowsInfo.totalHeight}px` : 'auto' }}>
+                <table
+                    className={tableClassName}
+                    style={{ height: virtualized ? `${visibleRowsInfo.totalHeight}px` : 'auto' }}
+                    role="table"
+                    aria-label="Data table"
+                    aria-rowcount={totalCount}
+                    aria-colcount={visibleColumns.length + (selectable ? 1 : 0)}
+                >
                     {showHeader && (
-                        <thead className="bg-gray-50 sticky top-0 z-10">
-                            <tr>
+                        <thead className="bg-gray-50 sticky top-0 z-10" role="rowgroup">
+                            <tr role="row">
                                 {selectable && (
-                                    <th className="px-3 py-2 border-b border-gray-200">
+                                    <th
+                                        className="px-3 py-2 border-b border-gray-200"
+                                        role="columnheader"
+                                        aria-label="Select all rows"
+                                    >
                                         <input
                                             type="checkbox"
                                             checked={isAllSelected}
                                             onChange={handleSelectAll}
                                             disabled={paginatedData.length === 0}
+                                            aria-label="Select all rows"
                                         />
                                     </th>
                                 )}
 
-                                {visibleColumns.map((column, index) => (
-                                    <th
-                                        key={`header-${column.accessor?.toString() || index}`}
-                                        className={`
-                                            px-3 
-                                            py-2 
-                                            text-left 
-                                            border-b 
-                                            border-gray-200 
-                                            font-medium 
-                                            text-gray-700 
-                                            ${column.sortable !== false && sortable ? 'cursor-pointer' : ''} 
-                                            ${column.className || ''}
-                                            ${resizableColumns && column.resizable !== false ? 'relative' : ''}
-                                        `}
-                                        style={{
-                                            width: columnWidths[column.accessor as string] || column.width,
-                                            minWidth: column.minWidth
-                                        }}
-                                        onClick={() => column.sortable !== false && sortable && handleSort(column.accessor as string)}
-                                        ref={el => {
-                                            if (el && resizableColumns) {
-                                                columnRefs.current[column.accessor as string] = el;
+                                {visibleColumns.map((column, index) => {
+                                    const sortInfo = sorts.find(sort => sort.id === column.accessor);
+                                    const isColumnSortable = column.sortable !== false && sortable;
+
+                                    return (
+                                        <th
+                                            key={`header-${column.accessor?.toString() || index}`}
+                                            className={`
+                                                px-3 
+                                                py-2 
+                                                text-left 
+                                                border-b 
+                                                border-gray-200 
+                                                font-medium 
+                                                text-gray-700 
+                                                ${isColumnSortable ? 'cursor-pointer hover:bg-gray-100' : ''} 
+                                                ${column.className || ''}
+                                                ${resizableColumns && column.resizable !== false ? 'relative' : ''}
+                                                ${column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : 'text-left'}
+                                            `}
+                                            style={{
+                                                width: columnWidths[column.accessor as string] || column.width,
+                                                minWidth: column.minWidth
+                                            }}
+                                            onClick={() => isColumnSortable && handleSort(column.accessor as string)}
+                                            ref={el => {
+                                                if (el && resizableColumns) {
+                                                    columnRefs.current[column.accessor as string] = el;
+                                                }
+                                            }}
+                                            role="columnheader"
+                                            scope="col"
+                                            aria-sort={
+                                                sortInfo
+                                                    ? sortInfo.direction === 'asc'
+                                                        ? 'ascending'
+                                                        : 'descending'
+                                                    : isColumnSortable
+                                                        ? 'none'
+                                                        : undefined
                                             }
-                                        }}
-                                    >
-                                        <div className="flex items-center">
-                                            {column.header}
-                                            {column.sortable !== false && sortable && renderSortIndicator(column.accessor as string)}
-                                        </div>
-
-                                        {showFilters && renderFilterInput(column)}
-
-                                        {resizableColumns && column.resizable !== false && (
-                                            <div
-                                                className="absolute top-0 right-0 h-full w-2 cursor-col-resize group"
-                                                onMouseDown={(e) => handleResizeStart(e, column.accessor as string)}
-                                                onClick={(e) => e.stopPropagation()}
-                                            >
-                                                <div className="absolute right-0 top-0 h-full w-1 bg-gray-300 opacity-0 group-hover:opacity-100" />
+                                            aria-label={`${column.header}${isColumnSortable ? '. Click to sort' : ''}`}
+                                            tabIndex={isColumnSortable ? 0 : -1}
+                                            onKeyDown={(e) => {
+                                                if (isColumnSortable && (e.key === 'Enter' || e.key === ' ')) {
+                                                    e.preventDefault();
+                                                    handleSort(column.accessor as string);
+                                                }
+                                            }}
+                                        >
+                                            <div className="flex items-center justify-between">
+                                                <span>{column.header}</span>
+                                                {isColumnSortable && renderSortIndicator(column.accessor as string)}
                                             </div>
-                                        )}
-                                    </th>
-                                ))}
+
+                                            {showFilters && renderFilterInput(column)}
+
+                                            {resizableColumns && column.resizable !== false && (
+                                                <div
+                                                    className="absolute top-0 right-0 h-full w-2 cursor-col-resize group hover:bg-blue-500 hover:opacity-50"
+                                                    onMouseDown={(e) => handleResizeStart(e, column.accessor as string)}
+                                                    aria-label={`Resize ${column.header} column`}
+                                                    role="separator"
+                                                    tabIndex={0}
+                                                >
+                                                    <div className="h-full w-px bg-gray-300 group-hover:bg-blue-500 ml-auto"></div>
+                                                </div>
+                                            )}
+                                        </th>
+                                    );
+                                })}
                             </tr>
                         </thead>
                     )}
 
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-white divide-y divide-gray-200" role="rowgroup">
                         {virtualized && (
                             <tr style={{ height: `${visibleRowsInfo.offsetY}px` }} aria-hidden="true">
                                 <td colSpan={visibleColumns.length + (selectable ? 1 : 0)} />
@@ -1091,14 +1381,29 @@ export function DataTable<T>({
                                         className={getRowClassName(row, rowIndex)}
                                         {...getRowProps(row, rowIndex)}
                                         style={virtualized ? { height: `${rowHeight}px` } : undefined}
+                                        role="row"
+                                        aria-rowindex={rowIndex + 1}
+                                        aria-selected={selectable ? selected.includes(rowId) : undefined}
+                                        tabIndex={onRowClick ? 0 : -1}
+                                        onKeyDown={onRowClick ? (e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                onRowClick(row, rowIndex);
+                                            }
+                                        } : undefined}
                                     >
                                         {selectable && (
-                                            <td className="px-3 py-2 border-b border-gray-200">
+                                            <td
+                                                className="px-3 py-2 border-b border-gray-200"
+                                                role="gridcell"
+                                                aria-label={`Select row ${rowIndex + 1}`}
+                                            >
                                                 <input
                                                     type="checkbox"
                                                     checked={selected.includes(rowId)}
                                                     onChange={(e) => handleSelectRow(e, rowId)}
                                                     onClick={(e) => e.stopPropagation()}
+                                                    aria-label={`Select row ${rowIndex + 1}`}
                                                 />
                                             </td>
                                         )}
@@ -1112,7 +1417,10 @@ export function DataTable<T>({
                                                     border-b 
                                                     border-gray-200 
                                                     ${column.className || ''}
+                                                    ${column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : 'text-left'}
                                                 `}
+                                                role="gridcell"
+                                                aria-describedby={`${String(column.accessor)}-${rowIndex}`}
                                             >
                                                 {renderCell(row, column, rowIndex)}
                                             </td>
@@ -1121,10 +1429,12 @@ export function DataTable<T>({
                                 );
                             })
                         ) : (
-                            <tr>
+                            <tr role="row">
                                 <td
                                     colSpan={visibleColumns.length + (selectable ? 1 : 0)}
                                     className="px-3 py-4 text-center text-gray-500"
+                                    role="gridcell"
+                                    aria-label="No data available"
                                 >
                                     {noDataText}
                                 </td>

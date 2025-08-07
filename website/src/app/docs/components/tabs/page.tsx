@@ -104,7 +104,7 @@ function BasicTabs() {
                 Go to Last Tab
               </button>
             </div>
-            
+
             <Tabs activeIndex={activeTab} onChange={setActiveTab}>
               <Tab label="Dashboard">
                 <div className="p-4">
@@ -270,11 +270,11 @@ function ControlledTabs() {
                 </p>
               </div>
             </Tab>
-            <Tab label="Beta" icon={<span>⚠️</span>}>
+            <Tab label="Preview" icon={<span>🔍</span>}>
               <div className="p-4">
-                <h3 className="text-lg font-semibold mb-2">Beta Feature</h3>
+                <h3 className="text-lg font-semibold mb-2">Preview Feature</h3>
                 <p className="text-gray-600">
-                  This feature is in beta. Use with caution and report any issues.
+                  This feature is in preview. Try it out and share your feedback.
                 </p>
               </div>
             </Tab>
@@ -297,8 +297,8 @@ function ControlledTabs() {
   <Tab label="Coming Soon" disabled>
     <div>This feature is coming soon...</div>
   </Tab>
-  <Tab label="Beta" icon={<span>⚠️</span>}>
-    <div>This feature is in beta...</div>
+  <Tab label="Preview" icon={<span>🔍</span>}>
+    <div>This feature is in preview...</div>
   </Tab>
   <Tab label="Premium" disabled>
     <div>Premium feature...</div>
@@ -373,7 +373,7 @@ function ControlledTabs() {
       {/* API Reference */}
       <section>
         <h2 className="text-2xl font-semibold mb-4">API Reference</h2>
-        
+
         <h3 className="text-xl font-semibold mb-3">Tabs Props</h3>
         <div className="overflow-x-auto mb-6">
           <table className="w-full border-collapse border border-gray-300">
@@ -490,7 +490,7 @@ function ControlledTabs() {
             <li>✅ Proper tab list and tab panel relationships</li>
             <li>✅ High contrast mode support</li>
           </ul>
-          
+
           <h3 className="text-lg font-semibold mt-6 mb-3">Keyboard Navigation</h3>
           <ul className="space-y-1">
             <li><kbd className="px-2 py-1 bg-gray-200 rounded text-sm">Arrow keys</kbd> - Navigate between tabs</li>
@@ -499,7 +499,7 @@ function ControlledTabs() {
             <li><kbd className="px-2 py-1 bg-gray-200 rounded text-sm">Enter/Space</kbd> - Activate focused tab</li>
             <li><kbd className="px-2 py-1 bg-gray-200 rounded text-sm">Tab</kbd> - Move focus to tab panel content</li>
           </ul>
-          
+
           <h3 className="text-lg font-semibold mt-6 mb-3">ARIA Attributes</h3>
           <ul className="space-y-1">
             <li><code>role="tablist"</code> - Identifies the tab container</li>
@@ -527,7 +527,7 @@ function ControlledTabs() {
               <li>Use consistent content structure across tabs</li>
             </ul>
           </div>
-          
+
           <div className="border-l-4 border-red-500 bg-red-50 p-4">
             <h4 className="font-semibold text-red-800 mb-2">❌ Don't</h4>
             <ul className="text-red-700 space-y-1">

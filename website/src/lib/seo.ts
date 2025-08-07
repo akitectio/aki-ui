@@ -6,7 +6,7 @@ interface SEOProps {
   keywords?: string[];
   image?: string;
   url?: string;
-  type?: "website" | "article" | "product";
+  type?: "website" | "article";
   publishedTime?: string;
   modifiedTime?: string;
   section?: string;
@@ -190,6 +190,69 @@ export const pageSEOConfigs: Record<string, SEOProps> = {
       "Complete documentation for Aki UI component library. Learn how to install, customize, and use our React components in your projects.",
     keywords: ["documentation", "guides", "tutorial", "help", "api reference"],
     section: "Documentation",
+  },
+
+  "/docs/framework-support": {
+    title: "Framework Support - Aki UI",
+    description:
+      "Learn about framework support in Aki UI. Compatible with React, Next.js, Vite, and other modern React frameworks with TypeScript support.",
+    keywords: [
+      "framework support",
+      "react",
+      "nextjs",
+      "vite",
+      "typescript",
+      "compatibility",
+      "integration",
+    ],
+    section: "Getting Started",
+  },
+
+  "/docs/layout/grid": {
+    title: "Grid System - Aki UI",
+    description:
+      "Responsive grid system for creating flexible layouts. CSS Grid-based with breakpoint support and customizable spacing.",
+    keywords: [
+      "grid system",
+      "layout",
+      "responsive",
+      "css grid",
+      "breakpoints",
+      "spacing",
+      "columns",
+    ],
+    section: "Layout",
+  },
+
+  "/docs/layout/stack": {
+    title: "Stack Layout - Aki UI",
+    description:
+      "Stack layout component for vertical and horizontal arrangements. Perfect for organizing content with consistent spacing and alignment.",
+    keywords: [
+      "stack",
+      "layout",
+      "vertical",
+      "horizontal",
+      "spacing",
+      "alignment",
+      "flex",
+    ],
+    section: "Layout",
+  },
+
+  "/docs/layout/breakpoints": {
+    title: "Breakpoints - Aki UI",
+    description:
+      "Responsive breakpoint system for mobile-first design. Includes predefined breakpoints and utilities for responsive layouts.",
+    keywords: [
+      "breakpoints",
+      "responsive",
+      "mobile first",
+      "media queries",
+      "screen sizes",
+      "responsive design",
+    ],
+    section: "Layout",
   },
 
   "/docs/installation": {
@@ -426,6 +489,540 @@ export const pageSEOConfigs: Record<string, SEOProps> = {
       "preferences",
       "on/off",
       "animation",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/colorpicker": {
+    title: "ColorPicker Component - Aki UI",
+    description:
+      "Color picker component with preset colors and custom color selection. Perfect for themes, design tools, and user preferences with hex color support.",
+    keywords: [
+      "color picker",
+      "color",
+      "palette",
+      "hex",
+      "rgb",
+      "theme",
+      "design",
+      "preset colors",
+      "custom color",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/select": {
+    title: "Select Component - Aki UI",
+    description:
+      "Dropdown select component with search, multi-select, and custom options. Perfect for forms with keyboard navigation and accessibility support.",
+    keywords: [
+      "select",
+      "dropdown",
+      "picker",
+      "form",
+      "options",
+      "search",
+      "multi-select",
+      "accessibility",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/textarea": {
+    title: "Textarea Component - Aki UI",
+    description:
+      "Multi-line text input component with auto-resize, character counting, and validation support. Perfect for longer text inputs and forms.",
+    keywords: [
+      "textarea",
+      "text input",
+      "multiline",
+      "form",
+      "auto-resize",
+      "character count",
+      "validation",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/dropdown": {
+    title: "Dropdown Component - Aki UI",
+    description:
+      "Flexible dropdown menu component with customizable triggers, positioning, and content. Perfect for navigation menus and action lists.",
+    keywords: [
+      "dropdown",
+      "menu",
+      "popover",
+      "navigation",
+      "actions",
+      "trigger",
+      "positioning",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/navbar": {
+    title: "Navbar Component - Aki UI",
+    description:
+      "Responsive navigation bar component with logo, menu items, and mobile support. Perfect for website headers and app navigation.",
+    keywords: [
+      "navbar",
+      "navigation",
+      "header",
+      "menu",
+      "responsive",
+      "mobile",
+      "brand",
+      "logo",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/drawer": {
+    title: "Drawer Component - Aki UI",
+    description:
+      "Slide-out drawer component with backdrop, positioning options, and focus management. Perfect for mobile navigation and side panels.",
+    keywords: [
+      "drawer",
+      "sidebar",
+      "slide",
+      "navigation",
+      "mobile",
+      "panel",
+      "overlay",
+      "focus management",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/tooltip": {
+    title: "Tooltip Component - Aki UI",
+    description:
+      "Tooltip component for displaying helpful information on hover or focus. Includes positioning options and accessibility features.",
+    keywords: [
+      "tooltip",
+      "hover",
+      "help",
+      "information",
+      "accessibility",
+      "positioning",
+      "popover",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/toast": {
+    title: "Toast Component - Aki UI",
+    description:
+      "Toast notification component for displaying temporary messages with different types and actions. Includes positioning and dismissal options.",
+    keywords: [
+      "toast",
+      "notification",
+      "message",
+      "alert",
+      "snackbar",
+      "temporary",
+      "dismissible",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/spinner": {
+    title: "Spinner Component - Aki UI",
+    description:
+      "Loading spinner component with various styles and sizes. Perfect for indicating loading states and async operations.",
+    keywords: [
+      "spinner",
+      "loading",
+      "loader",
+      "progress",
+      "async",
+      "waiting",
+      "indicator",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/datatable": {
+    title: "DataTable Component - Aki UI",
+    description:
+      "Advanced data table component with sorting, filtering, pagination, and selection. Perfect for displaying large datasets with rich interactions.",
+    keywords: [
+      "data table",
+      "table",
+      "grid",
+      "sorting",
+      "filtering",
+      "pagination",
+      "selection",
+      "data display",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/pagination": {
+    title: "Pagination Component - Aki UI",
+    description:
+      "Pagination component for navigating through large datasets. Includes page numbers, navigation arrows, and customizable options.",
+    keywords: [
+      "pagination",
+      "navigation",
+      "pages",
+      "data",
+      "paging",
+      "page numbers",
+      "navigation arrows",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/breadcrumb": {
+    title: "Breadcrumb Component - Aki UI",
+    description:
+      "Breadcrumb navigation component for showing page hierarchy and location. Perfect for complex navigation structures and SEO.",
+    keywords: [
+      "breadcrumb",
+      "navigation",
+      "hierarchy",
+      "path",
+      "location",
+      "trail",
+      "SEO",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/accordion": {
+    title: "Accordion Component - Aki UI",
+    description:
+      "Collapsible accordion component for organizing content sections. Perfect for FAQs, content organization, and space-saving layouts.",
+    keywords: [
+      "accordion",
+      "collapse",
+      "expand",
+      "sections",
+      "content organization",
+      "FAQ",
+      "collapsible",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/progress": {
+    title: "Progress Component - Aki UI",
+    description:
+      "Progress bar component for showing completion status and loading progress. Includes linear and circular variants with animations.",
+    keywords: [
+      "progress",
+      "progress bar",
+      "loading",
+      "completion",
+      "status",
+      "linear",
+      "circular",
+      "animation",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/skeleton": {
+    title: "Skeleton Component - Aki UI",
+    description:
+      "Skeleton loading component for placeholder content while data loads. Improves perceived performance and user experience.",
+    keywords: [
+      "skeleton",
+      "loading",
+      "placeholder",
+      "shimmer",
+      "loading state",
+      "UX",
+      "performance",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/chip": {
+    title: "Chip Component - Aki UI",
+    description:
+      "Chip component for displaying tags, filters, and removable items. Perfect for tag inputs, filter lists, and selection interfaces.",
+    keywords: [
+      "chip",
+      "tag",
+      "filter",
+      "removable",
+      "selection",
+      "input",
+      "pills",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/label": {
+    title: "Label Component - Aki UI",
+    description:
+      "Form label component with accessibility features and styling options. Essential for form inputs and user interface elements.",
+    keywords: [
+      "label",
+      "form",
+      "accessibility",
+      "input",
+      "description",
+      "form controls",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/separator": {
+    title: "Separator Component - Aki UI",
+    description:
+      "Visual separator component for dividing content sections. Available in horizontal and vertical orientations with customizable styling.",
+    keywords: [
+      "separator",
+      "divider",
+      "line",
+      "section",
+      "horizontal",
+      "vertical",
+      "content division",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/table": {
+    title: "Table Component - Aki UI",
+    description:
+      "Basic table component for displaying structured data. Includes headers, rows, and styling options for simple data presentation.",
+    keywords: [
+      "table",
+      "data",
+      "rows",
+      "columns",
+      "headers",
+      "structured data",
+      "grid",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/calendar": {
+    title: "Calendar Component - Aki UI",
+    description:
+      "Interactive calendar component for date selection and scheduling. Includes navigation, date highlighting, and accessibility features.",
+    keywords: [
+      "calendar",
+      "date picker",
+      "date selection",
+      "scheduling",
+      "dates",
+      "month view",
+      "navigation",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/slider": {
+    title: "Slider Component - Aki UI",
+    description:
+      "Range slider component for selecting numeric values. Includes single and range selection with customizable steps and formatting.",
+    keywords: [
+      "slider",
+      "range",
+      "numeric input",
+      "selection",
+      "steps",
+      "value",
+      "range selection",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/toggle": {
+    title: "Toggle Component - Aki UI",
+    description:
+      "Toggle button component for switching between states. Perfect for settings, preferences, and binary choices with visual feedback.",
+    keywords: [
+      "toggle",
+      "switch",
+      "binary",
+      "settings",
+      "preferences",
+      "state",
+      "button",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/command": {
+    title: "Command Component - Aki UI",
+    description:
+      "Command palette component for quick actions and navigation. Perfect for keyboard shortcuts, search interfaces, and power user features.",
+    keywords: [
+      "command",
+      "palette",
+      "search",
+      "shortcuts",
+      "navigation",
+      "quick actions",
+      "keyboard",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/dialog": {
+    title: "Dialog Component - Aki UI",
+    description:
+      "Dialog component for user interactions and confirmations. Includes focus management, backdrop, and accessibility features.",
+    keywords: [
+      "dialog",
+      "modal",
+      "confirmation",
+      "interaction",
+      "focus management",
+      "accessibility",
+      "overlay",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/popover": {
+    title: "Popover Component - Aki UI",
+    description:
+      "Popover component for displaying contextual information and actions. Perfect for tooltips, menus, and additional content overlay.",
+    keywords: [
+      "popover",
+      "overlay",
+      "contextual",
+      "tooltip",
+      "menu",
+      "positioning",
+      "information",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/asyncselect": {
+    title: "AsyncSelect Component - Aki UI",
+    description:
+      "Asynchronous select component for loading options dynamically. Perfect for large datasets, search APIs, and remote data sources.",
+    keywords: [
+      "async select",
+      "dynamic loading",
+      "search API",
+      "remote data",
+      "large datasets",
+      "autocomplete",
+      "debounce",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/buttongroup": {
+    title: "ButtonGroup Component - Aki UI",
+    description:
+      "Button group component for related actions and toggle selections. Perfect for toolbar buttons, radio-like selections, and action groups.",
+    keywords: [
+      "button group",
+      "toolbar",
+      "actions",
+      "toggle",
+      "selection",
+      "radio buttons",
+      "grouped actions",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/inputgroup": {
+    title: "InputGroup Component - Aki UI",
+    description:
+      "Input group component for combining inputs with buttons, icons, and addons. Perfect for search boxes, forms with actions, and enhanced inputs.",
+    keywords: [
+      "input group",
+      "addon",
+      "button",
+      "icon",
+      "search box",
+      "enhanced input",
+      "form controls",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/floatinglabel": {
+    title: "FloatingLabel Component - Aki UI",
+    description:
+      "Floating label input component with smooth animations. Provides modern form design with space-efficient labeling and enhanced UX.",
+    keywords: [
+      "floating label",
+      "animated label",
+      "modern form",
+      "space efficient",
+      "animation",
+      "UX",
+      "form design",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/permissionpanel": {
+    title: "PermissionPanel Component - Aki UI",
+    description:
+      "Permission panel component for managing user access and roles. Perfect for admin interfaces, user management, and access control.",
+    keywords: [
+      "permission",
+      "access control",
+      "roles",
+      "user management",
+      "admin",
+      "security",
+      "authorization",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/chatbot": {
+    title: "Chatbot Component - Aki UI",
+    description:
+      "Interactive chatbot component for conversational interfaces. Perfect for customer support, AI assistants, and messaging applications.",
+    keywords: [
+      "chatbot",
+      "conversation",
+      "AI assistant",
+      "messaging",
+      "customer support",
+      "interactive",
+      "chat interface",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/divider": {
+    title: "Divider Component - Aki UI",
+    description:
+      "Visual divider component for separating content sections. Available with text labels, icons, and customizable styling options.",
+    keywords: [
+      "divider",
+      "separator",
+      "section",
+      "text label",
+      "icon",
+      "content separation",
+      "visual break",
+    ],
+    section: "Components",
+  },
+
+  "/docs/components/typography": {
+    title: "Typography Component - Aki UI",
+    description:
+      "Typography components for consistent text styling. Includes headings, paragraphs, and text utilities with responsive design support.",
+    keywords: [
+      "typography",
+      "text",
+      "headings",
+      "paragraphs",
+      "font",
+      "responsive",
+      "text styling",
     ],
     section: "Components",
   },
