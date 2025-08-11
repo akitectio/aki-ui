@@ -251,15 +251,6 @@ export interface DataTableProps<T> {
     resizableColumns?: boolean;
 
     /**
-     * Server-side data loading function
-     */
-    onFetch?: (options: {
-        paginationState: PaginationState,
-        filters: Filter[],
-        sorts: Sort[]
-    }) => Promise<{ data: T[], totalCount: number }>;
-
-    /**
      * Whether to enable virtualization for large datasets
      * Only renders visible rows for better performance with large datasets
      * @default false
@@ -398,11 +389,6 @@ export interface DataTableProps<T> {
     stickyHeader?: boolean;
 
     /**
-     * Total count for server-side pagination
-     */
-    totalCount?: number;
-
-    /**
      * Called when sorting changes
      */
     onSortChange?: (sorts: Sort[]) => void;
@@ -475,13 +461,11 @@ export function DataTable<T>({
     onRowClick,
     rowClassName,
     rowProps,
-    onFetch,
     resizableColumns = false,
     virtualized = false,
     virtualizedHeight = '400px',
     rowHeight = 48,
     overscanCount = 10,
-    totalCount: serverTotalCount,
     // Advanced features - will be implemented gradually
     // bulkActions = [],
     // enableExport = false,
@@ -559,75 +543,13 @@ export function DataTable<T>({
         };
     }, []);
 
-    // Cache for server-side data
-    const [serverData, setServerData] = useState<{
-        data: T[],
-        totalCount: number
-    }>(() => ({
-        data: onFetch ? [] : data,
-        totalCount: onFetch ? 0 : data.length
-    }));
-
-    // Effect to fetch data if server-side - debounced to prevent rapid re-fetching
-    const fetchTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    useEffect(() => {
-        if (!onFetch) return;
-
-        // Clear any pending fetch
-        if (fetchTimeoutRef.current) {
-            clearTimeout(fetchTimeoutRef.current);
-        }
-
-        // Debounce the fetch call to prevent too many requests on rapid filter/sort changes
-        fetchTimeoutRef.current = setTimeout(async () => {
-            try {
-                const result = await onFetch({
-                    paginationState,
-                    filters,
-                    sorts,
-                });
-
-                if (isMounted.current) {
-                    setServerData({
-                        data: result.data,
-                        totalCount: result.totalCount
-                    });
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                if (isMounted.current) {
-                    setServerData({
-                        data: [],
-                        totalCount: 0
-                    });
-                }
-            }
-        }, 200); // Debounce delay of 200ms
-
-        return () => {
-            if (fetchTimeoutRef.current) {
-                clearTimeout(fetchTimeoutRef.current);
-            }
-        };
-    }, [onFetch, paginationState, filters, sorts]);
-
-    // Get source data based on whether using server-side or client-side
-    const sourceData = useMemo(() =>
-        onFetch ? serverData.data : data,
-        [onFetch, serverData.data, data]
-    );
-
     // Process data client-side with memoization
     const processedData = useMemo(() => {
-        // Skip processing for server-side
-        if (onFetch) return sourceData;
-
-        let result = sourceData;
+        let result = data;
 
         // Apply filters - only if filters exist
         if (filters.length > 0) {
-            result = result.filter(row => {
+            result = result.filter((row: T) => {
                 return filters.every(filter => {
                     const column = columnMap.get(filter.id);
                     if (!column || !filter.value) return true;
@@ -675,21 +597,17 @@ export function DataTable<T>({
         }
 
         return result;
-    }, [sourceData, columnMap, filters, sorts, onFetch]);
+    }, [data, columnMap, filters, sorts]);
 
     // Calculate total count with error handling
     const totalCount = useMemo(() => {
         try {
-            if (onFetch) {
-                const count = serverTotalCount || serverData.totalCount || 0;
-                return Math.max(0, count); // Ensure non-negative
-            }
             return Math.max(0, processedData.length);
         } catch (error) {
             console.error('DataTable: Error calculating total count:', error);
             return 0;
         }
-    }, [onFetch, serverTotalCount, serverData.totalCount, processedData]);
+    }, [processedData]);
 
     // Get visible columns
     const visibleColumns = useMemo(() =>
@@ -791,7 +709,7 @@ export function DataTable<T>({
     // Get paginated data - optimization for pagination with error handling
     const paginatedData = useMemo(() => {
         try {
-            if (!enablePagination || onFetch) {
+            if (!enablePagination) {
                 return processedData;
             }
 
@@ -812,13 +730,13 @@ export function DataTable<T>({
             console.error('DataTable: Error in pagination calculation:', error);
             return processedData;
         }
-    }, [processedData, paginationState, onFetch, enablePagination]);
+    }, [processedData, paginationState, enablePagination]);
 
     // Handle selection with optimized updates
     const handleSelectAll = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const isChecked = e.target.checked;
         const allKeys = isChecked
-            ? paginatedData.map((row, index) => rowKey(row, index))
+            ? paginatedData.map((row: T, index: number) => rowKey(row, index))
             : [];
 
         // Update internal state if uncontrolled
@@ -879,7 +797,7 @@ export function DataTable<T>({
     const isAllSelected = useMemo(() => {
         return paginatedData.length > 0 &&
             selected.length >= paginatedData.length &&
-            paginatedData.every((row, idx) =>
+            paginatedData.every((row: T, idx: number) =>
                 selected.includes(rowKey(row, idx))
             );
     }, [paginatedData, selected, rowKey]);
@@ -1365,7 +1283,7 @@ export function DataTable<T>({
                         )}
 
                         {(virtualized ? visibleRowsInfo.visibleRows : paginatedData).length > 0 ? (
-                            (virtualized ? visibleRowsInfo.visibleRows : paginatedData).map((row, localIndex) => {
+                            (virtualized ? visibleRowsInfo.visibleRows : paginatedData).map((row: T, localIndex: number) => {
                                 // For virtualized scrolling, we need to calculate the actual index
                                 const rowIndex = virtualized
                                     ? visibleRowsInfo.startIndex + localIndex

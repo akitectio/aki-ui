@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { DataTable, Card } from '@akitectio/aki-ui'
+import { DataTable, Card, Alert } from '@akitectio/aki-ui'
 import { CodeBlock } from '@/components/CodeBlock'
 import { PageHeader } from '@/components/PageHeader'
 
@@ -236,7 +236,7 @@ export default function DataTablePage() {
               : 'bg-yellow-100 text-yellow-800 border border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700'
             }`}>
             <div className={`w-2 h-2 mr-2 ${value === 'Active' ? 'bg-green-500' :
-                value === 'Inactive' ? 'bg-red-500' : 'bg-yellow-500'
+              value === 'Inactive' ? 'bg-red-500' : 'bg-yellow-500'
               }`}></div>
             {value}
           </div>
@@ -385,10 +385,35 @@ export default function DataTablePage() {
   return (
     <PageHeader
       title="DataTable - Data Table"
-      description="Modern data table component with full features: sorting, filtering, pagination, row selection and high performance for large datasets."
+      description="Modern client-side data table component with sorting, filtering, pagination, and row selection. No automatic API calls - fully controlled by parent component."
     >
       <style dangerouslySetInnerHTML={{ __html: tableStyles }} />
       <div className="space-y-8">
+        {/* New Features Alert */}
+        <Alert
+          variant="info"
+          className="border-l-4 border-blue-500"
+          onDismiss={() => { }}
+          icon={<span>🚀</span>}
+        >
+          <div className="flex items-start space-x-3">
+            <div>
+              <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                DataTable Optimized - Client-Side Only
+              </h3>
+              <p className="text-sm text-blue-800 dark:text-blue-200 mb-2">
+                DataTable has been optimized to be <strong>client-side only</strong> for better performance and control.
+              </p>
+              <ul className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+                <li>✅ No automatic API calls - Parent component manages data</li>
+                <li>✅ Better performance with pure client-side processing</li>
+                <li>✅ Full control over data fetching and error handling</li>
+                <li>✅ Works offline and with any data source</li>
+              </ul>
+            </div>
+          </div>
+        </Alert>
+
         {/* Import */}
         <section>
           <div className="flex items-center space-x-2 mb-4">
@@ -525,8 +550,6 @@ export default function DataTablePage() {
                 defaultSort={{ id: 'name', direction: 'asc' }}
                 rowClassName=""
                 rowProps={{}}
-                onFetch={undefined}
-                totalCount={currentData.length}
               />
             </div>
 
@@ -605,6 +628,80 @@ export default function DataTablePage() {
               </p>
             </Card>
           </div>
+        </section>
+
+        {/* Client-Side Data Management */}
+        <section>
+          <div className="flex items-center space-x-2 mb-6">
+            <span className="text-2xl">🎯</span>
+            <h2 className="text-2xl font-bold">Client-Side Data Management</h2>
+          </div>
+
+          <Card className="p-6">
+            <div className="mb-4">
+              <h3 className="text-lg font-semibold mb-2">How DataTable works now</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">
+                DataTable is now <strong>purely client-side</strong>. You manage data in your component and pass it to DataTable.
+              </p>
+            </div>
+
+            <CodeBlock language="typescript">
+              {`import React, { useState, useEffect } from 'react'
+import { DataTable } from '@akitectio/aki-ui'
+
+function UserManagement() {
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  // You control when and how to fetch data
+  const fetchUsers = async () => {
+    setLoading(true)
+    try {
+      const response = await api.getUsers()
+      setUsers(response.data) // Set data to DataTable
+    } catch (error) {
+      console.error('Error fetching users:', error)
+      // Handle errors as needed
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchUsers() // Fetch on mount
+  }, [])
+
+  // DataTable handles all client-side operations
+  return (
+    <DataTable
+      data={users}                  // Your data array
+      columns={columns}             // Column definitions
+      loading={loading}             // Loading state you control
+      enablePagination={true}       // Client-side pagination
+      showFilters={true}           // Client-side filtering
+      sortable={true}              // Client-side sorting
+      onRowClick={handleRowClick}  // Your event handlers
+    />
+  )
+}`}
+            </CodeBlock>
+
+            <div className="mt-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+              <div className="flex items-start space-x-3">
+                <span className="text-green-500 text-xl">✅</span>
+                <div className="text-sm">
+                  <strong className="text-green-800 dark:text-green-300">Benefits:</strong>
+                  <ul className="mt-2 text-green-700 dark:text-green-400 space-y-1">
+                    <li>• Full control over data fetching</li>
+                    <li>• Better error handling</li>
+                    <li>• Works with any API or data source</li>
+                    <li>• No unexpected API calls</li>
+                    <li>• Better performance</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </Card>
         </section>
 
         {/* Basic Usage */}
