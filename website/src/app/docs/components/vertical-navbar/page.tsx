@@ -140,23 +140,23 @@ export default function VerticalNavbarPage() {
                                             </div>
                                         </VerticalNavbar.Header>
 
-                                        <VerticalNavbar.Item href="#" active icon={<HomeIcon className="w-5 h-5" />}>
+                                        <VerticalNavbar.Item href="#" active icon={<HomeIcon className="w-5 h-5" />} badge={undefined} onClick={undefined}>
                                             Dashboard
                                         </VerticalNavbar.Item>
 
-                                        <VerticalNavbar.Item href="#" icon={<ChartBarIcon className="w-5 h-5" />}>
+                                        <VerticalNavbar.Item href="#" icon={<ChartBarIcon className="w-5 h-5" />} badge={undefined} onClick={undefined}>
                                             Analytics
                                         </VerticalNavbar.Item>
 
-                                        <VerticalNavbar.Item href="#" icon={<UserGroupIcon className="w-5 h-5" />} badge="3">
+                                        <VerticalNavbar.Item href="#" icon={<UserGroupIcon className="w-5 h-5" />} badge="3" onClick={undefined}>
                                             Users
                                         </VerticalNavbar.Item>
 
-                                        <VerticalNavbar.Item href="#" icon={<DocumentTextIcon className="w-5 h-5" />}>
+                                        <VerticalNavbar.Item href="#" icon={<DocumentTextIcon className="w-5 h-5" />} badge={undefined} onClick={undefined}>
                                             Documents
                                         </VerticalNavbar.Item>
 
-                                        <VerticalNavbar.Item href="#" icon={<CogIcon className="w-5 h-5" />}>
+                                        <VerticalNavbar.Item href="#" icon={<CogIcon className="w-5 h-5" />} badge={undefined} onClick={undefined}>
                                             Settings
                                         </VerticalNavbar.Item>
                                     </VerticalNavbar>
@@ -193,27 +193,30 @@ export default function MyComponent() {
         </div>
       </VerticalNavbar.Header>
       
+      {/* Active item */}
       <VerticalNavbar.Item 
-        href="#" 
+        href="/dashboard" 
         active 
         icon={<HomeIcon />} 
-        badge=""
+        badge={undefined}
         onClick={() => console.log('Dashboard clicked')}
       >
         Dashboard
       </VerticalNavbar.Item>
       
+      {/* Regular items */}
       <VerticalNavbar.Item 
-        href="#" 
+        href="/analytics" 
         icon={<ChartBarIcon />}
-        badge=""
+        badge={undefined}
         onClick={() => console.log('Analytics clicked')}
       >
         Analytics
       </VerticalNavbar.Item>
       
+      {/* Item with badge */}
       <VerticalNavbar.Item 
-        href="#" 
+        href="/users" 
         icon={<UserGroupIcon />} 
         badge="3"
         onClick={() => console.log('Users clicked')}
@@ -222,18 +225,18 @@ export default function MyComponent() {
       </VerticalNavbar.Item>
       
       <VerticalNavbar.Item 
-        href="#" 
+        href="/documents" 
         icon={<DocumentTextIcon />}
-        badge=""
+        badge={undefined}
         onClick={() => console.log('Documents clicked')}
       >
         Documents
       </VerticalNavbar.Item>
       
       <VerticalNavbar.Item 
-        href="#" 
+        href="/settings" 
         icon={<CogIcon />}
-        badge=""
+        badge={undefined}
         onClick={() => console.log('Settings clicked')}
       >
         Settings
