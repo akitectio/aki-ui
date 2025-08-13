@@ -594,6 +594,23 @@ export const pageSEOConfigs: Record<string, SEOProps> = {
     section: "Components",
   },
 
+  "/docs/components/vertical-navbar": {
+    title: "VerticalNavbar Component - Aki UI",
+    description:
+      "A flexible vertical navigation sidebar component perfect for dashboards and admin panels with customizable styling and behavior.",
+    keywords: [
+      "vertical navbar",
+      "sidebar",
+      "navigation",
+      "dashboard",
+      "admin panel",
+      "menu",
+      "collapsible",
+      "responsive",
+    ],
+    section: "Components",
+  },
+
   "/docs/components/tooltip": {
     title: "Tooltip Component - Aki UI",
     description:

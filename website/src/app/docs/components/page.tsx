@@ -112,6 +112,18 @@ const componentCategories = [
         status: 'stable' as const,
       },
       {
+        name: 'Navbar',
+        description: 'Top navigation bar component',
+        href: '/docs/components/navbar',
+        status: 'stable' as const,
+      },
+      {
+        name: 'VerticalNavbar',
+        description: 'Vertical sidebar navigation for dashboards',
+        href: '/docs/components/vertical-navbar',
+        status: 'stable' as const,
+      },
+      {
         name: 'Tabs',
         description: 'Content organization with tabbed interface',
         href: '/docs/components/tabs',

@@ -58,6 +58,10 @@ const breadcrumbConfig: BreadcrumbConfig = {
     name: "Drawer",
     href: "/docs/components/drawer",
   },
+  "/docs/components/vertical-navbar": {
+    name: "VerticalNavbar",
+    href: "/docs/components/vertical-navbar",
+  },
   "/docs/components/dropdown": {
     name: "Dropdown",
     href: "/docs/components/dropdown",

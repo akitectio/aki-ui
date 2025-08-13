@@ -266,6 +266,13 @@ const docCategories: DocCategory[] = [
             keywords: ['navigation', 'header', 'menu', 'top bar']
           },
           {
+            id: 'vertical-navbar',
+            title: 'VerticalNavbar',
+            href: '/docs/components/vertical-navbar',
+            description: 'Vertical sidebar navigation component',
+            keywords: ['sidebar', 'vertical', 'navigation', 'admin', 'dashboard']
+          },
+          {
             id: 'breadcrumb',
             title: 'Breadcrumb',
             href: '/docs/components/breadcrumb',
