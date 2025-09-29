@@ -240,6 +240,12 @@ export { ColorPicker } from "./ColorPicker";
 export type { ColorPickerProps } from "./ColorPicker";
 
 /**
+ * SearchInput - A search input component with built-in debounce functionality
+ */
+export { SearchInput } from "./SearchInput";
+export type { SearchInputProps } from "./SearchInput";
+
+/**
  * Select - A component for selecting options from a dropdown list
  */
 export { default as Select } from "./Select";
@@ -339,6 +345,8 @@ export type {
   Filter as DataTableFilter,
   PaginationState as DataTablePaginationState,
 } from "./DataTable";
+
+// EnhancedDataTable has been merged into DataTable
 
 /**
  * Typography - A component for rendering text with consistent styling

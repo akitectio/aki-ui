@@ -1,5 +1,57 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 
+// API Integration Interfaces
+export interface ApiDataTableSort {
+    column: string;
+    direction: 'asc' | 'desc';
+}
+
+export interface ApiDataTablePagination {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNext: boolean;
+    hasPrev: boolean;
+}
+
+export interface ApiDataTableResponse<T> {
+    success: boolean;
+    data: T[];
+    pagination: ApiDataTablePagination;
+    filters?: Record<string, any>;
+    sort?: ApiDataTableSort;
+    message?: string;
+    error?: string;
+}
+
+export interface AdvancedDataTableFilter {
+    key: string;
+    type: 'text' | 'select' | 'date' | 'number' | 'boolean' | 'dateRange';
+    label: string;
+    placeholder?: string;
+    options?: { value: string | number; label: string }[];
+    defaultValue?: string | number | boolean;
+}
+
+export interface BulkAction {
+    key: string;
+    label: string;
+    icon?: React.ReactNode;
+    action: (selectedIds: React.Key[]) => void | Promise<void>;
+    variant?: 'primary' | 'secondary' | 'danger';
+    disabled?: (selectedIds: React.Key[]) => boolean;
+}
+
+export interface DataTableFilter {
+    key: string;
+    type: 'text' | 'select' | 'date' | 'number' | 'boolean' | 'dateRange';
+    label: string;
+    placeholder?: string;
+    options?: { value: string | number; label: string }[];
+    defaultValue?: string | number | boolean;
+}
+
 export interface Column<T> {
     /**
      * The header label for the column
@@ -434,6 +486,78 @@ export interface DataTableProps<T> {
      * @default 300
      */
     searchDebounce?: number;
+
+    // Advanced API Integration Features
+    /**
+     * API endpoint for server-side data fetching
+     */
+    apiEndpoint?: string;
+
+    /**
+     * Initial data for the table (Laravel pagination format)
+     */
+    initialData?: {
+        data: T[];
+        current_page: number;
+        last_page: number;
+        per_page: number;
+        total: number;
+    };
+
+    /**
+     * Advanced filters configuration with UI
+     */
+    advancedFilters?: AdvancedDataTableFilter[];
+
+    /**
+     * Whether to enable export functionality with UI
+     * @default false
+     */
+    enableExportUI?: boolean;
+
+    /**
+     * Export filename prefix
+     * @default 'data-export'
+     */
+    exportFilename?: string;
+
+    /**
+     * Whether to enable refresh button
+     * @default false
+     */
+    enableRefresh?: boolean;
+
+    /**
+     * Table title for the UI header
+     */
+    title?: string;
+
+    /**
+     * Table description for the UI header
+     */
+    description?: string;
+
+    /**
+     * API call handler for custom API integration
+     */
+    onApiCall?: (params: {
+        page?: number;
+        limit?: number;
+        search?: string;
+        filters?: Record<string, any>;
+        sort?: ApiDataTableSort;
+    }) => Promise<void>;
+
+    /**
+     * Refresh handler
+     */
+    onRefresh?: () => void | Promise<void>;
+
+    /**
+     * Whether to show advanced UI wrapper (search bar, filters, actions)
+     * @default false
+     */
+    showAdvancedUI?: boolean;
 }
 
 export function DataTable<T>({
@@ -804,25 +928,34 @@ export function DataTable<T>({
 
     // Render sort indicator - memoize once
     const SortIndicatorNone = useMemo(() => (
-        <span className="ml-1 text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-                <path fillRule="evenodd" d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z" clipRule="evenodd" />
+        <span className="ml-2 text-gray-400 flex flex-col">
+            <svg className="w-3 h-3 -mb-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clipRule="evenodd" />
+            </svg>
+            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
             </svg>
         </span>
     ), []);
 
     const SortIndicatorAsc = useMemo(() => (
-        <span className="ml-1 text-blue-500">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-                <path fillRule="evenodd" d="M10 17a.75.75 0 01-.75-.75V5.612L5.29 9.77a.75.75 0 01-1.08-1.04l5.25-5.5a.75.75 0 011.08 0l5.25 5.5a.75.75 0 11-1.08 1.04l-3.96-4.158V16.25A.75.75 0 0110 17z" clipRule="evenodd" />
+        <span className="ml-2 text-blue-600 flex flex-col">
+            <svg className="w-3 h-3 -mb-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clipRule="evenodd" />
+            </svg>
+            <svg className="w-3 h-3 opacity-30" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
             </svg>
         </span>
     ), []);
 
     const SortIndicatorDesc = useMemo(() => (
-        <span className="ml-1 text-blue-500">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4">
-                <path fillRule="evenodd" d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z" clipRule="evenodd" />
+        <span className="ml-2 text-blue-600 flex flex-col">
+            <svg className="w-3 h-3 -mb-0.5 opacity-30" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clipRule="evenodd" />
+            </svg>
+            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
             </svg>
         </span>
     ), []);
@@ -843,7 +976,7 @@ export function DataTable<T>({
         return (
             <input
                 type="text"
-                className="w-full p-1 text-sm border border-gray-300 rounded"
+                className="w-full px-3 py-2 mt-3 text-xs bg-white border border-gray-200/60 rounded-lg focus:ring-2 focus:ring-blue-500/80 focus:border-blue-400 shadow-sm transition-all duration-200 ease-out placeholder-gray-400 text-gray-900"
                 placeholder={`Filter ${column.header}...`}
                 value={filter?.value || ''}
                 onChange={(e) => handleFilter(column.accessor as string, e.target.value)}
@@ -862,19 +995,56 @@ export function DataTable<T>({
             return column.cell(value, row, rowIndex);
         }
 
-        return value !== undefined && value !== null ? String(value) : '';
+        // Handle different value types safely
+        if (value === undefined || value === null) {
+            return '';
+        }
+
+        // If it's an object (but not a React element), try to stringify it safely
+        if (typeof value === 'object' && !React.isValidElement(value)) {
+            try {
+                // For common object patterns, try to extract meaningful content
+                if (value && typeof value === 'object') {
+                    // If it has a name, title, or label property, use that
+                    if ('name' in value && typeof value.name === 'string') {
+                        return value.name;
+                    }
+                    if ('title' in value && typeof value.title === 'string') {
+                        return value.title;
+                    }
+                    if ('label' in value && typeof value.label === 'string') {
+                        return value.label;
+                    }
+                    // If it's an array, join with commas
+                    if (Array.isArray(value)) {
+                        return value.map(item =>
+                            typeof item === 'object' ?
+                                (item?.name || item?.title || item?.label || JSON.stringify(item)) :
+                                String(item)
+                        ).join(', ');
+                    }
+                    // Fallback: stringify the object
+                    return JSON.stringify(value);
+                }
+            } catch (error) {
+                console.warn('DataTable: Error rendering cell value', error);
+                return '[Invalid Data]';
+            }
+        }
+
+        return String(value);
     }, []);
 
-    // Generate row class name efficiently
+    // Generate row class name efficiently - Modern 2025 styling
     const getRowClassName = useCallback((row: T, index: number) => {
         const classes = [];
 
         if (striped && index % 2 === 1) {
-            classes.push('bg-gray-50');
+            classes.push('bg-gray-50/50');
         }
 
         if (hoverable) {
-            classes.push('hover:bg-gray-100');
+            classes.push('hover:bg-gray-50/80 hover:shadow-sm transition-all duration-200 ease-out');
         }
 
         if (typeof rowClassName === 'function') {
@@ -927,71 +1097,101 @@ export function DataTable<T>({
         const showingTo = Math.min((pageIndex + 1) * pageSize, totalCount);
 
         return (
-            <div className="flex flex-wrap items-center justify-between p-2 mt-2 bg-white border rounded">
-                <div className="flex items-center mb-2 sm:mb-0">
-                    <span className="mr-2 text-sm text-gray-600">Rows per page:</span>
-                    <select
-                        className="p-1 text-sm border border-gray-300 rounded"
-                        value={pageSize}
-                        onChange={(e) => handlePageSizeChange(Number(e.target.value))}
-                    >
-                        {pageSizeOptions.map((size) => (
-                            <option key={size} value={size}>
-                                {size}
-                            </option>
-                        ))}
-                    </select>
-                    <span className="ml-4 text-sm text-gray-600">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 mt-1 bg-gray-50/30 border-t border-gray-200 rounded-b-2xl">
+                <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-3">
+                        <label className="text-sm font-medium text-gray-700">Rows per page:</label>
+                        <select
+                            className="px-3 py-1.5 text-sm bg-white border border-gray-200/60 rounded-lg focus:ring-2 focus:ring-blue-500/80 focus:border-blue-400 transition-all duration-200 hover:border-gray-300 text-gray-900"
+                            value={pageSize}
+                            onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+                        >
+                            {pageSizeOptions.map((size) => (
+                                <option key={size} value={size}>
+                                    {size}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="hidden sm:block w-px h-4 bg-gray-300"></div>
+                    <span className="text-sm text-gray-600 font-medium">
                         {totalCount > 0
-                            ? `Showing ${showingFrom} to ${showingTo} of ${totalCount} entries`
-                            : 'No entries'}
+                            ? `Showing ${showingFrom}-${showingTo} of ${totalCount} results`
+                            : 'No results'}
                     </span>
                 </div>
 
-                <div className="flex items-center space-x-1">
+                <div className="flex items-center gap-1">
                     <button
-                        className={`p-1 text-sm rounded ${pageIndex === 0 ? 'text-gray-400 cursor-not-allowed' : 'text-blue-600 hover:bg-blue-50'}`}
+                        className={`p-2 text-sm font-medium rounded-lg transition-all duration-200 ${pageIndex === 0
+                            ? 'text-gray-400 cursor-not-allowed'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm active:scale-95'}`}
                         onClick={() => handlePageChange(0)}
                         disabled={pageIndex === 0}
                         type="button"
+                        aria-label="Go to first page"
                     >
-                        First
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                        </svg>
                     </button>
                     <button
-                        className={`p-1 text-sm rounded ${pageIndex === 0 ? 'text-gray-400 cursor-not-allowed' : 'text-blue-600 hover:bg-blue-50'}`}
+                        className={`p-2 text-sm font-medium rounded-lg transition-all duration-200 ${pageIndex === 0
+                            ? 'text-gray-400 cursor-not-allowed'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm active:scale-95'}`}
                         onClick={() => handlePageChange(pageIndex - 1)}
                         disabled={pageIndex === 0}
                         type="button"
+                        aria-label="Go to previous page"
                     >
-                        Prev
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
                     </button>
 
-                    {pageNumbers.map((page) => (
-                        <button
-                            key={page}
-                            className={`px-2 py-1 text-sm rounded ${pageIndex === page ? 'bg-blue-500 text-white' : 'text-blue-600 hover:bg-blue-50'}`}
-                            onClick={() => handlePageChange(page)}
-                            type="button"
-                        >
-                            {page + 1}
-                        </button>
-                    ))}
+                    <div className="flex items-center gap-1 mx-2">
+                        {pageNumbers.map((page) => (
+                            <button
+                                key={page}
+                                className={`min-w-[36px] h-9 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 ${pageIndex === page
+                                    ? 'bg-blue-600 text-white shadow-sm'
+                                    : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm active:scale-95'
+                                    }`}
+                                onClick={() => handlePageChange(page)}
+                                type="button"
+                                aria-label={`Go to page ${page + 1}`}
+                                aria-current={pageIndex === page ? 'page' : undefined}
+                            >
+                                {page + 1}
+                            </button>
+                        ))}
+                    </div>
 
                     <button
-                        className={`p-1 text-sm rounded ${pageIndex >= calculatedTotalPages - 1 ? 'text-gray-400 cursor-not-allowed' : 'text-blue-600 hover:bg-blue-50'}`}
+                        className={`p-2 text-sm font-medium rounded-lg transition-all duration-200 ${pageIndex >= calculatedTotalPages - 1
+                            ? 'text-gray-400 cursor-not-allowed'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm active:scale-95'}`}
                         onClick={() => handlePageChange(pageIndex + 1)}
                         disabled={pageIndex >= calculatedTotalPages - 1}
                         type="button"
+                        aria-label="Go to next page"
                     >
-                        Next
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
                     </button>
                     <button
-                        className={`p-1 text-sm rounded ${pageIndex >= calculatedTotalPages - 1 ? 'text-gray-400 cursor-not-allowed' : 'text-blue-600 hover:bg-blue-50'}`}
+                        className={`p-2 text-sm font-medium rounded-lg transition-all duration-200 ${pageIndex >= calculatedTotalPages - 1
+                            ? 'text-gray-400 cursor-not-allowed'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:shadow-sm active:scale-95'}`}
                         onClick={() => handlePageChange(calculatedTotalPages - 1)}
                         disabled={pageIndex >= calculatedTotalPages - 1}
                         type="button"
+                        aria-label="Go to last page"
                     >
-                        Last
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -1006,23 +1206,31 @@ export function DataTable<T>({
         handlePageChange
     ]);
 
-    // Memoize the table class names
+    // Memoize the table class names - Modern 2025 styling
     const tableClassName = useMemo(() => `
         min-w-full 
         divide-y 
-        divide-gray-200 
+        divide-gray-200
         ${bordered ? 'border border-gray-200' : ''} 
         ${compact ? 'text-xs' : 'text-sm'} 
+        overflow-hidden
+        bg-white
         ${className}
     `, [bordered, compact, className]);
 
-    // Loading spinner component - memoized
+    // Loading spinner component - Modern 2025 styling
     const LoadingOverlay = useMemo(() => {
         if (!loading) return null;
 
         return (
-            <div className="absolute inset-0 flex items-center justify-center bg-white bg-opacity-50 z-10">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <div className="absolute inset-0 flex items-center justify-center bg-white/95 backdrop-blur-md z-10 rounded-2xl">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="relative">
+                        <div className="animate-spin rounded-full h-10 w-10 border-3 border-gray-200"></div>
+                        <div className="animate-spin rounded-full h-10 w-10 border-3 border-t-blue-600 border-r-transparent absolute inset-0"></div>
+                    </div>
+                    <p className="text-sm text-gray-900 font-medium animate-pulse">Loading data...</p>
+                </div>
             </div>
         );
     }, [loading]);
@@ -1161,10 +1369,10 @@ export function DataTable<T>({
     }, [handleResizeMove, handleResizeEnd]);
 
     return (
-        <div className="relative overflow-hidden" role="region" aria-label="Data table">
+        <div className="relative overflow-hidden bg-white rounded-2xl shadow-sm border border-gray-200/60 ring-1 ring-gray-900/5" role="region" aria-label="Data table">
             <div
                 ref={tableRef}
-                className={`overflow-x-auto ${virtualized ? 'overflow-y-scroll' : 'overflow-y-auto'}`}
+                className={`overflow-x-auto ${virtualized ? 'overflow-y-scroll' : 'overflow-y-auto'} scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100`}
                 style={{ height: virtualized ? virtualizedHeight : 'auto' }}
                 onScroll={handleScroll}
                 role="table"
@@ -1182,16 +1390,17 @@ export function DataTable<T>({
                     aria-colcount={visibleColumns.length + (selectable ? 1 : 0)}
                 >
                     {showHeader && (
-                        <thead className="bg-gray-50 sticky top-0 z-10" role="rowgroup">
+                        <thead className="bg-gradient-to-r from-gray-50/80 to-gray-50/60 backdrop-blur-sm sticky top-0 z-10 border-b border-gray-200/60" role="rowgroup">
                             <tr role="row">
                                 {selectable && (
                                     <th
-                                        className="px-3 py-2 border-b border-gray-200"
+                                        className="px-6 py-4 w-16"
                                         role="columnheader"
                                         aria-label="Select all rows"
                                     >
                                         <input
                                             type="checkbox"
+                                            className="w-4 h-4 text-blue-600 bg-white border-2 border-gray-300/80 rounded-md focus:ring-blue-500/80 focus:ring-2 focus:ring-offset-1 transition-all duration-200 hover:border-blue-400"
                                             checked={isAllSelected}
                                             onChange={handleSelectAll}
                                             disabled={paginatedData.length === 0}
@@ -1208,14 +1417,15 @@ export function DataTable<T>({
                                         <th
                                             key={`header-${column.accessor?.toString() || index}`}
                                             className={`
-                                                px-3 
-                                                py-2 
+                                                px-6 
+                                                py-4 
                                                 text-left 
-                                                border-b 
-                                                border-gray-200 
-                                                font-medium 
-                                                text-gray-700 
-                                                ${isColumnSortable ? 'cursor-pointer hover:bg-gray-100' : ''} 
+                                                font-semibold 
+                                                text-gray-900 
+                                                tracking-tight
+                                                text-sm
+                                                leading-6
+                                                ${isColumnSortable ? 'cursor-pointer hover:bg-gray-100/60 active:bg-gray-100/80 transition-all duration-200 ease-out' : ''} 
                                                 ${column.className || ''}
                                                 ${resizableColumns && column.resizable !== false ? 'relative' : ''}
                                                 ${column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : 'text-left'}
@@ -1250,9 +1460,13 @@ export function DataTable<T>({
                                                 }
                                             }}
                                         >
-                                            <div className="flex items-center justify-between">
-                                                <span>{column.header}</span>
-                                                {isColumnSortable && renderSortIndicator(column.accessor as string)}
+                                            <div className="flex items-center justify-between group gap-2">
+                                                <span className="text-sm font-semibold text-gray-900 tracking-tight">{column.header}</span>
+                                                {isColumnSortable && (
+                                                    <div className="opacity-40 group-hover:opacity-80 transition-all duration-200 ease-out transform group-hover:scale-110">
+                                                        {renderSortIndicator(column.accessor as string)}
+                                                    </div>
+                                                )}
                                             </div>
 
                                             {showFilters && renderFilterInput(column)}
@@ -1275,7 +1489,7 @@ export function DataTable<T>({
                         </thead>
                     )}
 
-                    <tbody className="bg-white divide-y divide-gray-200" role="rowgroup">
+                    <tbody className="bg-white divide-y divide-gray-200/60" role="rowgroup">
                         {virtualized && (
                             <tr style={{ height: `${visibleRowsInfo.offsetY}px` }} aria-hidden="true">
                                 <td colSpan={visibleColumns.length + (selectable ? 1 : 0)} />
@@ -1312,12 +1526,13 @@ export function DataTable<T>({
                                     >
                                         {selectable && (
                                             <td
-                                                className="px-3 py-2 border-b border-gray-200"
+                                                className="px-6 py-4 w-16"
                                                 role="gridcell"
                                                 aria-label={`Select row ${rowIndex + 1}`}
                                             >
                                                 <input
                                                     type="checkbox"
+                                                    className="w-4 h-4 text-blue-600 bg-white border-2 border-gray-300/80 rounded-md focus:ring-blue-500/80 focus:ring-2 focus:ring-offset-1 transition-all duration-200 hover:border-blue-400 hover:scale-105"
                                                     checked={selected.includes(rowId)}
                                                     onChange={(e) => handleSelectRow(e, rowId)}
                                                     onClick={(e) => e.stopPropagation()}
@@ -1330,10 +1545,11 @@ export function DataTable<T>({
                                             <td
                                                 key={`cell-${column.accessor?.toString() || index}`}
                                                 className={`
-                                                    px-3 
-                                                    py-2 
-                                                    border-b 
-                                                    border-gray-200 
+                                                    px-6 
+                                                    py-4
+                                                    text-sm
+                                                    text-gray-900
+                                                    leading-relaxed
                                                     ${column.className || ''}
                                                     ${column.align === 'center' ? 'text-center' : column.align === 'right' ? 'text-right' : 'text-left'}
                                                 `}
@@ -1350,11 +1566,21 @@ export function DataTable<T>({
                             <tr role="row">
                                 <td
                                     colSpan={visibleColumns.length + (selectable ? 1 : 0)}
-                                    className="px-3 py-4 text-center text-gray-500"
+                                    className="px-6 py-16 text-center text-gray-500"
                                     role="gridcell"
                                     aria-label="No data available"
                                 >
-                                    {noDataText}
+                                    <div className="flex flex-col items-center gap-4">
+                                        <div className="p-4 bg-gray-50/80 rounded-full">
+                                            <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <p className="text-sm font-semibold text-gray-900">No data found</p>
+                                            <p className="text-xs text-gray-500">{noDataText}</p>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         )}

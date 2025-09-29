@@ -1,4 +1,5 @@
 import React, { forwardRef, useState, useImperativeHandle, useRef } from 'react';
+import { useDebouncedCallback } from '../../utils/debounce';
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
     /**
@@ -70,6 +71,22 @@ export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElem
     fullWidth?: boolean;
 
     /**
+     * Enable debounce functionality
+     */
+    debounce?: boolean;
+
+    /**
+     * Debounce delay in milliseconds
+     * @default 300
+     */
+    debounceDelay?: number;
+
+    /**
+     * Callback function for debounced value changes
+     */
+    onDebouncedChange?: (value: string) => void;
+
+    /**
      * Additional CSS classes for the input wrapper
      */
     wrapperClassName?: string;
@@ -97,6 +114,9 @@ const Input = forwardRef<InputRef, InputProps>(({
     leftAddon,
     rightAddon,
     fullWidth = false,
+    debounce = false,
+    debounceDelay = 300,
+    onDebouncedChange,
     className = '',
     wrapperClassName = '',
     value,
@@ -107,6 +127,13 @@ const Input = forwardRef<InputRef, InputProps>(({
 }, ref) => {
     const [inputValue, setInputValue] = useState(defaultValue || '');
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Create debounced callback for onDebouncedChange
+    const debouncedCallback = useDebouncedCallback((value: string) => {
+        if (onDebouncedChange) {
+            onDebouncedChange(value);
+        }
+    }, debounceDelay);
 
     // Track if we're in controlled or uncontrolled mode
     const isControlled = value !== undefined;
@@ -129,10 +156,19 @@ const Input = forwardRef<InputRef, InputProps>(({
     }));
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const newValue = e.target.value;
+
         if (!isControlled) {
-            setInputValue(e.target.value);
+            setInputValue(newValue);
         }
+
+        // Call immediate onChange if provided
         onChange?.(e);
+
+        // Call debounced callback if debounce is enabled
+        if (debounce && onDebouncedChange) {
+            debouncedCallback(newValue);
+        }
     };
 
     // Size classes

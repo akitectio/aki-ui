@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import dts from "vite-plugin-dts";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
@@ -26,7 +27,22 @@ const cssBanner = `/*!
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    dts({
+      insertTypesEntry: true,
+      outDir: "dist/types",
+      entryRoot: "src",
+      include: ["src/**/*.ts", "src/**/*.tsx"],
+      exclude: [
+        "src/**/*.test.*",
+        "src/**/*.spec.*",
+        "src/**/*.stories.*",
+        "src/docs/**/*",
+        "src/website/**/*",
+      ],
+    }),
+  ],
   server: {
     open: true,
   },
