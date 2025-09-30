@@ -233,14 +233,16 @@ Aki UI comes with a powerful theming system that allows you to customize the app
 
 Aki UI components work universally across all React-based frameworks **without any adapters**!
 
-| Framework | Status       | Version | Import Path                        |
-| --------- | ------------ | ------- | ---------------------------------- |
-| React     | ✅ Supported | 16.8.0+ | `@akitectio/aki-ui`                |
-| Next.js   | ✅ Supported | 13.0.0+ | `@akitectio/aki-ui`                |
-| Remix     | ✅ Supported | 1.0.0+  | `@akitectio/aki-ui`                |
-| Gatsby    | ✅ Supported | 4.0.0+  | `@akitectio/aki-ui`                |
-| Vite      | ✅ Supported | 4.0.0+  | `@akitectio/aki-ui`                |
-| Angular   | 🔄 Planned   | 14.0.0+ | React wrapper via Angular Elements |
+| Framework     | Status       | Version | Import Path                                     |
+| ------------- | ------------ | ------- | ----------------------------------------------- |
+| React         | ✅ Supported | 16.8.0+ | `@akitectio/aki-ui`                             |
+| Next.js       | ✅ Supported | 13.0.0+ | `@akitectio/aki-ui`                             |
+| Remix         | ✅ Supported | 1.0.0+  | `@akitectio/aki-ui`                             |
+| Gatsby        | ✅ Supported | 4.0.0+  | `@akitectio/aki-ui`                             |
+| Vite          | ✅ Supported | 4.0.0+  | `@akitectio/aki-ui`                             |
+| **HTML/HTMX** | ✅ Supported | Any     | `@akitectio/aki-ui/adapters/htmx`               |
+| **Vanilla JS** | ✅ Supported | ES2015+ | CSS classes + optional Web Components          |
+| Angular       | 🔄 Planned   | 14.0.0+ | React wrapper via Angular Elements             |
 
 ### Framework-Specific Examples
 

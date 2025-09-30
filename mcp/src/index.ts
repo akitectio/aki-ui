@@ -36,6 +36,7 @@ import { ValidationTool, ValidateCodeRequest } from "./tools/validation.js";
 import { FormTools } from "./tools/form-tools.js";
 import { LayoutTools } from "./tools/layout-tools.js";
 import { TestingTools } from "./tools/testing-tools.js";
+import { HTMXIntegrationTool } from "./tools/htmx-integration.js";
 
 class AkiUIServer {
   private server: Server;
@@ -48,6 +49,7 @@ class AkiUIServer {
   private formTools: FormTools;
   private layoutTools: LayoutTools;
   private testingTools: TestingTools;
+  private htmxIntegration: HTMXIntegrationTool;
 
   constructor() {
     this.server = new Server(
@@ -75,6 +77,7 @@ class AkiUIServer {
     this.formTools = new FormTools();
     this.layoutTools = new LayoutTools();
     this.testingTools = new TestingTools();
+    this.htmxIntegration = new HTMXIntegrationTool();
 
     this.setupHandlers();
   }
@@ -93,6 +96,7 @@ class AkiUIServer {
           ...this.formTools.getTools(),
           ...this.layoutTools.getTools(),
           ...this.testingTools.getTools(),
+          ...this.htmxIntegration.getTools(),
         ],
       };
     });
@@ -172,6 +176,16 @@ class AkiUIServer {
             return await this.testingTools.generatePerformanceBenchmark(args);
           case "setup_visual_testing":
             return await this.testingTools.generateTests(args); // Same as generate_tests for now
+
+          // HTMX Integration Tools
+          case "mcp_aki-ui_generate_htmx_adapter":
+            return await this.htmxIntegration.generateAdapter(args || {});
+          case "mcp_aki-ui_generate_htmx_integration":
+            return await this.htmxIntegration.generateIntegration(args || {});
+          case "mcp_aki-ui_generate_htmx_examples":
+            return await this.htmxIntegration.generateExamples(args || {});
+          case "mcp_aki-ui_optimize_htmx_bundle":
+            return await this.htmxIntegration.optimizeBundle(args || {});
 
           default:
             throw new Error(`Unknown tool: ${name}`);
