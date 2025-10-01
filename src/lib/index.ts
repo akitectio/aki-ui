@@ -5,6 +5,9 @@
 // Export components
 export * from "./components";
 
+// Export blocks (pre-built templates)
+export * from "./blocks";
+
 // Export theme system
 export * from "./theme";
 
