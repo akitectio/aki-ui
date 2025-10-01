@@ -33,8 +33,25 @@ export class LayoutTools {
                 "content",
                 "admin",
                 "landing",
+                "block",
               ],
               description: "Type of layout to generate",
+            },
+            blockType: {
+              type: "string",
+              enum: [
+                "dashboard",
+                "stats",
+                "table",
+                "cards",
+                "form",
+                "sidebar-nav",
+                "hero-section",
+                "pricing",
+                "testimonials",
+                "contact",
+              ],
+              description: "Type of block template to generate (only when type is 'block')",
             },
             sections: {
               type: "array",
@@ -109,7 +126,12 @@ export class LayoutTools {
   }
 
   async generateLayout(args: any): Promise<CallToolResult> {
-    const { type, sections = [], responsive = true, features = [] } = args;
+    const { type, blockType, sections = [], responsive = true, features = [] } = args;
+
+    // Handle block generation
+    if (type === "block" && blockType) {
+      return this.generateBlock(blockType, responsive, features);
+    }
 
     const layoutCode = this.generateLayoutCode(
       type,
@@ -163,6 +185,56 @@ function App() {
 
 ## Customization Tips
 ${this.generateCustomizationTips(type)}
+`,
+        },
+      ],
+    };
+  }
+
+  async generateBlock(blockType: string, responsive: boolean = true, features: string[] = []): Promise<CallToolResult> {
+    const blockCode = this.generateBlockCode(blockType, responsive, features);
+    const blockDeps = this.getBlockDependencies(blockType);
+    const blockProps = this.getBlockProps(blockType);
+
+    return {
+      content: [
+        {
+          type: "text",
+          text: `# ${blockType.charAt(0).toUpperCase() + blockType.slice(1)} Block
+
+## Component Code
+\`\`\`tsx
+${blockCode}
+\`\`\`
+
+## Dependencies
+\`\`\`tsx
+import { ${blockDeps.join(', ')} } from '@akitectio/aki-ui';
+\`\`\`
+
+## Props Interface
+\`\`\`typescript
+${blockProps}
+\`\`\`
+
+## Usage Example
+\`\`\`tsx
+import { ${blockType.charAt(0).toUpperCase() + blockType.slice(1)}Block } from './blocks';
+
+function App() {
+  return (
+    <div className="p-6">
+      <${blockType.charAt(0).toUpperCase() + blockType.slice(1)}Block />
+    </div>
+  );
+}
+\`\`\`
+
+## Features
+${this.generateBlockFeatures(blockType, responsive, features)}
+
+## Customization
+${this.generateBlockCustomization(blockType)}
 `,
         },
       ],
@@ -1248,5 +1320,881 @@ grid-template-areas:
 - Avoid too many grid lines (keep under 1000)
 - Use \`grid-template-areas\` for complex layouts
 - Consider \`aspect-ratio\` for consistent item heights`;
+  }
+
+  private generateBlockCode(blockType: string, responsive: boolean = true, features: string[] = []): string {
+    switch (blockType) {
+      case "dashboard":
+        return this.generateDashboardBlockCode(responsive, features);
+      
+      case "stats":
+        return this.generateStatsBlockCode(responsive, features);
+      
+      case "table":
+        return this.generateTableBlockCode(responsive, features);
+      
+      case "hero":
+      case "hero-section":
+        return this.generateHeroBlockCode(responsive, features);
+      
+      case "form":
+      case "contact":
+        return this.generateFormBlockCode(responsive, features);
+      
+      case "cards":
+        return this.generateCardsBlockCode(responsive, features);
+      
+      case "sidebar-nav":
+        return this.generateSidebarNavBlockCode(responsive, features);
+      
+      case "pricing":
+        return this.generatePricingBlockCode(responsive, features);
+      
+      case "testimonials":
+        return this.generateTestimonialsBlockCode(responsive, features);
+      
+      default:
+        return this.generateDefaultBlockCode(blockType, responsive, features);
+    }
+  }
+
+  private generateDashboardBlockCode(responsive: boolean, features: string[]): string {
+    return `import { DashboardBlock } from '@akitectio/aki-ui/blocks';
+
+function MyDashboard() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <DashboardBlock />
+    </div>
+  );
+}
+
+export default MyDashboard;`;
+  }
+
+  private generateStatsBlockCode(responsive: boolean, features: string[]): string {
+    const customStats = features.includes('custom-stats');
+    
+    return `import { StatsBlock } from '@akitectio/aki-ui/blocks';
+
+function StatsSection() {
+  ${customStats ? `
+  const customStats = [
+    {
+      title: 'Total Revenue',
+      value: '$125,430',
+      change: '+12.5%',
+      trend: 'up' as const,
+      icon: '💰',
+      color: 'green' as const
+    },
+    {
+      title: 'Active Users',
+      value: '8,429',
+      change: '+22.1%', 
+      trend: 'up' as const,
+      icon: '👥',
+      color: 'blue' as const
+    },
+    {
+      title: 'Conversion Rate',
+      value: '3.2%',
+      change: '-0.5%',
+      trend: 'down' as const,
+      icon: '📈',
+      color: 'red' as const
+    }
+  ];
+  ` : ''}
+
+  return (
+    <div className="p-6">
+      <StatsBlock
+        ${customStats ? 'stats={customStats}' : ''}
+        columns={${responsive ? '4' : '3'}}
+        showIcons={true}
+        showTrends={true}
+        className="max-w-6xl mx-auto"
+      />
+    </div>
+  );
+}
+
+export default StatsSection;`;
+  }
+
+  private generateTableBlockCode(responsive: boolean, features: string[]): string {
+    const showActions = features.includes('actions');
+    const showSearch = features.includes('search');
+    const showPagination = features.includes('pagination');
+
+    return `import { TableBlock } from '@akitectio/aki-ui/blocks';
+
+function DataTable() {
+  const columns = [
+    {
+      key: 'name',
+      title: 'User',
+      render: (value: string, row: any) => (
+        <div className="flex items-center space-x-3">
+          <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+            <span className="text-blue-600 text-sm font-medium">
+              {value.split(' ').map(n => n[0]).join('')}
+            </span>
+          </div>
+          <div>
+            <div className="font-medium text-gray-900">{value}</div>
+            <div className="text-sm text-gray-500">{row.email}</div>
+          </div>
+        </div>
+      )
+    },
+    { key: 'role', title: 'Role', align: 'center' as const },
+    {
+      key: 'status',
+      title: 'Status',
+      align: 'center' as const,
+      render: (value: string) => (
+        <span className={\`px-2 py-1 text-xs rounded-full \${
+          value === 'Active' 
+            ? 'bg-green-100 text-green-800' 
+            : 'bg-gray-100 text-gray-800'
+        }\`}>
+          {value}
+        </span>
+      )
+    },
+    { key: 'lastLogin', title: 'Last Login', align: 'right' as const }
+  ];
+
+  const sampleData = [
+    {
+      id: '1',
+      name: 'John Doe',
+      email: 'john@example.com',
+      role: 'Admin',
+      status: 'Active',
+      lastLogin: '2023-12-01'
+    },
+    {
+      id: '2',
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      role: 'User',
+      status: 'Active',
+      lastLogin: '2023-12-01'
+    }
+  ];
+
+  return (
+    <div className="p-6">
+      <TableBlock
+        title="User Management"
+        columns={columns}
+        data={sampleData}
+        showSearch={${showSearch}}
+        showPagination={${showPagination}}
+        ${showActions ? `actions={{
+          onView: (row) => console.log('View:', row),
+          onEdit: (row) => console.log('Edit:', row),
+          onDelete: (row) => console.log('Delete:', row)
+        }}` : ''}
+        className="max-w-6xl mx-auto"
+      />
+    </div>
+  );
+}
+
+export default DataTable;`;
+  }
+
+  private generateHeroBlockCode(responsive: boolean, features: string[]): string {
+    const hasCustomButtons = features.includes('custom-buttons');
+    const hasBackground = features.includes('background-image');
+    const size = features.includes('large') ? 'xl' : features.includes('small') ? 'sm' : 'lg';
+
+    return `import { HeroBlock } from '@akitectio/aki-ui/blocks';
+
+function HeroSection() {
+  return (
+    <HeroBlock
+      title="Build Amazing Products"
+      subtitle="Get Started Today"
+      description="Create beautiful, responsive web applications with our modern component library. Fast, accessible, and developer-friendly."
+      ${hasCustomButtons ? `
+      primaryButton={{
+        text: 'Start Free Trial',
+        onClick: () => console.log('Primary clicked')
+      }}
+      secondaryButton={{
+        text: 'Watch Demo',
+        href: '/demo'
+      }}` : ''}
+      ${hasBackground ? `backgroundImage="/hero-bg.jpg"` : `backgroundColor="bg-gradient-to-br from-blue-600 to-purple-700"`}
+      textAlign="center"
+      size="${size}"
+      className="min-h-screen"
+    />
+  );
+}
+
+export default HeroSection;`;
+  }
+
+  private generateFormBlockCode(responsive: boolean, features: string[]): string {
+    const hasValidation = features.includes('validation');
+    const layout = features.includes('grid') ? 'grid' : features.includes('double') ? 'double' : 'single';
+
+    return `import { FormBlock } from '@akitectio/aki-ui/blocks';
+
+function ContactForm() {
+  const handleSubmit = (data: any) => {
+    console.log('Form submitted:', data);
+    // Handle form submission
+  };
+
+  const customFields = [
+    {
+      name: 'name',
+      label: 'Full Name',
+      type: 'text' as const,
+      placeholder: 'Enter your full name',
+      required: true
+    },
+    {
+      name: 'email',
+      label: 'Email Address',
+      type: 'email' as const,
+      placeholder: 'Enter your email',
+      required: true,
+      ${hasValidation ? `validation: {
+        pattern: '^[^@]+@[^@]+\\.[^@]+$',
+        message: 'Please enter a valid email address'
+      }` : ''}
+    },
+    {
+      name: 'company',
+      label: 'Company Size',
+      type: 'select' as const,
+      options: [
+        { value: '1-10', label: '1-10 employees' },
+        { value: '11-50', label: '11-50 employees' },
+        { value: '51-200', label: '51-200 employees' },
+        { value: '200+', label: '200+ employees' }
+      ]
+    },
+    {
+      name: 'message',
+      label: 'Message',
+      type: 'textarea' as const,
+      placeholder: 'Tell us about your project...',
+      required: true
+    }
+  ];
+
+  return (
+    <div className="py-16 bg-gray-50">
+      <FormBlock
+        title="Get In Touch"
+        description="We'd love to hear from you. Send us a message and we'll respond as soon as possible."
+        fields={customFields}
+        onSubmit={handleSubmit}
+        layout="${layout}"
+        showValidation={${hasValidation}}
+        submitText="Send Message"
+        className="max-w-4xl mx-auto"
+      />
+    </div>
+  );
+}
+
+export default ContactForm;`;
+  }
+
+  private generateCardsBlockCode(responsive: boolean, features: string[]): string {
+    const hasActions = features.includes('actions');
+    const cols = responsive ? '{ base: 1, md: 2, lg: 3 }' : '3';
+
+    return `import { Card, Button, Grid } from '@akitectio/aki-ui';
+
+function CardsSection() {
+  const cardData = [
+    {
+      id: 1,
+      title: 'Feature One',
+      description: 'Amazing feature that will help you build better products.',
+      icon: '🚀',
+      color: 'blue'
+    },
+    {
+      id: 2,
+      title: 'Feature Two', 
+      description: 'Another great feature with powerful capabilities.',
+      icon: '⚡',
+      color: 'green'
+    },
+    {
+      id: 3,
+      title: 'Feature Three',
+      description: 'The final piece that completes your workflow.',
+      icon: '🎯',
+      color: 'purple'
+    }
+  ];
+
+  return (
+    <div className="p-6">
+      <div className="text-center mb-12">
+        <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Features</h2>
+        <p className="text-xl text-gray-600">Everything you need to succeed</p>
+      </div>
+      
+      <Grid cols={${cols}} gap="6" className="max-w-6xl mx-auto">
+        {cardData.map((card) => (
+          <Card key={card.id} className="text-center hover:shadow-lg transition-shadow">
+            <Card.Body className="p-8">
+              <div className="text-4xl mb-4">{card.icon}</div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                {card.title}
+              </h3>
+              <p className="text-gray-600 mb-6">
+                {card.description}
+              </p>
+              ${hasActions ? `
+              <Button variant="outline" size="sm">
+                Learn More
+              </Button>` : ''}
+            </Card.Body>
+          </Card>
+        ))}
+      </Grid>
+    </div>
+  );
+}
+
+export default CardsSection;`;
+  }
+
+  private generateSidebarNavBlockCode(responsive: boolean, features: string[]): string {
+    const collapsed = features.includes('collapsible');
+
+    return `import { VerticalNavbar${collapsed ? ', Button' : ''} } from '@akitectio/aki-ui';
+${collapsed ? "import { useState } from 'react';" : ''}
+
+function SidebarNav() {
+  ${collapsed ? 'const [isCollapsed, setIsCollapsed] = useState(false);' : ''}
+
+  const navItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: '📊', href: '/dashboard' },
+    { id: 'users', label: 'Users', icon: '👥', href: '/users' },
+    { id: 'settings', label: 'Settings', icon: '⚙️', href: '/settings' },
+    { id: 'help', label: 'Help', icon: '❓', href: '/help' }
+  ];
+
+  return (
+    <div className="flex h-screen">
+      <VerticalNavbar
+        items={navItems}
+        ${collapsed ? 'collapsed={isCollapsed}' : ''}
+        className="${collapsed ? '`transition-all duration-300 ${isCollapsed ? "w-16" : "w-64"}`' : '"w-64"'}"
+      />
+      
+      <main className="flex-1 bg-gray-50 p-6">
+        ${collapsed ? `
+        <div className="mb-6">
+          <Button 
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            variant="secondary"
+            size="sm"
+          >
+            {isCollapsed ? '→' : '←'} Toggle
+          </Button>
+        </div>` : ''}
+        
+        <h1 className="text-2xl font-bold text-gray-900">Main Content</h1>
+        <p className="text-gray-600 mt-4">
+          This is the main content area with sidebar navigation.
+        </p>
+      </main>
+    </div>
+  );
+}
+
+export default SidebarNav;`;
+  }
+
+  private generatePricingBlockCode(responsive: boolean, features: string[]): string {
+    const hasHighlight = features.includes('highlight');
+    const billingToggle = features.includes('billing-toggle');
+
+    return `import { Card, Button, Badge, Grid } from '@akitectio/aki-ui';
+${billingToggle ? "import { useState } from 'react';" : ''}
+
+function PricingSection() {
+  ${billingToggle ? 'const [annual, setAnnual] = useState(false);' : ''}
+
+  const plans = [
+    {
+      name: 'Starter',
+      price: ${billingToggle ? 'annual ? 90 : 9' : '9'},
+      period: ${billingToggle ? 'annual ? "year" : "month"' : '"month"'},
+      description: 'Perfect for getting started',
+      features: [
+        'Up to 5 projects',
+        'Basic support',
+        '1GB storage',
+        'Community access'
+      ],
+      popular: false
+    },
+    {
+      name: 'Pro',
+      price: ${billingToggle ? 'annual ? 290 : 29' : '29'},
+      period: ${billingToggle ? 'annual ? "year" : "month"' : '"month"'},
+      description: 'Best for growing teams',
+      features: [
+        'Unlimited projects',
+        'Priority support',
+        '50GB storage',
+        'Advanced analytics',
+        'Team collaboration'
+      ],
+      popular: ${hasHighlight ? 'true' : 'false'}
+    },
+    {
+      name: 'Enterprise',
+      price: ${billingToggle ? 'annual ? 990 : 99' : '99'},
+      period: ${billingToggle ? 'annual ? "year" : "month"' : '"month"'},
+      description: 'For large organizations',
+      features: [
+        'Everything in Pro',
+        '24/7 support',
+        'Unlimited storage',
+        'Custom integrations',
+        'Dedicated manager'
+      ],
+      popular: false
+    }
+  ];
+
+  return (
+    <div className="py-16 bg-gray-50">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            Choose Your Plan
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Start free and scale as you grow
+          </p>
+          
+          ${billingToggle ? `
+          <div className="flex items-center justify-center space-x-4">
+            <span className={annual ? 'text-gray-500' : 'text-gray-900'}>Monthly</span>
+            <button
+              onClick={() => setAnnual(!annual)}
+              className={\`relative w-12 h-6 rounded-full transition-colors \${
+                annual ? 'bg-blue-600' : 'bg-gray-300'
+              }\`}
+            >
+              <div className={\`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform \${
+                annual ? 'translate-x-6' : 'translate-x-0'
+              }\`} />
+            </button>
+            <span className={annual ? 'text-gray-900' : 'text-gray-500'}>
+              Annual <span className="text-green-600 text-sm">(Save 20%)</span>
+            </span>
+          </div>` : ''}
+        </div>
+
+        <Grid cols={{ base: 1, md: 3 }} gap="8" className="max-w-6xl mx-auto">
+          {plans.map((plan) => (
+            <Card 
+              key={plan.name}
+              className={\`relative \${plan.popular ? 'ring-2 ring-blue-500 shadow-lg' : 'shadow-sm'}\`}
+            >
+              {plan.popular && (
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <Badge variant="primary">Most Popular</Badge>
+                </div>
+              )}
+              
+              <Card.Body className="p-8 text-center">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {plan.name}
+                </h3>
+                <p className="text-gray-600 mb-6">{plan.description}</p>
+                
+                <div className="mb-6">
+                  <span className="text-4xl font-bold text-gray-900">
+                    \${plan.price}
+                  </span>
+                  <span className="text-gray-600">/{plan.period}</span>
+                </div>
+                
+                <ul className="space-y-3 mb-8 text-left">
+                  {plan.features.map((feature, index) => (
+                    <li key={index} className="flex items-center space-x-3">
+                      <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                      <span className="text-gray-600">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                
+                <Button
+                  variant={plan.popular ? 'primary' : 'outline'}
+                  size="lg"
+                  className="w-full"
+                >
+                  Get Started
+                </Button>
+              </Card.Body>
+            </Card>
+          ))}
+        </Grid>
+      </div>
+    </div>
+  );
+}
+
+export default PricingSection;`;
+  }
+
+  private generateTestimonialsBlockCode(responsive: boolean, features: string[]): string {
+    const hasAvatar = features.includes('avatars');
+    const hasRating = features.includes('ratings');
+
+    return `import { Card, Grid${hasAvatar ? ', Avatar' : ''} } from '@akitectio/aki-ui';
+
+function TestimonialsSection() {
+  const testimonials = [
+    {
+      id: 1,
+      name: 'Sarah Johnson',
+      role: 'CEO, TechStart',
+      avatar: '/avatars/sarah.jpg',
+      content: 'This platform has transformed how we build products. The components are beautiful and work flawlessly.',
+      rating: 5
+    },
+    {
+      id: 2,
+      name: 'Mike Chen',
+      role: 'Lead Developer, WebCorp',
+      avatar: '/avatars/mike.jpg',
+      content: 'Amazing developer experience. Setup was quick and the documentation is excellent.',
+      rating: 5
+    },
+    {
+      id: 3,
+      name: 'Emily Davis',
+      role: 'Product Manager, DesignCo',
+      avatar: '/avatars/emily.jpg',
+      content: 'Our team productivity has increased significantly since we started using these components.',
+      rating: 4
+    }
+  ];
+
+  return (
+    <div className="py-16 bg-white">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            What Our Customers Say
+          </h2>
+          <p className="text-xl text-gray-600">
+            Join thousands of satisfied customers
+          </p>
+        </div>
+
+        <Grid cols={{ base: 1, md: 2, lg: 3 }} gap="8" className="max-w-6xl mx-auto">
+          {testimonials.map((testimonial) => (
+            <Card key={testimonial.id} className="hover:shadow-lg transition-shadow">
+              <Card.Body className="p-8">
+                ${hasRating ? `
+                <div className="flex items-center mb-4">
+                  {Array.from({ length: 5 }, (_, i) => (
+                    <svg
+                      key={i}
+                      className={\`w-5 h-5 \${
+                        i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'
+                      }\`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>` : ''}
+                
+                <blockquote className="text-gray-600 mb-6 text-lg leading-relaxed">
+                  "{testimonial.content}"
+                </blockquote>
+                
+                <div className="flex items-center">
+                  ${hasAvatar ? `
+                  <Avatar
+                    src={testimonial.avatar}
+                    fallback={testimonial.name.split(' ').map(n => n[0]).join('')}
+                    size="md"
+                    className="mr-4"
+                  />` : ''}
+                  <div>
+                    <div className="font-semibold text-gray-900">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {testimonial.role}
+                    </div>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          ))}
+        </Grid>
+      </div>
+    </div>
+  );
+}
+
+export default TestimonialsSection;`;
+  }
+
+  private generateDefaultBlockCode(blockType: string, responsive: boolean, features: string[]): string {
+    return `import { Card } from '@akitectio/aki-ui';
+
+function ${blockType.charAt(0).toUpperCase() + blockType.slice(1)}Block() {
+  return (
+    <div className="p-6">
+      <Card className="max-w-4xl mx-auto">
+        <Card.Header>
+          <h2 className="text-2xl font-bold text-gray-900">
+            ${blockType.charAt(0).toUpperCase() + blockType.slice(1)} Block
+          </h2>
+        </Card.Header>
+        <Card.Body>
+          <p className="text-gray-600">
+            This is a custom ${blockType} block. Customize this component based on your needs.
+          </p>
+          <div className="mt-6 p-8 bg-gray-50 rounded-lg text-center">
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              Add Your Content Here
+            </h3>
+            <p className="text-gray-600">
+              Replace this placeholder with your actual ${blockType} content.
+            </p>
+          </div>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+}
+
+export default ${blockType.charAt(0).toUpperCase() + blockType.slice(1)}Block;`;
+  }
+
+  private getBlockDependencies(blockType: string): string[] {
+    const baseDeps = ['Card', 'Button'];
+    
+    switch (blockType) {
+      case 'dashboard':
+        return ['DashboardBlock'];
+      case 'stats':
+        return ['StatsBlock'];
+      case 'table':
+        return ['TableBlock', 'Badge', 'Avatar'];
+      case 'hero':
+        return ['HeroBlock'];
+      case 'form':
+      case 'contact':
+        return ['FormBlock'];
+      case 'cards':
+        return ['Card', 'Button', 'Grid'];
+      case 'sidebar-nav':
+        return ['VerticalNavbar', 'Button'];
+      case 'pricing':
+        return ['Card', 'Button', 'Badge', 'Grid'];
+      case 'testimonials':
+        return ['Card', 'Grid', 'Avatar'];
+      default:
+        return baseDeps;
+    }
+  }
+
+  private getBlockProps(blockType: string): string {
+    switch (blockType) {
+      case 'stats':
+        return `interface StatsBlockProps {
+  stats?: Array<{
+    title: string;
+    value: string;
+    change: string;
+    trend: 'up' | 'down';
+    icon?: string;
+    color?: 'blue' | 'green' | 'red' | 'purple' | 'orange';
+  }>;
+  columns?: number;
+  showIcons?: boolean;
+  showTrends?: boolean;
+  className?: string;
+}`;
+
+      case 'table':
+        return `interface TableBlockProps {
+  title?: string;
+  columns: Array<{
+    key: string;
+    title: string;
+    width?: string;
+    align?: 'left' | 'center' | 'right';
+    render?: (value: any, row: any) => React.ReactNode;
+  }>;
+  data: any[];
+  showPagination?: boolean;
+  showSearch?: boolean;
+  pageSize?: number;
+  className?: string;
+  actions?: {
+    onEdit?: (row: any) => void;
+    onDelete?: (row: any) => void;
+    onView?: (row: any) => void;
+  };
+}`;
+
+      case 'hero':
+        return `interface HeroBlockProps {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  primaryButton?: {
+    text: string;
+    onClick?: () => void;
+    href?: string;
+  };
+  secondaryButton?: {
+    text: string;
+    onClick?: () => void;
+    href?: string;
+  };
+  backgroundImage?: string;
+  backgroundColor?: string;
+  textAlign?: 'left' | 'center' | 'right';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  className?: string;
+}`;
+
+      case 'form':
+        return `interface FormBlockProps {
+  title?: string;
+  description?: string;
+  fields: Array<{
+    name: string;
+    label: string;
+    type: 'text' | 'email' | 'password' | 'number' | 'select' | 'textarea';
+    placeholder?: string;
+    required?: boolean;
+    options?: Array<{ value: string; label: string }>;
+  }>;
+  submitText?: string;
+  onSubmit?: (data: any) => void;
+  layout?: 'single' | 'double' | 'grid';
+  className?: string;
+}`;
+
+      default:
+        return `interface ${blockType.charAt(0).toUpperCase() + blockType.slice(1)}BlockProps {
+  className?: string;
+  children?: React.ReactNode;
+}`;
+    }
+  }
+
+  private generateBlockFeatures(blockType: string, responsive: boolean, features: string[]): string {
+    const baseFeatures = [
+      responsive ? '✅ Responsive design' : '⚠️ Fixed desktop layout',
+      '✅ Accessible markup',
+      '✅ Dark mode support',
+      '✅ TypeScript support'
+    ];
+
+    const blockSpecificFeatures: Record<string, string[]> = {
+      dashboard: [
+        '✅ Pre-built dashboard layout',
+        '✅ Sidebar navigation',
+        '✅ Stats overview',
+        '✅ Recent activity feed'
+      ],
+      stats: [
+        '✅ Customizable statistics cards',
+        '✅ Trend indicators',
+        '✅ Icon support',
+        '✅ Color variants'
+      ],
+      table: [
+        '✅ Sortable columns',
+        '✅ Search functionality',
+        '✅ Pagination',
+        '✅ Row actions',
+        '✅ Custom cell rendering'
+      ],
+      hero: [
+        '✅ Multiple size variants',
+        '✅ Background image support',
+        '✅ CTA buttons',
+        '✅ Text alignment options'
+      ],
+      form: [
+        '✅ Multiple field types',
+        '✅ Validation support',
+        '✅ Flexible layouts',
+        '✅ Form submission handling'
+      ]
+    };
+
+    const specific = blockSpecificFeatures[blockType] || [];
+    return [...baseFeatures, ...specific].join('\n');
+  }
+
+  private generateBlockCustomization(blockType: string): string {
+    const tips: Record<string, string[]> = {
+      dashboard: [
+        'Customize stats data by passing your own metrics',
+        'Add more widgets to the dashboard layout',
+        'Modify sidebar navigation items',
+        'Integrate with your analytics API'
+      ],
+      stats: [
+        'Add custom icons for each stat',
+        'Modify color schemes to match your brand',
+        'Add click handlers for interactive stats',
+        'Implement real-time data updates'
+      ],
+      table: [
+        'Add custom column renderers',
+        'Implement server-side pagination',
+        'Add bulk actions for selected rows',
+        'Customize search and filter options'
+      ],
+      hero: [
+        'Replace with your marketing copy',
+        'Add custom background images',
+        'Customize button styles and actions',
+        'Add animation effects'
+      ],
+      form: [
+        'Add custom validation rules',
+        'Integrate with form libraries like Formik',
+        'Add file upload fields',
+        'Customize form submission handling'
+      ]
+    };
+
+    return (tips[blockType] || [
+      'Customize styling with Tailwind classes',
+      'Add your own content and data',
+      'Implement custom interactions',
+      'Integrate with your backend API'
+    ]).map(tip => `- ${tip}`).join('\n');
   }
 }

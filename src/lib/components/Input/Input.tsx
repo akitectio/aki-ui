@@ -208,7 +208,24 @@ const Input = forwardRef<InputRef, InputProps>(({
         }
     };
 
-    // Generate the input classes based on the props
+    // Affix wrapper classes for when we have prefix/suffix  
+    const affixWrapperClasses = [
+        'relative inline-flex items-center w-full',
+        variant !== 'unstyled' ? 'rounded border' : '',
+        'focus-within:outline-none focus-within:ring-1',
+        getVariantClasses(),
+        isDisabled ? 'opacity-60 cursor-not-allowed bg-gray-50' : '',
+        fullWidth ? 'w-full' : 'w-auto',
+    ].filter(Boolean).join(' ');
+
+    // Input classes when inside affix wrapper
+    const affixInputClasses = [
+        'flex-1 border-none bg-transparent focus:outline-none focus:ring-0',
+        variant !== 'unstyled' ? sizeClasses[size] : '',
+        'px-0', // No padding, affix wrapper handles spacing
+    ].filter(Boolean).join(' ');
+
+    // Regular input classes (no affix)
     const inputClasses = [
         'block',
         variant !== 'unstyled' ? 'rounded' : '',
@@ -218,10 +235,76 @@ const Input = forwardRef<InputRef, InputProps>(({
         getVariantClasses(),
         isDisabled ? 'opacity-60 cursor-not-allowed bg-gray-50' : '',
         fullWidth ? 'w-full' : 'w-auto',
-        leftIcon ? 'pl-10' : '',
-        rightIcon ? 'pr-10' : '',
         className
     ].filter(Boolean).join(' ');
+
+    // If we have prefix/suffix icons, use affix wrapper pattern
+    if (leftIcon || rightIcon) {
+        return (
+            <div className={`${fullWidth ? 'w-full' : 'w-auto'} ${wrapperClassName}`}>
+                {label && (
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        {label}
+                    </label>
+                )}
+
+                <div className={affixWrapperClasses}>
+                    {leftAddon && (
+                        <div className="inline-flex items-center px-3 rounded-l border border-r-0 border-gray-300 bg-gray-50 text-gray-500">
+                            {leftAddon}
+                        </div>
+                    )}
+
+                    {leftIcon && (
+                        <div className="flex items-center justify-center px-3 text-gray-400">
+                            {leftIcon}
+                        </div>
+                    )}
+
+                    <input
+                        ref={inputRef}
+                        type={type}
+                        className={affixInputClasses}
+                        value={isControlled ? value : inputValue}
+                        onChange={handleChange}
+                        disabled={isDisabled}
+                        readOnly={isReadOnly}
+                        aria-invalid={isInvalid}
+                        aria-describedby={
+                            errorMessage ? `${rest.id}-error` :
+                                helperText ? `${rest.id}-helper` :
+                                    undefined
+                        }
+                        {...rest}
+                    />
+
+                    {rightIcon && (
+                        <div className="flex items-center justify-center px-3">
+                            {rightIcon}
+                        </div>
+                    )}
+
+                    {rightAddon && (
+                        <div className="inline-flex items-center px-3 rounded-r border border-l-0 border-gray-300 bg-gray-50 text-gray-500">
+                            {rightAddon}
+                        </div>
+                    )}
+                </div>
+
+                {helperText && !errorMessage && (
+                    <p id={`${rest.id}-helper`} className="mt-1 text-xs text-gray-500">
+                        {helperText}
+                    </p>
+                )}
+
+                {isInvalid && errorMessage && (
+                    <p id={`${rest.id}-error`} className="mt-1 text-xs text-red-500">
+                        {errorMessage}
+                    </p>
+                )}
+            </div>
+        );
+    }
 
     // Structure of the input with possible addon/icon wrappers
     return (
@@ -239,36 +322,55 @@ const Input = forwardRef<InputRef, InputProps>(({
                     </div>
                 )}
 
-                <div className={`relative flex-grow ${leftAddon ? 'rounded-l-none' : ''} ${rightAddon ? 'rounded-r-none' : ''}`}>
-                    {leftIcon && (
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                            {leftIcon}
-                        </div>
-                    )}
-
-                    <input
-                        ref={inputRef}
-                        type={type}
-                        className={inputClasses}
-                        value={isControlled ? value : inputValue}
-                        onChange={handleChange}
-                        disabled={isDisabled}
-                        readOnly={isReadOnly}
-                        aria-invalid={isInvalid}
-                        aria-describedby={
-                            errorMessage ? `${rest.id}-error` :
-                                helperText ? `${rest.id}-helper` :
-                                    undefined
-                        }
-                        {...rest}
-                    />
-
-                    {rightIcon && (
-                        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400">
-                            {rightIcon}
-                        </div>
-                    )}
-                </div>
+                {(leftIcon || rightIcon) ? (
+                    <div className={affixWrapperClasses}>
+                        {leftIcon && (
+                            <span className="flex items-center text-gray-400 px-3">
+                                {leftIcon}
+                            </span>
+                        )}
+                        <input
+                            ref={inputRef}
+                            type={type}
+                            className={affixInputClasses}
+                            value={isControlled ? value : inputValue}
+                            onChange={handleChange}
+                            disabled={isDisabled}
+                            readOnly={isReadOnly}
+                            aria-invalid={isInvalid}
+                            aria-describedby={
+                                errorMessage ? `${rest.id}-error` :
+                                    helperText ? `${rest.id}-helper` :
+                                        undefined
+                            }
+                            {...rest}
+                        />
+                        {rightIcon && (
+                            <span className="flex items-center text-gray-400 px-3">
+                                {rightIcon}
+                            </span>
+                        )}
+                    </div>
+                ) : (
+                    <div className={`${leftAddon ? 'rounded-l-none' : ''} ${rightAddon ? 'rounded-r-none' : ''}`}>
+                        <input
+                            ref={inputRef}
+                            type={type}
+                            className={inputClasses}
+                            value={isControlled ? value : inputValue}
+                            onChange={handleChange}
+                            disabled={isDisabled}
+                            readOnly={isReadOnly}
+                            aria-invalid={isInvalid}
+                            aria-describedby={
+                                errorMessage ? `${rest.id}-error` :
+                                    helperText ? `${rest.id}-helper` :
+                                        undefined
+                            }
+                            {...rest}
+                        />
+                    </div>
+                )}
 
                 {rightAddon && (
                     <div className="inline-flex items-center px-3 rounded-r border border-l-0 border-gray-300 bg-gray-50 text-gray-500">
